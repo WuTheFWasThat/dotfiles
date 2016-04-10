@@ -1,0 +1,2 @@
+defscrollback 10000
+shell "/usr/bin/zsh"

@@ -1,0 +1,49 @@
+[user]
+	name = Jeff Wu
+	email = wuthefwasthat@gmail.com
+[core]
+	editor = /usr/local/bin/vim
+[alias]
+    a = add
+    aa = "!git add .; git add -u ."
+    b = branch
+    br = "!git branch | grep -v '^\\s*zz'"
+    cm = commit
+    cmm = commit -m
+    cma = commit --amend
+    co = checkout
+    cp = cherry-pick
+    diff = icdiff
+    d = icdiff
+    dc = icdiff --cached
+    ds = diff --stat
+    f = fetch
+    find = "!git ls-files | grep -i"
+    g = grep
+    lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+    m = merge
+    new = checkout -b
+    pr = "!hub pull-request"
+    pu = "push -u"
+    rs = reset
+    rsh = reset --hard
+    rb = rebase
+    rbi = rebase -i
+    rba = rebase --abort
+    rbc = "!git add .; git add -u .; git rebase --continue"
+    rbom = "!git fetch && git rebase origin/master"
+    s = status
+    sh = show
+    stl = stash list
+    sta = stash apply
+    sts = stash save
+    track = "!f(){ branch=$(git name-rev --name-only HEAD); cmd=\"git branch $branch -u ${1:-origin}/${2:-$branch}\"; echo $cmd; $cmd; }; f"
+    unstage = reset HEAD .
+    untrack = "!f(){ branch=$(git name-rev --name-only HEAD); cmd=\"git branch --unset-upstream ${1:-$branch}\"; echo $cmd; $cmd; }; f"
+[color]
+    ui = true
+[push]
+	default = current
+# [branch]
+# 	autosetupmerge = always
+# 	autosetuprebase = always
