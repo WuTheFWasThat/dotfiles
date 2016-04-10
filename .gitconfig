@@ -8,14 +8,17 @@
     aa = "!git add .; git add -u ."
     b = branch
     br = "!git branch | grep -v '^\\s*zz'"
+    cl = clean -f
     cm = commit
     cmm = commit -m
     cma = commit --amend
     co = checkout
     cp = cherry-pick
     diff = icdiff
+    discard = checkout -- .
     d = icdiff
     dc = icdiff --cached
+    del = branch -d
     ds = diff --stat
     f = fetch
     find = "!git ls-files | grep -i"
@@ -34,9 +37,11 @@
     rbom = "!git fetch && git rebase origin/master"
     s = status
     sh = show
+    st = stash
     stl = stash list
     sta = stash apply
     sts = stash save
+    stp = stash pop
     track = "!f(){ branch=$(git name-rev --name-only HEAD); cmd=\"git branch $branch -u ${1:-origin}/${2:-$branch}\"; echo $cmd; $cmd; }; f"
     unstage = reset HEAD .
     untrack = "!f(){ branch=$(git name-rev --name-only HEAD); cmd=\"git branch --unset-upstream ${1:-$branch}\"; echo $cmd; $cmd; }; f"
