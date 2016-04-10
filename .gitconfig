@@ -1,8 +1,8 @@
 [user]
-	name = Jeff Wu
-	email = wuthefwasthat@gmail.com
+    name = Jeff Wu
+    email = wuthefwasthat@gmail.com
 [core]
-	editor = /usr/local/bin/vim
+    editor = /usr/local/bin/vim
 [alias]
     a = add
     aa = "!git add .; git add -u ."
@@ -43,7 +43,7 @@
 [color]
     ui = true
 [push]
-	default = current
+    default = current
 # [branch]
 # 	autosetupmerge = always
 # 	autosetuprebase = always
