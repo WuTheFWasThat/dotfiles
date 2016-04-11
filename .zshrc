@@ -116,4 +116,5 @@ alias sw='pushd ~/Dropbox/Terminal/seismicweb/'
 
 export PATH=$PATH:~/.multirust/toolchains/stable/cargo/bin
 export PATH=$PATH:~/.multirust/toolchains/1.5.0/cargo/bin
+export PATH=$PATH:~/Library/Haskell/bin
 export RUST_BACKTRACE=1
