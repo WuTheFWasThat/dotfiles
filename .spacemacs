@@ -33,6 +33,8 @@ values."
      ;; (shell :variables
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
+     python
+     rust
      spell-checking
      ;; syntax-checking
      ;; version-control
@@ -241,6 +243,9 @@ executes.
  This function is mostly useful for variables that need to be set
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
+  (setq-default js2-basic-offset 2
+                js-indent-level 2)
+
   )
 
 (defun dotspacemacs/user-config ()
@@ -250,6 +255,8 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place you code here."
+  (add-hook 'python-mode-hook 'anaconda-mode)
+  (setq-default dotspacemacs-configuration-layers '((python :variables python-enable-yapf-format-on-save t)))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
