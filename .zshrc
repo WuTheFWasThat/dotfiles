@@ -99,6 +99,7 @@ alias z='fasd_cd -d'     # cd, same functionality as j in autojump
 alias zz='fasd_cd -d -i' # cd with interactive selection
 
 alias j='fasd_cd -d'
+alias e='fasd -f -e emacsclient' # quick opening files with emacs
 alias v='fasd -f -e vim' # quick opening files with vim
 # alias v='f -t -e vim -b viminfo'
 
