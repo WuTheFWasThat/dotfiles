@@ -58,9 +58,9 @@
     sta = stash apply
     sts = stash save
     stp = stash pop
-    track = "!f(){ branch=$(git name-rev --name-only HEAD); cmd=\"git branch $branch -u ${1:-origin}/${2:-$branch}\"; echo $cmd; $cmd; }; f"
+    track = "!f(){ branch=$(git rev-parse --abbrev-ref HEAD); cmd=\"git branch $branch -u ${1:-origin}/${2:-$branch}\"; echo $cmd; $cmd; }; f"
     unstage = reset HEAD .
-    untrack = "!f(){ branch=$(git name-rev --name-only HEAD); cmd=\"git branch --unset-upstream ${1:-$branch}\"; echo $cmd; $cmd; }; f"
+    untrack = "!f(){ branch=$(git rev-parse --abbrev-ref HEAD); cmd=\"git branch --unset-upstream ${1:-$branch}\"; echo $cmd; $cmd; }; f"
 [color]
     ui = true
 [push]
