@@ -95,8 +95,8 @@ alias d='fasd -d'        # directory
 # alias f='fasd -f'        # file
 alias sd='fasd -sid'     # interactive directory selection
 alias sf='fasd -sif'     # interactive file selection
-alias z='fasd_cd -d'     # cd, same functionality as j in autojump
-alias zz='fasd_cd -d -i' # cd with interactive selection
+# alias z='fasd_cd -d'     # cd, same functionality as j in autojump
+# alias zz='fasd_cd -d -i' # cd with interactive selection
 
 alias j='fasd_cd -d'
 alias e='fasd -f -e emacsclient' # quick opening files with emacs
