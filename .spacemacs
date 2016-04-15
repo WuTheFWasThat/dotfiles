@@ -33,6 +33,7 @@ values."
      ;; (shell :variables
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
+     osx
      python
      rust
      spell-checking
@@ -169,7 +170,7 @@ values."
    dotspacemacs-helm-position 'bottom
    ;; If non nil the paste micro-state is enabled. When enabled pressing `p`
    ;; several times cycle between the kill ring content. (default nil)
-   dotspacemacs-enable-paste-micro-state nil
+   dotspacemacs-enable-paste-micro-state t
    ;; Which-key delay in seconds. The which-key buffer is the popup listing
    ;; the commands bound to the current keystroke sequence. (default 0.4)
    dotspacemacs-which-key-delay 0.4
@@ -243,6 +244,7 @@ executes.
  This function is mostly useful for variables that need to be set
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
+  ; (setq-default rust-enable-racer t)
   (setq vc-follow-symlinks t)
   (setq-default js2-basic-offset 2
                 js-indent-level 2)
@@ -261,6 +263,7 @@ you should place you code here."
 
   ; remap so that ; works as : , much like `nnoremap  ;  :`
   (define-key evil-normal-state-map (kbd ";") 'evil-ex)
+
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
