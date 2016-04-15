@@ -53,7 +53,7 @@ plugins=(git extract)
 
 # User configuration
 
-export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/TeX/texbin:/Users/jeffwu/.multirust/toolchains/stable/cargo/bin:/Users/jeffwu/.multirust/toolchains/1.5.0/cargo/bin"
+export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
@@ -85,6 +85,13 @@ source $ZSH/oh-my-zsh.sh
 #
 bindkey \^U backward-kill-line
 
+alias sx='screen -x'         # attach screen session
+alias sl='screen -ls'        # list screen sessions
+alias ss='screen -S'         # start screen session
+function sk {                # kill screen session
+  screen -S $1 -X quit
+}
+
 # fasd setup
 # SEE here for more info: https://github.com/clvv/fasd
 eval "$(fasd --init auto)"
@@ -92,17 +99,20 @@ eval "$(fasd --init auto)"
 alias a='fasd -a'        # any
 alias s='fasd -si'       # show / search / select
 alias d='fasd -d'        # directory
-# alias f='fasd -f'        # file
-alias sd='fasd -sid'     # interactive directory selection
-alias sf='fasd -sif'     # interactive file selection
-# alias z='fasd_cd -d'     # cd, same functionality as j in autojump
-# alias zz='fasd_cd -d -i' # cd with interactive selection
+alias dd='fasd -sid'     # interactive directory selection
+alias f='fasd -f'        # file
+alias ff='fasd -sif'     # interactive file selection
 
 alias j='fasd_cd -d'
+alias jj='fasd_cd -d -i'
 alias em='emacsclient'
 alias e='fasd -f -e emacsclient' # quick opening files with emacs
 alias v='fasd -f -e vim' # quick opening files with vim
 # alias v='f -t -e vim -b viminfo'
+
+function restart_emacs {
+  killall emacs; emacs --daemon
+}
 
 eval "$(thefuck --alias f)"
 
@@ -116,6 +126,7 @@ alias sp='pushd ~/Dropbox/Terminal/seismic-provisioner/'
 alias sb='pushd ~/Dropbox/Terminal/switchboard/'
 alias sw='pushd ~/Dropbox/Terminal/seismicweb/'
 
+export PATH=$PATH:/Library/TeX/texbin
 export PATH=$PATH:~/.multirust/toolchains/stable/cargo/bin
 export PATH=$PATH:~/.multirust/toolchains/1.5.0/cargo/bin
 export PATH=$PATH:~/Library/Haskell/bin
