@@ -146,12 +146,25 @@ function em {
 alias sx='screen -x'         # attach screen session
 alias sl='screen -ls'        # list screen sessions
 function ss {                # start screen session
-  ems $1
-  screen -S $1
+  local name=$1
+  # echo nohup ems $name
+  # nohup ems $name &>/dev/null &
+  # TODO: figure out how to nohup
+  ems $name
+  screen -S $name
 }
 function sk {                # kill screen session
-  emk $1
-  screen -S $1 -X quit
+  # default to killing current session
+  local name=${1:-$STY}
+  if [ -z "$name" ]; then
+    sl
+    echo "Must specifiy which screen session to kill!"
+    return 1
+  fi
+  # TODO: this doesn't work from within the screen session for some reason
+  echo emk $name
+  emk $name
+  screen -S $name -X quit
 }
 
 # fasd setup
@@ -176,6 +189,8 @@ eval "$(thefuck --alias f)"
 alias docs='pushd ~/Documents'
 alias dls='pushd ~/Downloads'
 alias p='pushd ~/Projects'
+
+export TERMINAL_HOME=/Users/jeffwu/Dropbox/Terminal/
 alias t='pushd ~/Dropbox/Terminal'
 alias tcore='pushd ~/Dropbox/Terminal/terminal-core/'
 alias sc='pushd ~/Dropbox/Terminal/seismic-core/'
