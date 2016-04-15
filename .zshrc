@@ -85,10 +85,72 @@ source $ZSH/oh-my-zsh.sh
 #
 bindkey \^U backward-kill-line
 
+#####
+# emacs stuff
+#####
+
+function eml {
+  ps aux | grep 'emacs --daemon' | grep -v grep
+}
+
+function ems {
+  local name=$1
+  if [ -n "$name" ]; then
+    emacs --daemon=$name
+  else
+    emacs --daemon
+  fi
+}
+
+function emx {
+  local name=$1
+  shift
+  if [ -n "$name" ]; then
+    emacsclient -s $name $@
+  else
+    emacsclient $@
+  fi
+}
+
+function emk {
+  local name=$1
+  if [ -n "$name" ]; then
+    line=$(ps aux | grep "emacs --daemon=$name" | grep -v grep | head -n 1)
+  else
+    line=$(ps aux | grep 'emacs --daemon$' | grep -v grep | head -n 1)
+  fi
+  pid=$(echo $line | awk '{ print $2 }')
+  kill $pid
+}
+
+function emr {
+  local name=$1
+  emacsd_kill $name
+  emacsd_start $name
+}
+
+function em {
+  # test if we're in a screen window
+  if [ -n "$STY" ]; then
+    name=$(echo $STY | cut -d '.' -f 2)
+    emx $name $@
+  else
+    emx '' $@
+  fi
+}
+
+############
+# gnu screen
+############
+
 alias sx='screen -x'         # attach screen session
 alias sl='screen -ls'        # list screen sessions
-alias ss='screen -S'         # start screen session
+function ss {                # start screen session
+  ems $1
+  screen -S $1
+}
 function sk {                # kill screen session
+  emk $1
   screen -S $1 -X quit
 }
 
@@ -105,14 +167,9 @@ alias ff='fasd -sif'     # interactive file selection
 
 alias j='fasd_cd -d'
 alias jj='fasd_cd -d -i'
-alias em='emacsclient'
-alias e='fasd -f -e emacsclient' # quick opening files with emacs
+alias e='fasd -f -e em' # quick opening files with emacs
 alias v='fasd -f -e vim' # quick opening files with vim
 # alias v='f -t -e vim -b viminfo'
-
-function restart_emacs {
-  killall emacs; emacs --daemon
-}
 
 eval "$(thefuck --alias f)"
 
