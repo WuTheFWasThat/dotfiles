@@ -1,9 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =7
-let g:netrw_dirhist_1='/Users/jeffwu/.oh-my-zsh/themes'
-let g:netrw_dirhist_2='/Users/jeffwu/.oh-my-zsh'
-let g:netrw_dirhist_3='/Users/jeffwu/Dropbox/Projects/vimflowy/package'
-let g:netrw_dirhist_4='/Users/jeffwu/Dropbox/Projects/vimflowy'
-let g:netrw_dirhist_5='/Users/jeffwu/Dropbox/Projects'
-let g:netrw_dirhist_6='/Users/jeffwu/Dropbox'
-let g:netrw_dirhist_7='/Users/jeffwu'
