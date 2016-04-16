@@ -35,6 +35,7 @@ values."
      ;;        shell-default-position 'bottom)
      osx
      python
+     ranger
      rust
      spell-checking
      ;; syntax-checking
@@ -263,6 +264,17 @@ you should place you code here."
 
   ; remap so that ; works as : , much like `nnoremap  ;  :`
   (define-key evil-normal-state-map (kbd ";") 'evil-ex)
+
+  ; configuration for ranger
+  (setq-default dotspacemacs-configuration-layers
+                '(ranger :variables
+                         ranger-show-preview t))
+  (setq ranger-ignored-extensions '("mkv" "iso" "mp4"))
+  (setq ranger-max-preview-size 10) ; in mb
+  ; (setq ranger-width-preview 0.55)
+  (setq ranger-show-dotfiles t)
+
+
 
   )
 
