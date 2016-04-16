@@ -125,8 +125,8 @@ function emk {
 
 function emr {
   local name=$1
-  emacsd_kill $name
-  emacsd_start $name
+  emk $name
+  ems $name
 }
 
 function em {
