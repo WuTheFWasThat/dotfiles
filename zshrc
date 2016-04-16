@@ -180,7 +180,7 @@ alias ff='fasd -sif'     # interactive file selection
 
 alias j='fasd_cd -d'
 alias jj='fasd_cd -d -i'
-alias e='fasd -f -e em' # quick opening files with emacs
+alias e='fasd -f -e "emacsclient -c"' # quick opening files with emacs
 alias v='fasd -f -e vim' # quick opening files with vim
 # alias v='f -t -e vim -b viminfo'
 
