@@ -376,3 +376,9 @@ let g:EasyMotion_use_upper = 1
 set grepprg=grep\ -nH\ $*
 
 let g:tex_flavor='latex'
+
+" for elm stuff
+let g:elm_format_autosave = 1
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:elm_syntastic_show_warnings = 1
