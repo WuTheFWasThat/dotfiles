@@ -210,13 +210,8 @@ alias docs='pushd ~/Documents'
 alias dls='pushd ~/Downloads'
 alias p='pushd ~/Projects'
 
-export TERMINAL_HOME=/Users/jeffwu/Dropbox/Terminal/
-alias t='pushd ~/Dropbox/Terminal'
-alias tcore='pushd ~/Dropbox/Terminal/terminal-core/'
-alias sc='pushd ~/Dropbox/Terminal/seismic-core/'
-alias sp='pushd ~/Dropbox/Terminal/seismic-provisioner/'
-alias sb='pushd ~/Dropbox/Terminal/switchboard/'
-alias sw='pushd ~/Dropbox/Terminal/seismicweb/'
+# stuff for work
+source ~/.workrc
 
 export PATH=$PATH:/Library/TeX/texbin
 export PATH=$PATH:~/.multirust/toolchains/stable/cargo/bin
