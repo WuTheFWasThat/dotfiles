@@ -187,6 +187,10 @@ function sk {                # kill session
   tmux kill-session -t $sessionname
 }
 
+function list_space {
+  du -sh -- $1*  | sort -rg
+}
+
 # fasd setup
 # SEE here for more info: https://github.com/clvv/fasd
 eval "$(fasd --init auto)"
