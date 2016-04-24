@@ -86,6 +86,13 @@ source $ZSH/oh-my-zsh.sh
 bindkey \^U backward-kill-line
 
 #####
+# python
+#####
+
+alias py='python'
+alias ipy='ipython'
+
+#####
 # emacs stuff
 #####
 

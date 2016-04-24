@@ -2,7 +2,7 @@
     name = Jeff Wu
     email = wuthefwasthat@gmail.com
 [core]
-    editor = /usr/local/bin/vim
+    editor = /usr/bin/vim
 [alias]
     a = add
     aa = "!git add .; git add -u ."
