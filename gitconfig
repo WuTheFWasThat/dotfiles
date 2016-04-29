@@ -60,7 +60,8 @@
     sts = stash save
     stp = stash pop
     track = "!f(){ branch=$(git rev-parse --abbrev-ref HEAD); cmd=\"git branch $branch -u ${1:-origin}/${2:-$branch}\"; echo $cmd; $cmd; }; f"
-    unstage = reset HEAD .
+    tree = ls-tree --full-tree -r HEAD
+    unstage = "!f(){ local dir=${1:-.}; git reset HEAD $dir; }; f"
     untrack = "!f(){ branch=$(git rev-parse --abbrev-ref HEAD); cmd=\"git branch --unset-upstream ${1:-$branch}\"; echo $cmd; $cmd; }; f"
 [color]
     ui = true
