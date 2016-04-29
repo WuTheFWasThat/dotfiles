@@ -152,19 +152,19 @@ function em {
 
 function sname {             # get session name
     # test if we're in a screen window
-    # echo $STY | cut -d '.' -f 2
-    tmux display-message -p '#S'
+    echo $STY | cut -d '.' -f 2
+    # tmux display-message -p '#S'
 }
 
 function sx {                # attach to session
     local sessionname=$1
-    # screen -x $sessionname
-    tmux a -t $sessionname
+    screen -x $sessionname
+    # tmux a -t $sessionname
 }
 
 function sl {                # list sessions
-    # screen -ls
-    tmux ls
+    screen -ls
+    # tmux ls
 }
 
 function ss {                # start session
@@ -176,8 +176,8 @@ function ss {                # start session
   # NOTE: ems doesn't work here, not sure why
   nohup emacs --daemon=$sessionname &>/dev/null &
 
-  # screen -S $sessionname
-  tmux new -s $sessionname
+  screen -S $sessionname
+  # tmux new -s $sessionname
 }
 
 function sk {                # kill session
@@ -188,10 +188,9 @@ function sk {                # kill session
     echo "Must specifiy which session to kill!"
     return 1
   fi
-  # NOTE: this doesn't work from within screen sessions for some reason
   emk $sessionname
-  # screen -S $sessionname -X quit
-  tmux kill-session -t $sessionname
+  screen -S $sessionname -X quit
+  # tmux kill-session -t $sessionname
 }
 
 function list_space {
