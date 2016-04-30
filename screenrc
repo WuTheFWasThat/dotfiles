@@ -1,2 +1,3 @@
 defscrollback 10000
 shell "/usr/local/bin/zsh"
+term xterm-256color

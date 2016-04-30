@@ -273,9 +273,6 @@ you should place you code here."
   (setq ranger-max-preview-size 10) ; in mb
   ; (setq ranger-width-preview 0.55)
   (setq ranger-show-dotfiles t)
-
-
-
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
