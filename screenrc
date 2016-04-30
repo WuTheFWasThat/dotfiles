@@ -1,3 +1,5 @@
 defscrollback 10000
 shell "/usr/local/bin/zsh"
 term xterm-256color
+# so that escape doesn't trigger escape sequences (which is very annoying in vim/evil)
+maptimeout 0
