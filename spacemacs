@@ -273,7 +273,16 @@ you should place you code here."
   (setq ranger-max-preview-size 10) ; in mb
   ; (setq ranger-width-preview 0.55)
   (setq ranger-show-dotfiles t)
+
+  ;; ctrl+p behaves like vim ctrl+p
+  (define-key evil-normal-state-map (kbd "C-p") 'helm-projectile)
+
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
+
+
+;; TODO WISHLIST:
+;  - find-file-at-point (gf) should automatically choose when there's only one result
+;    SEE: https://github.com/syl20bnr/spacemacs/issues/4837
