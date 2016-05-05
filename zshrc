@@ -228,3 +228,9 @@ export PATH=$PATH:~/.multirust/toolchains/stable/cargo/bin
 export PATH=$PATH:~/.multirust/toolchains/1.5.0/cargo/bin
 export PATH=$PATH:~/Library/Haskell/bin
 export RUST_BACKTRACE=1
+
+# The next line updates PATH for the Google Cloud SDK.
+source ~/google-cloud-sdk/path.zsh.inc
+
+# The next line enables shell command completion for gcloud.
+source ~/google-cloud-sdk/completion.zsh.inc
