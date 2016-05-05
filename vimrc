@@ -356,11 +356,14 @@ let g:loaded_syntastic_java_javac_checker = 1
 
 "let g:rustfmt_autosave = 1
 
+let mapleader = "\<Space>"
 " for easymotion
 " rebind leader to single key instead of 2
 " map <Leader> <Plug>(easymotion-prefix)
-nmap gj <Plug>(easymotion-j)
-nmap gk <Plug>(easymotion-k)
+map <Leader>j <Plug>(easymotion-j)
+map <Leader>k <Plug>(easymotion-k)
+map <Leader>l <Plug>(easymotion-lineforward)
+map <Leader>h <Plug>(easymotion-linebackward)
 "" these mess up macros too much
 " nmap t <Plug>(easymotion-bd-tl)
 " nmap f <Plug>(easymotion-bd-fl)
