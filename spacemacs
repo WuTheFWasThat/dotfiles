@@ -277,6 +277,10 @@ you should place you code here."
   ;; ctrl+p behaves like vim ctrl+p
   (define-key evil-normal-state-map (kbd "C-p") 'helm-projectile)
 
+  ;; https://github.com/abo-abo/avy
+  ;; https://github.com/abo-abo/avy/wiki/defcustom
+  ;; let non-homerow keys be used for avy
+  (setq avy-keys (number-sequence ?a ?z))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -286,3 +290,4 @@ you should place you code here."
 ;; TODO WISHLIST:
 ;  - find-file-at-point (gf) should automatically choose when there's only one result
 ;    SEE: https://github.com/syl20bnr/spacemacs/issues/4837
+;  - stop having ctrl-z not background and toggle evil mode...
