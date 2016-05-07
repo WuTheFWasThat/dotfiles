@@ -250,6 +250,8 @@ before packages are loaded. If you are unsure, you should try in setting them in
   (setq-default js2-basic-offset 2
                 js-indent-level 2)
 
+  ; allow for ctrl-z
+  (setq evil-toggle-key "C-`")
   )
 
 (defun dotspacemacs/user-config ()
@@ -281,14 +283,13 @@ you should place you code here."
   ;; https://github.com/abo-abo/avy/wiki/defcustom
   ;; let non-homerow keys be used for avy
   (setq avy-keys (number-sequence ?a ?z))
+
   )
+
+;; TODO/WISHLIST:
+;  - find-file-at-point (gf) should automatically choose when there's only one result
+;    SEE: https://github.com/syl20bnr/spacemacs/issues/4837
+;  - get python autocomplete working properly: https://github.com/syl20bnr/spacemacs/tree/master/layers/%2Blang/python
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
-
-
-;; TODO WISHLIST:
-;  - find-file-at-point (gf) should automatically choose when there's only one result
-;    SEE: https://github.com/syl20bnr/spacemacs/issues/4837
-;  - stop having ctrl-z not background and toggle evil mode...
-;  - get python autocomplete working properly: https://github.com/syl20bnr/spacemacs/tree/master/layers/%2Blang/python
