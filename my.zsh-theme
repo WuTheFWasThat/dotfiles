@@ -50,8 +50,12 @@ theme_precmd () {
 # useful chars: » ● ✔ ✘
 local ret_status="%(?:%{$fg_bold[green]%}:%{$fg_bold[red]%})"
 setopt prompt_subst
-PROMPT='%B%F{blue}%c %(?,,%{${fg_bold[red]}%}[%?] )${ret_status}%B%F{blue}# %{$reset_color%}'
+PROMPT='[%D{%L:%M:%S %p}] %B%F{blue}%c %(?,,%{${fg_bold[red]}%}[%?] )${ret_status}%B%F{blue}# %{$reset_color%}'
 RPROMPT='%B%F{blue}${vcs_info_msg_0_} %{$reset_color%}'
+TMOUT=1
+TRAPALRM() {
+    zle reset-prompt
+}
 
 autoload -U add-zsh-hook
 add-zsh-hook precmd  theme_precmd

@@ -291,3 +291,4 @@ you should place you code here."
 ;  - find-file-at-point (gf) should automatically choose when there's only one result
 ;    SEE: https://github.com/syl20bnr/spacemacs/issues/4837
 ;  - stop having ctrl-z not background and toggle evil mode...
+;  - get python autocomplete working properly: https://github.com/syl20bnr/spacemacs/tree/master/layers/%2Blang/python

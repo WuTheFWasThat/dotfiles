@@ -19,6 +19,7 @@
     cmm = commit -m
     cma = commit --amend
     co = checkout
+    close = "!branch=$(git rev-parse --abbrev-ref HEAD); git checkout master; git branch -D $branch;"
     cp = cherry-pick
     cpa = cherry-pick --abort
     cpc = cherry-pick --continue
@@ -26,7 +27,7 @@
     disc = checkout -- .
     d = icdiff
     dc = icdiff --cached
-    del = branch -d
+    del = branch -D
     ds = diff --stat
     f = fetch --all --prune
     find = "!git ls-files | grep -i"
