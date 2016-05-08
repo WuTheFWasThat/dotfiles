@@ -13,18 +13,25 @@
     bsg = bisect good
     bsr = bisect reset
     bss = bisect start
+    # regular commit
+    c = "!f() { if [ $# -eq 0 ]; then git commit -v; else git commit -m \"$*\"; fi; }; f"
+    # commit "squash"
+    cs = "!f() { if [ $# -eq 0 ]; then git commit -v --amend; else git commit --amend -m \"$*\"; fi; }; f"
+    # commit "fixup"
+    cf = commit -v --amend --no-edit
+    # add then commit variants
+    ac = "!f() { if [ $# -eq 0 ]; then git commit -v -a; else git commit -a -m \"$*\"; fi; }; f"
+    acs = "!f() { if [ $# -eq 0 ]; then git commit -v -a --amend; else git commit -a --amend -m \"$*\"; fi; }; f"
+    acf = commit -v -a --amend --no-edit
+
     cle = clean -f -d
     clo = clone --recursive
-    cm = commit
-    cmm = commit -m
-    cma = commit --amend
-    co = checkout
     close = "!branch=$(git rev-parse --abbrev-ref HEAD); git checkout master; git branch -D $branch;"
+    co = checkout
     cp = cherry-pick
     cpa = cherry-pick --abort
     cpc = cherry-pick --continue
     diff = icdiff
-    disc = checkout -- .
     d = icdiff
     dc = icdiff --cached
     del = branch -D
@@ -32,10 +39,9 @@
     f = fetch --all --prune
     find = "!git ls-files | grep -i"
     g = grep
-    # gop = "!f() { PAGER=vim g g -O TCORE $@ }; f"
     gop = "!f(){ vim $(git grep --name-only $@); }; f"
     hash = rev-parse HEAD
-    lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+    l = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
     m = merge
     new = checkout -b
     pr = "!hub pull-request"
@@ -46,9 +52,11 @@
     rbi = rebase -i
     rba = rebase --abort
     rbc = "!git add .; git add -u .; git rebase --continue"
+    rbo = "!f(){ branch=$(git rev-parse --abbrev-ref HEAD); git fetch && git rebase origin/$branch; }; f"
     rbom = "!git fetch && git rebase origin/master"
     rl = reflog
     rs = reset
+    rw = "!f() { local n=${1:-1}; git reset HEAD~$n; }; f"
     rsh = reset --hard
     rv = revert
     rva = revert --abort
@@ -65,6 +73,7 @@
     tree = ls-tree --full-tree -r HEAD
     unstage = "!f(){ local dir=${1:-.}; git reset HEAD $dir; }; f"
     untrack = "!f(){ branch=$(git rev-parse --abbrev-ref HEAD); cmd=\"git branch --unset-upstream ${1:-$branch}\"; echo $cmd; $cmd; }; f"
+    xx = checkout --
 [color]
     ui = true
 [push]
