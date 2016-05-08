@@ -102,11 +102,12 @@ values."
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(spacemacs-dark
                          spacemacs-light
-                         solarized-light
-                         solarized-dark
-                         leuven
-                         monokai
-                         zenburn)
+                         )
+   ;;                       solarized-light
+   ;;                       solarized-dark
+   ;;                       leuven
+   ;;                       monokai
+   ;;                       zenburn)
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
@@ -283,6 +284,18 @@ you should place you code here."
   ;; https://github.com/abo-abo/avy/wiki/defcustom
   ;; let non-homerow keys be used for avy
   (setq avy-keys (number-sequence ?a ?z))
+
+  ;; spaceline customization
+  (setq powerline-default-separator 'bar)
+  (setq spaceline-highlight-face-func 'spaceline-highlight-face-modified) ;; sets color to tell you if buffer is modified
+  ;; (setq spaceline-evil-state-p nil)
+  ;; (spaceline-toggle-buffer-id-on)
+  (spaceline-toggle-buffer-size-off)
+  (spaceline-toggle-buffer-position-off)
+  (spaceline-toggle-major-mode-off) ;; tells you e.g. what language is being edited
+  (spaceline-toggle-minor-modes-off)
+  (spaceline-toggle-buffer-encoding-abbrev-off)
+  (spaceline-toggle-new-version-off) ;; tells you when spacemacs itself needs to be updated
 
   )
 
