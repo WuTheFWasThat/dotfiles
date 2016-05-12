@@ -5,19 +5,22 @@
     editor = /usr/bin/vim
 [alias]
     clo = clone --recursive
+    # https://github.com/$1.git
+    # git@github.com:$1.git
 
     # branch management
     b = branch
     br = "!git branch | grep -v '^\\s*zz'"
     co = checkout
-    close = "!branch=$(git rev-parse --abbrev-ref HEAD); git checkout master; git branch -D $branch;"
     new = checkout -b
-    del = branch -D
+    # delete a branch (default to current branch).  if current branch deleted, checkout master
+    del = "!f() { mybranch=$(git rev-parse --abbrev-ref HEAD); dbranch=${1:-$mybranch}; if [ \"$mybranch\" = \"$dbranch\" ]; then git checkout master; fi; git branch -D $dbranch; }; f"
 
     # remotes
     f = fetch --all --prune
     pr = "!hub pull-request"
     pu = "push -u"
+    puf = "push -u -f"
     pl = "pull"
     plr = "pull --rebase"
     track = "!f(){ branch=$(git rev-parse --abbrev-ref HEAD); cmd=\"git branch $branch -u ${1:-origin}/${2:-$branch}\"; echo $cmd; $cmd; }; f"
@@ -29,7 +32,7 @@
     ap = add -p .
     # cleanup
     cle = clean -f -d
-    xx = checkout --
+    xx = "!f() { local dir=${1:-.}; git checkout -- $dir; }; f"
     unstage = "!f(){ local dir=${1:-.}; git reset HEAD $dir; }; f"
 
     # committing (optionally with message)
@@ -76,6 +79,7 @@
 
     # tree
     l = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+    lg = log
     hash = rev-parse HEAD
     rl = reflog
 

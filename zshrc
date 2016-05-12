@@ -201,6 +201,8 @@ function list_space {
 # SEE here for more info: https://github.com/clvv/fasd
 eval "$(fasd --init auto)"
 
+alias h='history'
+
 alias a='fasd -a'        # any
 alias s='fasd -si'       # show / search / select
 alias d='fasd -d'        # directory
