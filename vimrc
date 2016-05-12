@@ -33,39 +33,25 @@ set hidden
 
 autocmd BufWritePre * :%s/\s\+$//e
 
-" An example for a vimrc file.
-"
-" Maintainer:   Bram Moolenaar <Bram@vim.org>
-" Last change:  2002 May 28
-"
-" To use it, copy it to
-"     for Unix and OS/2:  ~/.vimrc
-"         for Amiga:  s:.vimrc
-"  for MS-DOS and Win32:  $VIM\_vimrc
-"       for OpenVMS:  sys$login:.vimrc
-
 " When started as "evim", evim.vim will already have done these settings.
 if v:progname =~? "evim"
     finish
     endif
 
-    " Switch Windows and maximize in one keypress
-    "set wmh=0
+    " example of: switch Windows and maximize in one keypress
     "map <C-J> <C-W>j<C-W>_
     "map <C-K> <C-W>k<C-W>_
-    "map <C-N> <Esc>:bn<CR>
-    "map <C-P> <Esc>:bN<CR>
+    "map <C-H> <C-W>h<C-W>_
+    "map <C-L> <C-W>l<C-W>_
 
     map <C-C> :s/^/\/\//<CR>\|:noh<CR>
 
-    let g:miniBufExplMapWindowNavVim = 1
+    " let g:miniBufExplMapWindowNavVim = 1
     let g:miniBufExplMapWindowNavArrows = 1
     let g:miniBufExplMapCTabSwitchBufs = 1
     let g:miniBufExplModSelTarget = 1
 
     " make tab sizes smaller (4 instead of 8) and all spaces...
-    set sw=2
-    set ts=2
     set ic
     set expandtab
     set smarttab
@@ -84,7 +70,6 @@ if v:progname =~? "evim"
     set backspace=indent,eol,start
 
 
-set ts=4
 set autoindent      " always set autoindenting on
 if has("vms")
   set nobackup      " do not keep a backup file, use versions instead
@@ -92,14 +77,8 @@ else
   set nobackup      " keep a backup file
 set backupdir=./.backup,~/.backup,/tmp
 endif
-set history=50      " keep 50 lines of command line history
-set ruler       " show the cursor position all the time
-set showcmd     " display incomplete commands
-set incsearch       " do incremental searching
-set hlsearch
-
-" For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
-" let &guioptions = substitute(&guioptions, "t", "", "g")
+set history=500      " keep 50 lines of command line history
+set showcmd          " display incomplete commands
 
 " Don't use Ex mode, use Q for formatting
 map Q gq
@@ -152,39 +131,27 @@ nmap <F8> :'<,'>! awk '/[0-9]+\. .*/ { $1 = i++ "."} {print}'<CR>
 redraw!
 
 
-"" VARUN ADDED
-" fix meta-keys which generate <esc>a .. <esc>z
-"let c='a'
-"while c != 'z'
-"    exec "set <M-".toupper(c).">=\e".c
-"    exec "imap \e".c." <M-".toupper(c).">"
-"    let c = nr2char(1+char2nr(c))
-"endw
-"
-
 filetype on
 filetype indent on
 filetype plugin on
 
 " SAVE LAST CURSOR POSITION
 
-"augroup vimrcEx
-"    au!
+" augroup vimrcEx
+"     au!
 "
-"      " For all text files set 'textwidth' to 78 characters.
-"      "   autocmd FileType text setlocal textwidth=78
-"      "
-"      "     " When editing a file, always jump to the last known cursor
-"      "     position.
-"      "       " Don't do it when the position is invalid or when inside an
-"      "       event handler
-"      "         " (happens when dropping a file on gvim).
-"      "           autocmd BufReadPost *
-"      "               \ if line("'\"") > 0 && line("'\"") <= line("$") |
-"          \   exe "normal g`\"" |
-"          \ endif
+"     " For all text files set 'textwidth' to 78 characters.
+"     autocmd FileType text setlocal textwidth=78
 "
-"        augroup END
+"     " When editing a file, always jump to the last known cursor position.
+"     " Don't do it when the position is invalid or when inside an event handler
+"     " (happens when dropping a file on gvim).
+"     autocmd BufReadPost *
+"       \ if line("'\"") > 0 && line("'\"") <= line("$") |
+"       \   exe "normal g`\"" |
+"       \ endif
+"
+" augroup END
 
 "====[ Make the 81st column stand out ]====================
 "
@@ -360,16 +327,10 @@ let mapleader = "\<Space>"
 " for easymotion
 " rebind leader to single key instead of 2
 " map <Leader> <Plug>(easymotion-prefix)
-map <Leader>j <Plug>(easymotion-j)
-map <Leader>k <Plug>(easymotion-k)
-map <Leader>l <Plug>(easymotion-lineforward)
-map <Leader>h <Plug>(easymotion-linebackward)
-"" these mess up macros too much
-" nmap t <Plug>(easymotion-bd-tl)
-" nmap f <Plug>(easymotion-bd-fl)
-" nmap <Space> <Plug>(easymotion-s)
-" Bidirectional & within line 't' motion
-" omap t <Plug>(easymotion-bd-tl)
+map <Leader>y <Plug>(easymotion-bd-jk)
+map <Leader>w <Plug>(easymotion-bd-w)
+"map <Leader>t <Plug>(easymotion-bd-tl)
+map <Leader>f <Plug>(easymotion-bd-f)
 " Use uppercase target labels and type as a lower case
 let g:EasyMotion_use_upper = 1
 
@@ -388,3 +349,20 @@ let g:elm_syntastic_show_warnings = 1
 
 " http://vim.wikia.com/wiki/Mac_OS_X_clipboard_sharing
 " set clipboard=unnamed
+
+" faster switch buffers
+map <C-J> <Esc>:bn<CR>
+map <C-K> <Esc>:bN<CR>
+nnoremap <Leader>bn :bn<CR>
+nnoremap <Leader>bp :bp<CR>
+nnoremap <Leader>bd :bd<CR>
+nnoremap <Leader>1 :1b<CR>
+nnoremap <Leader>2 :2b<CR>
+nnoremap <Leader>3 :3b<CR>
+nnoremap <Leader>4 :4b<CR>
+nnoremap <Leader>5 :5b<CR>
+nnoremap <Leader>6 :6b<CR>
+nnoremap <Leader>7 :7b<CR>
+nnoremap <Leader>8 :8b<CR>
+nnoremap <Leader>9 :9b<CR>
+nnoremap <Leader>0 :10b<CR>

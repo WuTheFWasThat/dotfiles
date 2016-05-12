@@ -279,6 +279,9 @@ you should place you code here."
 
   ;; ctrl+p behaves like vim ctrl+p
   (define-key evil-normal-state-map (kbd "C-p") 'helm-projectile)
+  ;; ctrl+j and ctrl+k switch buffers
+  (define-key evil-normal-state-map (kbd "C-j") 'spacemacs/previous-useful-buffer)
+  (define-key evil-normal-state-map (kbd "C-k") 'spacemacs/next-useful-buffer)
 
   ;; https://github.com/abo-abo/avy
   ;; https://github.com/abo-abo/avy/wiki/defcustom
