@@ -9,18 +9,20 @@
 
 set ruler
 set nu
+
+" highlight for search, esc to de-highlight
 set hlsearch
+" SEE: http://stackoverflow.com/questions/11940801/mapping-esc-in-vimrc-causes-bizzare-arrow-behaviour
+augroup no_highlight
+  autocmd TermResponse * nnoremap <esc> :noh<return><esc>
+augroup END
+
 set incsearch
 set cursorline
+
+set noswapfile
+
 syntax enable
-
-set background=dark
-
-colorscheme desert
-"let g:solarized_termcolors = 256
-"let g:solarized_visibility = "high"
-"let g:solarized_contrast = "high"
-"colorscheme solarized
 
 set smartindent
 
@@ -29,45 +31,38 @@ set smarttab
 set shiftwidth=2
 set tabstop=2
 
+" ignore case
+set ic
+set cindent
+
 set hidden
 
 autocmd BufWritePre * :%s/\s\+$//e
 
-" When started as "evim", evim.vim will already have done these settings.
-if v:progname =~? "evim"
-    finish
-    endif
+" example of: switch Windows and maximize in one keypress
+"map <C-J> <C-W>j<C-W>_
+"map <C-K> <C-W>k<C-W>_
+"map <C-H> <C-W>h<C-W>_
+"map <C-L> <C-W>l<C-W>_
 
-    " example of: switch Windows and maximize in one keypress
-    "map <C-J> <C-W>j<C-W>_
-    "map <C-K> <C-W>k<C-W>_
-    "map <C-H> <C-W>h<C-W>_
-    "map <C-L> <C-W>l<C-W>_
+map <C-C> :s/^/\/\//<CR>\|:noh<CR>
 
-    map <C-C> :s/^/\/\//<CR>\|:noh<CR>
+" let g:miniBufExplMapWindowNavVim = 1
+let g:miniBufExplMapWindowNavArrows = 1
+let g:miniBufExplMapCTabSwitchBufs = 1
+let g:miniBufExplModSelTarget = 1
 
-    " let g:miniBufExplMapWindowNavVim = 1
-    let g:miniBufExplMapWindowNavArrows = 1
-    let g:miniBufExplMapCTabSwitchBufs = 1
-    let g:miniBufExplModSelTarget = 1
+:set comments=sl:/**,mb:\ *,elx:\ */
 
-    " make tab sizes smaller (4 instead of 8) and all spaces...
-    set ic
-    set expandtab
-    set smarttab
-    " set smartindent
-    set cindent
-    :set comments=sl:/**,mb:\ *,elx:\ */
-    "colorscheme darkblue
-    "color darkblue
-    vnoremap p <Esc>:let current_reg = @"<CR>gvs<C-R>=current_reg<CR><Esc>
+" Make p in Visual mode replace the selected text with the "" register.
+vnoremap p <Esc>:let current_reg = @"<CR>gvs<C-R>=current_reg<CR><Esc>
 
-    " Use Vim settings, rather then Vi settings (much better!).
-    " This must be first, because it changes other options as a side effect.
-    set nocompatible
+" Use Vim settings, rather then Vi settings (much better!).
+" This must be first, because it changes other options as a side effect.
+set nocompatible
 
-    " allow backspacing over everything in insert mode
-    set backspace=indent,eol,start
+" allow backspacing over everything in insert mode
+set backspace=indent,eol,start
 
 
 set autoindent      " always set autoindenting on
@@ -93,7 +88,6 @@ if &t_Co > 2 || has("gui_running")
   syntax on
   set hlsearch
 endif
-"colorscheme darkblue
 
 " Only do this part when compiled with support for autocommands.
 if has("autocmd")
@@ -115,7 +109,6 @@ if has("autocmd")
     \   exe "normal g`\"" |
     \ endif
 
-
 endif " has("autocmd")
 
 nmap <space> za
@@ -130,28 +123,9 @@ nmap <F7> :tn<CR>
 nmap <F8> :'<,'>! awk '/[0-9]+\. .*/ { $1 = i++ "."} {print}'<CR>
 redraw!
 
-
 filetype on
 filetype indent on
 filetype plugin on
-
-" SAVE LAST CURSOR POSITION
-
-" augroup vimrcEx
-"     au!
-"
-"     " For all text files set 'textwidth' to 78 characters.
-"     autocmd FileType text setlocal textwidth=78
-"
-"     " When editing a file, always jump to the last known cursor position.
-"     " Don't do it when the position is invalid or when inside an event handler
-"     " (happens when dropping a file on gvim).
-"     autocmd BufReadPost *
-"       \ if line("'\"") > 0 && line("'\"") <= line("$") |
-"       \   exe "normal g`\"" |
-"       \ endif
-"
-" augroup END
 
 "====[ Make the 81st column stand out ]====================
 "
@@ -317,11 +291,27 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_javascript_checkers = ['eslint', 'jshint']
 
-" hacky: see http://stackoverflow.com/questions/15937042/syntastic-disable-automatic-compilation-of-java
+" HACKY: see http://stackoverflow.com/questions/15937042/syntastic-disable-automatic-compilation-of-java
 " maybe undo this if i switch from intellij
 let g:loaded_syntastic_java_javac_checker = 1
 
 "let g:rustfmt_autosave = 1
+
+let g:tex_flavor='latex'
+
+" for elm stuff
+let g:elm_format_autosave = 1
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:elm_syntastic_show_warnings = 1
+
+" IMPORTANT: grep will sometimes skip displaying the file name if you
+" search in a singe file. This will confuse Latex-Suite. Set your grep
+" program to always generate a file-name.
+set grepprg=grep\ -nH\ $*
+
+" http://vim.wikia.com/wiki/Mac_OS_X_clipboard_sharing
+" set clipboard=unnamed
 
 let mapleader = "\<Space>"
 " for easymotion
@@ -333,22 +323,6 @@ map <Leader>w <Plug>(easymotion-bd-w)
 map <Leader>f <Plug>(easymotion-bd-f)
 " Use uppercase target labels and type as a lower case
 let g:EasyMotion_use_upper = 1
-
-" IMPORTANT: grep will sometimes skip displaying the file name if you
-" search in a singe file. This will confuse Latex-Suite. Set your grep
-" program to always generate a file-name.
-set grepprg=grep\ -nH\ $*
-
-let g:tex_flavor='latex'
-
-" for elm stuff
-let g:elm_format_autosave = 1
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:elm_syntastic_show_warnings = 1
-
-" http://vim.wikia.com/wiki/Mac_OS_X_clipboard_sharing
-" set clipboard=unnamed
 
 " faster switch buffers
 map <C-J> <Esc>:bn<CR>
@@ -366,3 +340,10 @@ nnoremap <Leader>7 :7b<CR>
 nnoremap <Leader>8 :8b<CR>
 nnoremap <Leader>9 :9b<CR>
 nnoremap <Leader>0 :10b<CR>
+
+" set colorscheme.  this needs to be later for some unknown reason
+set background=dark
+let g:solarized_termcolors = 256
+" let g:solarized_visibility = "high"
+" let g:solarized_contrast = "high"
+colorscheme solarized
