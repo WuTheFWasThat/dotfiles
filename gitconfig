@@ -32,8 +32,10 @@
     ap = add -p .
     # cleanup
     cle = clean -f -d
+    # discard
     xx = "!f() { local dir=${1:-.}; git checkout -- $dir; }; f"
-    unstage = "!f(){ local dir=${1:-.}; git reset HEAD $dir; }; f"
+    # unstage
+    z = "!f(){ local dir=${1:-.}; git reset HEAD $dir; }; f"
 
     # committing (optionally with message)
     c = "!f() { if [ $# -eq 0 ]; then git commit -v; else git commit -m \"$*\"; fi; }; f"
@@ -56,7 +58,8 @@
     rbi = rebase -i
     rba = rebase --abort
     rbc = "!git add .; git add -u .; git rebase --continue"
-    rbo = "!f(){ branch=$(git rev-parse --abbrev-ref HEAD); git fetch && git rebase origin/$branch; }; f"
+    rbo = "!f(){ branch=$(git rev-parse --abbrev-ref HEAD); git fetch && git rebase origin/$branch $@; }; f"
+    rbm = rebase master
     rbom = "!git fetch && git rebase origin/master"
 
     # merge
@@ -85,7 +88,8 @@
 
     # file tools
     find = "!git ls-files | grep -i"
-    fop = "!f() { vim $(git ls-files | grep -i "$@"); }; f"
+    v = "!f() { vim $(git ls-files | grep -i "$@"); }; f"
+    e = "!f() { emacsclient -c $(git ls-files | grep -i "$@"); }; f"
     g = grep
     gop = "!f(){ vim $(git grep --name-only $@); }; f"
     tree = ls-tree --full-tree -r HEAD
