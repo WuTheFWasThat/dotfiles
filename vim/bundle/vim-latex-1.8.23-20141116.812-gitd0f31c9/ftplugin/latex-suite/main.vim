@@ -314,6 +314,19 @@ fun! Tex_Strntok(s, tok, n)
 endfun
 
 " }}}
+" Tex_CountMatches: count number of matches of pat in string {{{
+fun! Tex_CountMatches( string, pat )
+	let pos = 0
+	let cnt = 0
+	while pos >= 0
+		let pos = matchend(a:string, a:pat, pos)
+		let cnt = cnt + 1
+	endwhile
+	" We have counted one match to much
+	return cnt - 1
+endfun
+
+" }}}
 " Tex_CreatePrompt: creates a prompt string {{{
 " Description: 
 " Arguments:
@@ -329,9 +342,8 @@ endfun
 "
 " This string can be used in the input() function.
 function! Tex_CreatePrompt(promptList, cols, sep)
-
-	let g:listSep = a:sep
-	let num_common = GetListCount(a:promptList)
+	" There is one more item than matches of the seperator
+	let num_common = Tex_CountMatches( a:promptList, a:sep ) + 1
 
 	let i = 1
 	let promptStr = ""
@@ -458,41 +470,15 @@ endfunction
 function! Tex_ChooseFromPrompt(dialog, list, sep)
 	let g:Tex_ASDF = a:dialog
 	let inp = input(a:dialog)
+	" This is a workaround for a bug(?) in vim, see
+	" https://github.com/vim/vim/issues/778
+	redraw
 	if inp =~ '\d\+'
 		return Tex_Strntok(a:list, a:sep, inp)
 	else
 		return inp
 	endif
 endfunction " }}}
-" Tex_ChooseFile: produces a file list and prompts for choice {{{
-" Description: 
-function! Tex_ChooseFile(dialog)
-	let files = glob('*')
-	if files == ''
-		return ''
-	endif
-	let s:incnum = 0
-	echo a:dialog
-	let filenames = substitute(files, "\\v(^|\n)", "\\=submatch(0).Tex_IncrementNumber(1).' : '", 'g')
-	echo filenames
-	let choice = input('Enter Choice : ')
-	let g:choice = choice
-	if choice == ''
-		return ''
-	endif
-	if choice =~ '^\s*\d\+\s*$'
-		let retval = Tex_Strntok(files, "\n", choice)
-	else
-		let filescomma = substitute(files, "\n", ",", "g")
-		let retval = GetListMatchItem(filescomma, choice)
-	endif
-	if retval == ''
-		return ''
-	endif
-	return retval
-endfunction 
-
-" }}}
 " Tex_IncrementNumber: returns an incremented number each time {{{
 " Description: 
 let s:incnum = 0
@@ -941,7 +927,7 @@ function! Tex_GotoTempFile()
 	endif
 	exec 'silent! split '.s:tempFileName
 endfunction " }}}
-" Tex_IsPresentInFile: finds if a string str, is present in filename {{{
+" Tex_IsPresentInFile: finds if a regexp, is present in filename {{{
 if has('python') && g:Tex_UsePython
 	function! Tex_IsPresentInFile(regexp, filename)
 		exec 'python isPresentInFile(r"'.a:regexp.'", r"'.a:filename.'")'
@@ -961,7 +947,8 @@ else
 		let &report = _report
 		let &sc = _sc
 
-		if search(a:regexp, 'w')
+		" Use very magic to digest usual regular expressions.
+		if search('\v' . a:regexp, 'w')
 			let retval = 1
 		else
 			let retval = 0

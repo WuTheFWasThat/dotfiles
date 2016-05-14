@@ -2,7 +2,7 @@
 " 	     File: packages.vim
 "      Author: Mikolaj Machowski
 "     Created: Tue Apr 23 06:00 PM 2002 PST
-"
+" 
 "  Description: handling packages from within vim
 "=============================================================================
 
@@ -38,8 +38,8 @@ if v:version >= 602
 		return packnames
 	endfunction
 	" }}}
-
-else
+	
+else 
 	com! -nargs=* TPackage let s:retVal = Tex_pack_one(<f-args>) <bar> normal! i<C-r>=s:retVal<CR>
 
 endif
@@ -142,12 +142,12 @@ function! Tex_pack_updateall(force)
 		call Tex_Debug(':Tex_pack_updateall: split', 'pack')
 		split
 	endif
-
+		
 	call Tex_ScanForPackages()
 	q
 
 	call Tex_Debug(':Tex_pack_updateall: detected ['.g:Tex_package_detected.'] in first run', 'pack')
-
+	
 	" Now for each package find out if this is a custom package and if so,
 	" scan that as well. We will use the ':find' command in vim to let vim
 	" search through the file paths for us.
@@ -180,7 +180,7 @@ function! Tex_pack_updateall(force)
 			call Tex_Debug(':Tex_pack_updateall: '.packname.' already scanned', 'pack')
 			let packname = Tex_Strntok(g:Tex_package_detected, ',', i)
 			continue
-		endif
+		endif 
 
 		" Split this window in two. The packages/files being found will open
 		" in this new window and we also need not bother with files being
@@ -269,9 +269,9 @@ function! Tex_pack_one(...)
 	if a:0 == 0 || (a:0 > 0 && a:1 == '')
 		let packlist = Tex_FindInRtp('', 'packages')
 		let packname = Tex_ChooseFromPrompt(
-					\ "Choose a package: \n" .
+					\ "Choose a package: \n" . 
 					\ Tex_CreatePrompt(packlist, '3', ',') .
-					\ "\nEnter number or filename :",
+					\ "\nEnter number or filename :", 
 					\ packlist, ',')
 		if packname != ''
 			return Tex_pack_one(packname)
@@ -306,7 +306,7 @@ endfunction
 "   and if supported, loads the options and commands found in the
 "   corresponding package file. Also scans for \newenvironment and
 "   \newcommand lines and adds names to g:Tex_Prompted variables, they can be
-"   easy available through <F5> and <F7> shortcuts
+"   easy available through <F5> and <F7> shortcuts 
 function! Tex_ScanForPackages(...)
 	call Tex_Debug("+Tex_ScanForPackages", "pack")
 
@@ -325,7 +325,7 @@ function! Tex_ScanForPackages(...)
 	endif
 
 	call Tex_Debug(":Tex_ScanForPackages: Begining scans in [".bufname('%')."], beginline = ".beginline, "pack")
-
+	
 
 	" Scan the file. First open up all the folds, because the command
 	" /somepattern
@@ -341,7 +341,7 @@ function! Tex_ScanForPackages(...)
 	while search('^\s*\\usepackage\_.\{-}{\_.\+}', wrap)
 		let wrap = 'W'
 
-		if line('.') > beginline
+		if line('.') > beginline 
 			break
 		endif
 
@@ -382,7 +382,7 @@ function! Tex_ScanForPackages(...)
 		let g:Tex_package_detected = g:Tex_package_detected.','.@a
 
 		" For each package found, form a global variable of the form
-		" g:Tex_{packagename}_options
+		" g:Tex_{packagename}_options 
 		" which contains a list of the options.
 		let j = 1
 		while Tex_Strntok(@a, ',', j) != ''
@@ -417,10 +417,10 @@ function! Tex_ScanForPackages(...)
 	" Scans whole file (up to \end{document}) for \newcommand and adds this
 	" commands to g:Tex_PromptedCommands variable, it is easily available
 	" through <F7>
-	0
+	0 
 	while search('^\s*\\newcommand\*\?{.\{-}}', 'W')
 
-		if line('.') > endline
+		if line('.') > endline 
 			break
 		endif
 
@@ -438,7 +438,7 @@ function! Tex_ScanForPackages(...)
 	while search('^\s*\\newenvironment\*\?{.\{-}}', 'W')
 		call Tex_Debug('found newenvironment on '.line('.'), 'pack')
 
-		if line('.') > endline
+		if line('.') > endline 
 			break
 		endif
 
@@ -458,7 +458,7 @@ function! Tex_ScanForPackages(...)
 
 	call Tex_Debug("-Tex_ScanForPackages", "pack")
 endfunction
-
+   
 " }}}
 " Tex_pack_supp_menu: sets up a menu for package files {{{
 "   found in the packages directory groups the packages thus found into groups
@@ -466,9 +466,9 @@ endfunction
 function! Tex_pack_supp_menu()
 	let suplist = Tex_FindInRtp('', 'packages')
 
-	call Tex_MakeSubmenu(suplist, g:Tex_PackagesMenuLocation.'Supported.',
+	call Tex_MakeSubmenu(suplist, g:Tex_PackagesMenuLocation.'Supported.', 
 		\ '<plug><C-r>=Tex_pack_one("', '")<CR>')
-endfunction
+endfunction 
 
 " }}}
 " Tex_pack: loads the options (and commands) for the given package {{{
@@ -478,7 +478,7 @@ function! Tex_pack(pack)
 		let optionList = g:TeX_package_option_{a:pack}.','
 		let commandList = g:TeX_package_{a:pack}.','
 
-		" Don't create separator if in package file are only Vim commands.
+		" Don't create separator if in package file are only Vim commands. 
 		" Rare but possible.
 		if !(commandList == ',' && optionList == ',')
 			exec 'amenu '.g:Tex_PackagesMenuLocation.'-sep'.a:pack.'- <Nop>'
@@ -487,7 +487,7 @@ function! Tex_pack(pack)
 		if optionList != ''
 
 			let mainMenuName = g:Tex_PackagesMenuLocation.a:pack.'\ Options.'
-			call s:GroupPackageMenuItems(optionList, mainMenuName,
+			call s:GroupPackageMenuItems(optionList, mainMenuName, 
 				\ '<plug><C-r>=IMAP_PutTextWithMovement("', ',")<CR>')
 
 		endif
@@ -495,12 +495,12 @@ function! Tex_pack(pack)
 		if commandList != ''
 
 			let mainMenuName = g:Tex_PackagesMenuLocation.a:pack.'\ Commands.'
-			call s:GroupPackageMenuItems(commandList, mainMenuName,
+			call s:GroupPackageMenuItems(commandList, mainMenuName, 
 				\ '<plug><C-r>=Tex_ProcessPackageCommand("', '")<CR>',
 				\ '<SID>FilterPackageMenuLHS')
 		endif
 	endif
-endfunction
+endfunction 
 
 " }}}
 
@@ -509,9 +509,9 @@ endfunction
 " Creating menu items for the all the package files found in the packages/
 " directory as well as creating menus for each supported package found in the
 " preamble.
-" ==============================================================================
+" ============================================================================== 
 " Tex_MakeSubmenu: makes a submenu given a list of items {{{
-" Description:
+" Description: 
 "   This function takes a comma seperated list of menu items and creates a
 "   'grouped' menu. i.e, it groups the items into s:menu_div items each and
 "   puts them in submenus of the given mainMenu.
@@ -519,7 +519,7 @@ endfunction
 "   If an additional argument is supplied, then it is used to filter each of
 "   the menu items to generate better names for the menu display.
 "
-function! Tex_MakeSubmenu(menuList, mainMenuName,
+function! Tex_MakeSubmenu(menuList, mainMenuName, 
 				\ handlerFuncLHS, handlerFuncRHS, ...)
 
 	let extractFunction = (a:0 > 0 ? a:1 : '' )
@@ -559,15 +559,15 @@ function! Tex_MakeSubmenu(menuList, mainMenuName,
 			let menuName = Tex_Strntok(menuBunch, ',', i)
 		endwhile
 	endwhile
-endfunction
+endfunction 
 
 " }}}
 " GroupPackageMenuItems: uses the sbr: to split menus into groups {{{
-" Description:
+" Description: 
 "   This function first splits up the menuList into groups based on the
-"   special sbr: tag and then calls Tex_MakeSubmenu
-"
-function! <SID>GroupPackageMenuItems(menuList, menuName,
+"   special sbr: tag and then calls Tex_MakeSubmenu 
+" 
+function! <SID>GroupPackageMenuItems(menuList, menuName, 
 					\ handlerFuncLHS, handlerFuncRHS,...)
 
 	if a:0 > 0
@@ -586,7 +586,7 @@ function! <SID>GroupPackageMenuItems(menuList, menuName,
 			let menuGroup = menuList
 		endif
 
-		call Tex_MakeSubmenu(menuGroup, a:menuName.groupName.'.',
+		call Tex_MakeSubmenu(menuGroup, a:menuName.groupName.'.', 
 			\ a:handlerFuncLHS, a:handlerFuncRHS, extractFunction)
 
 		let menuList = strpart(menuList, strlen(menuGroup))
@@ -626,7 +626,7 @@ let s:MenuLHS_sep = '-sep<+replace+>-'
 let s:MenuLHS_    = '\\&<+replace+>'
 " }}}
 " Tex_ProcessPackageCommand: processes a command from the package menu {{{
-" Description:
+" Description: 
 function! Tex_ProcessPackageCommand(command)
 	if a:command =~ ':'
 		let commandType = matchstr(a:command, '^\w\+\ze:')
@@ -642,10 +642,10 @@ function! Tex_ProcessPackageCommand(command)
 	let command = substitute(command, '<+replace+>', commandName, 'g')
 	let command = substitute(command, '<+extra+>', extrapart, 'g')
 	return IMAP_PutTextWithMovement(command)
-endfunction
+endfunction 
 " }}}
 " FilterPackageMenuLHS: filters the command description to provide a better menu item {{{
-" Description:
+" Description: 
 function! <SID>FilterPackageMenuLHS(command)
 	let commandType = matchstr(a:command, '^\w\+\ze:')
 	if commandType != ''
@@ -665,8 +665,8 @@ if g:Tex_Menus
 endif
 
 augroup LatexSuite
-	au LatexSuite User LatexSuiteFileType
-		\ call Tex_Debug('packages.vim: Catching LatexSuiteFileType event', 'pack') |
+	au LatexSuite User LatexSuiteFileType 
+		\ call Tex_Debug('packages.vim: Catching LatexSuiteFileType event', 'pack') | 
 		\ let s:save_clipboard = &clipboard |
 		\ set clipboard= |
 		\ call Tex_pack_updateall(0) |

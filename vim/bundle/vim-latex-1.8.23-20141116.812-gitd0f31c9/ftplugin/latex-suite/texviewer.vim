@@ -109,6 +109,7 @@ function! Tex_Complete(what, where)
 
 				exe 'cd '.s:origdir
 				silent! call Tex_StartCiteCompletion()
+				call Tex_EchoBibShortcuts()
 
 			elseif Tex_GetVarValue('Tex_UseJabref') == 1
 
@@ -235,7 +236,7 @@ function! Tex_CompleteWord(completeword, prefixlength)
 endfunction " }}}
 
 " ==============================================================================
-" File name completion helper functons
+" File name completion helper functions
 " ============================================================================== 
 " Tex_SetupFileCompletion:  {{{
 " Description: 
@@ -552,7 +553,7 @@ function! Tex_ScanFileForCite(prefix)
 	" First find out if this file has a \(no)bibliography or a \addbibresource
 	" (biblatex) command in it. If so, assume that this is the only file
 	" in the project which defines a bibliography.
-	if search('\\\(\(no\)\?bibliography\|addbibresource\(\[.*\]\)\?\){', 'w')
+	if search('\(%.*\)\@<!\\\(\(no\)\?bibliography\|addbibresource\(\[.*\]\)\?\){', 'w')
 		call Tex_Debug('Tex_ScanFileForCite: found bibliography command in '.bufname('%'), 'view')
 		" convey that we have found a bibliography command. we do not need to
 		" proceed any further.
@@ -839,7 +840,7 @@ function! Tex_FindBibFiles()
 	new
 	exec 'e ' . fnameescape(mainfname)
 
-	if search('\\\(\(no\)\?bibliography\|addbibresource\(\[.*\]\)\?\){', 'w')
+	if search('\(%.*\)\@<!\\\(\(no\)\?bibliography\|addbibresource\(\[.*\]\)\?\){', 'w')
 
 		call Tex_Debug('Tex_FindBibFiles: found bibliography command in '.bufname('%'), 'view')
 
@@ -900,8 +901,8 @@ function! Tex_StartCiteCompletion()
 	exec 'python Tex_BibFile.addfilter("key ^'.s:prefix.'")'
 	call Tex_DisplayBibList()
 
-	nnoremap <buffer> <Plug>Tex_JumpToNextBibEntry :call search('^\S.*\]$', 'W')<CR>:call Tex_EchoBibShortcuts()<CR>z.
-	nnoremap <buffer> <Plug>Tex_JumpToPrevBibEntry :call search('^\S.*\]$', 'bW')<CR>:call Tex_EchoBibShortcuts()<CR>z.
+	nnoremap <buffer> <Plug>Tex_JumpToNextBibEntry :call search('^\S.*\]$', 'W')<CR>z.:call Tex_EchoBibShortcuts()<CR>
+	nnoremap <buffer> <Plug>Tex_JumpToPrevBibEntry :call search('^\S.*\]$', 'bW')<CR>z.:call Tex_EchoBibShortcuts()<CR>
 	nnoremap <buffer> <Plug>Tex_FilterBibEntries   :call Tex_HandleBibShortcuts('filter')<CR>
 	nnoremap <buffer> <Plug>Tex_RemoveBibFilters   :call Tex_HandleBibShortcuts('remove_filters')<CR>
 	nnoremap <buffer> <Plug>Tex_SortBibEntries	  :call Tex_HandleBibShortcuts('sort')<CR>
@@ -945,7 +946,6 @@ function! Tex_DisplayBibList()
 	call Tex_SetupBibSyntax()
 
 	0
-	call Tex_EchoBibShortcuts()
 
 	" once the buffer is initialized, go back to the original settings.
 	setlocal nomodifiable

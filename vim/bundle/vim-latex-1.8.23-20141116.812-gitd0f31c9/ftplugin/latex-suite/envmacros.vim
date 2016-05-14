@@ -769,17 +769,17 @@ if g:Tex_PromptedEnvironments != ''
 		let start_line = line('.')
 		let start_col = virtcol('.')
 
-		if a:env == '['
+		if index(['[', '\[', '$$'], a:env) != -1
 			if b:DoubleDollars == 0
-				let first = '\\['
-				let second = '\\]'
+				let first = '\['
+				let second = '\]'
 			else
 				let first = '$$'
 				let second = '$$'
 			endif
 		else
-			let first = '\\begin{' . a:env . '}'
-			let second = '\\end{' . a:env . '}'
+			let first = '\begin{' . a:env . '}'
+			let second = '\end{' . a:env . '}'
 		endif
 
 		if b:DoubleDollars == 0
@@ -926,6 +926,15 @@ endfunction
 TexLet g:Tex_ItemStyle_itemize = '\item '
 TexLet g:Tex_ItemStyle_enumerate = '\item '
 TexLet g:Tex_ItemStyle_theindex = '\item '
+
+" paralist package
+TexLet g:Tex_ItemStyle_asparaenum = '\item '
+TexLet g:Tex_ItemStyle_asparaitem = '\item '
+TexLet g:Tex_ItemStyle_compactenum = '\item '
+TexLet g:Tex_ItemStyle_compactitem = '\item '
+TexLet g:Tex_ItemStyle_inparaenum = '\item '
+TexLet g:Tex_ItemStyle_inparaitem = '\item '
+
 TexLet g:Tex_ItemStyle_thebibliography = '\bibitem[<+biblabel+>]{<+bibkey+>} <++>'
 TexLet g:Tex_ItemStyle_description = '\item[<+label+>] <++>'
 
@@ -961,6 +970,7 @@ endfunction " }}}
 
 TexLet g:Tex_Com_{'newtheorem'} = '\newtheorem{<+name+>}{<+caption+>}[<+within+>]'
 TexLet g:Tex_Com_{'frac'} = '\frac{<+n+>}{<+d+>}<++>'
+TexLet g:Tex_Com_{'tfrac'} = '\tfrac{<+n+>}{<+d+>}<++>'
 
 " }}}
 " PromptForCommand: prompts for a command {{{
