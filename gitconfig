@@ -85,6 +85,7 @@
 
     # file tools
     find = "!git ls-files | grep -i"
+    fop = "!f() { vim $(git ls-files | grep -i "$@"); }; f"
     g = grep
     gop = "!f(){ vim $(git grep --name-only $@); }; f"
     tree = ls-tree --full-tree -r HEAD
@@ -93,6 +94,7 @@
     rs = reset
     rsh = reset --hard
     rw = "!f() { local n=${1:-1}; git reset HEAD~$n; }; f"
+    rwh = "!f() { local n=${1:-1}; git reset --hard HEAD~$n; }; f"
     # revert
     rv = revert
     rva = revert --abort
