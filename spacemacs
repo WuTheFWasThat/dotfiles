@@ -23,8 +23,17 @@ values."
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-     auto-completion
-     ;; better-defaults
+     (auto-completion
+          :variables
+               auto-completion-return-key-behavior 'complete
+               auto-completion-tab-key-behavior 'cycle
+               auto-completion-complete-with-key-sequence nil
+               auto-completion-complete-with-key-sequence-delay 0.1
+               auto-completion-private-snippets-directory nil
+               auto-completion-enable-snippets-in-popup t
+               auto-completion-enable-help-tooltip t
+               auto-completion-enable-sort-by-usage t
+     )
      emacs-lisp
      git
      javascript
@@ -38,8 +47,11 @@ values."
      ranger
      rust
      spell-checking
-     syntax-checking
-     version-control
+     ;; syntax-checking
+     ;; (version-control
+     ;;    :variables
+     ;;        version-control-global-margin nil
+     ;; )
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -262,6 +274,11 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place you code here."
+
+  (global-company-mode)
+  ; (setq company-backends-python-mode '((company-anaconda :with company-dabbrev-code :with company-yasnippet)))
+  ; (spacemacs|disable-company python-mode)
+
   ;(add-hook 'python-mode-hook 'anaconda-mode)
   ;(setq-default dotspacemacs-configuration-layers '((python :variables python-enable-yapf-format-on-save t)))
 
@@ -290,9 +307,14 @@ you should place you code here."
 
   ;; spaceline customization
   (setq powerline-default-separator 'bar)
+  ;; stupid that this is necessary...
+  (spaceline-compile)
+
   (setq spaceline-highlight-face-func 'spaceline-highlight-face-modified) ;; sets color to tell you if buffer is modified
   ;; (setq spaceline-evil-state-p nil)
-  ;; (spaceline-toggle-buffer-id-on)
+
+  ;; try:  (describe-variable 'spaceline-left)
+  ; (spaceline-toggle-buffer-id-on)
   (spaceline-toggle-buffer-size-off)
   (spaceline-toggle-buffer-position-off)
   (spaceline-toggle-major-mode-off) ;; tells you e.g. what language is being edited
