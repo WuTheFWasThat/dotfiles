@@ -47,14 +47,32 @@ theme_precmd () {
     vcs_info
 }
 
+function preexec() {
+  timer=${timer:-$SECONDS}
+}
+
+function precmd() {
+  if [ $timer ]; then
+    timer_show=" $(($SECONDS - $timer))s
+"
+    unset timer
+  else
+    timer_show=""
+  fi
+}
+
 # useful chars: » ● ✔ ✘
 local ret_status="%(?:%{$fg_bold[green]%}:%{$fg_bold[red]%})"
 setopt prompt_subst
-PROMPT='[%D{%L:%M:%S %p}] %B%F{blue}%c %(?,,%{${fg_bold[red]}%}[%?] )${ret_status}%B%F{blue}# %{$reset_color%}'
-RPROMPT='%B%F{blue}${vcs_info_msg_0_} %{$reset_color%}'
+PROMPT=$'${ret_status}%(?,, %{${fg_bold[red]}%}[%?])${timer_show}%{$reset_color%} %B%F{blue}%c %B%F{blue}# %{$reset_color%}'
+RPROMPT='%B%F{blue}${vcs_info_msg_0_} %{$reset_color%}[%D{%L:%M:%S %p}]'
+
 TMOUT=1
 TRAPALRM() {
+  # don't reset prompt if a command is being typed, since copy/paste becomes impossible
+  if [ -z "$BUFFER" ]; then
     zle reset-prompt
+  fi
 }
 
 autoload -U add-zsh-hook
