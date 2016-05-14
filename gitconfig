@@ -14,9 +14,9 @@
     co = checkout
     new = checkout -b
     # delete a branch (default to current branch).  if current branch deleted, checkout master
-    del = "!f() { mybranch=$(git rev-parse --abbrev-ref HEAD); dbranch=${1:-$mybranch}; if [ \"$mybranch\" = \"$dbranch\" ]; then git checkout master; fi; git branch -D $dbranch; }; f"
+    bd = "!f() { mybranch=$(git rev-parse --abbrev-ref HEAD); dbranch=${1:-$mybranch}; if [ \"$mybranch\" = \"$dbranch\" ]; then git checkout master; fi; git branch -D $dbranch; }; f"
     # Remove branches that have already been merged with master, a.k.a. ‘delete merged’
-    delm = "!git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"
+    bdm = "!git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"
 
     # remotes
     f = fetch --all --prune
@@ -27,7 +27,20 @@
     pla = !"git pull; git submodule foreach git pull origin master"
     track = "!f(){ branch=$(git rev-parse --abbrev-ref HEAD); cmd=\"git branch $branch -u ${1:-origin}/${2:-$branch}\"; echo $cmd; $cmd; }; f"
     untrack = "!f(){ branch=$(git rev-parse --abbrev-ref HEAD); cmd=\"git branch --unset-upstream ${1:-$branch}\"; echo $cmd; $cmd; }; f"
-    prune = "!f() { remote=${1:-origin}; git remote prune $remote; }; f"
+    # todo: get autocomplete for this
+    # todo: get better prompt
+    # i = !repl git
+    i = "!f(){ \
+         while true; do \
+             read -e -p \"git $ \" line; \
+             if [ -z "$line" ]; then continue; fi; \
+             if [ "$line" == "q" ]; then break; fi; \
+             if [ "${line:0:1}" == "!" ]; then \
+                 eval \"${line:1}\"; \
+             else \
+                 eval \"git $line\"; \
+             fi; \
+         done }; f"
 
     # github
     pr = "!echo; hub pull-request"
@@ -35,6 +48,8 @@
     hi = "!hub browse -- issues"
     hp = "!hub browse -- pulls"
     hf = "!hub browse -- find/master"
+    hl = "!f() { hash=${1:-master}; hub browse -- commits/$hash; }; f"
+    hs = "!f() { hash=${1:-master}; hub browse -- commit/$hash; }; f"
 
     # working tree
     a = add

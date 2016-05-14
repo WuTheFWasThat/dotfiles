@@ -24,8 +24,6 @@ set noswapfile
 
 syntax enable
 
-set smartindent
-
 set expandtab
 set smarttab
 set shiftwidth=2
@@ -124,6 +122,7 @@ nmap <F8> :'<,'>! awk '/[0-9]+\. .*/ { $1 = i++ "."} {print}'<CR>
 redraw!
 
 filetype on
+set nosmartindent
 filetype indent on
 filetype plugin on
 
