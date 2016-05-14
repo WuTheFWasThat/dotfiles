@@ -9,22 +9,32 @@
     # git@github.com:$1.git
 
     # branch management
-    b = branch
-    br = "!git branch | grep -v '^\\s*zz'"
+    b = branch -vv
+    ba = branch -vv -a
     co = checkout
     new = checkout -b
     # delete a branch (default to current branch).  if current branch deleted, checkout master
     del = "!f() { mybranch=$(git rev-parse --abbrev-ref HEAD); dbranch=${1:-$mybranch}; if [ \"$mybranch\" = \"$dbranch\" ]; then git checkout master; fi; git branch -D $dbranch; }; f"
+    # Remove branches that have already been merged with master, a.k.a. ‘delete merged’
+    delm = "!git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"
 
     # remotes
     f = fetch --all --prune
-    pr = "!hub pull-request"
     pu = "push -u"
     puf = "push -u -f"
     pl = "pull"
     plr = "pull --rebase"
+    pla = !"git pull; git submodule foreach git pull origin master"
     track = "!f(){ branch=$(git rev-parse --abbrev-ref HEAD); cmd=\"git branch $branch -u ${1:-origin}/${2:-$branch}\"; echo $cmd; $cmd; }; f"
     untrack = "!f(){ branch=$(git rev-parse --abbrev-ref HEAD); cmd=\"git branch --unset-upstream ${1:-$branch}\"; echo $cmd; $cmd; }; f"
+    prune = "!f() { remote=${1:-origin}; git remote prune $remote; }; f"
+
+    # github
+    pr = "!echo; hub pull-request"
+    h = "!hub browse"
+    hi = "!hub browse -- issues"
+    hp = "!hub browse -- pulls"
+    hf = "!hub browse -- find/master"
 
     # working tree
     a = add
@@ -56,6 +66,7 @@
     # rebase
     rb = rebase
     rbi = rebase -i
+    rbin = "!f() { local n=${1:-1}; git rebase -i HEAD~$n; }; f"
     rba = rebase --abort
     rbc = "!git add .; git add -u .; git rebase --continue"
     rbo = "!f(){ branch=$(git rev-parse --abbrev-ref HEAD); git fetch && git rebase origin/$branch $@; }; f"
@@ -74,6 +85,7 @@
     d = icdiff
     dc = icdiff --cached
     ds = diff --stat
+    du = diff @{upstream}
 
     # status
     s = status
@@ -90,13 +102,17 @@
     find = "!git ls-files | grep -i"
     v = "!f() { vim $(git ls-files | grep -i "$@"); }; f"
     e = "!f() { emacsclient -c $(git ls-files | grep -i "$@"); }; f"
+    # open edited
+    eop = "! vim $(git ls-files --modified)"
     g = grep
+    # grep and open
     gop = "!f(){ vim $(git grep --name-only $@); }; f"
     tree = ls-tree --full-tree -r HEAD
 
     # reset
     rs = reset
     rsh = reset --hard
+    # rewind
     rw = "!f() { local n=${1:-1}; git reset HEAD~$n; }; f"
     rwh = "!f() { local n=${1:-1}; git reset --hard HEAD~$n; }; f"
     # revert
@@ -119,6 +135,10 @@
     bss = bisect start
 
     # miscellaneous
+    # Find commits by commit message
+    fc = "!f() { git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short --grep="$@"; }; f"
+    # List contributors with number of commits
+    contributors = shortlog --summary --numbered
     alias = ! git config --get-regexp ^alias\\. | sed -e s/^alias\\.// -e s/\\ /\\ =\\ / | sort
 
 [color]
