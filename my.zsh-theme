@@ -53,18 +53,18 @@ function preexec() {
 
 function precmd() {
   if [ $timer ]; then
-    timer_show=" $(($SECONDS - $timer))s
-"
+    time_seconds=$(($SECONDS - $timer))
     unset timer
+    ret_result="%(?:%{$fg_bold[green]%}✔:%{$fg_bold[red]%}✘)%(?,, %{${fg_bold[red]}%}[%?]) ${time_seconds}s%{$reset_color%}
+"
   else
-    timer_show=""
+    ret_result=""
   fi
 }
 
 # useful chars: » ● ✔ ✘
-local ret_status="%(?:%{$fg_bold[green]%}:%{$fg_bold[red]%})"
 setopt prompt_subst
-PROMPT=$'${ret_status}%(?,, %{${fg_bold[red]}%}[%?])${timer_show}%{$reset_color%} %B%F{blue}%c %B%F{blue}# %{$reset_color%}'
+PROMPT=$'${ret_result}%B%F{blue}%c # %{$reset_color%}'
 RPROMPT='%B%F{blue}${vcs_info_msg_0_} %{$reset_color%}[%D{%L:%M:%S %p}]'
 
 TMOUT=1
