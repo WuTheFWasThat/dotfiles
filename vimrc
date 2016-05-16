@@ -312,6 +312,10 @@ set grepprg=grep\ -nH\ $*
 " http://vim.wikia.com/wiki/Mac_OS_X_clipboard_sharing
 " set clipboard=unnamed
 
+" control c copies to clipboard in visual mode
+" no way to do command in regular vim...
+map <C-c> "+y
+
 let mapleader = "\<Space>"
 " for easymotion
 " rebind leader to single key instead of 2

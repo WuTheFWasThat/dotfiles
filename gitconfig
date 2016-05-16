@@ -17,6 +17,12 @@
     bd = "!f() { mybranch=$(git rev-parse --abbrev-ref HEAD); dbranch=${1:-$mybranch}; if [ \"$mybranch\" = \"$dbranch\" ]; then git checkout master; fi; git branch -D $dbranch; }; f"
     # Remove branches that have already been merged with master, a.k.a. ‘delete merged’
     bdm = "!git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"
+    done = "!f() { \
+      mybranch=$(git rev-parse --abbrev-ref HEAD); \
+      if [ \"$mybranch\" != \"master\" ]; then git checkout master; git reset --hard $mybranch; fi; \
+      git fetch; git rebase origin/master; git push origin master; \
+      if [ \"$mybranch\" != \"master\" ]; then git branch -D $mybranch; git push origin :$mybranch; fi; \
+    }; f"
 
     # remotes
     f = fetch --all --prune
@@ -44,12 +50,14 @@
 
     # github
     pr = "!echo; hub pull-request"
-    h = "!hub browse"
+    h = "!f() { hash=${1:-$(git rev-parse --abbrev-ref HEAD)}; hub browse -- tree/$hash; }; f"
     hi = "!hub browse -- issues"
     hp = "!hub browse -- pulls"
     hf = "!hub browse -- find/master"
-    hl = "!f() { hash=${1:-master}; hub browse -- commits/$hash; }; f"
-    hs = "!f() { hash=${1:-master}; hub browse -- commit/$hash; }; f"
+    # hub log
+    hl = "!f() { hash=${1:-$(git rev-parse HEAD)}; hub browse -- commits/$hash; }; f"
+    # hub show
+    hs = "!f() { hash=${1:-$(git rev-parse HEAD)}; hub browse -- commit/$hash; }; f"
 
     # working tree
     a = add
@@ -115,13 +123,13 @@
 
     # file tools
     find = "!git ls-files | grep -i"
-    v = "!f() { vim $(git ls-files | grep -i "$@"); }; f"
-    e = "!f() { emacsclient -c $(git ls-files | grep -i "$@"); }; f"
+    v = "!f() { vim $(git ls-files | grep -i \"$@\"); }; f"
+    e = "!f() { emacsclient -c $(git ls-files | grep -i \"$@\"); }; f"
     # open edited
     eop = "! vim $(git ls-files --modified)"
     g = grep
     # grep and open
-    gop = "!f(){ vim $(git grep --name-only $@); }; f"
+    gop = "!f(){ vim $(git grep --name-only \"$@\"); }; f"
     tree = ls-tree --full-tree -r HEAD
 
     # reset
