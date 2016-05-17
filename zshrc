@@ -231,6 +231,10 @@ export PATH=$PATH:~/.multirust/toolchains/1.5.0/cargo/bin
 export PATH=$PATH:~/Library/Haskell/bin
 export RUST_BACKTRACE=1
 
+for file in ~/.zshrc_scripts/*; do
+   source "$file"
+done
+
 # The next line updates PATH for the Google Cloud SDK.
 source ~/google-cloud-sdk/path.zsh.inc
 
