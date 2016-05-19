@@ -52,7 +52,7 @@
     pr = "!echo; hub pull-request"
     h = "!f() { hash=${1:-$(git rev-parse --abbrev-ref HEAD)}; hub browse -- tree/$hash; }; f"
     hi = "!hub browse -- issues"
-    hp = "!hub browse -- pulls"
+    hp = "!f() { pr=$1; if [ -z \"$1\" ]; then hub browse -- pulls; else hub browse -- pull/$pr ; fi; }; f"
     hf = "!hub browse -- find/master"
     # hub log
     hl = "!f() { hash=${1:-$(git rev-parse HEAD)}; hub browse -- commits/$hash; }; f"
@@ -139,7 +139,7 @@
     rw = "!f() { local n=${1:-1}; git reset HEAD~$n; }; f"
     rwh = "!f() { local n=${1:-1}; git reset --hard HEAD~$n; }; f"
     # revert
-    rv = revert
+    rv = "!f() { local hash=${1:-HEAD}; git revert $hash; }; f"
     rva = revert --abort
     rvc = revert --continue
 

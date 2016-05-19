@@ -8,6 +8,7 @@ zstyle ':vcs_info:*' enable git
 zstyle ':vcs_info:git*:*' get-revision true
 zstyle ':vcs_info:git*:*' check-for-changes true
 
+
 zstyle ':vcs_info:git:*' stagedstr "${yellow}✘"
 zstyle ':vcs_info:git:*' unstagedstr "${red}✘"
 

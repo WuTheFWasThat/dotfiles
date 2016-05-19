@@ -36,22 +36,22 @@ values."
      )
      emacs-lisp
      git
-     javascript
      ;; markdown
      org
      ;; (shell :variables
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
      osx
-     python
      ranger
-     rust
      spell-checking
-     ;; syntax-checking
-     ;; (version-control
-     ;;    :variables
-     ;;        version-control-global-margin nil
-     ;; )
+     syntax-checking
+     (version-control
+        :variables
+            version-control-global-margin nil
+     )
+     python
+     rust
+     javascript
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these

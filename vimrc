@@ -355,6 +355,12 @@ nnoremap <Leader>wl <C-W>l
 nnoremap <Leader>ww <C-W>w
 nnoremap <Leader>wm <C-W>o
 
+" reindent
+nnoremap <Leader>j= mzgg=G`z
+nnoremap <Leader>qq :qa<CR>
+nnoremap <Leader>qQ :qa!<CR>
+nnoremap <Leader>qs :xa<CR>
+
 " set colorscheme.  this needs to be later for some unknown reason
 set background=dark
 let g:solarized_termcolors = 256
