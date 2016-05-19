@@ -2,6 +2,10 @@
 	path = vim/bundle/YouCompleteMe
   url = git@github.com:Valloric/YouCompleteMe.git
 
+[submodule "nerdtree"]
+	path = vim/bundle/nerdtree
+	url = https://github.com/scrooloose/nerdtree.git
+
 [submodule "ctrlp"]
   path = vim/bundle/ctrlp.vim
   url =	https://github.com/kien/ctrlp.vim.git

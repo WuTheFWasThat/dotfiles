@@ -359,6 +359,8 @@ nnoremap <Leader>qQ :qa!<CR>
 nnoremap <Leader>qs :xa<CR>
 
 nnoremap <Leader>sc :noh<CR>
+" nerdtree like spacemacs ranger
+nnoremap <Leader>ar :NERDTreeToggle<CR>
 
 " set colorscheme.  this needs to be later for some unknown reason
 set background=dark
