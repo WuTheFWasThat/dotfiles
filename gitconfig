@@ -157,6 +157,11 @@
     bsr = bisect reset
     bss = bisect start
 
+    # submodules
+    smi = submodule init
+    sma = submodule add
+    smu = submodule update
+
     # miscellaneous
     # Find commits by commit message
     fc = "!f() { git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short --grep="$@"; }; f"

@@ -10,12 +10,8 @@
 set ruler
 set nu
 
-" highlight for search, esc to de-highlight
+" highlight for search
 set hlsearch
-" SEE: http://stackoverflow.com/questions/11940801/mapping-esc-in-vimrc-causes-bizzare-arrow-behaviour
-augroup no_highlight
-  autocmd TermResponse * nnoremap <esc> :noh<return><esc>
-augroup END
 
 set incsearch
 set cursorline
@@ -44,6 +40,7 @@ autocmd BufWritePre * :%s/\s\+$//e
 "map <C-L> <C-W>l<C-W>_
 
 map <C-C> :s/^/\/\//<CR>\|:noh<CR>
+
 
 " let g:miniBufExplMapWindowNavVim = 1
 let g:miniBufExplMapWindowNavArrows = 1
@@ -360,6 +357,8 @@ nnoremap <Leader>j= mzgg=G`z
 nnoremap <Leader>qq :qa<CR>
 nnoremap <Leader>qQ :qa!<CR>
 nnoremap <Leader>qs :xa<CR>
+
+nnoremap <Leader>sc :noh<CR>
 
 " set colorscheme.  this needs to be later for some unknown reason
 set background=dark
