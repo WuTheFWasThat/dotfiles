@@ -1,2 +1,0 @@
-- figure out autocomplete for spacemacs
-- figure out shell within emacs (https://github.com/syl20bnr/spacemacs/tree/master/layers/shell)
