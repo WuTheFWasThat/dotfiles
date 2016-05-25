@@ -317,10 +317,9 @@ let mapleader = "\<Space>"
 " for easymotion
 " rebind leader to single key instead of 2
 " map <Leader> <Plug>(easymotion-prefix)
-map <Leader>y <Plug>(easymotion-bd-jk)
 " map <Leader>w <Plug>(easymotion-bd-w)
 " map <Leader>t <Plug>(easymotion-bd-tl)
-map <Leader>f <Plug>(easymotion-bd-f)
+" map <Leader>f <Plug>(easymotion-bd-f)
 " Use uppercase target labels and type as a lower case
 let g:EasyMotion_use_upper = 1
 
@@ -341,29 +340,6 @@ nnoremap <Leader>8 :8b<CR>
 nnoremap <Leader>9 :9b<CR>
 nnoremap <Leader>0 :10b<CR>
 
-nnoremap <Leader>tn :set<Space>invnumber<CR>
-nnoremap <Leader>ws :split<CR>
-nnoremap <Leader>wv :vsplit<CR>
-nnoremap <Leader>wc :q<CR>
-nnoremap <Leader>wh <C-W>h
-nnoremap <Leader>wj <C-W>j
-nnoremap <Leader>wk <C-W>k
-nnoremap <Leader>wl <C-W>l
-nnoremap <Leader>ww <C-W>w
-nnoremap <Leader>wm <C-W>o
-
-" reindent
-nnoremap <Leader>j= mzgg=G`z
-
-" save/quit
-nnoremap <Leader>fs :w<CR>
-nnoremap <Leader>fS :wa<CR>
-nnoremap <Leader>qq :qa<CR>
-nnoremap <Leader>qQ :qa!<CR>
-nnoremap <Leader>qs :xa<CR>
-
-" clear search
-nnoremap <Leader>sc :noh<CR>
 
 " set colorscheme.  this needs to be later for some unknown reason
 set background=dark
