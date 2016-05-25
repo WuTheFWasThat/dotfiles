@@ -96,6 +96,13 @@ function list_space {
   du -sh -- $1*  | sort -rg
 }
 
+function up {
+  n=${1:-1}
+  pwd
+  for i in `seq 1 $n`; do cd ..; done
+  pwd
+}
+
 alias h='history'
 
 alias docs='pushd ~/Documents'

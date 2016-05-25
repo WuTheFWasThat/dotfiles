@@ -354,13 +354,16 @@ nnoremap <Leader>wm <C-W>o
 
 " reindent
 nnoremap <Leader>j= mzgg=G`z
+
+" save/quit
+nnoremap <Leader>fs :w<CR>
+nnoremap <Leader>fS :wa<CR>
 nnoremap <Leader>qq :qa<CR>
 nnoremap <Leader>qQ :qa!<CR>
 nnoremap <Leader>qs :xa<CR>
 
+" clear search
 nnoremap <Leader>sc :noh<CR>
-" nerdtree like spacemacs ranger
-nnoremap <Leader>ar :NERDTreeToggle<CR>
 
 " set colorscheme.  this needs to be later for some unknown reason
 set background=dark
@@ -368,3 +371,5 @@ let g:solarized_termcolors = 256
 " let g:solarized_visibility = "high"
 " let g:solarized_contrast = "high"
 colorscheme solarized
+" see: http://serverfault.com/questions/268555/how-to-tell-vim-to-extend-the-background-color-to-the-whole-screen
+set t_ut=
