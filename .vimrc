@@ -268,7 +268,31 @@ filetype plugin on
 "    " which offer smarter and less intrusive alternatives
 "
 
-execute pathogen#infect()
+" Required Vundle setup
+filetype off
+set runtimepath+=~/.vim/bundle/Vundle.vim
+call vundle#rc()
+
+Bundle 'VundleVim/Vundle.vim'
+Bundle 'Valloric/YouCompleteMe'
+Bundle 'scrooloose/nerdtree'
+Bundle 'kien/ctrlp.vim'
+Bundle 'ElmCast/elm-vim'
+Bundle 'rust-lang/rust.vim'
+Bundle 'scrooloose/syntastic'
+Bundle 'kchmck/vim-coffee-script'
+Bundle 'easymotion/vim-easymotion'
+Bundle 'tpope/vim-fugitive'
+Bundle 'vim-latex/vim-latex'
+Bundle 'rking/ag.vim'
+Bundle 'airblade/vim-gitgutter'
+Bundle 'Shougo/unite.vim'
+Bundle 'tpope/vim-commentary'
+Bundle 'pangloss/vim-javascript'
+Bundle 'szw/vim-maximizer'
+
+" NOTE: command line install:
+" vim +PluginInstall +qall
 
 " ctrl p
 set runtimepath^=~/.vim/bundle/ctrlp.vim
