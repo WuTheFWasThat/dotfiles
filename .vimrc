@@ -5,7 +5,8 @@
 "highlight Folded guibg=grey guifg=blue
 "highlight FoldColumn guibg=darkgrey guifg=white
 
-"map n nzz
+" search centers screen
+map n nzz
 
 set ruler
 set nu
@@ -17,8 +18,6 @@ set incsearch
 set cursorline
 
 set noswapfile
-
-syntax enable
 
 set expandtab
 set smarttab
@@ -39,8 +38,8 @@ autocmd BufWritePre * :%s/\s\+$//e
 "map <C-H> <C-W>h<C-W>_
 "map <C-L> <C-W>l<C-W>_
 
-map <C-C> :s/^/\/\//<CR>\|:noh<CR>
-
+" commenting
+" map <C-C> :s/^/\/\//<CR>\|:noh<CR>
 
 " let g:miniBufExplMapWindowNavVim = 1
 let g:miniBufExplMapWindowNavArrows = 1
@@ -76,13 +75,6 @@ map Q gq
 " This is an alternative that also works in block mode, but the deleted
 " text is lost and it only works for putting the current register.
 "vnoremap p "_dp
-
-" Switch syntax highlighting on, when the terminal has colors
-" Also switch on highlighting the last used search pattern.
-if &t_Co > 2 || has("gui_running")
-  syntax on
-  set hlsearch
-endif
 
 " Only do this part when compiled with support for autocommands.
 if has("autocmd")
@@ -276,7 +268,7 @@ call vundle#rc()
 Bundle 'VundleVim/Vundle.vim'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'scrooloose/nerdtree'
-Bundle 'kien/ctrlp.vim'
+Bundle 'ctrlpvim/ctrlp.vim'
 Bundle 'ElmCast/elm-vim'
 Bundle 'rust-lang/rust.vim'
 Bundle 'scrooloose/syntastic'
@@ -286,7 +278,16 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'vim-latex/vim-latex'
 Bundle 'rking/ag.vim'
 Bundle 'airblade/vim-gitgutter'
+
 Bundle 'Shougo/unite.vim'
+function! s:unite_settings() "{
+   nmap <buffer> <Esc>     <Plug>(unite_exit)
+endfunction
+autocmd FileType unite call s:unite_settings()
+let g:unite_split_rule = 'botright'
+Bundle 'Shougo/neomru.vim'
+Bundle 'Shougo/neoyank.vim'
+
 Bundle 'tpope/vim-commentary'
 Bundle 'pangloss/vim-javascript'
 Bundle 'szw/vim-maximizer'
@@ -334,25 +335,13 @@ set grepprg=grep\ -nH\ $*
 " set clipboard=unnamed
 
 " control c copies to clipboard in visual mode
-" no way to do command in regular vim...
+" no way to do command key in regular vim...
 map <C-c> "+y
 
 let mapleader = "\<Space>"
-" for easymotion
-" rebind leader to single key instead of 2
-" map <Leader> <Plug>(easymotion-prefix)
-" map <Leader>w <Plug>(easymotion-bd-w)
-" map <Leader>t <Plug>(easymotion-bd-tl)
-" map <Leader>f <Plug>(easymotion-bd-f)
-" Use uppercase target labels and type as a lower case
-let g:EasyMotion_use_upper = 1
-
 " faster switch buffers
-map <C-J> <Esc>:bn<CR>
-map <C-K> <Esc>:bN<CR>
-nnoremap <Leader>bn :bn<CR>
-nnoremap <Leader>bp :bp<CR>
-nnoremap <Leader>bd :bd<CR>
+nnoremap <C-J> <Esc>:bn<CR>
+nnoremap <C-K> <Esc>:bN<CR>
 nnoremap <Leader>1 :1b<CR>
 nnoremap <Leader>2 :2b<CR>
 nnoremap <Leader>3 :3b<CR>
@@ -364,10 +353,24 @@ nnoremap <Leader>8 :8b<CR>
 nnoremap <Leader>9 :9b<CR>
 nnoremap <Leader>0 :10b<CR>
 
+" for easymotion
+" rebind leader to single key instead of 2
+" map <Leader> <Plug>(easymotion-prefix)
+" map <Leader>w <Plug>(easymotion-bd-w)
+" map <Leader>t <Plug>(easymotion-bd-tl)
+" map <Leader>f <Plug>(easymotion-bd-f)
+" Use uppercase target labels and type as a lower case
+let g:EasyMotion_use_upper = 1
 
-" set colorscheme.  this needs to be later for some unknown reason
-set background=dark
+" NOTE: this must be near the end for some reason
+" Switch syntax highlighting on, when the terminal has colors
+" Also switch on highlighting the last used search pattern.
+if &t_Co > 2 || has("gui_running")
+  " syntax on
+  syntax enable
+endif
 let g:solarized_termcolors = 256
+set background=dark
 " let g:solarized_visibility = "high"
 " let g:solarized_contrast = "high"
 colorscheme solarized

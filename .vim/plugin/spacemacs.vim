@@ -18,9 +18,27 @@ nnoremap <Leader>wm <C-W>o
 " reindent
 nnoremap <Leader>j= mzgg=G`z
 
-" save/quit
+" files
+nnoremap <Leader>fed :e ~/.vimrc<CR>
+nnoremap <Leader>feR :source ~/.vimrc<CR>
 nnoremap <Leader>fs :w<CR>
 nnoremap <Leader>fS :wa<CR>
+" yank history
+nnoremap <Leader>fp :<C-u>Unite history/yank<cr>
+" find all (meh)
+" nnoremap <Leader>fa :<C-u>Unite buffer history/yank file file_rec/async file_mru<cr>
+" find files
+" nnoremap <Leader>ff :<C-u>Unite file file_rec/async file_mru<cr>
+" recent files
+" nnoremap <Leader>fr :<C-u>Unite -no-split -buffer-name=mru -start-insert file_mru<cr>
+
+"buffers
+nnoremap <Leader>bb :CtrlPBuffer<CR>
+nnoremap <Leader>bn :bn<CR>
+nnoremap <Leader>bp :bp<CR>
+nnoremap <Leader>bd :bd<CR>
+
+" save/quit
 nnoremap <Leader>qq :qa<CR>
 nnoremap <Leader>qQ :qa!<CR>
 nnoremap <Leader>qs :xa<CR>
