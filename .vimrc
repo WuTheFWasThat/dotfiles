@@ -275,7 +275,8 @@ Bundle 'scrooloose/syntastic'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'easymotion/vim-easymotion'
 Bundle 'tpope/vim-fugitive'
-Bundle 'vim-latex/vim-latex'
+" causes issues with mapping <C-j> due to IMAP
+" Bundle 'vim-latex/vim-latex'
 Bundle 'rking/ag.vim'
 Bundle 'airblade/vim-gitgutter'
 

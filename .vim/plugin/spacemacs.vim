@@ -37,6 +37,7 @@ nnoremap <Leader>bb :CtrlPBuffer<CR>
 nnoremap <Leader>bn :bn<CR>
 nnoremap <Leader>bp :bp<CR>
 nnoremap <Leader>bd :bd<CR>
+nnoremap <Leader>bR :e<CR>
 
 " save/quit
 nnoremap <Leader>qq :qa<CR>
@@ -45,6 +46,15 @@ nnoremap <Leader>qs :xa<CR>
 
 " clear search
 nnoremap <Leader>sc :noh<CR>
+
+" git
+nnoremap <Leader>gb :Gblame<CR>
+nnoremap <Leader>gd :Gdiff<CR>
+nnoremap <Leader>gs :Gstatus<CR>
+nnoremap <Leader>gw :Gwrite<CR>
+nnoremap <Leader>gp :Git push<CR>
+nnoremap <Leader>gc :Gcommit<CR>
+nnoremap <Leader>Td :GitGutterToggle<CR>
 
 " TODO:
 " port stuff from:
