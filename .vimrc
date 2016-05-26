@@ -277,12 +277,19 @@ Bundle 'easymotion/vim-easymotion'
 Bundle 'tpope/vim-fugitive'
 " causes issues with mapping <C-j> due to IMAP
 " Bundle 'vim-latex/vim-latex'
-Bundle 'rking/ag.vim'
+" TODO use for grepping codebase?
+" e.g. nmap <LEADER>sp :Ag<SPACE>
+" Bundle 'rking/ag.vim'
 Bundle 'airblade/vim-gitgutter'
 
 Bundle 'Shougo/unite.vim'
 function! s:unite_settings() "{
    nmap <buffer> <Esc>     <Plug>(unite_exit)
+   " " Play nice with supertab
+   " let b:SuperTabDisabled=1
+   " " Enable navigation with control-j and control-k in insert mode
+   " imap <buffer> <C-j> <Plug>(unite_select_next_line)
+   " imap <buffer> <C-k> <Plug>(unite_select_previous_line)
 endfunction
 autocmd FileType unite call s:unite_settings()
 let g:unite_split_rule = 'botright'
@@ -343,16 +350,16 @@ let mapleader = "\<Space>"
 " faster switch buffers
 nnoremap <C-J> <Esc>:bn<CR>
 nnoremap <C-K> <Esc>:bN<CR>
-nnoremap <Leader>1 :1b<CR>
-nnoremap <Leader>2 :2b<CR>
-nnoremap <Leader>3 :3b<CR>
-nnoremap <Leader>4 :4b<CR>
-nnoremap <Leader>5 :5b<CR>
-nnoremap <Leader>6 :6b<CR>
-nnoremap <Leader>7 :7b<CR>
-nnoremap <Leader>8 :8b<CR>
-nnoremap <Leader>9 :9b<CR>
-nnoremap <Leader>0 :10b<CR>
+nnoremap <Leader>1 :b1<CR>
+nnoremap <Leader>2 :b2<CR>
+nnoremap <Leader>3 :b3<CR>
+nnoremap <Leader>4 :b4<CR>
+nnoremap <Leader>5 :b5<CR>
+nnoremap <Leader>6 :b6<CR>
+nnoremap <Leader>7 :b7<CR>
+nnoremap <Leader>8 :b8<CR>
+nnoremap <Leader>9 :b9<CR>
+nnoremap <Leader>0 :b10<CR>
 
 " for easymotion
 " rebind leader to single key instead of 2
