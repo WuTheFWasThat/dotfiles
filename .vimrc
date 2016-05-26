@@ -13,6 +13,8 @@ set nu
 
 " highlight for search
 set hlsearch
+" ignore case
+set ic
 
 set incsearch
 set cursorline
@@ -24,22 +26,16 @@ set smarttab
 set shiftwidth=2
 set tabstop=2
 
-" ignore case
-set ic
+set nosmartindent
 set cindent
 
+" lets you hide buffers when opening new files
 set hidden
 
 autocmd BufWritePre * :%s/\s\+$//e
 
 nnoremap  ;  :
 "nnoremap  :  ;
-
-" example of: switch Windows and maximize in one keypress
-"map <C-J> <C-W>j<C-W>_
-"map <C-K> <C-W>k<C-W>_
-"map <C-H> <C-W>h<C-W>_
-"map <C-L> <C-W>l<C-W>_
 
 " let g:miniBufExplMapWindowNavVim = 1
 let g:miniBufExplMapWindowNavArrows = 1
@@ -85,8 +81,6 @@ if has("autocmd")
 
 endif " has("autocmd")
 
-set nosmartindent
-
 "====[ Make the 81st column stand out ]====================
 "
 "    " EITHER the entire 81st column, full-screen...
@@ -121,7 +115,10 @@ call vundle#rc()
 Bundle 'VundleVim/Vundle.vim'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'scrooloose/nerdtree'
+
 Bundle 'ctrlpvim/ctrlp.vim'
+let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
+
 Bundle 'ElmCast/elm-vim'
 Bundle 'rust-lang/rust.vim'
 Bundle 'scrooloose/syntastic'
@@ -158,11 +155,6 @@ filetype plugin indent on    " required
 
 " NOTE: command line install:
 " vim +PluginInstall +qall
-
-" ctrl p
-set runtimepath^=~/.vim/bundle/ctrlp.vim
-
-let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
 
 " syntastic
 
@@ -205,17 +197,23 @@ map <C-c> "+y
 let mapleader = "\<Space>"
 " faster switch buffers
 nnoremap <C-J> <Esc>:bn<CR>
-nnoremap <C-K> <Esc>:bN<CR>
-nnoremap <Leader>1 :b1<CR>
-nnoremap <Leader>2 :b2<CR>
-nnoremap <Leader>3 :b3<CR>
-nnoremap <Leader>4 :b4<CR>
-nnoremap <Leader>5 :b5<CR>
-nnoremap <Leader>6 :b6<CR>
-nnoremap <Leader>7 :b7<CR>
-nnoremap <Leader>8 :b8<CR>
-nnoremap <Leader>9 :b9<CR>
-nnoremap <Leader>0 :b10<CR>
+nnoremap <C-K> <Esc>:bp<CR>
+" nnoremap <Leader>1 :b1<CR>
+" nnoremap <Leader>2 :b2<CR>
+" nnoremap <Leader>3 :b3<CR>
+" nnoremap <Leader>4 :b4<CR>
+" nnoremap <Leader>5 :b5<CR>
+" nnoremap <Leader>6 :b6<CR>
+" nnoremap <Leader>7 :b7<CR>
+" nnoremap <Leader>8 :b8<CR>
+" nnoremap <Leader>9 :b9<CR>
+" nnoremap <Leader>0 :b10<CR>
+
+" example of: switch Windows and maximize in one keypress
+"map <C-J> <C-W>j<C-W>_
+"map <C-K> <C-W>k<C-W>_
+"map <C-H> <C-W>h<C-W>_
+"map <C-L> <C-W>l<C-W>_
 
 " for easymotion
 " rebind leader to single key instead of 2
