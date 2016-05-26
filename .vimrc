@@ -32,21 +32,19 @@ set hidden
 
 autocmd BufWritePre * :%s/\s\+$//e
 
+nnoremap  ;  :
+"nnoremap  :  ;
+
 " example of: switch Windows and maximize in one keypress
 "map <C-J> <C-W>j<C-W>_
 "map <C-K> <C-W>k<C-W>_
 "map <C-H> <C-W>h<C-W>_
 "map <C-L> <C-W>l<C-W>_
 
-" commenting
-" map <C-C> :s/^/\/\//<CR>\|:noh<CR>
-
 " let g:miniBufExplMapWindowNavVim = 1
 let g:miniBufExplMapWindowNavArrows = 1
 let g:miniBufExplMapCTabSwitchBufs = 1
 let g:miniBufExplModSelTarget = 1
-
-:set comments=sl:/**,mb:\ *,elx:\ */
 
 " Make p in Visual mode replace the selected text with the "" register.
 vnoremap p <Esc>:let current_reg = @"<CR>gvs<C-R>=current_reg<CR><Esc>
@@ -58,19 +56,15 @@ set nocompatible
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
 
-
 set autoindent      " always set autoindenting on
 if has("vms")
   set nobackup      " do not keep a backup file, use versions instead
 else
   set nobackup      " keep a backup file
-set backupdir=./.backup,~/.backup,/tmp
+  set backupdir=./.backup,~/.backup,/tmp
 endif
 set history=500      " keep 50 lines of command line history
 set showcmd          " display incomplete commands
-
-" Don't use Ex mode, use Q for formatting
-map Q gq
 
 " This is an alternative that also works in block mode, but the deleted
 " text is lost and it only works for putting the current register.
@@ -97,18 +91,6 @@ if has("autocmd")
     \ endif
 
 endif " has("autocmd")
-
-nmap <space> za
-nmap <F2> :cp<CR>
-nmap <F3> :cn<CR>
-nmap <F4> :grep <C-R>" *.cpp *.h <CR>
-nmap <F5> :redraw! <CR>
-nmap <F6> :tp<CR>
-nmap <F7> :tn<CR>
-
-"RENUMBER LINES, useful for lists
-nmap <F8> :'<,'>! awk '/[0-9]+\. .*/ { $1 = i++ "."} {print}'<CR>
-redraw!
 
 filetype on
 set nosmartindent
@@ -197,27 +179,6 @@ filetype plugin on
 "    endfunction
 "
 "
-""====[ Make tabs, trailing whitespace, and non-breaking spaces visible ]======
-"
-"    exec "set listchars=tab:\uBB\uBB,trail:\uB7,nbsp:~"
-"    set list
-"
-"
-""====[ Swap : and ; to make colon commands easier to type ]======
-"
-    nnoremap  ;  :
-"    nnoremap  :  ;
-"
-"
-""====[ Swap v and CTRL-V, because Block mode is more useful that Visual mode "]======
-"
-"    nnoremap    v   <C-V>
-"    nnoremap <C-V>     v
-"
-"    vnoremap    v   <C-V>
-"    vnoremap <C-V>     v
-"
-"
 ""====[ Always turn on syntax highlighting for diffs ]=========================
 "
 "    " EITHER select by the file-suffix directly...
@@ -244,21 +205,6 @@ filetype plugin on
 "    "     :mkspell  ~/.vim/spell/en-basic  basic_english_words.txt
 "    "
 "    " See :help mkspell
-"
-"
-""====[ Make CTRL-K list diagraphs before each digraph entry ]===============
-"
-"    inoremap <expr> <C-K> ShowDigraphs()
-"
-"    function! ShowDigraphs ()
-"        digraphs
-"        call getchar()
-"        return "\<C-K>"
-"    endfunction
-"
-"    " But also consider the hudigraphs.vim and betterdigraphs.vim plugins,
-"    " which offer smarter and less intrusive alternatives
-"
 
 " Required Vundle setup
 filetype off
@@ -335,7 +281,7 @@ let g:syntastic_auto_loc_list = 1
 let g:elm_syntastic_show_warnings = 1
 
 " IMPORTANT: grep will sometimes skip displaying the file name if you
-" search in a singe file. This will confuse Latex-Suite. Set your grep
+" search in a single file. This will confuse Latex-Suite. Set your grep
 " program to always generate a file-name.
 set grepprg=grep\ -nH\ $*
 

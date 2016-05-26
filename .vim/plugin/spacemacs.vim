@@ -1,6 +1,5 @@
 " help
-nmap <Leader>? :Unite output:nmap<CR>
-" WANT: nmap <Leader>? :Unite output:nmap<Space><Leader><CR>
+nmap <Leader>? :Unite output:nmap\ \<Leader\><CR>
 
 " avy
 map <Leader>y <Plug>(easymotion-bd-jk)
@@ -86,3 +85,5 @@ nnoremap <Leader>gw :Gwrite<CR>
 nnoremap <Leader>gp :Git push<CR>
 nnoremap <Leader>gc :Gcommit<CR>
 nnoremap <Leader>Td :GitGutterToggle<CR>
+
+" TODO: folding
