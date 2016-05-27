@@ -112,27 +112,27 @@ filetype off
 set runtimepath+=~/.vim/bundle/Vundle.vim
 call vundle#rc()
 
-Bundle 'VundleVim/Vundle.vim'
-Bundle 'Valloric/YouCompleteMe'
-Bundle 'scrooloose/nerdtree'
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'scrooloose/nerdtree'
 
-Bundle 'ctrlpvim/ctrlp.vim'
+Plugin 'ctrlpvim/ctrlp.vim'
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
 
-Bundle 'ElmCast/elm-vim'
-Bundle 'rust-lang/rust.vim'
-Bundle 'scrooloose/syntastic'
-Bundle 'kchmck/vim-coffee-script'
-Bundle 'easymotion/vim-easymotion'
-Bundle 'tpope/vim-fugitive'
+Plugin 'ElmCast/elm-vim'
+Plugin 'rust-lang/rust.vim'
+Plugin 'scrooloose/syntastic'
+Plugin 'kchmck/vim-coffee-script'
+Plugin 'easymotion/vim-easymotion'
+Plugin 'tpope/vim-fugitive'
 " causes issues with mapping <C-j> due to IMAP
-" Bundle 'vim-latex/vim-latex'
+" Plugin 'vim-latex/vim-latex'
 " TODO use for grepping codebase?
 " e.g. nmap <LEADER>sp :Ag<SPACE>
-" Bundle 'rking/ag.vim'
-Bundle 'airblade/vim-gitgutter'
+" Plugin 'rking/ag.vim'
+Plugin 'airblade/vim-gitgutter'
 
-Bundle 'Shougo/unite.vim'
+Plugin 'Shougo/unite.vim'
 function! s:unite_settings() "{
    nmap <buffer> <Esc>     <Plug>(unite_exit)
    " " Play nice with supertab
@@ -143,12 +143,13 @@ function! s:unite_settings() "{
 endfunction
 autocmd FileType unite call s:unite_settings()
 let g:unite_split_rule = 'botright'
-Bundle 'Shougo/neomru.vim'
-Bundle 'Shougo/neoyank.vim'
+Plugin 'Shougo/neomru.vim'
+Plugin 'Shougo/neoyank.vim'
 
-Bundle 'tpope/vim-commentary'
-Bundle 'pangloss/vim-javascript'
-Bundle 'szw/vim-maximizer'
+Plugin 'tpope/vim-commentary'
+Plugin 'pangloss/vim-javascript'
+Plugin 'szw/vim-maximizer'
+Plugin 'szw/vim-tags'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
