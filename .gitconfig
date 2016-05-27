@@ -52,6 +52,7 @@
     pr = "!echo; hub pull-request"
     h = "!f() { hash=${1:-$(git rev-parse --abbrev-ref HEAD)}; hub browse -- tree/$hash; }; f"
     hi = "!hub browse -- issues"
+    hin = "!hub browse -- issues/new"
     hp = "!f() { pr=$1; if [ -z \"$1\" ]; then hub browse -- pulls; else hub browse -- pull/$pr ; fi; }; f"
     hf = "!hub browse -- find/master"
     # hub log
@@ -125,13 +126,16 @@
 
     # file tools
     find = "!git ls-files | grep -i"
+    op = "!f() { vim $(git ls-files | grep -i \"$@\"); }; f"
     v = "!f() { vim $(git ls-files | grep -i \"$@\"); }; f"
     e = "!f() { emacsclient -c $(git ls-files | grep -i \"$@\"); }; f"
     # open edited
     eop = "! vim $(git ls-files --modified)"
     g = grep
+    gi = grep -i
     # grep and open
     gop = "!f(){ vim $(git grep --name-only \"$@\"); }; f"
+    giop = "!f(){ vim $(git grep -i --name-only \"$@\"); }; f"
     tree = ls-tree --full-tree -r HEAD
 
     # reset
