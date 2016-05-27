@@ -14,7 +14,8 @@
     co = checkout
     new = checkout -b
     # delete a branch (default to current branch).  if current branch deleted, checkout master
-    bd = "!f() { mybranch=$(git rev-parse --abbrev-ref HEAD); dbranch=${1:-$mybranch}; if [ \"$mybranch\" = \"$dbranch\" ]; then git checkout master; fi; git branch -D $dbranch; }; f"
+    bd = branch -D
+    bx = "!f() { branch=$(git rev-parse --abbrev-ref HEAD); if [ \"$branch\" = \"master\" ]; then echo \"Can't delete master!\"; return 1; fi; git checkout master; git branch -D $branch; }; f"
     # Remove branches that have already been merged with master, a.k.a. ‘delete merged’
     bdm = "!git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"
     done = "!f() { \
@@ -49,7 +50,7 @@
          done }; f"
 
     # github
-    pr = "!echo; hub pull-request"
+    pr = "!git push; hub pull-request"
     h = "!f() { hash=${1:-$(git rev-parse --abbrev-ref HEAD)}; hub browse -- tree/$hash; }; f"
     hi = "!hub browse -- issues"
     hin = "!hub browse -- issues/new"
@@ -102,7 +103,7 @@
     ma = merge --abort
 
     # open merge conflicts (good for rebase/cherry-pick/merge too)
-    mop = "!f() { vim $(git diff --name-only --diff-filter=U); }; f"
+    mop = "!f() { $(git editor) $(git diff --name-only --diff-filter=U); }; f"
 
     # diffs
     diff = icdiff
@@ -115,7 +116,7 @@
     s = status
     sh = show
     shs = show --stat
-    shop = "!f() { vim $(git show --pretty=\"format:\" --name-only $1); }; f"
+    shop = "!f() { $(git editor) $(git show --pretty=\"format:\" --name-only $1); }; f"
 
 
     # tree
@@ -126,16 +127,14 @@
 
     # file tools
     find = "!git ls-files | grep -i"
-    op = "!f() { vim $(git ls-files | grep -i \"$@\"); }; f"
-    v = "!f() { vim $(git ls-files | grep -i \"$@\"); }; f"
-    e = "!f() { emacsclient -c $(git ls-files | grep -i \"$@\"); }; f"
+    op = "!f() { $(git editor) $(git ls-files | grep -i \"$@\"); }; f"
     # open edited
-    eop = "! vim $(git ls-files --modified)"
+    eop = "! $(git editor) $(git ls-files --modified)"
     g = grep
     gi = grep -i
     # grep and open
-    gop = "!f(){ vim $(git grep --name-only \"$@\"); }; f"
-    giop = "!f(){ vim $(git grep -i --name-only \"$@\"); }; f"
+    gop = "!f(){ $(git editor) $(git grep --name-only \"$@\"); }; f"
+    giop = "!f(){ $(git editor) $(git grep -i --name-only \"$@\"); }; f"
     tree = ls-tree --full-tree -r HEAD
 
     # reset
@@ -174,6 +173,10 @@
     fc = "!f() { git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short --grep="$@"; }; f"
     # List contributors with number of commits
     contributors = shortlog --summary --numbered
+
+    # configuration
+    editor = config --get core.editor
+    # editor = ! echo "emacsclient -c"
     alias = ! git config --get-regexp ^alias\\. | sed -e s/^alias\\.// -e s/\\ /\\ =\\ / | sort
 
 [color]
