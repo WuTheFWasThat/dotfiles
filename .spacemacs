@@ -308,9 +308,6 @@ you should place you code here."
 
   ;; spaceline customization
   (setq powerline-default-separator 'bar)
-  ;; stupid that this is necessary...
-  (spaceline-compile)
-
   (setq spaceline-highlight-face-func 'spaceline-highlight-face-modified) ;; sets color to tell you if buffer is modified
   ;; (setq spaceline-evil-state-p nil)
 
@@ -322,6 +319,8 @@ you should place you code here."
   (spaceline-toggle-minor-modes-off)
   (spaceline-toggle-buffer-encoding-abbrev-off)
   (spaceline-toggle-new-version-off) ;; tells you when spacemacs itself needs to be updated
+  ;; stupid that this is necessary...
+  (spaceline-compile)
 
   )
 
@@ -329,9 +328,12 @@ you should place you code here."
 ;  - find-file-at-point (gf) should automatically choose when there's only one result
 ;    SEE: https://github.com/syl20bnr/spacemacs/issues/4837
 ;  - get python autocomplete working properly: https://github.com/syl20bnr/spacemacs/tree/master/layers/%2Blang/python
-; TODO: remap quit stuff
-;; evil-quit-all
-;; figure out shell within emacs (https://github.com/syl20bnr/spacemacs/tree/master/layers/shell)
+;  - figure out shell within emacs (https://github.com/syl20bnr/spacemacs/tree/master/layers/shell)
+;  - remap quit stuff
+;    evil-quit-all
+;    trade <leader>qq with <leader>qz
+;  - I don't like how every yank goes to clipboard
+;    possibly turn off osx layer
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
