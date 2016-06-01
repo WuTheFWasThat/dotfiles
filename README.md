@@ -12,7 +12,7 @@ incomplete notes
 - vim setup
   - install vundle
   - install plugins: `vim +PluginInstall +qall`
-  - install YouCompleteMe: `cd .vim/bundle/YouCompleteMe && ./install.sh`
+  - install YouCompleteMe: `cd .vim/bundle/YouCompleteMe && ./install.py`
   - install ctags: e.g. `apt-get install exuberant-ctags` or `brew install ctags`
 - optional:
   - install spacemacs

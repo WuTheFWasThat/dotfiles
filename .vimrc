@@ -35,7 +35,8 @@ set hidden
 autocmd BufWritePre * :%s/\s\+$//e
 
 nnoremap  ;  :
-"nnoremap  :  ;
+" this messes stuff up
+" nnoremap  :  ;
 
 " let g:miniBufExplMapWindowNavVim = 1
 let g:miniBufExplMapWindowNavArrows = 1
@@ -61,6 +62,8 @@ else
 endif
 set history=500      " keep 50 lines of command line history
 set showcmd          " display incomplete commands
+
+set mouse=a
 
 " This is an alternative that also works in block mode, but the deleted
 " text is lost and it only works for putting the current register.
@@ -107,6 +110,16 @@ endif " has("autocmd")
 "    "
 "    " See :help mkspell
 
+" https://coderwall.com/p/if9mda/automatically-set-paste-mode-in-vim-when-pasting-in-insert-mode
+let &t_SI .= "\<Esc>[?2004h"
+let &t_EI .= "\<Esc>[?2004l"
+inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
+function! XTermPasteBegin()
+  set pastetoggle=<Esc>[201~
+  set paste
+  return ""
+endfunction
+
 " Required Vundle setup
 filetype off
 set runtimepath+=~/.vim/bundle/Vundle.vim
@@ -119,11 +132,9 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'ctrlpvim/ctrlp.vim'
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
 
-Plugin 'ElmCast/elm-vim'
-Plugin 'rust-lang/rust.vim'
 Plugin 'scrooloose/syntastic'
-Plugin 'kchmck/vim-coffee-script'
 Plugin 'easymotion/vim-easymotion'
+
 Plugin 'tpope/vim-fugitive'
 " causes issues with mapping <C-j> due to IMAP
 " Plugin 'vim-latex/vim-latex'
@@ -146,8 +157,13 @@ let g:unite_split_rule = 'botright'
 Plugin 'Shougo/neomru.vim'
 Plugin 'Shougo/neoyank.vim'
 
-Plugin 'tpope/vim-commentary'
+" languages
 Plugin 'pangloss/vim-javascript'
+Plugin 'ElmCast/elm-vim'
+Plugin 'rust-lang/rust.vim'
+Plugin 'kchmck/vim-coffee-script'
+
+Plugin 'tpope/vim-commentary'
 Plugin 'szw/vim-maximizer'
 Plugin 'szw/vim-tags'
 
@@ -179,8 +195,6 @@ let g:tex_flavor='latex'
 
 " for elm stuff
 let g:elm_format_autosave = 1
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
 let g:elm_syntastic_show_warnings = 1
 
 " IMPORTANT: grep will sometimes skip displaying the file name if you
