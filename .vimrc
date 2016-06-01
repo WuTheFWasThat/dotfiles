@@ -199,16 +199,16 @@ let mapleader = "\<Space>"
 " faster switch buffers
 nnoremap <C-J> <Esc>:bn<CR>
 nnoremap <C-K> <Esc>:bp<CR>
-" nnoremap <Leader>1 :b1<CR>
-" nnoremap <Leader>2 :b2<CR>
-" nnoremap <Leader>3 :b3<CR>
-" nnoremap <Leader>4 :b4<CR>
-" nnoremap <Leader>5 :b5<CR>
-" nnoremap <Leader>6 :b6<CR>
-" nnoremap <Leader>7 :b7<CR>
-" nnoremap <Leader>8 :b8<CR>
-" nnoremap <Leader>9 :b9<CR>
-" nnoremap <Leader>0 :b10<CR>
+nnoremap <Leader>b1 :b1<CR>
+nnoremap <Leader>b2 :b2<CR>
+nnoremap <Leader>b3 :b3<CR>
+nnoremap <Leader>b4 :b4<CR>
+nnoremap <Leader>b5 :b5<CR>
+nnoremap <Leader>b6 :b6<CR>
+nnoremap <Leader>b7 :b7<CR>
+nnoremap <Leader>b8 :b8<CR>
+nnoremap <Leader>b9 :b9<CR>
+nnoremap <Leader>b0 :b10<CR>
 
 " example of: switch Windows and maximize in one keypress
 "map <C-J> <C-W>j<C-W>_

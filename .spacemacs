@@ -301,6 +301,15 @@ you should place you code here."
   (define-key evil-normal-state-map (kbd "C-j") 'spacemacs/previous-useful-buffer)
   (define-key evil-normal-state-map (kbd "C-k") 'spacemacs/next-useful-buffer)
 
+  ;; (setq interprogram-cut-function nil)
+  (turn-off-pbcopy)
+  (evil-define-operator yank-to-clipboard (beg end type register yank-handler)
+    (turn-on-pbcopy)
+    (evil-yank beg end type register yank-handler)
+    (turn-off-pbcopy)
+    )
+  (define-key evil-normal-state-map (kbd "C-c") 'yank-to-clipboard)
+
   ;; https://github.com/abo-abo/avy
   ;; https://github.com/abo-abo/avy/wiki/defcustom
   ;; let non-homerow keys be used for avy
@@ -332,8 +341,6 @@ you should place you code here."
 ;  - remap quit stuff
 ;    evil-quit-all
 ;    trade <leader>qq with <leader>qz
-;  - I don't like how every yank goes to clipboard
-;    possibly turn off osx layer
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
