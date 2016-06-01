@@ -8,6 +8,7 @@ incomplete notes
 - ghar
   - install ghar
   - in the repo, `ghar install`
+- install fasd (e.g. `brew install fasd`)
 - vim setup
   - install vundle
   - install plugins: `vim +PluginInstall +qall`

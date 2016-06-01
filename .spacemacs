@@ -37,6 +37,7 @@ values."
      )
      emacs-lisp
      git
+     fasd
      ;; markdown
      org
      ;; (shell :variables
@@ -44,7 +45,7 @@ values."
      ;;        shell-default-position 'bottom)
      osx
      ranger
-     spell-checking
+     ;; spell-checking
      syntax-checking
      (version-control
         :variables
@@ -295,14 +296,19 @@ you should place you code here."
   ; (setq ranger-width-preview 0.55)
   (setq ranger-show-dotfiles t)
 
+  ;; make auto complete never do helm version
+  (setq company-idle-delay 0.0)
+  (setq company-minimum-prefix-length 1)
+
   ;; ctrl+p behaves like vim ctrl+p
   (define-key evil-normal-state-map (kbd "C-p") 'helm-projectile)
   ;; ctrl+j and ctrl+k switch buffers
   (define-key evil-normal-state-map (kbd "C-j") 'spacemacs/previous-useful-buffer)
   (define-key evil-normal-state-map (kbd "C-k") 'spacemacs/next-useful-buffer)
 
-  ;; (setq interprogram-cut-function nil)
+  ;; don't yank to system clipboard by default
   (turn-off-pbcopy)
+  ;; make C-c yank to system clipboard
   (evil-define-operator yank-to-clipboard (beg end type register yank-handler)
     (turn-on-pbcopy)
     (evil-yank beg end type register yank-handler)
@@ -331,6 +337,9 @@ you should place you code here."
   ;; stupid that this is necessary...
   (spaceline-compile)
 
+  ;; swap qq with qz
+  (spacemacs/set-leader-keys "qq" 'spacemacs/frame-killer)
+  (spacemacs/set-leader-keys "qz" 'spacemacs/prompt-kill-emacs)
   )
 
 ;; TODO/WISHLIST:
@@ -338,9 +347,6 @@ you should place you code here."
 ;    SEE: https://github.com/syl20bnr/spacemacs/issues/4837
 ;  - get python autocomplete working properly: https://github.com/syl20bnr/spacemacs/tree/master/layers/%2Blang/python
 ;  - figure out shell within emacs (https://github.com/syl20bnr/spacemacs/tree/master/layers/shell)
-;  - remap quit stuff
-;    evil-quit-all
-;    trade <leader>qq with <leader>qz
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.

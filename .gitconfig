@@ -175,8 +175,8 @@
     contributors = shortlog --summary --numbered
 
     # configuration
-    editor = config --get core.editor
-    # editor = ! echo "emacsclient -c"
+    # editor = config --get core.editor
+    editor = ! echo "emacsclient -c"
     alias = ! git config --get-regexp ^alias\\. | sed -e s/^alias\\.// -e s/\\ /\\ =\\ / | sort
 
 [color]
