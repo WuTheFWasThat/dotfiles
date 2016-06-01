@@ -12,6 +12,7 @@
     b = branch -vv
     ba = branch -vv -a
     co = checkout
+    cop = checkout -p
     new = checkout -b
     # delete a branch (default to current branch).  if current branch deleted, checkout master
     bd = branch -D

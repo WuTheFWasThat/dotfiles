@@ -164,6 +164,7 @@ Plugin 'rust-lang/rust.vim'
 Plugin 'kchmck/vim-coffee-script'
 
 Plugin 'tpope/vim-commentary'
+Plugin 'tpope/vim-surround'
 Plugin 'szw/vim-maximizer'
 Plugin 'szw/vim-tags'
 
@@ -238,6 +239,8 @@ nnoremap <Leader>b0 :b10<CR>
 " map <Leader>f <Plug>(easymotion-bd-f)
 " Use uppercase target labels and type as a lower case
 let g:EasyMotion_use_upper = 1
+" nmap <Tab> <Plug>(easymotion-bd-jk)
+" nmap <Tab><Tab> <Plug>(easymotion-jumptoanywhere)
 
 " NOTE: this must be near the end for some reason
 " Switch syntax highlighting on, when the terminal has colors
