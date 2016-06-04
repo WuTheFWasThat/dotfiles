@@ -65,7 +65,8 @@ values."
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
    ;; are declared in a layer which is not a member of
    ;; the list `dotspacemacs-configuration-layers'. (default t)
-   dotspacemacs-delete-orphan-packages t))
+   dotspacemacs-delete-orphan-packages t
+   ))
 
 (defun dotspacemacs/init ()
   "Initialization function.
@@ -340,6 +341,17 @@ you should place you code here."
   ;; swap qq with qz
   (spacemacs/set-leader-keys "qq" 'spacemacs/frame-killer)
   (spacemacs/set-leader-keys "qz" 'spacemacs/prompt-kill-emacs)
+
+  ;; fix line number spacing in iterm: https://github.com/syl20bnr/spacemacs/issues/5609
+  (unless (display-graphic-p)
+    (setq linum-format (concat linum-format "  ")))
+
+  ;; (add-to-list projectile-globally-ignored-directories "node_modules")
+
+  ;; prevents tabbing on empty lines: https://github.com/syl20bnr/spacemacs/issues/4478
+  ;; still not good enough though since it doesn't help if you're tabbed over...
+  (setq tab-always-indent t)
+
   )
 
 ;; TODO/WISHLIST:
@@ -347,6 +359,7 @@ you should place you code here."
 ;    SEE: https://github.com/syl20bnr/spacemacs/issues/4837
 ;  - get python autocomplete working properly: https://github.com/syl20bnr/spacemacs/tree/master/layers/%2Blang/python
 ;  - figure out shell within emacs (https://github.com/syl20bnr/spacemacs/tree/master/layers/shell)
+;  - make "tab" not bring up helm completion-at-point when there's nothing to complete
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
