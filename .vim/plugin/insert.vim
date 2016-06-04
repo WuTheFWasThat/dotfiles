@@ -1,9 +1,13 @@
 """""""""""
 " movement
 """""""""""
-
-inoremap <C-c> <esc>
-iunmap <esc>
+" TODO: enable these when spacemacs mappings are done (also, figure out esc
+"       for visual block insert and stuff
+" inoremap <esc> <nop>
+" inoremap <left> <nop>
+" inoremap <right> <nop>
+" inoremap <up> <nop>
+" inoremap <down> <nop>
 
 inoremap <C-h>    <left>
 inoremap <C-j>    <down>
@@ -23,12 +27,21 @@ inoremap <C-u>    <esc><C-U>i
 inoremap <C-d>    <esc><C-D>i
 
 """""""""""
-" macros
+" language-specific macros
 """""""""""
 
-autocmd FileType python inoremap <buffer> jkf        def ():<cr><esc>k$bi
-autocmd FileType javascript inoremap <buffer> jkf    function() {<cr>}<esc>k$F(a
-autocmd FileType coffee inoremap <buffer> jkf    () -><cr><esc>k$F(a
+" autocmd FileType python     :inoremap <buffer> jkf    def ():<cr><tab><esc>k$F(i
+autocmd FileType javascript :inoremap <buffer> jkf    function() {<cr><tab><cr><backspace>}<esc>kk$F(a
+" autocmd FileType coffee     :inoremap <buffer> jkf    () -><cr><tab><esc>k$F(a
+
+" autocmd FileType python     :inoremap <buffer> jki if :<cr><tab><esc>k$i
+autocmd FileType javascript :inoremap <buffer> jki if () {<cr><tab><cr><backspace>} <esc>kk$F(a
+
+" autocmd FileType python     :inoremap <buffer> jkl elif :<cr><tab><esc>k$i
+autocmd FileType javascript :inoremap <buffer> jkl else if () {<cr><tab><cr><backspace>} <esc>kk$F(a
+
+" autocmd FileType python     :inoremap <buffer> jke else:<cr><tab>
+autocmd FileType javascript :inoremap <buffer> jke else {<cr><tab><cr><backspace>}<esc>kA
 
 """""""""""
 " abbreviations
