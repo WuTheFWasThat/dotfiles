@@ -32,7 +32,21 @@ set cindent
 " lets you hide buffers when opening new files
 set hidden
 
-autocmd BufWritePre * :%s/\s\+$//e
+augroup misc
+  " strip whitespace on save
+  autocmd BufWritePre * :%s/\s\+$//e
+
+  " For all text files set 'textwidth' to 80 characters.
+  autocmd FileType text setlocal textwidth=80
+
+  " When editing a file, always jump to the last known cursor position.
+  " Don't do it when the position is invalid or when inside an event handler
+  " (happens when dropping a file on gvim).
+  autocmd BufReadPost *
+    \ if line("'\"") > 0 && line("'\"") <= line("$") |
+    \   exe "normal g`\"" |
+    \ endif
+augroup END
 
 nnoremap  ;  :
 " this messes stuff up
@@ -68,21 +82,6 @@ set mouse=a
 " This is an alternative that also works in block mode, but the deleted
 " text is lost and it only works for putting the current register.
 "vnoremap p "_dp
-
-" Only do this part when compiled with support for autocommands.
-if has("autocmd")
-  " For all text files set 'textwidth' to 78 characters.
-  autocmd FileType text setlocal textwidth=78
-
-  " When editing a file, always jump to the last known cursor position.
-  " Don't do it when the position is invalid or when inside an event handler
-  " (happens when dropping a file on gvim).
-  autocmd BufReadPost *
-    \ if line("'\"") > 0 && line("'\"") <= line("$") |
-    \   exe "normal g`\"" |
-    \ endif
-
-endif " has("autocmd")
 
 "====[ Make the 81st column stand out ]====================
 "
@@ -152,7 +151,9 @@ function! s:unite_settings() "{
    " imap <buffer> <C-j> <Plug>(unite_select_next_line)
    " imap <buffer> <C-k> <Plug>(unite_select_previous_line)
 endfunction
-autocmd FileType unite call s:unite_settings()
+augroup unite
+  autocmd FileType unite call s:unite_settings()
+augroup END
 let g:unite_split_rule = 'botright'
 Plugin 'Shougo/neomru.vim'
 Plugin 'Shougo/neoyank.vim'

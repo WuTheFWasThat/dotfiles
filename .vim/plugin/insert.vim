@@ -30,18 +30,20 @@ inoremap <C-d>    <esc><C-D>i
 " language-specific macros
 """""""""""
 
-" autocmd FileType python     :inoremap <buffer> jkf    def ():<cr><tab><esc>k$F(i
-autocmd FileType javascript :inoremap <buffer> jkf    function() {<cr><tab><cr><backspace>}<esc>kk$F(a
-" autocmd FileType coffee     :inoremap <buffer> jkf    () -><cr><tab><esc>k$F(a
+augroup language_macros
+  " autocmd FileType python     :inoremap <buffer> jkf    def ():<cr><tab><esc>k$F(i
+  autocmd FileType javascript :inoremap <buffer> jkf    function() {<cr><tab><cr><backspace>}<esc>kk$F(a
+  " autocmd FileType coffee     :inoremap <buffer> jkf    () -><cr><tab><esc>k$F(a
 
-" autocmd FileType python     :inoremap <buffer> jki if :<cr><tab><esc>k$i
-autocmd FileType javascript :inoremap <buffer> jki if () {<cr><tab><cr><backspace>} <esc>kk$F(a
+  " autocmd FileType python     :inoremap <buffer> jki if :<cr><tab><esc>k$i
+  autocmd FileType javascript :inoremap <buffer> jki if () {<cr><tab><cr><backspace>} <esc>kk$F(a
 
-" autocmd FileType python     :inoremap <buffer> jkl elif :<cr><tab><esc>k$i
-autocmd FileType javascript :inoremap <buffer> jkl else if () {<cr><tab><cr><backspace>} <esc>kk$F(a
+  " autocmd FileType python     :inoremap <buffer> jkl elif :<cr><tab><esc>k$i
+  autocmd FileType javascript :inoremap <buffer> jkl else if () {<cr><tab><cr><backspace>} <esc>kk$F(a
 
-" autocmd FileType python     :inoremap <buffer> jke else:<cr><tab>
-autocmd FileType javascript :inoremap <buffer> jke else {<cr><tab><cr><backspace>}<esc>kA
+  " autocmd FileType python     :inoremap <buffer> jke else:<cr><tab>
+  autocmd FileType javascript :inoremap <buffer> jke else {<cr><tab><cr><backspace>}<esc>kA
+augroup END
 
 """""""""""
 " abbreviations
