@@ -1,8 +1,8 @@
 " help
-nmap <Leader>? :Unite output:nmap\ \<Leader\><CR>
+nnoremap <Leader>? :Unite output:nmap\ \<Leader\><CR>
 
 " avy
-map <Leader>y <Plug>(easymotion-bd-jk)
+nmap <Leader>y <Plug>(easymotion-bd-jk)
 
 " toggle
 " show/hide line numbers
@@ -28,8 +28,8 @@ nnoremap <Leader>ww <C-W>w
 nnoremap <Leader>wm :MaximizerToggle<CR>
 
 " commenting
-nmap <Leader>;; :Commentary<CR>
-vmap <Leader>; :Commentary<CR>
+nnoremap <Leader>;; :Commentary<CR>
+vnoremap <Leader>; :Commentary<CR>
 
 " project
 function! spacemacs#toggleExplorerAtRoot()
@@ -39,8 +39,8 @@ function! spacemacs#toggleExplorerAtRoot()
     exe "NERDTreeToggle"
   endif
 endfunction
-nmap <leader>pt :call spacemacs#toggleExplorerAtRoot()<CR>
-nmap <leader>pf :CtrlPRoot<CR>
+nnoremap <leader>pt :call spacemacs#toggleExplorerAtRoot()<CR>
+nnoremap <leader>pf :CtrlPRoot<CR>
 
 " reindent
 nnoremap <Leader>j= mzgg=G`z
@@ -60,7 +60,7 @@ nnoremap <Leader>fp :<C-u>Unite history/yank<cr>
 " nnoremap <Leader>fr :<C-u>Unite -no-split -buffer-name=mru -start-insert file_mru<cr>
 
 "buffers
-nmap <Leader><TAB> <C-^>
+nnoremap <Leader><TAB> <C-^>
 nnoremap <Leader>bb :CtrlPBuffer<CR>
 nnoremap <Leader>bn :bn<CR>
 nnoremap <Leader>bp :bp<CR>
@@ -75,7 +75,7 @@ nnoremap <Leader>qs :xa<CR>
 " clear search
 nnoremap <Leader>sc :noh<CR>
 " doesn't really work well:
-" nmap <Leader>sp :Ggrep<SPACE>
+" nnoremap <Leader>sp :Ggrep<SPACE>
 
 " git
 nnoremap <Leader>gb :Gblame<CR>

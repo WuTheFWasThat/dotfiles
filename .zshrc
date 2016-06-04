@@ -110,7 +110,7 @@ alias dls='pushd ~/Downloads'
 alias p='pushd ~/Projects'
 
 # stuff for work
-source ~/.workrc
+source ~/.workrc.sh
 
 export PATH=$PATH:/Library/TeX/texbin
 export PATH=$PATH:~/.multirust/toolchains/stable/cargo/bin

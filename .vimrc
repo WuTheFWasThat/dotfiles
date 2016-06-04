@@ -6,7 +6,7 @@
 "highlight FoldColumn guibg=darkgrey guifg=white
 
 " search centers screen
-map n nzz
+nnoremap n nzz
 
 set ruler
 set nu
@@ -101,8 +101,8 @@ endif " has("autocmd")
 "
 ""====[ Mappings to activate spell-checking alternatives ]================
 "
-"    nmap  ;s     :set invspell spelllang=en<CR>
-"    nmap  ;ss    :set    spell spelllang=en-basic<CR>
+"    nnoremap  ;s     :set invspell spelllang=en<CR>
+"    nnoremap  ;ss    :set    spell spelllang=en-basic<CR>
 "
 "    " To create the en-basic (or any other new) spelling list:
 "    "
@@ -208,7 +208,7 @@ set grepprg=grep\ -nH\ $*
 
 " control c copies to clipboard in visual mode
 " no way to do command key in regular vim...
-map <C-c> "+y
+noremap <C-c> "+y
 
 let mapleader = "\<Space>"
 " faster switch buffers
@@ -226,10 +226,10 @@ nnoremap <Leader>b9 :b9<CR>
 nnoremap <Leader>b0 :b10<CR>
 
 " example of: switch Windows and maximize in one keypress
-"map <C-J> <C-W>j<C-W>_
-"map <C-K> <C-W>k<C-W>_
-"map <C-H> <C-W>h<C-W>_
-"map <C-L> <C-W>l<C-W>_
+"noremap <C-J> <C-W>j<C-W>_
+"noremap <C-K> <C-W>k<C-W>_
+"noremap <C-H> <C-W>h<C-W>_
+"noremap <C-L> <C-W>l<C-W>_
 
 " for easymotion
 " rebind leader to single key instead of 2
