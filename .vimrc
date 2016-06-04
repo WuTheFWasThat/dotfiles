@@ -208,7 +208,8 @@ set grepprg=grep\ -nH\ $*
 
 " control c copies to clipboard in visual mode
 " no way to do command key in regular vim...
-noremap <C-c> "+y
+vnoremap <C-c> "+y
+nnoremap <C-c> "+y
 
 let mapleader = "\<Space>"
 " faster switch buffers
