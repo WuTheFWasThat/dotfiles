@@ -163,6 +163,7 @@ Plugin 'ElmCast/elm-vim'
 Plugin 'rust-lang/rust.vim'
 Plugin 'kchmck/vim-coffee-script'
 
+Plugin 'Raimondi/delimitMate'
 Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-surround'
 Plugin 'szw/vim-maximizer'

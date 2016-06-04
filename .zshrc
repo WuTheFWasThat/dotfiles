@@ -82,8 +82,13 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-#
+
+# for emacs mode:
 bindkey \^U backward-kill-line
+
+# use vim mode
+# bindkey -v
+# export KEYTIMEOUT=1
 
 #####
 # python

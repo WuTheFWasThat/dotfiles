@@ -65,7 +65,7 @@
     # working tree
     a = add
     aa = "!git add .; git add -u ."
-    ap = add -p .
+    ap = "!f() { local dir=${1:-.}; git add -p $dir; }; f"
     # cleanup
     cle = clean -f -d
     # discard
