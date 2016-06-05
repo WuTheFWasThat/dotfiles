@@ -168,16 +168,21 @@ Plugin 'Raimondi/delimitMate'
 Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-surround'
 Plugin 'szw/vim-maximizer'
-Plugin 'szw/vim-tags'
+" Plugin 'szw/vim-tags'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
+
+Plugin 'vim-airline/vim-airline'
+" enable status line always
+set laststatus=2
+let g:airline_left_sep=''
+let g:airline_right_sep=''
 
 " NOTE: command line install:
 " vim +PluginInstall +qall
 
 " syntastic
-
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
