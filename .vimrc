@@ -191,7 +191,8 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
-let g:syntastic_javascript_checkers = ['eslint', 'jshint']
+let g:syntastic_javascript_checkers = ['eslint']
+" 'jshint'
 
 " HACKY: see http://stackoverflow.com/questions/15937042/syntastic-disable-automatic-compilation-of-java
 " maybe undo this if i switch from intellij

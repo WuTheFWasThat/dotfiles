@@ -94,6 +94,7 @@
     rbi = rebase -i
     rbin = "!f() { local n=${1:-1}; git rebase -i HEAD~$n; }; f"
     rba = rebase --abort
+    rbs = rebase --skip
     rbc = "!git add .; git add -u .; git rebase --continue"
     rbo = "!f(){ branch=$(git rev-parse --abbrev-ref HEAD); git fetch && git rebase origin/$branch $@; }; f"
     rbm = rebase master
@@ -111,6 +112,7 @@
     d = icdiff
     dc = icdiff --cached
     ds = diff --stat
+    dop = "!f() { $(git editor) $(git diff --name-only $@); }; f"
     du = diff @{upstream}
 
     # status
@@ -141,6 +143,8 @@
     # reset
     rs = reset
     rsh = reset --hard
+    rsho = "!f(){ branch=$(git rev-parse --abbrev-ref HEAD); git fetch && git reset --hard origin/$branch $@; }; f"
+    rshom = = "!git fetch && git reset --hard origin/master"
     # rewind
     rw = "!f() { local n=${1:-1}; git reset HEAD~$n; }; f"
     rwh = "!f() { local n=${1:-1}; git reset --hard HEAD~$n; }; f"
@@ -176,8 +180,8 @@
     contributors = shortlog --summary --numbered
 
     # configuration
-    # editor = config --get core.editor
-    editor = ! echo "emacsclient -c"
+    editor = config --get core.editor
+    # editor = ! echo "emacsclient -c"
     alias = ! git config --get-regexp ^alias\\. | sed -e s/^alias\\.// -e s/\\ /\\ =\\ / | sort
 
 [color]
