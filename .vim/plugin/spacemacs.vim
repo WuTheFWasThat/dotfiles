@@ -86,4 +86,20 @@ nnoremap <Leader>gp :Git push<CR>
 nnoremap <Leader>gc :Gcommit<CR>
 nnoremap <Leader>Td :GitGutterToggle<CR>
 
+" errors (syntastic integration)
+function! ToggleErrors()
+    let old_last_winnr = winnr('$')
+    SyntasticToggleMode
+    " lclose
+    if old_last_winnr == winnr('$')
+        " Nothing was closed, open syntastic error location panel
+        " Errors
+        SyntasticCheck
+    endif
+endfunction
+nnoremap <silent> <Leader>el :<C-u>call ToggleErrors()<CR>
+" nnoremap <silent> <Leader>el :SyntasticToggleMode<CR>
+nnoremap <silent> <Leader>en :lnext<CR>
+nnoremap <silent> <Leader>ep :lprev<CR>
+
 " TODO: folding
