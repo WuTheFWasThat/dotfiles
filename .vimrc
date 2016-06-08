@@ -170,6 +170,8 @@ Plugin 'tpope/vim-surround'
 Plugin 'szw/vim-maximizer'
 " Plugin 'szw/vim-tags'
 
+Plugin 'mbbill/undotree'
+
 call vundle#end()            " required
 filetype plugin indent on    " required
 

@@ -3,8 +3,12 @@ nnoremap <Leader>? :Unite output:nmap\ \<Leader\><CR>
 
 " avy
 nmap <Leader>y <Plug>(easymotion-bd-jk)
+" NOTE: double leader is mapped to easymotion-prefix for some reason (easymotion default?)
 
-" toggle
+" undo tree
+nnoremap <Leader>au :UndotreeToggle<CR>
+
+"toggle
 " show/hide line numbers
 nnoremap <Leader>tn :set number!<CR>
 " show/hide invisible chars
