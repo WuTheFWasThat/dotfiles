@@ -28,8 +28,10 @@ nnoremap <Leader>ww <C-W>w
 nnoremap <Leader>wm :MaximizerToggle<CR>
 
 " commenting
-nnoremap <Leader>;; :Commentary<CR>
-vnoremap <Leader>; :Commentary<CR>
+nmap <Leader>;  <Plug>Commentary
+vmap <Leader>;  <Plug>Commentary
+omap <Leader>;  <Plug>Commentary
+nmap <Leader>;; <Plug>CommentaryLine
 
 " project
 function! spacemacs#toggleExplorerAtRoot()

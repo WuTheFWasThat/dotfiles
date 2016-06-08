@@ -360,6 +360,8 @@ you should place you code here."
 ;  - get python autocomplete working properly: https://github.com/syl20bnr/spacemacs/tree/master/layers/%2Blang/python
 ;  - figure out shell within emacs (https://github.com/syl20bnr/spacemacs/tree/master/layers/shell)
 ;  - make "tab" not bring up helm completion-at-point when there's nothing to complete
+;  - figure out way to do groups of buffers
+;  - alternative to minibufexpl
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
