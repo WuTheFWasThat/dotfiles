@@ -184,6 +184,8 @@ xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 
 Plug 'hecal3/vim-leader-guide'
+
+set timeoutlen=200
 Plug 'WuTheFWasThat/spacevim'
 
 Plug 'vim-airline/vim-airline'

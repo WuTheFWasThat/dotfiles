@@ -1,16 +1,11 @@
 " avy
-nmap <Leader>y <Plug>(easymotion-bd-jk)
 " NOTE: double leader is mapped to easymotion-prefix for some reason (easymotion default?)
 
 "toggle
 " show/hide invisible chars
 nnoremap <Leader>ti :set list!<CR>
-" toggle git gutter
-nnoremap <Leader>tg :GitGutterToggle<CR>
 " paste mode
 nnoremap <Leader>tp :set paste!<CR>
-
-" commenting
 
 " project
 function! spacemacs#toggleExplorerAtRoot()
@@ -32,17 +27,10 @@ nnoremap <Leader>fp :<C-u>Unite history/yank<cr>
 " recent files
 " nnoremap <Leader>fr :<C-u>Unite -no-split -buffer-name=mru -start-insert file_mru<cr>
 
-" commentary
-nmap <Leader>;  <Plug>Commentary
-vmap <Leader>;  <Plug>Commentary
-omap <Leader>;  <Plug>Commentary
-nmap <Leader>;; <Plug>CommentaryLine
-
 " git
 nnoremap <Leader>ga :Git add --all<CR>
 nnoremap <Leader>gd :Gdiff<CR>
 nnoremap <Leader>gp :Git push<CR>
 nnoremap <Leader>gc :Gcommit<CR>
-nnoremap <Leader>Td :GitGutterToggle<CR>
 
 " TODO: folding
