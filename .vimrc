@@ -1,3 +1,6 @@
+" to profile vim startup
+" vim --startuptime vim.log <somefile>
+
 "set foldmethod=indent
 ""hi Folded guifg=white guibg=black ctermfg=white ctermbg=black
 "hi FoldColumn      guifg=#465457 guibg=#000000

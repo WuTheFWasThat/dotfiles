@@ -79,8 +79,9 @@ function ss {                # start session
     echo "Please give your session a name!"
     return 1
   fi
+  # start corresponding emacs daemon
   # NOTE: ems doesn't work here, not sure why
-  nohup emacs --daemon=$sessionname &>/dev/null &
+  # nohup emacs --daemon=$sessionname &>/dev/null &
 
   screen -S $sessionname
   # tmux new -s $sessionname
@@ -94,7 +95,9 @@ function sk {                # kill session
     echo "Must specifiy which session to kill!"
     return 1
   fi
-  emk $sessionname
+  # kill corresponding emacs session
+  # emk $sessionname
+
   screen -S $sessionname -X quit
   # tmux kill-session -t $sessionname
 }
