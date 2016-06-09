@@ -131,11 +131,7 @@ Plug 'scrooloose/syntastic'
 Plug 'easymotion/vim-easymotion'
 
 Plug 'tpope/vim-fugitive'
-" causes issues with mapping <C-j> due to IMAP
-" Plug 'vim-latex/vim-latex'
-" TODO use for grepping codebase?
-" e.g. nmap <LEADER>sp :Ag<SPACE>
-" Plug 'rking/ag.vim'
+Plug 'rking/ag.vim'
 Plug 'airblade/vim-gitgutter'
 
 Plug 'Shougo/unite.vim'
@@ -159,6 +155,11 @@ Plug 'pangloss/vim-javascript'
 Plug 'ElmCast/elm-vim'
 Plug 'rust-lang/rust.vim'
 Plug 'kchmck/vim-coffee-script'
+Plug 'fatih/vim-go'
+"Plug 'nsf/gocode'
+
+" causes issues with mapping <C-j> due to IMAP
+" Plug 'vim-latex/vim-latex'
 
 Plug 'Raimondi/delimitMate'
 Plug 'tpope/vim-commentary'
@@ -166,12 +167,21 @@ Plug 'tpope/vim-surround'
 Plug 'szw/vim-maximizer'
 " Plug 'szw/vim-tags'
 
+" TODO: figure out how to use these
+" Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+
 Plug 'tpope/vim-eunuch'
 
 Plug 'mbbill/undotree'
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+
+Plug 'junegunn/vim-easy-align'
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
 
 Plug 'hecal3/vim-leader-guide'
 Plug 'WuTheFWasThat/spacevim'
