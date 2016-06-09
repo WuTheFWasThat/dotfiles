@@ -9,12 +9,12 @@ incomplete notes
   - install ghar
   - in the repo, `ghar install`
 - install fasd (e.g. `brew install fasd`)
+- install fzf (e.g. `brew install fzf`)
 - vim setup
-  - install vundle
-  - install plugins: `vim +PluginInstall +qall`
-  - install YouCompleteMe: `cd .vim/bundle/YouCompleteMe && ./install.py`
-  - install ctags: e.g. `apt-get install exuberant-ctags` or `brew install ctags`
+  - install plugins: `vim +PlugInstall +qall`
+  - install YouCompleteMe: `cd .vim/plugged/YouCompleteMe && ./install.py`
 - optional:
   - install spacemacs
   - install screen/tmux
   - install git 2.3
+  - install ctags: e.g. `apt-get install exuberant-ctags` or `brew install ctags`

@@ -32,6 +32,8 @@ set cindent
 " lets you hide buffers when opening new files
 set hidden
 
+filetype plugin indent on
+
 augroup misc
   " strip whitespace on save
   autocmd BufWritePre * :%s/\s\+$//e
@@ -119,30 +121,24 @@ function! XTermPasteBegin()
   return ""
 endfunction
 
-" Required Vundle setup
-filetype off
-set runtimepath+=~/.vim/bundle/Vundle.vim
-call vundle#rc()
+" Required Plug setup
+call plug#begin('~/.vim/plugged')
 
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'scrooloose/nerdtree'
+Plug 'Valloric/YouCompleteMe'
+Plug 'scrooloose/nerdtree'
 
-Plugin 'ctrlpvim/ctrlp.vim'
-let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
+Plug 'scrooloose/syntastic'
+Plug 'easymotion/vim-easymotion'
 
-Plugin 'scrooloose/syntastic'
-Plugin 'easymotion/vim-easymotion'
-
-Plugin 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive'
 " causes issues with mapping <C-j> due to IMAP
-" Plugin 'vim-latex/vim-latex'
+" Plug 'vim-latex/vim-latex'
 " TODO use for grepping codebase?
 " e.g. nmap <LEADER>sp :Ag<SPACE>
-" Plugin 'rking/ag.vim'
-Plugin 'airblade/vim-gitgutter'
+" Plug 'rking/ag.vim'
+Plug 'airblade/vim-gitgutter'
 
-Plugin 'Shougo/unite.vim'
+Plug 'Shougo/unite.vim'
 function! s:unite_settings() "{
    nmap <buffer> <Esc>     <Plug>(unite_exit)
    " " Play nice with supertab
@@ -155,34 +151,44 @@ augroup unite
   autocmd FileType unite call s:unite_settings()
 augroup END
 let g:unite_split_rule = 'botright'
-Plugin 'Shougo/neomru.vim'
-Plugin 'Shougo/neoyank.vim'
+Plug 'Shougo/neomru.vim'
+Plug 'Shougo/neoyank.vim'
 
 " languages
-Plugin 'pangloss/vim-javascript'
-Plugin 'ElmCast/elm-vim'
-Plugin 'rust-lang/rust.vim'
-Plugin 'kchmck/vim-coffee-script'
+Plug 'pangloss/vim-javascript'
+Plug 'ElmCast/elm-vim'
+Plug 'rust-lang/rust.vim'
+Plug 'kchmck/vim-coffee-script'
 
-Plugin 'Raimondi/delimitMate'
-Plugin 'tpope/vim-commentary'
-Plugin 'tpope/vim-surround'
-Plugin 'szw/vim-maximizer'
-" Plugin 'szw/vim-tags'
+Plug 'Raimondi/delimitMate'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-surround'
+Plug 'szw/vim-maximizer'
+" Plug 'szw/vim-tags'
 
-Plugin 'mbbill/undotree'
+Plug 'tpope/vim-eunuch'
 
-call vundle#end()            " required
-filetype plugin indent on    " required
+Plug 'mbbill/undotree'
 
-Plugin 'vim-airline/vim-airline'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+
+Plug 'hecal3/vim-leader-guide'
+Plug 'WuTheFWasThat/spacevim'
+
+Plug 'vim-airline/vim-airline'
 " enable status line always
 set laststatus=2
 let g:airline_left_sep=''
 let g:airline_right_sep=''
 
+call plug#end()
+
 " NOTE: command line install:
-" vim +PluginInstall +qall
+" vim +PlugInstall +qall
+
+" ctrlp, just cause i'm used to it
+nnoremap <C-p> :GitFiles<cr>
 
 " syntastic
 set statusline+=%#warningmsg#
