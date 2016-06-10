@@ -57,11 +57,6 @@ nnoremap  ;  :
 " this messes stuff up
 " nnoremap  :  ;
 
-" let g:miniBufExplMapWindowNavVim = 1
-let g:miniBufExplMapWindowNavArrows = 1
-let g:miniBufExplMapCTabSwitchBufs = 1
-let g:miniBufExplModSelTarget = 1
-
 " Make p in Visual mode replace the selected text with the "" register.
 vnoremap p <Esc>:let current_reg = @"<CR>gvs<C-R>=current_reg<CR><Esc>
 
@@ -169,6 +164,12 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'szw/vim-maximizer'
 " Plug 'szw/vim-tags'
+
+Plug 'fholgado/minibufexpl.vim'
+" let g:miniBufExplMapWindowNavVim = 1
+let g:miniBufExplMapWindowNavArrows = 1
+let g:miniBufExplMapCTabSwitchBufs = 1
+let g:miniBufExplModSelTarget = 1
 
 " TODO: figure out how to use these
 " Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
