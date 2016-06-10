@@ -187,6 +187,11 @@ Plug 'tpope/vim-surround'
 vmap s S
 Plug 'tpope/vim-repeat'
 
+Plug 'vim-scripts/YankRing.vim'
+let g:yankring_history_dir = expand('$HOME/.vim/')
+let g:yankring_replace_n_pkey = '<C-P>'
+let g:yankring_replace_n_nkey = '<C-N>'
+
 Plug 'AndrewRadev/splitjoin.vim'
 let g:splitjoin_split_mapping = ''
 let g:splitjoin_join_mapping = ''
@@ -267,7 +272,7 @@ call plug#end()
 " vim +PlugInstall +qall
 
 " ctrlp, just cause i'm used to it
-nnoremap <C-p> :GitFiles<cr>
+" nnoremap <C-p> :GitFiles<cr>
 
 " syntastic
 set statusline+=%#warningmsg#

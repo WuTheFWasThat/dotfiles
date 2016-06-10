@@ -107,6 +107,8 @@ alias docs='pushd ~/Documents'
 alias dls='pushd ~/Downloads'
 alias p='pushd ~/Projects'
 
+alias plug='vim +PlugInstall +qall'
+
 # ffuuuuu
 eval "$(thefuck --alias fu)"
 
