@@ -79,35 +79,25 @@ set showcmd          " display incomplete commands
 
 set mouse=a
 
-" This is an alternative that also works in block mode, but the deleted
-" text is lost and it only works for putting the current register.
-"vnoremap p "_dp
+" don't lose register contents when pasting in visual mode
+vnoremap p "_dp
 
 "====[ Make the 81st column stand out ]====================
 "
-"    " EITHER the entire 81st column, full-screen...
-"    highlight ColorColumn ctermbg=magenta
-"    set colorcolumn=81
-"
-"    " OR ELSE just the 81st column of wide lines...
-"    highlight ColorColumn ctermbg=magenta
-"    call matchadd('ColorColumn', '\%81v', 100)
-"
-"    " OR ELSE on April Fools day...
-"    highlight ColorColumn ctermbg=red ctermfg=blue
-"    exec 'set colorcolumn=' . join(range(2,80,3), ',')
-"
+" highlight ColorColumn ctermbg=magenta
+" " EITHER the entire 81st column, full-screen...
+" set colorcolumn=81
+" " OR ELSE just the 81st column of wide lines...
+" call matchadd('ColorColumn', '\%81v', 100)
 "
 ""====[ Mappings to activate spell-checking alternatives ]================
 "
-"    nnoremap  ;s     :set invspell spelllang=en<CR>
-"    nnoremap  ;ss    :set    spell spelllang=en-basic<CR>
+" nnoremap  ;s     :set invspell spelllang=en<CR>
+" nnoremap  ;ss    :set    spell spelllang=en-basic<CR>
 "
-"    " To create the en-basic (or any other new) spelling list:
-"    "
-"    "     :mkspell  ~/.vim/spell/en-basic  basic_english_words.txt
-"    "
-"    " See :help mkspell
+" " To create the en-basic (or any other new) spelling list:
+" " :mkspell  ~/.vim/spell/en-basic  basic_english_words.txt
+" " See :help mkspell
 
 " https://coderwall.com/p/if9mda/automatically-set-paste-mode-in-vim-when-pasting-in-insert-mode
 let &t_SI .= "\<Esc>[?2004h"
@@ -123,14 +113,18 @@ endfunction
 call plug#begin('~/.vim/plugged')
 
 Plug 'Valloric/YouCompleteMe'
+
 Plug 'scrooloose/nerdtree'
 
 Plug 'scrooloose/syntastic'
+
 Plug 'easymotion/vim-easymotion'
 
 Plug 'tpope/vim-fugitive'
-Plug 'rking/ag.vim'
+Plug 'junegunn/gv.vim'
 Plug 'airblade/vim-gitgutter'
+
+Plug 'rking/ag.vim'
 
 Plug 'Shougo/unite.vim'
 function! s:unite_settings() "{
@@ -159,12 +153,26 @@ Plug 'fatih/vim-go'
 " causes issues with mapping <C-j> due to IMAP
 " Plug 'vim-latex/vim-latex'
 
+" editing
 Plug 'Raimondi/delimitMate'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
-Plug 'szw/vim-maximizer'
+Plug 'tpope/vim-repeat'
+Plug 'AndrewRadev/splitjoin.vim'
+let g:splitjoin_split_mapping = ''
+let g:splitjoin_join_mapping = ''
+Plug 'junegunn/vim-easy-align'
+" Plug 'junegunn/rainbow_parentheses.vim'
+" let g:rainbow#max_level = 16
+" let g:rainbow#pairs = [['(', ')'], ['[', ']']]
+" let g:rainbow#blacklist = []
+" augroup rainbow
+"   autocmd BufEnter * :RainbowParentheses<cr>
+" augroup END
 " Plug 'szw/vim-tags'
 
+" windows
+Plug 'szw/vim-maximizer'
 Plug 'fholgado/minibufexpl.vim'
 " let g:miniBufExplMapWindowNavVim = 1
 let g:miniBufExplMapWindowNavArrows = 1
@@ -181,7 +189,7 @@ Plug 'mbbill/undotree'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
-Plug 'junegunn/vim-easy-align'
+Plug 'junegunn/vim-peekaboo'
 " Start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)

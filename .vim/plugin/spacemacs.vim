@@ -29,6 +29,8 @@ nnoremap <Leader>fp :<C-u>Unite history/yank<cr>
 
 " insert semicolon
 nnoremap <Leader>i; mzA;<esc>`z
+nnoremap <Leader>jk :SplitjoinSplit<cr>
+nnoremap <Leader>jj :SplitjoinJoin<cr>
 
 " git
 nnoremap <Leader>ga :Git add --all<CR>
