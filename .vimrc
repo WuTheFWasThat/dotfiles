@@ -32,8 +32,6 @@ set cindent
 " lets you hide buffers when opening new files
 set hidden
 
-filetype plugin indent on
-
 augroup misc
   " strip whitespace on save
   autocmd BufWritePre * :%s/\s\+$//e
@@ -122,6 +120,15 @@ Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/syntastic'
 
 Plug 'easymotion/vim-easymotion'
+" rebind leader to single key instead of 2
+" map <Leader> <Plug>(easymotion-prefix)
+" map <Leader>w <Plug>(easymotion-bd-w)
+" map <Leader>t <Plug>(easymotion-bd-tl)
+" map <Leader>f <Plug>(easymotion-bd-f)
+" Use uppercase target labels and type as a lower case
+let g:EasyMotion_use_upper = 1
+" nmap <Tab> <Plug>(easymotion-bd-jk)
+" nmap <Tab><Tab> <Plug>(easymotion-jumptoanywhere)
 
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/gv.vim'
@@ -145,26 +152,50 @@ let g:unite_split_rule = 'botright'
 Plug 'Shougo/neomru.vim'
 Plug 'Shougo/neoyank.vim'
 
+"""""""""""""
 " languages
-Plug 'pangloss/vim-javascript'
-Plug 'ElmCast/elm-vim'
-Plug 'rust-lang/rust.vim'
-Plug 'kchmck/vim-coffee-script'
-Plug 'fatih/vim-go'
+"""""""""""""
+Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+
+" Plug 'ElmCast/elm-vim', { 'for': 'elm' }
+let g:elm_format_autosave = 1
+let g:elm_syntastic_show_warnings = 1
+
+" NOTE: C-J and C-K cause issues with rust, has something to do with delimitMate
+Plug 'rust-lang/rust.vim', { 'for': 'rust' }
+"let g:rustfmt_autosave = 1
+
+Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
+
+" Plug 'fatih/vim-go', { 'for': 'go' }
 "Plug 'nsf/gocode'
 
 " causes issues with mapping <C-j> due to IMAP
-" Plug 'vim-latex/vim-latex'
+Plug 'vim-latex/vim-latex', { 'for': 'tex' }
+let g:tex_flavor='latex'
+" IMPORTANT: grep will sometimes skip displaying the file name if you
+" search in a single file. This will confuse Latex-Suite. Set your grep
+" program to always generate a file-name.
+set grepprg=grep\ -nH\ $*
 
+"""""""""""""
 " editing
+"""""""""""""
 Plug 'Raimondi/delimitMate'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
+
 Plug 'AndrewRadev/splitjoin.vim'
 let g:splitjoin_split_mapping = ''
 let g:splitjoin_join_mapping = ''
+
 Plug 'junegunn/vim-easy-align'
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+
 " Plug 'junegunn/rainbow_parentheses.vim'
 " let g:rainbow#max_level = 16
 " let g:rainbow#pairs = [['(', ')'], ['[', ']']]
@@ -174,7 +205,9 @@ Plug 'junegunn/vim-easy-align'
 " augroup END
 " Plug 'szw/vim-tags'
 
+"""""""""""""
 " windows
+"""""""""""""
 Plug 'szw/vim-maximizer'
 Plug 'fholgado/minibufexpl.vim'
 " let g:miniBufExplMapWindowNavVim = 1
@@ -193,10 +226,6 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
 Plug 'junegunn/vim-peekaboo'
-" Start interactive EasyAlign in visual mode (e.g. vipga)
-xmap ga <Plug>(EasyAlign)
-" Start interactive EasyAlign for a motion/text object (e.g. gaip)
-nmap ga <Plug>(EasyAlign)
 
 Plug 'hecal3/vim-leader-guide'
 
@@ -210,6 +239,9 @@ let g:airline_left_sep=''
 let g:airline_right_sep=''
 
 call plug#end()
+" automatically calls:
+" - filetype plugin indent on
+" - syntax on
 
 " NOTE: command line install:
 " vim +PlugInstall +qall
@@ -232,19 +264,6 @@ let g:syntastic_javascript_checkers = ['eslint']
 " HACKY: see http://stackoverflow.com/questions/15937042/syntastic-disable-automatic-compilation-of-java
 " maybe undo this if i switch from intellij
 let g:loaded_syntastic_java_javac_checker = 1
-
-"let g:rustfmt_autosave = 1
-
-let g:tex_flavor='latex'
-
-" for elm stuff
-let g:elm_format_autosave = 1
-let g:elm_syntastic_show_warnings = 1
-
-" IMPORTANT: grep will sometimes skip displaying the file name if you
-" search in a single file. This will confuse Latex-Suite. Set your grep
-" program to always generate a file-name.
-set grepprg=grep\ -nH\ $*
 
 " http://vim.wikia.com/wiki/Mac_OS_X_clipboard_sharing
 " set clipboard=unnamed
@@ -269,30 +288,6 @@ nnoremap <Leader>b8 :b8<CR>
 nnoremap <Leader>b9 :b9<CR>
 nnoremap <Leader>b0 :b10<CR>
 
-" example of: switch Windows and maximize in one keypress
-"noremap <C-J> <C-W>j<C-W>_
-"noremap <C-K> <C-W>k<C-W>_
-"noremap <C-H> <C-W>h<C-W>_
-"noremap <C-L> <C-W>l<C-W>_
-
-" for easymotion
-" rebind leader to single key instead of 2
-" map <Leader> <Plug>(easymotion-prefix)
-" map <Leader>w <Plug>(easymotion-bd-w)
-" map <Leader>t <Plug>(easymotion-bd-tl)
-" map <Leader>f <Plug>(easymotion-bd-f)
-" Use uppercase target labels and type as a lower case
-let g:EasyMotion_use_upper = 1
-" nmap <Tab> <Plug>(easymotion-bd-jk)
-" nmap <Tab><Tab> <Plug>(easymotion-jumptoanywhere)
-
-" NOTE: this must be near the end for some reason
-" Switch syntax highlighting on, when the terminal has colors
-" Also switch on highlighting the last used search pattern.
-if &t_Co > 2 || has("gui_running")
-  " syntax on
-  syntax enable
-endif
 let g:solarized_termcolors = 256
 set background=dark
 " let g:solarized_visibility = "high"
