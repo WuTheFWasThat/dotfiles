@@ -113,28 +113,23 @@ endfunction
 " Required Plug setup
 call plug#begin('~/.vim/plugged')
 
-Plug 'Valloric/YouCompleteMe'
-
-Plug 'scrooloose/nerdtree'
-
-Plug 'scrooloose/syntastic'
-
-Plug 'easymotion/vim-easymotion'
-" rebind leader to single key instead of 2
-" map <Leader> <Plug>(easymotion-prefix)
-" map <Leader>w <Plug>(easymotion-bd-w)
-" map <Leader>t <Plug>(easymotion-bd-tl)
-" map <Leader>f <Plug>(easymotion-bd-f)
-" Use uppercase target labels and type as a lower case
-let g:EasyMotion_use_upper = 1
-" nmap <Tab> <Plug>(easymotion-bd-jk)
-" nmap <Tab><Tab> <Plug>(easymotion-jumptoanywhere)
+"""""""""""""
+" version control
+"""""""""""""
 
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/gv.vim'
 Plug 'airblade/vim-gitgutter'
 
+"""""""""""""
+" search
+"""""""""""""
+
 Plug 'rking/ag.vim'
+
+" must come AFTER ag.vim
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 
 Plug 'Shougo/unite.vim'
 function! s:unite_settings() "{
@@ -155,6 +150,10 @@ Plug 'Shougo/neoyank.vim'
 """""""""""""
 " languages
 """""""""""""
+Plug 'Valloric/YouCompleteMe'
+
+Plug 'scrooloose/syntastic'
+
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 
 " Plug 'ElmCast/elm-vim', { 'for': 'elm' }
@@ -205,6 +204,10 @@ nmap ga <Plug>(EasyAlign)
 " augroup END
 " Plug 'szw/vim-tags'
 
+Plug 'mbbill/undotree'
+" shows registers in side menu, is a bit annoying since i use macros so much
+" Plug 'junegunn/vim-peekaboo'
+
 """""""""""""
 " windows
 """""""""""""
@@ -218,14 +221,29 @@ let g:miniBufExplModSelTarget = 1
 " TODO: figure out how to use these
 " Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 
+"""""""""""""
+" general utilities
+"""""""""""""
+
 Plug 'tpope/vim-eunuch'
 
-Plug 'mbbill/undotree'
+Plug 'scrooloose/nerdtree'
 
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
+Plug 'easymotion/vim-easymotion'
+" rebind leader to single key instead of 2
+" map <Leader> <Plug>(easymotion-prefix)
+" map <Leader>w <Plug>(easymotion-bd-w)
+" map <Leader>t <Plug>(easymotion-bd-tl)
+" map <Leader>f <Plug>(easymotion-bd-f)
+" Use uppercase target labels and type as a lower case
+let g:EasyMotion_use_upper = 1
+" nmap <Tab> <Plug>(easymotion-bd-jk)
+" nmap <Tab><Tab> <Plug>(easymotion-jumptoanywhere)
 
-Plug 'junegunn/vim-peekaboo'
+
+"""""""""""""
+" spacevim!
+"""""""""""""
 
 Plug 'hecal3/vim-leader-guide'
 
