@@ -29,13 +29,15 @@ nnoremap <Leader>fp :<C-u>Unite history/yank<cr>
 
 " insert semicolon
 nnoremap <Leader>i; mzA;<esc>`z
-nnoremap <Leader>jk :SplitjoinSplit<cr>
-nnoremap <Leader>jj :SplitjoinJoin<cr>
+
+nnoremap <Leader>J :SplitjoinJoin<cr>
+nnoremap <Leader>K :SplitjoinSplit<cr>
 
 " git
 nnoremap <Leader>ga :Git add --all<CR>
 nnoremap <Leader>gd :Gdiff<CR>
 nnoremap <Leader>gp :Git push<CR>
 nnoremap <Leader>gc :Gcommit<CR>
+" call s:spacevim_bind('map', 'gl', 'gv-log', 'GV', 1)
 
 " TODO: folding
