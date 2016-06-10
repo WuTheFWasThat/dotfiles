@@ -183,6 +183,8 @@ set grepprg=grep\ -nH\ $*
 Plug 'Raimondi/delimitMate'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
+" visual mode should just use s to surround
+vmap s S
 Plug 'tpope/vim-repeat'
 
 Plug 'AndrewRadev/splitjoin.vim'
