@@ -17,6 +17,7 @@ incomplete notes
   - install spacemacs
   - install screen/tmux
   - install git 2.3
+  - install thefuck
   - install ctags: e.g. `apt-get install exuberant-ctags` or `brew install ctags`
 
 ## TODO

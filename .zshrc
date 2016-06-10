@@ -128,5 +128,3 @@ source ~/google-cloud-sdk/path.zsh.inc
 
 # The next line enables shell command completion for gcloud.
 source ~/google-cloud-sdk/completion.zsh.inc
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
