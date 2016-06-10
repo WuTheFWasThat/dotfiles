@@ -13,5 +13,3 @@ alias jj='fasd_cd -d -i'
 alias e='fasd -f -e "emacsclient -c"' # quick opening files with emacs
 alias v='fasd -f -e vim' # quick opening files with vim
 # alias v='f -t -e vim -b viminfo'
-
-eval "$(thefuck --alias f)"

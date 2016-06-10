@@ -27,6 +27,9 @@ nnoremap <Leader>fp :<C-u>Unite history/yank<cr>
 " recent files
 " nnoremap <Leader>fr :<C-u>Unite -no-split -buffer-name=mru -start-insert file_mru<cr>
 
+" insert semicolon
+nnoremap <Leader>i; mzA;<esc>`z
+
 " git
 nnoremap <Leader>ga :Git add --all<CR>
 nnoremap <Leader>gd :Gdiff<CR>

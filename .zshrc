@@ -114,6 +114,9 @@ alias docs='pushd ~/Documents'
 alias dls='pushd ~/Downloads'
 alias p='pushd ~/Projects'
 
+# ffuuuuu
+eval "$(thefuck --alias fu)"
+
 # stuff for work
 source ~/.workrc.sh
 
