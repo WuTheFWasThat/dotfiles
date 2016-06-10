@@ -8,9 +8,6 @@
 "highlight Folded guibg=grey guifg=blue
 "highlight FoldColumn guibg=darkgrey guifg=white
 
-" search centers screen
-nnoremap n nzz
-
 set ruler
 set nu
 
@@ -56,6 +53,12 @@ augroup END
 nnoremap  ;  :
 " this messes stuff up
 " nnoremap  :  ;
+
+" search centers screen
+nnoremap n nzz
+
+" split at cursor
+nnoremap K i<cr><esc>
 
 " Make p in Visual mode replace the selected text with the "" register.
 vnoremap p <Esc>:let current_reg = @"<CR>gvs<C-R>=current_reg<CR><Esc>
