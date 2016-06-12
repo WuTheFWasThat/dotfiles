@@ -1,6 +1,8 @@
 " to profile vim startup
 " vim --startuptime vim.log <somefile>
 
+" TODO: map M to something useful
+
 "set foldmethod=indent
 ""hi Folded guifg=white guibg=black ctermfg=white ctermbg=black
 "hi FoldColumn      guifg=#465457 guibg=#000000
@@ -54,6 +56,8 @@ nnoremap  ;  :
 
 " search centers screen
 nnoremap n nzz
+nnoremap <C-D> <C-D>zz
+nnoremap <C-U> <C-U>zz
 
 " split at cursor
 nnoremap K i<cr><esc>
@@ -130,6 +134,12 @@ Plug 'rking/ag.vim'
 " must come AFTER ag.vim
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+" ctrlp, just cause i'm used to it
+nnoremap <C-p> :GitFiles<cr>
+nnoremap <C-b> :Buffers<cr>
+nnoremap <C-f> :Files<cr>
+nnoremap ' :Marks<cr>
+" nnoremap <C-f> :Files /Users/jeffwu<cr>
 
 Plug 'Shougo/unite.vim'
 function! s:unite_settings() "{
@@ -189,8 +199,8 @@ Plug 'tpope/vim-repeat'
 
 Plug 'vim-scripts/YankRing.vim'
 let g:yankring_history_dir = expand('$HOME/.vim/')
-let g:yankring_replace_n_pkey = '<C-P>'
-let g:yankring_replace_n_nkey = '<C-N>'
+let g:yankring_replace_n_pkey = '['
+let g:yankring_replace_n_nkey = ']'
 
 Plug 'AndrewRadev/splitjoin.vim'
 let g:splitjoin_split_mapping = ''
@@ -270,9 +280,6 @@ call plug#end()
 
 " NOTE: command line install:
 " vim +PlugInstall +qall
-
-" ctrlp, just cause i'm used to it
-" nnoremap <C-p> :GitFiles<cr>
 
 " syntastic
 set statusline+=%#warningmsg#
