@@ -1,213 +1,418 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict>
-	<key>Ansi 0 Color</key>
-	<dict>
-		<key>Blue Component</key>
-		<real>0.19370138645172119</real>
-		<key>Green Component</key>
-		<real>0.15575926005840302</real>
-		<key>Red Component</key>
-		<real>0.0</real>
-	</dict>
-	<key>Ansi 1 Color</key>
-	<dict>
-		<key>Blue Component</key>
-		<real>0.38809829950332642</real>
-		<key>Green Component</key>
-		<real>0.41782402992248535</real>
-		<key>Red Component</key>
-		<real>0.81926977634429932</real>
-	</dict>
-	<key>Ansi 10 Color</key>
-	<dict>
-		<key>Blue Component</key>
-		<real>0.30664927034266187</real>
-		<key>Green Component</key>
-		<real>0.47484611742424243</real>
-		<key>Red Component</key>
-		<real>0.34182660753088823</real>
-	</dict>
-	<key>Ansi 11 Color</key>
-	<dict>
-		<key>Blue Component</key>
-		<real>0.27418601512908936</real>
-		<key>Green Component</key>
-		<real>0.75782757997512817</real>
-		<key>Red Component</key>
-		<real>0.79865056276321411</real>
-	</dict>
-	<key>Ansi 12 Color</key>
-	<dict>
-		<key>Blue Component</key>
-		<real>0.77468037605285645</real>
-		<key>Green Component</key>
-		<real>0.43287396430969238</real>
-		<key>Red Component</key>
-		<real>0.27467691898345947</real>
-	</dict>
-	<key>Ansi 13 Color</key>
-	<dict>
-		<key>Blue Component</key>
-		<real>0.73907041549682617</real>
-		<key>Green Component</key>
-		<real>0.38857379555702209</real>
-		<key>Red Component</key>
-		<real>0.43010443449020386</real>
-	</dict>
-	<key>Ansi 14 Color</key>
-	<dict>
-		<key>Blue Component</key>
-		<real>0.74923056364059448</real>
-		<key>Green Component</key>
-		<real>0.47768214344978333</real>
-		<key>Red Component</key>
-		<real>0.59071630239486694</real>
-	</dict>
-	<key>Ansi 15 Color</key>
-	<dict>
-		<key>Blue Component</key>
-		<real>1</real>
-		<key>Green Component</key>
-		<real>1</real>
-		<key>Red Component</key>
-		<real>1</real>
-	</dict>
-	<key>Ansi 2 Color</key>
-	<dict>
-		<key>Blue Component</key>
-		<real>0.21634918789075153</real>
-		<key>Green Component</key>
-		<real>0.38782354797979801</real>
-		<key>Red Component</key>
-		<real>0.0005304260218654068</real>
-	</dict>
-	<key>Ansi 3 Color</key>
-	<dict>
-		<key>Blue Component</key>
-		<real>0.27202704548835754</real>
-		<key>Green Component</key>
-		<real>0.74045592546463013</real>
-		<key>Red Component</key>
-		<real>0.80778485536575317</real>
-	</dict>
-	<key>Ansi 4 Color</key>
-	<dict>
-		<key>Blue Component</key>
-		<real>0.9392361044883728</real>
-		<key>Green Component</key>
-		<real>0.68243330717086792</real>
-		<key>Red Component</key>
-		<real>0.34100940823554993</real>
-	</dict>
-	<key>Ansi 5 Color</key>
-	<dict>
-		<key>Blue Component</key>
-		<real>0.60506445169448853</real>
-		<key>Green Component</key>
-		<real>0.1968284547328949</real>
-		<key>Red Component</key>
-		<real>0.77738940715789795</real>
-	</dict>
-	<key>Ansi 6 Color</key>
-	<dict>
-		<key>Blue Component</key>
-		<real>0.95298689603805542</real>
-		<key>Green Component</key>
-		<real>0.67026388645172119</real>
-		<key>Red Component</key>
-		<real>0.12102869898080826</real>
-	</dict>
-	<key>Ansi 7 Color</key>
-	<dict>
-		<key>Blue Component</key>
-		<real>1</real>
-		<key>Green Component</key>
-		<real>0.95864009857177734</real>
-		<key>Red Component</key>
-		<real>0.95778185129165649</real>
-	</dict>
-	<key>Ansi 8 Color</key>
-	<dict>
-		<key>Blue Component</key>
-		<real>0.15170273184776306</real>
-		<key>Green Component</key>
-		<real>0.11783610284328461</real>
-		<key>Red Component</key>
-		<real>0.0</real>
-	</dict>
-	<key>Ansi 9 Color</key>
-	<dict>
-		<key>Blue Component</key>
-		<real>0.18229223787784576</real>
-		<key>Green Component</key>
-		<real>0.18229223787784576</real>
-		<key>Red Component</key>
-		<real>0.69541114568710327</real>
-	</dict>
-	<key>Background Color</key>
-	<dict>
-		<key>Blue Component</key>
-		<real>0.087397411465644836</real>
-		<key>Green Component</key>
-		<real>0.087397411465644836</real>
-		<key>Red Component</key>
-		<real>0.087397411465644836</real>
-	</dict>
-	<key>Bold Color</key>
-	<dict>
-		<key>Blue Component</key>
-		<real>0.8532986044883728</real>
-		<key>Green Component</key>
-		<real>0.8383975625038147</real>
-		<key>Red Component</key>
-		<real>0.8364708423614502</real>
-	</dict>
-	<key>Cursor Color</key>
-	<dict>
-		<key>Blue Component</key>
-		<real>0.50879889726638794</real>
-		<key>Green Component</key>
-		<real>0.41405221819877625</real>
-		<key>Red Component</key>
-		<real>0.47524374723434448</real>
-	</dict>
-	<key>Cursor Text Color</key>
-	<dict>
-		<key>Blue Component</key>
-		<real>0.25798022747039795</real>
-		<key>Green Component</key>
-		<real>0.82495200634002686</real>
-		<key>Red Component</key>
-		<real>0.91883683204650879</real>
-	</dict>
-	<key>Foreground Color</key>
-	<dict>
-		<key>Blue Component</key>
-		<real>0.51207387447357178</real>
-		<key>Green Component</key>
-		<real>0.51207387447357178</real>
-		<key>Red Component</key>
-		<real>0.51207387447357178</real>
-	</dict>
-	<key>Selected Text Color</key>
-	<dict>
-		<key>Blue Component</key>
-		<real>0.56363654136657715</real>
-		<key>Green Component</key>
-		<real>0.56485837697982788</real>
-		<key>Red Component</key>
-		<real>0.50599193572998047</real>
-	</dict>
-	<key>Selection Color</key>
-	<dict>
-		<key>Blue Component</key>
-		<real>0.21821732819080353</real>
-		<key>Green Component</key>
-		<real>0.13964666426181793</real>
-		<key>Red Component</key>
-		<real>0.16894493997097015</real>
-	</dict>
-</dict>
-</plist>
+{
+  "Working Directory" : "\/Users\/jeffwu",
+  "Prompt Before Closing 2" : 0,
+  "Selected Text Color" : {
+    "Green Component" : 0.5648584,
+    "Blue Component" : 0.5636365,
+    "Red Component" : 0.5059919
+  },
+  "Rows" : 25,
+  "Ansi 11 Color" : {
+    "Green Component" : 0.7578276,
+    "Blue Component" : 0.274186,
+    "Red Component" : 0.7986506
+  },
+  "Use Italic Font" : true,
+  "Foreground Color" : {
+    "Green Component" : 0.5120739,
+    "Blue Component" : 0.5120739,
+    "Red Component" : 0.5120739
+  },
+  "Right Option Key Sends" : 0,
+  "Character Encoding" : 4,
+  "Selection Color" : {
+    "Green Component" : 0.1396467,
+    "Blue Component" : 0.2182173,
+    "Red Component" : 0.1689449
+  },
+  "Triggers" : [
+
+  ],
+  "Blend" : 0.3,
+  "Mouse Reporting" : true,
+  "Ansi 4 Color" : {
+    "Green Component" : 0.6824333,
+    "Blue Component" : 0.9392361,
+    "Red Component" : 0.3410094
+  },
+  "Non-ASCII Anti Aliased" : true,
+  "Sync Title" : false,
+  "Disable Window Resizing" : true,
+  "Close Sessions On End" : true,
+  "Jobs to Ignore" : [
+    "rlogin",
+    "ssh",
+    "slogin",
+    "telnet"
+  ],
+  "Scrollback With Status Bar" : false,
+  "Scrollback Lines" : 10000,
+  "Scrollback in Alternate Screen" : true,
+  "Hide After Opening" : false,
+  "Flashing Bell" : false,
+  "BM Growl" : true,
+  "Ansi 3 Color" : {
+    "Green Component" : 0.7404559,
+    "Blue Component" : 0.272027,
+    "Red Component" : 0.8077849
+  },
+  "Shortcut" : "",
+  "Background Image Location" : "",
+  "Bold Color" : {
+    "Green Component" : 0.8383976,
+    "Blue Component" : 0.8532986,
+    "Red Component" : 0.8364708
+  },
+  "Unlimited Scrollback" : false,
+  "Custom Command" : "No",
+  "Smart Selection Rules" : [
+    {
+      "notes" : "Word bounded by whitespace",
+      "regex" : "\\S+",
+      "precision" : "low"
+    },
+    {
+      "notes" : "C++ namespace::identifier",
+      "regex" : "([a-zA-Z0-9_]+::)+[a-zA-Z0-9_]+",
+      "precision" : "normal"
+    },
+    {
+      "notes" : "Paths",
+      "regex" : "\\~?\/?([[:letter:][:number:]._-]+\/+)+[[:letter:][:number:]._-]+\/?",
+      "precision" : "normal"
+    },
+    {
+      "notes" : "Quoted string",
+      "regex" : "@?\"(?:[^\"\\\\]|\\\\.)*\"",
+      "precision" : "normal"
+    },
+    {
+      "notes" : "Java\/Python include paths",
+      "regex" : "([[:letter:][:number:]._]+\\.)+[[:letter:][:number:]._]+",
+      "precision" : "normal"
+    },
+    {
+      "notes" : "mailto URL",
+      "regex" : "\\bmailto:([a-z0-9A-Z_]+@)?([a-zA-Z0-9\\-]+\\.)*[a-zA-Z0-9\\-]+\\b",
+      "precision" : "normal"
+    },
+    {
+      "notes" : "Obj-C selector",
+      "regex" : "@selector\\([^)]+\\)",
+      "precision" : "high"
+    },
+    {
+      "notes" : "email address",
+      "regex" : "\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}\\b",
+      "precision" : "high"
+    },
+    {
+      "notes" : "HTTP URL",
+      "regex" : "https?:\/\/([a-z0-9A-Z]+(:[a-zA-Z0-9]+)?@)?[a-z0-9A-Z]+(\\.[a-z0-9A-Z]+)*((:[0-9]+)?)(\/[a-zA-Z0-9;\/\\.\\-_+%~?&@=#\\(\\)]*)?",
+      "precision" : "very_high"
+    },
+    {
+      "notes" : "SSH URL",
+      "regex" : "\\bssh:([a-z0-9A-Z_]+@)?([a-zA-Z0-9\\-]+\\.)*[a-zA-Z0-9\\-]+\\b",
+      "precision" : "very_high"
+    },
+    {
+      "notes" : "Telnet URL",
+      "regex" : "\\btelnet:([a-z0-9A-Z_]+@)?([a-zA-Z0-9\\-]+\\.)*[a-zA-Z0-9\\-]+\\b",
+      "precision" : "very_high"
+    }
+  ],
+  "Keyboard Map" : {
+    "0xf700-0x260000" : {
+      "Text" : "[1;6A",
+      "Action" : 10
+    },
+    "0x37-0x40000" : {
+      "Text" : "0x1f",
+      "Action" : 11
+    },
+    "0x32-0x40000" : {
+      "Text" : "0x00",
+      "Action" : 11
+    },
+    "0xf709-0x20000" : {
+      "Text" : "[17;2~",
+      "Action" : 10
+    },
+    "0xf70c-0x20000" : {
+      "Text" : "[20;2~",
+      "Action" : 10
+    },
+    "0xf729-0x20000" : {
+      "Text" : "[1;2H",
+      "Action" : 10
+    },
+    "0xf72b-0x40000" : {
+      "Text" : "[1;5F",
+      "Action" : 10
+    },
+    "0xf705-0x20000" : {
+      "Text" : "[1;2Q",
+      "Action" : 10
+    },
+    "0xf703-0x260000" : {
+      "Text" : "[1;6C",
+      "Action" : 10
+    },
+    "0xf700-0x220000" : {
+      "Text" : "[1;2A",
+      "Action" : 10
+    },
+    "0xf701-0x280000" : {
+      "Text" : "0x1b 0x1b 0x5b 0x42",
+      "Action" : 11
+    },
+    "0x38-0x40000" : {
+      "Text" : "0x7f",
+      "Action" : 11
+    },
+    "0x33-0x40000" : {
+      "Text" : "0x1b",
+      "Action" : 11
+    },
+    "0xf703-0x220000" : {
+      "Text" : "[1;2C",
+      "Action" : 10
+    },
+    "0xf701-0x240000" : {
+      "Text" : "[1;5B",
+      "Action" : 10
+    },
+    "0xf70d-0x20000" : {
+      "Text" : "[21;2~",
+      "Action" : 10
+    },
+    "0xf702-0x260000" : {
+      "Text" : "[1;6D",
+      "Action" : 10
+    },
+    "0xf729-0x40000" : {
+      "Text" : "[1;5H",
+      "Action" : 10
+    },
+    "0xf706-0x20000" : {
+      "Text" : "[1;2R",
+      "Action" : 10
+    },
+    "0x34-0x40000" : {
+      "Text" : "0x1c",
+      "Action" : 11
+    },
+    "0xf700-0x280000" : {
+      "Text" : "0x1b 0x1b 0x5b 0x41",
+      "Action" : 11
+    },
+    "0x2d-0x40000" : {
+      "Text" : "0x1f",
+      "Action" : 11
+    },
+    "0xf70e-0x20000" : {
+      "Text" : "[23;2~",
+      "Action" : 10
+    },
+    "0xf702-0x220000" : {
+      "Text" : "[1;2D",
+      "Action" : 10
+    },
+    "0xf703-0x280000" : {
+      "Text" : "0x1b 0x1b 0x5b 0x43",
+      "Action" : 11
+    },
+    "0xf700-0x240000" : {
+      "Text" : "[1;5A",
+      "Action" : 10
+    },
+    "0xf707-0x20000" : {
+      "Text" : "[1;2S",
+      "Action" : 10
+    },
+    "0xf70a-0x20000" : {
+      "Text" : "[18;2~",
+      "Action" : 10
+    },
+    "0x35-0x40000" : {
+      "Text" : "0x1d",
+      "Action" : 11
+    },
+    "0xf70f-0x20000" : {
+      "Text" : "[24;2~",
+      "Action" : 10
+    },
+    "0xf703-0x240000" : {
+      "Text" : "[1;5C",
+      "Action" : 10
+    },
+    "0xf701-0x260000" : {
+      "Text" : "[1;6B",
+      "Action" : 10
+    },
+    "0xf702-0x280000" : {
+      "Text" : "0x1b 0x1b 0x5b 0x44",
+      "Action" : 11
+    },
+    "0xf72b-0x20000" : {
+      "Text" : "[1;2F",
+      "Action" : 10
+    },
+    "0x36-0x40000" : {
+      "Text" : "0x1e",
+      "Action" : 11
+    },
+    "0xf708-0x20000" : {
+      "Text" : "[15;2~",
+      "Action" : 10
+    },
+    "0xf701-0x220000" : {
+      "Text" : "[1;2B",
+      "Action" : 10
+    },
+    "0xf70b-0x20000" : {
+      "Text" : "[19;2~",
+      "Action" : 10
+    },
+    "0xf702-0x240000" : {
+      "Text" : "[1;5D",
+      "Action" : 10
+    },
+    "0xf704-0x20000" : {
+      "Text" : "[1;2P",
+      "Action" : 10
+    }
+  },
+  "Log Directory" : "",
+  "Use Canonical Parser" : false,
+  "Ansi 14 Color" : {
+    "Red Component" : 0.3156771957874298,
+    "Color Space" : "Calibrated",
+    "Blue Component" : 0.7160407900810242,
+    "Alpha Component" : 1,
+    "Green Component" : 0.5109649896621704
+  },
+  "Ansi 2 Color" : {
+    "Green Component" : 0.3878236,
+    "Blue Component" : 0.2163492,
+    "Red Component" : 0.000530426
+  },
+  "Background Image Is Tiled" : false,
+  "Send Code When Idle" : false,
+  "ASCII Anti Aliased" : true,
+  "Tags" : [
+
+  ],
+  "Ansi 9 Color" : {
+    "Green Component" : 0.1822922,
+    "Blue Component" : 0.1822922,
+    "Red Component" : 0.6954111
+  },
+  "Use Bold Font" : true,
+  "Silence Bell" : true,
+  "Ansi 12 Color" : {
+    "Green Component" : 0.432874,
+    "Blue Component" : 0.7746804,
+    "Red Component" : 0.2746769
+  },
+  "Window Type" : 0,
+  "Allow Title Reporting" : false,
+  "Use Bright Bold" : true,
+  "Cursor Text Color" : {
+    "Green Component" : 0.824952,
+    "Blue Component" : 0.2579802,
+    "Red Component" : 0.9188368
+  },
+  "Default Bookmark" : "No",
+  "Cursor Color" : {
+    "Green Component" : 0.4140522,
+    "Blue Component" : 0.5087989,
+    "Red Component" : 0.4752437
+  },
+  "Disable Smcup Rmcup" : false,
+  "Name" : "Default",
+  "Blinking Cursor" : false,
+  "Guid" : "C54C9FE7-9903-4E74-BA72-A5B7B42D3C62",
+  "Ansi 1 Color" : {
+    "Green Component" : 0.417824,
+    "Blue Component" : 0.3880983,
+    "Red Component" : 0.8192698
+  },
+  "Idle Code" : 0,
+  "Ansi 10 Color" : {
+    "Red Component" : 0.2685974836349487,
+    "Color Space" : "Calibrated",
+    "Blue Component" : 0.2380541414022446,
+    "Alpha Component" : 1,
+    "Green Component" : 0.3843720555305481
+  },
+  "Ansi 8 Color" : {
+    "Green Component" : 0.1178361,
+    "Blue Component" : 0.1517027,
+    "Red Component" : 0
+  },
+  "Automatically Log" : false,
+  "Smart Cursor Color" : true,
+  "Semantic History" : {
+    "editor" : "com.sublimetext.3",
+    "action" : "best editor",
+    "text" : ""
+  },
+  "Ambiguous Double Width" : false,
+  "Blur Radius" : 2,
+  "Cursor Type" : 2,
+  "Ansi 0 Color" : {
+    "Green Component" : 0.1557593,
+    "Blue Component" : 0.1937014,
+    "Red Component" : 0
+  },
+  "Blur" : false,
+  "Normal Font" : "Monaco 12",
+  "Vertical Spacing" : 1,
+  "Disable Printing" : false,
+  "Ansi 7 Color" : {
+    "Green Component" : 0.9586401,
+    "Blue Component" : 1,
+    "Red Component" : 0.9577819
+  },
+  "Command" : "",
+  "Terminal Type" : "xterm-256color",
+  "Horizontal Spacing" : 1,
+  "Option Key Sends" : 2,
+  "Blink Allowed" : false,
+  "Minimum Contrast" : 0.3570833,
+  "Ansi 15 Color" : {
+    "Green Component" : 1,
+    "Blue Component" : 1,
+    "Red Component" : 1
+  },
+  "Ansi 6 Color" : {
+    "Green Component" : 0.6702639,
+    "Blue Component" : 0.9529869,
+    "Red Component" : 0.1210287
+  },
+  "Transparency" : 0,
+  "Initial Text" : "",
+  "Background Color" : {
+    "Green Component" : 0.08739741,
+    "Blue Component" : 0.08739741,
+    "Red Component" : 0.08739741
+  },
+  "Screen" : -1,
+  "Non Ascii Font" : "Monaco 12",
+  "Ansi 13 Color" : {
+    "Green Component" : 0.3885738,
+    "Blue Component" : 0.7390704,
+    "Red Component" : 0.4301044
+  },
+  "Columns" : 80,
+  "Visual Bell" : true,
+  "Custom Directory" : "No",
+  "Ansi 5 Color" : {
+    "Green Component" : 0.1968285,
+    "Blue Component" : 0.6050645,
+    "Red Component" : 0.7773894
+  },
+  "Set Local Environment Vars" : true
+}

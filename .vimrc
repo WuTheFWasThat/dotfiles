@@ -11,7 +11,6 @@
 "highlight Folded guibg=grey guifg=blue
 "highlight FoldColumn guibg=darkgrey guifg=white
 
-set ruler
 set nu
 
 " ignore case
@@ -31,6 +30,7 @@ set nosmartindent
 set cindent
 
 " lets you hide buffers when opening new files
+" (instead of "No write since last change")
 set hidden
 
 augroup misc
@@ -244,7 +244,7 @@ Plug 'mbbill/undotree'
 Plug 'junegunn/vim-peekaboo'
 let g:peekaboo_delay = 400
 
-" Plug 'Yggdroot/indentLine'
+Plug 'Yggdroot/indentLine'
 " NOTE: these are all ignored... TODO: figure this out
 " " Vim
 " let g:indentLine_color_term = 240
@@ -292,8 +292,8 @@ let g:EasyMotion_use_upper = 1
 """""""""""""
 
 Plug 'hecal3/vim-leader-guide'
+set timeoutlen=400
 
-set timeoutlen=200
 Plug 'WuTheFWasThat/spacevim'
 
 Plug 'vim-airline/vim-airline'
@@ -349,10 +349,10 @@ nnoremap <Leader>b8 :b8<CR>
 nnoremap <Leader>b9 :b9<CR>
 nnoremap <Leader>b0 :b10<CR>
 
-let g:solarized_termcolors = 256
 set background=dark
-" let g:solarized_visibility = "high"
-" let g:solarized_contrast = "high"
-colorscheme solarized
+" let g:solarized_termcolors = 256
+" " let g:solarized_visibility = "high"
+" " let g:solarized_contrast = "high"
+" colorscheme solarized
 " see: http://serverfault.com/questions/268555/how-to-tell-vim-to-extend-the-background-color-to-the-whole-screen
 set t_ut=
