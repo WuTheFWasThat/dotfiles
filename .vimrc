@@ -2,6 +2,7 @@
 " vim --startuptime vim.log <somefile>
 
 " TODO: map M to something useful
+" TODO: map S to something useful
 
 "set foldmethod=indent
 ""hi Folded guifg=white guibg=black ctermfg=white ctermbg=black
@@ -13,8 +14,6 @@
 set ruler
 set nu
 
-" highlight for search
-set hlsearch
 " ignore case
 set ic
 
@@ -50,12 +49,7 @@ augroup misc
     \ endif
 augroup END
 
-nnoremap  ;  :
-" this messes stuff up
-" nnoremap  :  ;
-
 " search centers screen
-nnoremap n nzz
 nnoremap <C-D> <C-D>zz
 nnoremap <C-U> <C-U>zz
 
@@ -129,7 +123,8 @@ Plug 'airblade/vim-gitgutter'
 " search
 """""""""""""
 
-Plug 'rking/ag.vim'
+" unneeded, with fzf
+" Plug 'rking/ag.vim'
 
 " must come AFTER ag.vim
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -197,6 +192,30 @@ Plug 'tpope/vim-surround'
 vmap s S
 Plug 'tpope/vim-repeat'
 
+" highlight all search results
+Plug 'haya14busa/incsearch.vim'
+map /  <Plug>(incsearch-forward)
+map ?  <Plug>(incsearch-backward)
+map g/ <Plug>(incsearch-stay)
+" highlight for search
+set hlsearch
+let g:incsearch#auto_nohlsearch = 1
+map n  <Plug>(incsearch-nohl-n)
+map N  <Plug>(incsearch-nohl-N)
+map *  <Plug>(incsearch-nohl-*)
+map #  <Plug>(incsearch-nohl-#)
+map g* <Plug>(incsearch-nohl-g*)
+map g# <Plug>(incsearch-nohl-g#)
+nmap n nzz
+nmap N Nzz
+" display replacements as you type command
+Plug 'osyo-manga/vim-over'
+nnoremap <silent> ; :OverCommandLine<cr>
+nnoremap <silent> : :OverCommandLine<cr>
+" nnoremap  ;  :
+" nnoremap  :  ;
+
+
 Plug 'vim-scripts/YankRing.vim'
 let g:yankring_history_dir = expand('$HOME/.vim/')
 let g:yankring_replace_n_pkey = '['
@@ -222,8 +241,18 @@ nmap ga <Plug>(EasyAlign)
 " Plug 'szw/vim-tags'
 
 Plug 'mbbill/undotree'
-" shows registers in side menu, is a bit annoying since i use macros so much
-" Plug 'junegunn/vim-peekaboo'
+Plug 'junegunn/vim-peekaboo'
+let g:peekaboo_delay = 400
+
+" Plug 'Yggdroot/indentLine'
+" NOTE: these are all ignored... TODO: figure this out
+" " Vim
+" let g:indentLine_color_term = 240
+" "GVim
+" let g:indentLine_color_gui = '#A4E57E'
+" " none X terminal
+" let g:indentLine_color_tty_light = 7 " (default: 4)
+" let g:indentLine_color_dark = 1 " (default: 2)
 
 """""""""""""
 " windows
