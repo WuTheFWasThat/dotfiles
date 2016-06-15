@@ -180,6 +180,23 @@ let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 " let g:UltiSnipsEditSplit="vertical"
 
 Plug 'scrooloose/syntastic', { 'do': './install.py' }
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_javascript_checkers = ['eslint']
+" 'jshint'
+
+" ignore annoying errors
+let g:syntastic_html_tidy_ignore_errors=[ "proprietary attribute" ,"trimming empty <"]
+
+" HACKY: see http://stackoverflow.com/questions/15937042/syntastic-disable-automatic-compilation-of-java
+" maybe undo this if i switch from intellij
+let g:loaded_syntastic_java_javac_checker = 1
 
 """""""""""""
 " languages
@@ -334,22 +351,6 @@ call plug#end()
 
 " NOTE: command line install:
 " vim +PlugInstall +qall
-
-" syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_javascript_checkers = ['eslint']
-" 'jshint'
-
-" HACKY: see http://stackoverflow.com/questions/15937042/syntastic-disable-automatic-compilation-of-java
-" maybe undo this if i switch from intellij
-let g:loaded_syntastic_java_javac_checker = 1
 
 " http://vim.wikia.com/wiki/Mac_OS_X_clipboard_sharing
 " set clipboard=unnamed
