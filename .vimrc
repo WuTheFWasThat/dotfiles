@@ -319,6 +319,7 @@ Plug 'hecal3/vim-leader-guide'
 set timeoutlen=400
 
 Plug 'ctjhoa/spacevim'
+let mapleader = "\<Space>"
 
 Plug 'vim-airline/vim-airline'
 " enable status line always
@@ -354,24 +355,13 @@ let g:loaded_syntastic_java_javac_checker = 1
 " set clipboard=unnamed
 
 " control c copies to clipboard in visual mode
-" no way to do command key in regular vim...
+" no way to do command key in regular vim... maybe neovim though?
 vnoremap <C-c> "+y
 nnoremap <C-c> "+y
 
-let mapleader = "\<Space>"
 " faster switch buffers
 nnoremap <C-J> <Esc>:bn<CR>
 nnoremap <C-K> <Esc>:bp<CR>
-nnoremap <Leader>b1 :b1<CR>
-nnoremap <Leader>b2 :b2<CR>
-nnoremap <Leader>b3 :b3<CR>
-nnoremap <Leader>b4 :b4<CR>
-nnoremap <Leader>b5 :b5<CR>
-nnoremap <Leader>b6 :b6<CR>
-nnoremap <Leader>b7 :b7<CR>
-nnoremap <Leader>b8 :b8<CR>
-nnoremap <Leader>b9 :b9<CR>
-nnoremap <Leader>b0 :b10<CR>
 
 set background=dark
 " let g:solarized_termcolors = 256
