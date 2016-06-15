@@ -3,9 +3,10 @@
 
 "toggle
 " show/hide invisible chars
-nnoremap <Leader>ti :set list!<CR>
+nnoremap <Leader>t\ :set list!<CR>
 " paste mode
 nnoremap <Leader>tp :set paste!<CR>
+nnoremap <Leader>ti :IndentLinesToggle<CR>
 
 " project
 function! spacemacs#toggleExplorerAtRoot()

@@ -245,6 +245,8 @@ Plug 'junegunn/vim-peekaboo'
 let g:peekaboo_delay = 400
 
 Plug 'Yggdroot/indentLine'
+let g:indentLine_enabled = 0
+
 " NOTE: these are all ignored... TODO: figure this out
 " " Vim
 " let g:indentLine_color_term = 240
