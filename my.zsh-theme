@@ -66,9 +66,8 @@ function precmd() {
 # useful chars: » ● ✔ ✘
 setopt prompt_subst
 PROMPT=$'${ret_result}%B%F{blue}%c # %{$reset_color%}'
-RPROMPT='%B%F{blue}${vcs_info_msg_0_}%{$reset_color%}'
+RPROMPT='%B%F{blue}${vcs_info_msg_0_}%{$reset_color%} [%D{%L:%M:%S %p}]'
 
-# for time, put this in prompt: [%D{%L:%M:%S %p}]
 # to update time:
 # TMOUT=1
 # TRAPALRM() {

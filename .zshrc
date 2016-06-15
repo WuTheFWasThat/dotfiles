@@ -102,6 +102,7 @@ function list_space {
 }
 
 alias h='history'
+alias b='popd'
 
 alias docs='pushd ~/Documents'
 alias dls='pushd ~/Downloads'
