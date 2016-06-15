@@ -270,6 +270,13 @@ Plug 'tpope/vim-markdown', { 'for' : 'markdown' }
 " program to always generate a file-name.
 set grepprg=grep\ -nH\ $*
 
+Plug 'let-def/vimbufsync'
+Plug 'trefis/coquille', { 'for': 'coq' }
+" map J :CoqNext<Enter>
+" map K :CoqUndo<Enter>
+" map H :CoqToCursor<Enter>
+autocmd BufNewFile,BufRead *.v CoqLaunch
+
 """""""""""""
 " editing
 """""""""""""
