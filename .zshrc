@@ -107,6 +107,7 @@ alias docs='pushd ~/Documents'
 alias dls='pushd ~/Downloads'
 alias p='pushd ~/Projects'
 
+alias vim='nvim'
 alias plug='vim +PlugInstall +qall'
 
 # ffuuuuu

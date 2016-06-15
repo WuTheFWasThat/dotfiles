@@ -19,6 +19,13 @@ incomplete notes
   - install git 2.3
   - install thefuck
   - install ctags: e.g. `apt-get install exuberant-ctags` or `brew install ctags`
+  - install neovim
+    -
+    ```
+    mkdir -p ${XDG_CONFIG_HOME:=$HOME/.config}
+    ln -s ~/.vim $XDG_CONFIG_HOME/nvim
+    ln -s ~/.vimrc $XDG_CONFIG_HOME/nvim/init.vim
+    ```
 
 ## TODO
   - vim
