@@ -15,11 +15,28 @@
     co = checkout
     cop = checkout -p
     new = checkout -b
-    # delete a branch (default to current branch).  if current branch deleted, checkout master
     bd = branch -D
-    bx = "!f() { branch=$(git rev-parse --abbrev-ref HEAD); if [ \"$branch\" = \"master\" ]; then echo \"Can't delete master!\"; return 1; fi; git checkout master; git branch -D $branch; }; f"
-    # Remove branches that have already been merged with master, a.k.a. ‘delete merged’
     bdm = "!git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"
+    # delete a branch (default to current branch).  if current branch deleted, checkout master
+    bx = "!f() { \
+      onbranch=$(git rev-parse --abbrev-ref HEAD); \
+      branch=${1:-$onbranch}; \
+      if [ \"$branch\" = \"master\" ]; then \
+        echo \"Can't delete master!\";  \
+        return 1;  \
+      fi;  \
+      if [ \"$branch\" = \"$onbranch\" ]; then \
+        git checkout master;  \
+      fi;  \
+      git branch -D $branch;  \
+    }; f"
+    # delete remote branch
+    bxr = "!f() { \
+      onbranch=$(git rev-parse --abbrev-ref HEAD); \
+      branch=${1:-$onbranch}; \
+      git push origin :$branch; \
+    }; f"
+    # Remove branches that have already been merged with master, a.k.a. ‘delete merged’
     done = "!f() { \
       mybranch=$(git rev-parse --abbrev-ref HEAD); \
       if [ \"$mybranch\" != \"master\" ]; then git checkout master; git reset --hard $mybranch; fi; \
