@@ -7,7 +7,6 @@
 "     install ctags: e.g. `apt-get install exuberant-ctags` or `brew install ctags`
 " - map M to something useful
 " - map S to something useful
-" - figgure out snips (replace insert mode language specific macros)
 " - figure out folding
 " - figure out good shell? (dunno if valuable)
 
@@ -159,13 +158,32 @@ let g:unite_split_rule = 'botright'
 Plug 'Shougo/neomru.vim'
 Plug 'Shougo/neoyank.vim'
 
-"""""""""""""
-" languages
-"""""""""""""
+""""""""""""""
+" general programming
+""""""""""""""
+
+" make tab be awesome
+Plug 'ervandew/supertab'
 Plug 'Valloric/YouCompleteMe'
+" snippets engine, actual snippets
+Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+
+" make YCM compatible with UltiSnips (using supertab)
+let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+let g:SuperTabDefaultCompletionType = '<C-n>'
+
+" better key bindings for UltiSnipsExpandTrigger
+let g:UltiSnipsExpandTrigger = "<tab>"
+let g:UltiSnipsJumpForwardTrigger = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+" let g:UltiSnipsEditSplit="vertical"
 
 Plug 'scrooloose/syntastic', { 'do': './install.py' }
 
+"""""""""""""
+" languages
+"""""""""""""
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 
 Plug 'ElmCast/elm-vim', { 'for': 'elm' }
@@ -272,9 +290,6 @@ Plug 'fholgado/minibufexpl.vim'
 let g:miniBufExplMapWindowNavArrows = 1
 let g:miniBufExplMapCTabSwitchBufs = 1
 let g:miniBufExplModSelTarget = 1
-
-" TODO: figure out how to use these
-" Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 
 """""""""""""
 " general utilities
