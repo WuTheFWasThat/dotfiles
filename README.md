@@ -10,28 +10,21 @@ incomplete notes
   - in the repo, `ghar install`
 - install fasd (e.g. `brew install fasd`)
 - install fzf (e.g. `brew install fzf`)
-- vim setup
-  - install plugins: `vim +PlugInstall +qall`
-  - install YouCompleteMe: `cd .vim/plugged/YouCompleteMe && ./install.py`
+- install vim plugins: `vim +PlugInstall +qall`
 - optional:
   - install spacemacs
   - install screen/tmux
   - install git 2.3
   - install thefuck
-  - install ctags: e.g. `apt-get install exuberant-ctags` or `brew install ctags`
   - install neovim
-    -
     ```
-    mkdir -p ${XDG_CONFIG_HOME:=$HOME/.config}
-    ln -s ~/.vim $XDG_CONFIG_HOME/nvim
-    ln -s ~/.vimrc $XDG_CONFIG_HOME/nvim/init.vim
+    mkdir -p $HOME/.config
+    ln -s ~/.vim $HOME/.config/nvim
+    sudo pip2 install neovim
     ```
 
 ## TODO
-  - vim
-    - figgure out snips (replace insert mode language specific macros)
-    - figure out folding
-    - figure out good shell? (dunno if valuable)
+  - vim, see vimrc
   - spacemacs
     - explore using layouts to mitigate global buffers issue?
     - find-file-at-point (gf) should automatically choose when there's only one result

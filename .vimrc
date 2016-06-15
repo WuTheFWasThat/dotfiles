@@ -1,8 +1,15 @@
 " to profile vim startup
 " vim --startuptime vim.log <somefile>
 
-" TODO: map M to something useful
-" TODO: map S to something useful
+" TODO LIST:
+" - some solution for tags
+"     instructions will need to then include
+"     install ctags: e.g. `apt-get install exuberant-ctags` or `brew install ctags`
+" - map M to something useful
+" - map S to something useful
+" - figgure out snips (replace insert mode language specific macros)
+" - figure out folding
+" - figure out good shell? (dunno if valuable)
 
 "set foldmethod=indent
 ""hi Folded guifg=white guibg=black ctermfg=white ctermbg=black
@@ -157,11 +164,11 @@ Plug 'Shougo/neoyank.vim'
 """""""""""""
 Plug 'Valloric/YouCompleteMe'
 
-Plug 'scrooloose/syntastic'
+Plug 'scrooloose/syntastic', { 'do': './install.py' }
 
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 
-" Plug 'ElmCast/elm-vim', { 'for': 'elm' }
+Plug 'ElmCast/elm-vim', { 'for': 'elm' }
 let g:elm_format_autosave = 1
 let g:elm_syntastic_show_warnings = 1
 
@@ -296,7 +303,7 @@ let g:EasyMotion_use_upper = 1
 Plug 'hecal3/vim-leader-guide'
 set timeoutlen=400
 
-Plug 'WuTheFWasThat/spacevim'
+Plug 'ctjhoa/spacevim'
 
 Plug 'vim-airline/vim-airline'
 " enable status line always
