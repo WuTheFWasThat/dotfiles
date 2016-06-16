@@ -59,9 +59,9 @@
     i = "!f(){ \
          while true; do \
              read -e -p \"git $ \" line; \
-             if [ -z "$line" ]; then continue; fi; \
-             if [ "$line" == "q" ]; then break; fi; \
-             if [ "${line:0:1}" == "!" ]; then \
+             if [ -z \"$line\" ]; then continue; fi; \
+             if [ \"$line\" == \"q\" ]; then break; fi; \
+             if [ \"${line:0:1}\" == \"!\" ]; then \
                  eval \"${line:1}\"; \
              else \
                  eval \"git $line\"; \
