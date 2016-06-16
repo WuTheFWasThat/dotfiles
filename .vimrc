@@ -8,7 +8,6 @@
 " - map M to something useful
 " - map S to something useful
 " - figure out folding
-" - figure out good shell? (dunno if valuable)
 
 "set foldmethod=indent
 ""hi Folded guifg=white guibg=black ctermfg=white ctermbg=black
@@ -118,6 +117,14 @@ endfunction
 call plug#begin('~/.vim/plugged')
 
 """""""""""""
+" misc
+"""""""""""""
+
+" doesn't work well in zsh
+" Plug 'christoomey/vim-run-interactive'
+" nnoremap <leader>~ :RunInInteractiveShell zsh<cr>
+
+"""""""""""""
 " version control
 """""""""""""
 
@@ -213,6 +220,15 @@ Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 
 Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
 
+Plug 'elzr/vim-json', { 'for' : 'json' }
+let g:vim_json_syntax_conceal = 0
+
+" Plug 'cohama/lexima.vim', { 'for' : 'lisp' }
+
+Plug 'tpope/vim-markdown', { 'for' : 'markdown' }
+
+" Plug 'cespare/vim-toml', { 'for' : 'toml' }
+
 " Plug 'fatih/vim-go', { 'for': 'go' }
 "Plug 'nsf/gocode'
 
@@ -228,6 +244,7 @@ set grepprg=grep\ -nH\ $*
 " editing
 """""""""""""
 Plug 'Raimondi/delimitMate'
+" Plug 'vim-scripts/tComment'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 " visual mode should just use s to surround
