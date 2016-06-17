@@ -38,6 +38,9 @@ set cindent
 " (instead of "No write since last change")
 set hidden
 
+" remember marks for 100 files
+set shada='100
+
 augroup misc
   " strip whitespace on save
   autocmd BufWritePre * :%s/\s\+$//e
@@ -146,7 +149,7 @@ Plug 'junegunn/fzf.vim'
 nnoremap <C-p> :GitFiles<cr>
 nnoremap <C-b> :Buffers<cr>
 nnoremap <C-f> :Files<cr>
-nnoremap ' :Marks<cr>
+nnoremap ` :Marks<cr>
 " nnoremap <C-f> :Files /Users/jeffwu<cr>
 
 Plug 'Shougo/unite.vim'
@@ -274,6 +277,8 @@ nnoremap <silent> : :OverCommandLine<cr>
 " nnoremap  ;  :
 " nnoremap  :  ;
 
+" displays marks in gutter
+Plug 'kshenoy/vim-signature'
 
 Plug 'vim-scripts/YankRing.vim'
 let g:yankring_history_dir = expand('$HOME/.vim/')
@@ -343,7 +348,6 @@ Plug 'easymotion/vim-easymotion'
 let g:EasyMotion_use_upper = 1
 " nmap <Tab> <Plug>(easymotion-bd-jk)
 " nmap <Tab><Tab> <Plug>(easymotion-jumptoanywhere)
-
 
 """""""""""""
 " spacevim!
