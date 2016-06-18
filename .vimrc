@@ -33,6 +33,9 @@ set tabstop=2
 
 set nosmartindent
 set cindent
+" fixes annoying probably with # at start of line, see http://vim.wikia.com/wiki/Restoring_indent_after_typing_hash
+set cinkeys-=0#
+set indentkeys-=0#
 
 " lets you hide buffers when opening new files
 " (instead of "No write since last change")
