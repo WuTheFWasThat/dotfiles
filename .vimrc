@@ -1,6 +1,7 @@
 " to profile vim startup
 " vim --startuptime vim.log <somefile>
 
+
 " TODO LIST:
 " - some solution for tags
 "     instructions will need to then include
@@ -42,7 +43,7 @@ set indentkeys-=0#
 set hidden
 
 " remember marks for 100 files
-set shada='100
+set viminfo='100
 
 augroup misc
   " strip whitespace on save
@@ -253,6 +254,7 @@ Plug 'Raimondi/delimitMate'
 " Plug 'vim-scripts/tComment'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
+Plug 'michaeljsmith/vim-indent-object'
 " visual mode should just use s to surround
 vmap s S
 Plug 'tpope/vim-repeat'
@@ -277,6 +279,8 @@ nmap N Nzz
 Plug 'osyo-manga/vim-over'
 nnoremap <silent> ; :OverCommandLine<cr>
 nnoremap <silent> : :OverCommandLine<cr>
+vnoremap <silent> ; :OverCommandLine<cr>
+vnoremap <silent> : :OverCommandLine<cr>
 " nnoremap  ;  :
 " nnoremap  :  ;
 
