@@ -132,6 +132,8 @@ call plug#begin('~/.vim/plugged')
 " nnoremap <leader>~ :RunInInteractiveShell zsh<cr>
 
 Plug 'christoomey/vim-tmux-navigator'
+Plug 'benmills/vimux'
+
 " NOTE: doesn't really work properly
 " Plug 'ervandew/screen'
 " let g:ScreenImpl = 'Tmux'
@@ -397,8 +399,8 @@ vnoremap <C-c> "+y
 nnoremap <C-c> "+y
 
 " faster switch buffers
-nnoremap <C-J> <Esc>:bn<CR>
-nnoremap <C-K> <Esc>:bp<CR>
+nnoremap <tab> <Esc>:bn<CR>
+nnoremap <S-tab> <Esc>:bp<CR>
 
 set background=dark
 " let g:solarized_termcolors = 256

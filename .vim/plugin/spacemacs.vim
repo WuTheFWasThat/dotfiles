@@ -1,6 +1,23 @@
 " avy
 " NOTE: double leader is mapped to easymotion-prefix for some reason (easymotion default?)
 
+function! Get_visual_selection()
+  " Why is this not a built-in Vim script function?!
+  let [lnum1, col1] = getpos("'<")[1:2]
+  let [lnum2, col2] = getpos("'>")[1:2]
+  let lines = getline(lnum1, lnum2)
+  let lines[-1] = lines[-1][: col2 - (&selection == 'inclusive' ? 1 : 2)]
+  let lines[0] = lines[0][col1 - 1:]
+  return join(lines, "\n")
+endfunction
+
+" map <Leader>rf :call VimuxRunCommand("python " . bufname("%"))<CR>
+map <Leader>rs :call VimuxRunCommand("")<CR>
+map <Leader>rf :call VimuxRunCommand(join(getline(1,'$'), "\n"))<CR>
+nmap <Leader>rr :call VimuxRunCommand(getline('.'))<CR>
+vmap <Leader>rr :call VimuxRunCommand(Get_visual_selection())<CR>
+map <Leader>rc :VimuxCloseRunner<CR>
+
 "toggle
 " show/hide invisible chars
 nnoremap <Leader>t\ :set list!<CR>
