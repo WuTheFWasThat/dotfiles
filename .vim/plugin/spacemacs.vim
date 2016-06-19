@@ -12,11 +12,17 @@ function! Get_visual_selection()
 endfunction
 
 " map <Leader>rf :call VimuxRunCommand("python " . bufname("%"))<CR>
-map <Leader>rs :call VimuxRunCommand("")<CR>
-map <Leader>rf :call VimuxRunCommand(join(getline(1,'$'), "\n"))<CR>
-nmap <Leader>rr :call VimuxRunCommand(getline('.'))<CR>
-vmap <Leader>rr :call VimuxRunCommand(Get_visual_selection())<CR>
-map <Leader>rc :VimuxCloseRunner<CR>
+" map <Leader>rs :call VimuxRunCommand("")<CR>
+" map <Leader>rf :call VimuxRunCommand(join(getline(1,'$'), "\n"))<CR>
+" nmap <Leader>rr :call VimuxRunCommand(getline('.'))<CR>
+" vmap <Leader>rr :call VimuxRunCommand(Get_visual_selection())<CR>
+" map <Leader>rc :VimuxCloseRunner<CR>
+map <Leader>rs  :VtrOpenRunner<CR>
+map <Leader>rf  :VtrSendFile<CR>
+map <Leader>rl :VtrSendLinesToRunner<CR>
+map <Leader>rr  :VtrSendCommandToRunner<CR>
+map <Leader>rR  :VtrReorientRunner<CR>
+map <Leader>rx  :VtrKillRunner<CR>
 
 "toggle
 " show/hide invisible chars

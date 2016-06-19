@@ -132,7 +132,14 @@ call plug#begin('~/.vim/plugged')
 " nnoremap <leader>~ :RunInInteractiveShell zsh<cr>
 
 Plug 'christoomey/vim-tmux-navigator'
-Plug 'benmills/vimux'
+Plug 'christoomey/vim-tmux-runner'
+let g:VtrGitCdUpOnOpen = 1
+let g:VtrStripLeadingWhitespace = 0
+let g:VtrClearEmptyLines = 0
+let g:VtrAppendNewline = 1
+let g:VtrOrientation = "h"
+let g:VtrPercentage = 35
+" Plug 'benmills/vimux'
 
 " NOTE: doesn't really work properly
 " Plug 'ervandew/screen'
