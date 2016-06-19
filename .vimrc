@@ -131,6 +131,14 @@ call plug#begin('~/.vim/plugged')
 " Plug 'christoomey/vim-run-interactive'
 " nnoremap <leader>~ :RunInInteractiveShell zsh<cr>
 
+Plug 'christoomey/vim-tmux-navigator'
+" NOTE: doesn't really work properly
+" Plug 'ervandew/screen'
+" let g:ScreenImpl = 'Tmux'
+" nnoremap <leader>ass :ScreenShell<cr>
+" nnoremap <leader>asr V:ScreenSend<cr>
+" vnoremap <leader>asr :ScreenSend<cr>
+
 """""""""""""
 " version control
 """""""""""""

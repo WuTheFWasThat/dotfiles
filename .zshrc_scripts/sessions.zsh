@@ -56,21 +56,31 @@ function em {
 # session management (via gnu screen or tmux)
 ################################################################################
 
+use_tmux=true
+
 function sname {             # get session name
-    # test if we're in a screen window
-    echo $STY | cut -d '.' -f 2
-    # tmux display-message -p '#S'
+    if [ "$use_tmux" = true ] ; then
+      tmux display-message -p '#S'
+    else
+      echo $STY | cut -d '.' -f 2
+    fi
 }
 
 function sx {                # attach to session
     local sessionname=$1
-    screen -x $sessionname
-    # tmux a -t $sessionname
+    if [ "$use_tmux" = true ] ; then
+      tmux a -t $sessionname
+    else
+      screen -x $sessionname
+    fi
 }
 
 function sl {                # list sessions
-    screen -ls
-    # tmux ls
+    if [ "$use_tmux" = true ] ; then
+      tmux ls
+    else
+      screen -ls
+    fi
 }
 
 function ss {                # start session
@@ -83,8 +93,11 @@ function ss {                # start session
   # NOTE: ems doesn't work here, not sure why
   # nohup emacs --daemon=$sessionname &>/dev/null &
 
-  screen -S $sessionname
-  # tmux new -s $sessionname
+  if [ "$use_tmux" = true ] ; then
+    tmux new -s $sessionname
+  else
+    screen -S $sessionname
+  fi
 }
 
 function sk {                # kill session
@@ -98,6 +111,9 @@ function sk {                # kill session
   # kill corresponding emacs session
   # emk $sessionname
 
-  screen -S $sessionname -X quit
-  # tmux kill-session -t $sessionname
+  if [ "$use_tmux" = true ] ; then
+    tmux kill-session -t $sessionname
+  else
+    screen -S $sessionname -X quit
+  fi
 }
