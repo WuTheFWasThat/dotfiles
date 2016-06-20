@@ -3,6 +3,9 @@
 
 
 " TODO LIST:
+" - figure out how to prevent leader-guide from failing to close first time
+" - SIMILARLY, figure out how to get syntastic errors from failing to close first time
+" - matching parentheses (%) fails after first time, in markdown files??
 " - some solution for tags
 "     instructions will need to then include
 "     install ctags: e.g. `apt-get install exuberant-ctags` or `brew install ctags`
@@ -257,8 +260,8 @@ Plug 'tpope/vim-markdown', { 'for' : 'markdown' }
 "Plug 'nsf/gocode'
 
 " causes issues with mapping <C-j> due to IMAP
-Plug 'vim-latex/vim-latex', { 'for': 'tex' }
-let g:tex_flavor='latex'
+" Plug 'vim-latex/vim-latex', { 'for': 'tex' }
+" let g:tex_flavor='latex'
 " IMPORTANT: grep will sometimes skip displaying the file name if you
 " search in a single file. This will confuse Latex-Suite. Set your grep
 " program to always generate a file-name.
@@ -294,11 +297,15 @@ nmap n nzz
 nmap N Nzz
 " display replacements as you type command
 Plug 'osyo-manga/vim-over'
-nnoremap <silent> ; :OverCommandLine<cr>
-nnoremap <silent> : :OverCommandLine<cr>
+" NOTE: overcommandline screws up :e, for some reason (doesn't open correct buffer)
+" nnoremap <silent> ; :OverCommandLine<cr>
+" nnoremap <silent> : :OverCommandLine<cr>
 vnoremap <silent> ; :OverCommandLine<cr>
 vnoremap <silent> : :OverCommandLine<cr>
-" nnoremap  ;  :
+nnoremap <silent> S :OverCommandLine<cr>%s/
+" TODO: for some reason this doesn't work...
+" vnoremap <silent> S :OverCommandLine<cr>
+nnoremap  ;  :
 " nnoremap  :  ;
 
 " displays marks in gutter
