@@ -1,5 +1,21 @@
 " avy
 " NOTE: double leader is mapped to easymotion-prefix for some reason (easymotion default?)
+function! s:spacevim_bind(map, binding, name, value, isCmd)
+  if a:isCmd
+    let l:value = ':' . a:value . '<cr>'
+  else
+    let l:value = a:value
+  endif
+  if a:map == "map"
+    let l:noremap = 'noremap'
+  elseif a:map == "nmap"
+    let l:noremap = 'nnoremap'
+  elseif a:map == "vmap"
+    let l:noremap = 'vnoremap'
+  endif
+  execute l:noremap . " <silent> <SID>" . a:name . " " . l:value
+  execute a:map . " <leader>" . a:binding . " <SID>" . a:name
+endfunction
 
 function! Get_visual_selection()
   " Why is this not a built-in Vim script function?!
@@ -17,12 +33,13 @@ endfunction
 " nmap <Leader>rr :call VimuxRunCommand(getline('.'))<CR>
 " vmap <Leader>rr :call VimuxRunCommand(Get_visual_selection())<CR>
 " map <Leader>rc :VimuxCloseRunner<CR>
-map <Leader>rs  :VtrOpenRunner<CR>
-map <Leader>rf  :VtrSendFile<CR>
-map <Leader>rl :VtrSendLinesToRunner<CR>
-map <Leader>rr  :VtrSendCommandToRunner<CR>
-map <Leader>rR  :VtrReorientRunner<CR>
-map <Leader>rx  :VtrKillRunner<CR>
+call s:spacevim_bind('map', 'rs', 'runner-open', 'VtrOpenRunner', 1)
+call s:spacevim_bind('map', 'rf', 'runner-run-file', 'VtrSendFile', 1)
+call s:spacevim_bind('map', 'rl', 'runner-run-lines', 'VtrSendLinesToRunner', 1)
+call s:spacevim_bind('map', 'rr', 'runner-rerun', 'VtrSendCommandToRunner', 1)
+call s:spacevim_bind('map', 'rc', 'runner-run-custom', ':VtrSendCommandToRunner ', 0)
+" call s:spacevim_bind('map', 'rR', 'runner-reorient', ':VtrReorientRunner ', 1)
+call s:spacevim_bind('map', 'rx', 'runner-kill', ':VtrKillRunner ', 1)
 
 "toggle
 " show/hide invisible chars
