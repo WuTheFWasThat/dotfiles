@@ -13,6 +13,7 @@
     b = branch -vv
     ba = branch -vv -a
     co = checkout
+    com = checkout master
     cop = checkout -p
     new = checkout -b
     bd = branch -D
@@ -126,11 +127,13 @@
     mop = "!f() { $(git editor) $(git diff --name-only --diff-filter=U); }; f"
 
     # diffs
-    diff = icdiff
     d = icdiff
     dc = icdiff --cached
     ds = diff --stat
     dop = "!f() { $(git editor) $(git diff --name-only $@); }; f"
+    dm = diff master
+    dom = "!f() { git fetch; git diff origin/master $@; }; f"
+    do = "!f(){ branch=$(git rev-parse --abbrev-ref HEAD); git fetch && git diff origin/$branch $@; }; f"
     du = diff @{upstream}
 
     # status
@@ -193,9 +196,10 @@
 
     # miscellaneous
     # Find commits by commit message
-    fc = "!f() { git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short --grep="$@"; }; f"
+    fc = "!f() { git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short --grep=\"$@\"; }; f"
     # List contributors with number of commits
     contributors = shortlog --summary --numbered
+    root = rev-parse --show-toplevel
 
     # configuration
     editor = config --get core.editor
