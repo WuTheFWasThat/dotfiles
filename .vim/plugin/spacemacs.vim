@@ -34,10 +34,10 @@ endfunction
 " vmap <Leader>rr :call VimuxRunCommand(Get_visual_selection())<CR>
 " map <Leader>rc :VimuxCloseRunner<CR>
 call s:spacevim_bind('map', 'rs', 'runner-open', 'VtrOpenRunner', 1)
-call s:spacevim_bind('map', 'rf', 'runner-run-file', 'VtrSendFile', 1)
-call s:spacevim_bind('map', 'rl', 'runner-run-lines', 'VtrSendLinesToRunner', 1)
-call s:spacevim_bind('map', 'rr', 'runner-rerun', 'VtrSendCommandToRunner', 1)
-call s:spacevim_bind('map', 'rc', 'runner-run-custom', ':VtrSendCommandToRunner ', 0)
+call s:spacevim_bind('map', 'rf', 'runner-run-file', 'VtrSendFile!', 1)
+call s:spacevim_bind('map', 'rl', 'runner-run-lines', 'VtrSendLinesToRunner!', 1)
+call s:spacevim_bind('map', 'rr', 'runner-rerun', 'VtrSendCommandToRunner!', 1)
+call s:spacevim_bind('map', 'rc', 'runner-run-custom', ':VtrSendCommandToRunner! ', 0)
 " call s:spacevim_bind('map', 'rR', 'runner-reorient', ':VtrReorientRunner ', 1)
 call s:spacevim_bind('map', 'rx', 'runner-kill', ':VtrKillRunner ', 1)
 
@@ -64,6 +64,8 @@ nnoremap <Leader>fp :<C-u>Unite history/yank<cr>
 
 " insert semicolon
 nnoremap <Leader>i; mzA;<esc>`z
+" insert comma
+nnoremap <Leader>i, mzA,<esc>`z
 
 nnoremap <Leader>J :SplitjoinJoin<cr>
 nnoremap <Leader>K :SplitjoinSplit<cr>

@@ -142,6 +142,9 @@ let g:VtrClearEmptyLines = 0
 let g:VtrAppendNewline = 1
 let g:VtrOrientation = "h"
 let g:VtrPercentage = 35
+augroup vtr
+  autocmd VimLeavePre * :VtrKillRunner
+augroup END
 " Plug 'benmills/vimux'
 
 " NOTE: doesn't really work properly
