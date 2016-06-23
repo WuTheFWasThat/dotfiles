@@ -61,6 +61,7 @@ nnoremap <leader>pt :call spacemacs#toggleExplorerAtRoot()<CR>
 " files
 " yank history
 nnoremap <Leader>fp :<C-u>Unite history/yank<cr>
+nnoremap <Leader>fd :filetype detect<cr>
 
 " insert semicolon
 nnoremap <Leader>i; mzA;<esc>`z

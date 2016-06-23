@@ -178,6 +178,7 @@
     st = stash
     stl = stash list
     sta = stash apply
+    std = stash drop
     sts = stash save
     stp = stash pop
 
