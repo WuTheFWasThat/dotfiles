@@ -140,7 +140,8 @@ let g:VtrGitCdUpOnOpen = 1
 let g:VtrStripLeadingWhitespace = 0
 let g:VtrClearEmptyLines = 0
 let g:VtrAppendNewline = 1
-let g:VtrOrientation = "h"
+" horizontal is nicer, but messes with copy-paste
+" let g:VtrOrientation = "h"
 let g:VtrPercentage = 35
 augroup vtr
   autocmd VimLeavePre * :VtrKillRunner
@@ -179,21 +180,21 @@ nnoremap <C-f> :Files<cr>
 nnoremap ` :Marks<cr>
 " nnoremap <C-f> :Files /Users/jeffwu<cr>
 
-Plug 'Shougo/unite.vim'
-function! s:unite_settings() "{
-   nmap <buffer> <Esc>     <Plug>(unite_exit)
-   " " Play nice with supertab
-   " let b:SuperTabDisabled=1
-   " " Enable navigation with control-j and control-k in insert mode
-   " imap <buffer> <C-j> <Plug>(unite_select_next_line)
-   " imap <buffer> <C-k> <Plug>(unite_select_previous_line)
-endfunction
-augroup unite
-  autocmd FileType unite call s:unite_settings()
-augroup END
-let g:unite_split_rule = 'botright'
-Plug 'Shougo/neomru.vim'
-Plug 'Shougo/neoyank.vim'
+" Plug 'Shougo/unite.vim'
+" function! s:unite_settings() "{
+"    nmap <buffer> <Esc>     <Plug>(unite_exit)
+"    " " Play nice with supertab
+"    " let b:SuperTabDisabled=1
+"    " " Enable navigation with control-j and control-k in insert mode
+"    " imap <buffer> <C-j> <Plug>(unite_select_next_line)
+"    " imap <buffer> <C-k> <Plug>(unite_select_previous_line)
+" endfunction
+" augroup unite
+"   autocmd FileType unite call s:unite_settings()
+" augroup END
+" let g:unite_split_rule = 'botright'
+" Plug 'Shougo/neomru.vim'
+" Plug 'Shougo/neoyank.vim'
 
 """"""""""""""
 " general programming
@@ -370,7 +371,7 @@ let g:miniBufExplModSelTarget = 1
 
 Plug 'tpope/vim-eunuch'
 
-Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 
 Plug 'easymotion/vim-easymotion'
 " rebind leader to single key instead of 2
