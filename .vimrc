@@ -359,11 +359,13 @@ let g:indentLine_enabled = 0
 " windows
 """""""""""""
 Plug 'szw/vim-maximizer'
-Plug 'fholgado/minibufexpl.vim'
-" let g:miniBufExplMapWindowNavVim = 1
-let g:miniBufExplMapWindowNavArrows = 1
-let g:miniBufExplMapCTabSwitchBufs = 1
-let g:miniBufExplModSelTarget = 1
+" NOTE: causes issues with leader-guide and with toggling syntastic pane
+" TODO: switch workflow away from this
+" Plug 'fholgado/minibufexpl.vim'
+" " let g:miniBufExplMapWindowNavVim = 1
+" let g:miniBufExplMapWindowNavArrows = 1
+" let g:miniBufExplMapCTabSwitchBufs = 1
+" let g:miniBufExplModSelTarget = 1
 
 """""""""""""
 " general utilities
