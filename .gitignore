@@ -1,3 +1,4 @@
 *.sw*
+.vim/.netrwhist
 .vim/plugged
 yankring_history*

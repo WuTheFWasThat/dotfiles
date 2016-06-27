@@ -5,13 +5,14 @@
 " TODO LIST:
 " - figure out how to prevent leader-guide from failing to close first time
 " - SIMILARLY, figure out how to get syntastic errors from failing to close first time
-" - matching parentheses (%) fails after first time, in markdown files??
 " - some solution for tags
 "     instructions will need to then include
 "     install ctags: e.g. `apt-get install exuberant-ctags` or `brew install ctags`
 " - map M to something useful
+" - map R to something useful
 " - map S to something useful
 " - figure out folding
+" - matching parentheses (%) fails after first time, in markdown files??
 
 "set foldmethod=indent
 ""hi Folded guifg=white guibg=black ctermfg=white ctermbg=black
@@ -302,6 +303,10 @@ nmap N Nzz
 " display replacements as you type command
 Plug 'osyo-manga/vim-over'
 " NOTE: overcommandline screws up :e, for some reason (doesn't open correct buffer)
+" possibly do something like this:
+" https://stackoverflow.com/questions/14367440/map-e-to-explore-in-command-mode
+" command! -nargs=* -bar -bang -count=0 -complete=dir E Explore <args>
+" NOTE: overcommandline also has weird autocomplete
 " nnoremap <silent> ; :OverCommandLine<cr>
 " nnoremap <silent> : :OverCommandLine<cr>
 vnoremap <silent> ; :OverCommandLine<cr>
