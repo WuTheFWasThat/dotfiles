@@ -122,6 +122,7 @@ export PATH=$PATH:/Library/TeX/texbin
 export PATH=$PATH:~/.multirust/toolchains/stable/cargo/bin
 export PATH=$PATH:~/.multirust/toolchains/1.5.0/cargo/bin
 export PATH=$PATH:~/Library/Haskell/bin
+export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.5/bin/
 export RUST_BACKTRACE=1
 
 for file in ~/.zshrc_scripts/*; do

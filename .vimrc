@@ -131,6 +131,10 @@ call plug#begin('~/.vim/plugged')
 " misc
 """""""""""""
 
+Plug 'mtth/scratch.vim'
+
+Plug 'tpope/vim-abolish'
+
 " doesn't work well in zsh
 " Plug 'christoomey/vim-run-interactive'
 " nnoremap <leader>~ :RunInInteractiveShell zsh<cr>

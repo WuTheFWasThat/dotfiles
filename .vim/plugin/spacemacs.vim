@@ -86,4 +86,6 @@ nnoremap <Leader>b8 :b8<CR>
 nnoremap <Leader>b9 :b9<CR>
 nnoremap <Leader>b0 :b10<CR>
 
+nnoremap <Leader>bs :Scratch<CR>
+
 " TODO: folding
