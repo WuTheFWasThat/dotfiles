@@ -124,6 +124,22 @@ function! XTermPasteBegin()
   return ""
 endfunction
 
+
+" https://stackoverflow.com/questions/33093491/vim-gf-with-file-extension-based-on-current-filetype
+augroup suffixes
+  autocmd!
+
+  let associations = [
+              \["javascript", ".js,.jsx,.javascript,.es,.esx,.json"],
+              \["coffee", ".coffee"],
+              \["python", ".py,.pyw"]
+              \]
+
+  for ft in associations
+      execute "autocmd FileType " . ft[0] . " setlocal suffixesadd=" . ft[1]
+  endfor
+augroup END
+
 " Required Plug setup
 call plug#begin('~/.vim/plugged')
 
@@ -255,6 +271,7 @@ Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 "let g:rustfmt_autosave = 1
 
 Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
+let g:syntastic_coffee_checkers = ['coffeelint']
 
 Plug 'elzr/vim-json', { 'for' : 'json' }
 let g:vim_json_syntax_conceal = 0
