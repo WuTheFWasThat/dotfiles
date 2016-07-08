@@ -76,6 +76,7 @@
     hin = "!hub browse -- issues/new"
     hp = "!f() { pr=$1; if [ -z \"$1\" ]; then hub browse -- pulls; else hub browse -- pull/$pr ; fi; }; f"
     hf = "!hub browse -- find/master"
+    hop = "!f() { hub browse -- blob/master/$(git find $@ | head -n 1); }; f"
     # hub log
     hl = "!f() { hash=${1:-$(git rev-parse HEAD)}; hub browse -- commits/$hash; }; f"
     # hub show
