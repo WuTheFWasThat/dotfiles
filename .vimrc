@@ -1,10 +1,7 @@
 " to profile vim startup
 " vim --startuptime vim.log <somefile>
 
-
 " TODO LIST:
-" - figure out how to prevent leader-guide from failing to close first time
-" - SIMILARLY, figure out how to get syntastic errors from failing to close first time
 " - some solution for tags
 "     instructions will need to then include
 "     install ctags: e.g. `apt-get install exuberant-ctags` or `brew install ctags`
@@ -223,17 +220,27 @@ nnoremap ` :Marks<cr>
 
 " make tab be awesome
 Plug 'ervandew/supertab'
+
 Plug 'Valloric/YouCompleteMe'
+" don't load until insert mode, see: https://github.com/junegunn/vim-plug/issues/53
+" Plug 'Valloric/YouCompleteMe', { 'on': [] }
+" augroup load_us_ycm
+"   autocmd!
+"   autocmd InsertEnter * call plug#load('YouCompleteMe')
+"                      \| call youcompleteme#Enable()
+" augroup END
 " snippets engine, actual snippets
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 
 " make YCM compatible with UltiSnips (using supertab)
-let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+let g:ycm_key_list_select_completion = ['<C-j>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-k>', '<Up>']
+" go down the list, not up
 let g:SuperTabDefaultCompletionType = '<C-n>'
 
 " better key bindings for UltiSnipsExpandTrigger
 let g:UltiSnipsExpandTrigger = "<tab>"
+" for jumping between sections of the snippet
 let g:UltiSnipsJumpForwardTrigger = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 " let g:UltiSnipsEditSplit="vertical"
@@ -399,7 +406,7 @@ Plug 'szw/vim-maximizer'
 
 Plug 'tpope/vim-eunuch'
 
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 
 Plug 'easymotion/vim-easymotion'
 " rebind leader to single key instead of 2

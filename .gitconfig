@@ -76,7 +76,7 @@
     hin = "!hub browse -- issues/new"
     hp = "!f() { pr=$1; if [ -z \"$1\" ]; then hub browse -- pulls; else hub browse -- pull/$pr ; fi; }; f"
     hf = "!hub browse -- find/master"
-    hop = "!f() { hub browse -- blob/master/$(git find $@ | head -n 1); }; f"
+    hop = "!f() { hub browse -- blob/master/$(git find \"$@\" | head -n 1); }; f"
     # hub log
     hl = "!f() { hash=${1:-$(git rev-parse HEAD)}; hub browse -- commits/$hash; }; f"
     # hub show
@@ -206,7 +206,8 @@
     # configuration
     editor = config --get core.editor
     # editor = ! echo "emacsclient -c"
-    alias = ! git config --get-regexp ^alias\\. | sed -e s/^alias\\.// -e s/\\ /\\ =\\ / | sort
+    alias = "!f() { pattern=$@; rand=$(uuidgen); git config --get-regexp ^alias\\. | sed -e s/^alias\\.// | grep \"$pattern\" | sort | sed -e \"s| |$rand|\" | awk -F \"$rand\" '{ printf \"%12-s : %s\\n\", $1, $2 }'; }; f"
+
 
 [color]
     ui = true
