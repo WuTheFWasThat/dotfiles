@@ -293,8 +293,8 @@ Plug 'tpope/vim-markdown', { 'for' : 'markdown' }
 "Plug 'nsf/gocode'
 
 " causes issues with mapping <C-j> due to IMAP
-" Plug 'vim-latex/vim-latex', { 'for': 'tex' }
-" let g:tex_flavor='latex'
+Plug 'vim-latex/vim-latex', { 'for': 'tex' }
+let g:tex_flavor='latex'
 " IMPORTANT: grep will sometimes skip displaying the file name if you
 " search in a single file. This will confuse Latex-Suite. Set your grep
 " program to always generate a file-name.
