@@ -8,6 +8,7 @@
 " - map M to something useful
 " - map R to something useful
 " - map S to something useful
+" - map Q to something useful
 " - figure out folding
 " - matching parentheses (%) fails after first time, in markdown files??
 
@@ -66,11 +67,17 @@ augroup END
 nnoremap <C-D> <C-D>zz
 nnoremap <C-U> <C-U>zz
 
+" unmap it for now, more or less
+nnoremap Q <esc>
+
 " split at cursor
 nnoremap K i<cr><esc>
 
+" TODO: these can't possibly both work
 " Make p in Visual mode replace the selected text with the "" register.
 vnoremap p <Esc>:let current_reg = @"<CR>gvs<C-R>=current_reg<CR><Esc>
+" don't lose register contents when pasting in visual mode
+vnoremap p "_dp
 
 " Use Vim settings, rather then Vi settings (much better!).
 " This must be first, because it changes other options as a side effect.
@@ -90,9 +97,6 @@ set history=500      " keep 50 lines of command line history
 set showcmd          " display incomplete commands
 
 set mouse=a
-
-" don't lose register contents when pasting in visual mode
-vnoremap p "_dp
 
 "====[ Make the 81st column stand out ]====================
 "
@@ -221,14 +225,14 @@ nnoremap ` :Marks<cr>
 " make tab be awesome
 Plug 'ervandew/supertab'
 
-Plug 'Valloric/YouCompleteMe'
+" Plug 'Valloric/YouCompleteMe'
 " don't load until insert mode, see: https://github.com/junegunn/vim-plug/issues/53
-" Plug 'Valloric/YouCompleteMe', { 'on': [] }
-" augroup load_us_ycm
-"   autocmd!
-"   autocmd InsertEnter * call plug#load('YouCompleteMe')
-"                      \| call youcompleteme#Enable()
-" augroup END
+Plug 'Valloric/YouCompleteMe', { 'on': [] }
+augroup load_us_ycm
+  autocmd!
+  autocmd InsertEnter * call plug#load('YouCompleteMe')
+                     \| call youcompleteme#Enable()
+augroup END
 " snippets engine, actual snippets
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 
@@ -267,6 +271,9 @@ let g:loaded_syntastic_java_javac_checker = 1
 """""""""""""
 " languages
 """""""""""""
+
+Plug 'sheerun/vim-polyglot'
+
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 
 Plug 'ElmCast/elm-vim', { 'for': 'elm' }
@@ -347,6 +354,11 @@ nnoremap  ;  :
 
 " displays marks in gutter
 Plug 'kshenoy/vim-signature'
+
+" http://vim.wikia.com/wiki/Format_pasted_text_automatically
+" NOTE: doesn't quite work perfectly :(
+"       plus, doesn't work with yankring properly
+" nnoremap p p=`]
 
 Plug 'vim-scripts/YankRing.vim'
 let g:yankring_history_dir = expand('$HOME/.vim/')

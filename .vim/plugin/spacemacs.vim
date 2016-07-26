@@ -41,6 +41,8 @@ call s:spacevim_bind('map', 'rc', 'runner-run-custom', ':VtrSendCommandToRunner!
 " call s:spacevim_bind('map', 'rR', 'runner-reorient', ':VtrReorientRunner ', 1)
 call s:spacevim_bind('map', 'rx', 'runner-kill', ':VtrKillRunner ', 1)
 
+call s:spacevim_bind('map', 'fx', 'file-save-quit', ':w<CR>:bd', 1)
+
 "toggle
 " show/hide invisible chars
 nnoremap <Leader>t\ :set list!<CR>

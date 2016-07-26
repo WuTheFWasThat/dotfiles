@@ -81,6 +81,7 @@
     hl = "!f() { hash=${1:-$(git rev-parse HEAD)}; hub browse -- commits/$hash; }; f"
     # hub show
     hs = "!f() { hash=${1:-$(git rev-parse HEAD)}; hub browse -- commit/$hash; }; f"
+    issue = "!hub issue"
 
     # working tree
     a = add
@@ -148,7 +149,7 @@
     l = log --color --graph --pretty='%C(yellow)%h%C(reset) %C(magenta)%cd%C(reset) %C(bold blue)%an%C(reset) %s%C(bold yellow)%d%C(reset)' --decorate --date=relative
     lg = log
     hash = rev-parse HEAD
-    rl = reflog
+    rl = reflog show --date=relative
 
     # file tools
     find = "!git ls-files | grep -i"
@@ -164,6 +165,7 @@
 
     # reset
     rs = reset
+    rso = "!f(){ branch=$(git rev-parse --abbrev-ref HEAD); git fetch && git reset origin/$branch $@; }; f"
     rsh = reset --hard
     rsho = "!f(){ branch=$(git rev-parse --abbrev-ref HEAD); git fetch && git reset --hard origin/$branch $@; }; f"
     rshom = = "!git fetch && git reset --hard origin/master"
@@ -204,8 +206,8 @@
     root = rev-parse --show-toplevel
 
     # configuration
-    editor = config --get core.editor
-    # editor = ! echo "emacsclient -c"
+    # editor = config --get core.editor
+    editor = ! echo "emacsclient -c"
     alias = "!f() { pattern=$@; rand=$(uuidgen); git config --get-regexp ^alias\\. | sed -e s/^alias\\.// | grep \"$pattern\" | sort | sed -e \"s| |$rand|\" | awk -F \"$rand\" '{ printf \"%12-s : %s\\n\", $1, $2 }'; }; f"
 
 

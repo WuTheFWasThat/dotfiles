@@ -303,9 +303,14 @@ you should place you code here."
 
   ;; ctrl+p behaves like vim ctrl+p
   (define-key evil-normal-state-map (kbd "C-p") 'helm-projectile)
+  (define-key evil-normal-state-map (kbd "C-b") 'helm-mini)
   ;; ctrl+j and ctrl+k switch buffers
-  (define-key evil-normal-state-map (kbd "C-j") 'spacemacs/previous-useful-buffer)
-  (define-key evil-normal-state-map (kbd "C-k") 'spacemacs/next-useful-buffer)
+  ;; (define-key evil-normal-state-map (kbd "C-j") 'spacemacs/previous-useful-buffer)
+  ;; (define-key evil-normal-state-map (kbd "C-k") 'spacemacs/next-useful-buffer)
+  (define-key evil-normal-state-map (kbd "C-j") 'evil-window-down)
+  (define-key evil-normal-state-map (kbd "C-k") 'evil-window-up)
+  (define-key evil-normal-state-map (kbd "C-h") 'evil-window-left)
+  (define-key evil-normal-state-map (kbd "C-l") 'evil-window-right)
 
   ;; don't yank to system clipboard by default
   (turn-off-pbcopy)
