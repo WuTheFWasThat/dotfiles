@@ -225,14 +225,14 @@ nnoremap ` :Marks<cr>
 " make tab be awesome
 Plug 'ervandew/supertab'
 
-" Plug 'Valloric/YouCompleteMe'
+Plug 'Valloric/YouCompleteMe'
 " don't load until insert mode, see: https://github.com/junegunn/vim-plug/issues/53
-Plug 'Valloric/YouCompleteMe', { 'on': [] }
-augroup load_us_ycm
-  autocmd!
-  autocmd InsertEnter * call plug#load('YouCompleteMe')
-                     \| call youcompleteme#Enable()
-augroup END
+" Plug 'Valloric/YouCompleteMe', { 'on': [] }
+" augroup load_us_ycm
+"   autocmd!
+"   autocmd InsertEnter * call plug#load('YouCompleteMe')
+"                      \| call youcompleteme#Enable()
+" augroup END
 " snippets engine, actual snippets
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 

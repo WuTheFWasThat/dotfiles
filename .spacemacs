@@ -54,6 +54,7 @@ values."
      python
      rust
      javascript
+     react
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -264,7 +265,15 @@ before packages are loaded. If you are unsure, you should try in setting them in
   ; (setq-default rust-enable-racer t)
   (setq vc-follow-symlinks t)
   (setq-default js2-basic-offset 2
-                js-indent-level 2)
+                js-indent-level 2
+
+                ;; web-mode
+                css-indent-offset 2
+                web-mode-markup-indent-offset 2
+                web-mode-css-indent-offset 2
+                web-mode-code-indent-offset 2
+                web-mode-attr-indent-offset 2
+                )
 
   ; allow for ctrl-z
   (setq evil-toggle-key "C-`")
