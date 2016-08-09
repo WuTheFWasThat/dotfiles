@@ -60,7 +60,9 @@ use_tmux=true
 
 function sname {             # get session name
     if [ "$use_tmux" = true ] ; then
-      tmux display-message -p '#S'
+      if [ -n "$TMUX" ] ; then
+        tmux display-message -p '#S'
+      fi
     else
       echo $STY | cut -d '.' -f 2
     fi

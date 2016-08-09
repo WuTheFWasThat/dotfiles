@@ -82,6 +82,7 @@
     # hub show
     hs = "!f() { hash=${1:-$(git rev-parse HEAD)}; hub browse -- commit/$hash; }; f"
     issue = "!hub issue"
+    fork = "!hub fork"
 
     # working tree
     a = add
@@ -168,7 +169,7 @@
     rso = "!f(){ branch=$(git rev-parse --abbrev-ref HEAD); git fetch && git reset origin/$branch $@; }; f"
     rsh = reset --hard
     rsho = "!f(){ branch=$(git rev-parse --abbrev-ref HEAD); git fetch && git reset --hard origin/$branch $@; }; f"
-    rshom = = "!git fetch && git reset --hard origin/master"
+    rshom = "!git fetch && git reset --hard origin/master"
     # rewind
     rw = "!f() { local n=${1:-1}; git reset HEAD~$n; }; f"
     rwh = "!f() { local n=${1:-1}; git reset --hard HEAD~$n; }; f"
@@ -206,8 +207,8 @@
     root = rev-parse --show-toplevel
 
     # configuration
-    # editor = config --get core.editor
-    editor = ! echo "emacsclient -c"
+    editor = config --get core.editor
+    # editor = ! echo "emacsclient -c"
     alias = "!f() { pattern=$@; rand=$(uuidgen); git config --get-regexp ^alias\\. | sed -e s/^alias\\.// | grep \"$pattern\" | sort | sed -e \"s| |$rand|\" | awk -F \"$rand\" '{ printf \"%12-s : %s\\n\", $1, $2 }'; }; f"
 
 
