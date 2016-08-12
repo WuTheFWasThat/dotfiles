@@ -199,6 +199,44 @@
     smu = submodule update
     sms = submodule sync
 
+    # fuzzy commands (require fzf)
+    # fuzzy open
+    zop = "!f() { \
+      local file=$(git ls-files $(git rev-parse --show-toplevel) | fzf -m); \
+      if [[ -z $file ]]; then return 1; fi; \
+      $(git editor) $file; \
+    }; f"
+    # fuzzy grep (does only one file)
+    zgop = "!f() { \
+      local raw_selection=$(git grep -n '.*' | fzf); \
+      if [[ -z $raw_selection ]]; then return 1; fi; \
+      local selection=${raw_selection%:*}; \
+      local file=${selection%:*}; \
+      local line=${selection##*:}; \
+      $(git editor) +\"$line\" \"$file\"; \
+    }; f"
+    # fuzzy checkout (could be much improved, have tags, branches, remotes)
+    zco = "!f() { \
+      local commit=$(git log --oneline | fzf | awk '{ print $1 }'); \
+      if [[ -z $commit ]]; then return 1; fi; \
+      git checkout $commit; \
+    }; f"
+    # fuzzy show
+    zsh = "!f() { \
+      local commit=$(git log --oneline | fzf | awk '{ print $1 }'); \
+      if [[ -z $commit ]]; then return 1; fi; \
+      git show $commit; \
+    }; f"
+    # fuzzy diff
+    zd = "!f() { \
+      local commit=$(git log --oneline | fzf | awk '{ print $1 }'); \
+      if [[ -z $commit ]]; then return 1; fi; \
+      git diff $commit; \
+    }; f"
+    # TODO: make a single command that lists
+    #       commits, tags, branches, remotes
+    #       use in the fuzzy stuff
+
     # miscellaneous
     # Find commits by commit message
     fc = "!f() { git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short --grep=\"$@\"; }; f"

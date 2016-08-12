@@ -6,9 +6,15 @@ eval "$(fasd --init auto)"
 alias a='fasd -a'        # any
 alias s='fasd -si'       # show / search / select
 alias d='fasd -d'        # directory
-alias dd='fasd -sid'     # interactive directory selection
+# alias dd='fasd -sid'     # interactive directory selection
+dd() {
+  fasd -Rdl | fzf -m -q "$*"
+}
 alias f='fasd -f'        # file
-alias ff='fasd -sif'     # interactive file selection
+# alias ff='fasd -sif'     # interactive file selection
+ff() {
+  fasd -Rfl | fzf -m -q "$*"
+}
 
 # SEE: http://seanbowman.me/blog/fzf-fasd-and-bash-aliases/
 
@@ -24,7 +30,7 @@ jj() {
     local dir
     dir=$(fasd -Rdl |\
         sed "s:$HOME:~:" |\
-        fzf --no-sort +m -q "$*" |\
+        fzf +m -q "$*" |\
         sed "s:~:$HOME:")\
     && pushd "$dir"
 }
@@ -36,10 +42,10 @@ alias e='fasd -f -e "emacsclient -c"'
 # quick opening files with vim
 alias v='fasd -f -e vim'
 
-vv() {
-  local file
-  file=$(fasd -Rfl | fzf --no-sort +m -q "$*" -1 )
-  vim $file
-}
-
 # alias v='f -t -e vim -b viminfo'
+
+vv() {
+  local files=$(fasd -Rfl | fzf -m -q "$*")
+  if [[ -z $files ]]; then return 1; fi
+  vim $files
+}
