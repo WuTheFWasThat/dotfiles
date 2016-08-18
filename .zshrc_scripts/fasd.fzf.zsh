@@ -3,14 +3,14 @@ eval "$(fasd --init auto)"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-alias a='fasd -a'        # any
-alias s='fasd -si'       # show / search / select
-alias d='fasd -d'        # directory
+# alias a='fasd -a'        # any
+# alias s='fasd -si'       # show / search / select
+# alias d='fasd -d'        # directory
 # alias dd='fasd -sid'     # interactive directory selection
 dd() {
   fasd -Rdl | fzf -m -q "$*"
 }
-alias f='fasd -f'        # file
+# alias f='fasd -f'        # file
 # alias ff='fasd -sif'     # interactive file selection
 ff() {
   fasd -Rfl | fzf -m -q "$*"

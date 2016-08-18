@@ -93,6 +93,10 @@ else
   set nobackup      " keep a backup file
   set backupdir=./.backup,~/.backup,/tmp
 endif
+
+" maybe fixes watchify/webpack watching issues
+" set backupcopy=yes
+
 set history=500      " keep 50 lines of command line history
 set showcmd          " display incomplete commands
 

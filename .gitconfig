@@ -2,8 +2,8 @@
     name = Jeff Wu
     email = wuthefwasthat@gmail.com
 [core]
-    editor = /usr/bin/vim
-    # editor = /usr/local/bin/nvim
+    editor = vim
+    # editor = nvim
 [alias]
     clo = clone --recursive
     # https://github.com/$1.git
