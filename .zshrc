@@ -94,7 +94,9 @@ bindkey \^U backward-kill-line
 # python
 #####
 
+export PYTHONPATH=.:/usr/local/lib/python
 alias py='python'
+alias py3='python3'
 alias ipy='ipython'
 
 function list_space {

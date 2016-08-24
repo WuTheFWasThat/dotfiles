@@ -152,6 +152,7 @@ call plug#begin('~/.vim/plugged')
 " misc
 """""""""""""
 Plug 'mhinz/vim-startify'
+Plug 'moll/vim-bbye'
 
 " Plug 'mtth/scratch.vim'
 
