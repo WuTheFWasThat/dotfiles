@@ -45,9 +45,13 @@
       if [ \"$mybranch\" != \"master\" ]; then git branch -D $mybranch; git push origin :$mybranch; fi; \
     }; f"
 
+    # chains multiple commands (note: after first one, can't have spaces, for now)
+    chain = "!f() { git $1; shift; if [ $# -ne 0 ]; then git chain $@; fi; }; f"
+
     # remotes
-    f = fetch --all --prune
+    f = "!f() { git chain 'fetch --all --prune' $@; }; f"
     pu = "push -u"
+    put = "push --tags"
     puf = "push -u -f"
     pl = "pull"
     plr = "pull --rebase"
@@ -86,7 +90,8 @@
 
     # working tree
     a = add
-    aa = "!git add .; git add -u ."
+    aahelper = "!git add .; git add -u ."
+    aa = "!f() { git chain 'aahelper' $@; }; f"
     ap = "!f() { local dir=${1:-.}; git add -p $dir; }; f"
     # cleanup
     cle = clean -f -d
@@ -104,7 +109,7 @@
     # add then commit variants
     ac = "!f() { if [ $# -eq 0 ]; then git commit -v -a; else git commit -a -m \"$*\"; fi; }; f"
     acs = "!f() { if [ $# -eq 0 ]; then git commit -v -a --amend; else git commit -a --amend -m \"$*\"; fi; }; f"
-    acf = commit -v -a --amend --no-edit
+    acf = "!f() { git chain 'commit -v -a --amend --no-edit' $@; }; f"
 
     # cherry-pick
     cp = cherry-pick
@@ -118,9 +123,9 @@
     rba = rebase --abort
     rbs = rebase --skip
     rbc = "!git add .; git add -u .; git rebase --continue"
-    rbo = "!f(){ branch=$(git rev-parse --abbrev-ref HEAD); git fetch && git rebase origin/$branch $@; }; f"
+    rbo = "!f(){ branch=$(git rev-parse --abbrev-ref HEAD); git rebase origin/$branch $@; }; f"
     rbm = rebase master
-    rbom = "!git fetch && git rebase origin/master"
+    rbom = rebase origin/master
 
     # merge
     m = merge
@@ -135,12 +140,12 @@
     ds = diff --stat
     dop = "!f() { $(git editor) $(git diff --name-only $@); }; f"
     dm = diff master
-    dom = "!f() { git fetch; git diff origin/master $@; }; f"
-    do = "!f(){ branch=$(git rev-parse --abbrev-ref HEAD); git fetch && git diff origin/$branch $@; }; f"
+    dom = diff origin/master
+    do = "!f(){ branch=$(git rev-parse --abbrev-ref HEAD); git diff origin/$branch $@; }; f"
     du = diff @{upstream}
 
     # status
-    s = status
+    s = "!f() { git chain 'status' $@; }; f"
     sh = show
     shs = show --stat
     shop = "!f() { $(git editor) $(git show --pretty=\"format:\" --name-only $1); }; f"
@@ -166,10 +171,10 @@
 
     # reset
     rs = reset
-    rso = "!f(){ branch=$(git rev-parse --abbrev-ref HEAD); git fetch && git reset origin/$branch $@; }; f"
+    rso = "!f(){ branch=$(git rev-parse --abbrev-ref HEAD); git reset origin/$branch $@; }; f"
     rsh = reset --hard
-    rsho = "!f(){ branch=$(git rev-parse --abbrev-ref HEAD); git fetch && git reset --hard origin/$branch $@; }; f"
-    rshom = "!git fetch && git reset --hard origin/master"
+    rsho = "!f(){ branch=$(git rev-parse --abbrev-ref HEAD); git reset --hard origin/$branch $@; }; f"
+    rshom = "!git reset --hard origin/master"
     # rewind
     rw = "!f() { local n=${1:-1}; git reset HEAD~$n; }; f"
     rwh = "!f() { local n=${1:-1}; git reset --hard HEAD~$n; }; f"
@@ -179,7 +184,7 @@
     rvc = revert --continue
 
     # stash
-    st = stash
+    st = "!f() { git chain stash $@; }; f"
     stl = stash list
     sta = stash apply
     std = stash drop

@@ -281,6 +281,7 @@ let g:loaded_syntastic_java_javac_checker = 1
 Plug 'sheerun/vim-polyglot'
 
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+Plug 'leafgarland/typescript-vim'
 
 Plug 'ElmCast/elm-vim', { 'for': 'elm' }
 let g:elm_format_autosave = 1
