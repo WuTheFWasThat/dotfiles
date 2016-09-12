@@ -282,6 +282,9 @@ Plug 'sheerun/vim-polyglot'
 
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'leafgarland/typescript-vim'
+let g:syntastic_typescript_checkers = ['tslint'] " tsc
+" let g:syntastic_typescript_tsc_args = '--target ES6 -p .'
+" let g:syntastic_typescript_tsc_args = '-p . --noEmit'
 
 Plug 'ElmCast/elm-vim', { 'for': 'elm' }
 let g:elm_format_autosave = 1

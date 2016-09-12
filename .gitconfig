@@ -199,6 +199,10 @@
     sts = stash save
     stp = stash pop
 
+    # tags
+    t = tag
+    td = tag -d
+
     # bisection
     bs = bisect
     bsb = bisect bad
