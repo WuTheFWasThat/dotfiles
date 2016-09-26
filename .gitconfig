@@ -161,6 +161,8 @@
 
     # tree
     l = log --color --graph --pretty='%C(yellow)%h%C(reset) %C(magenta)%cd%C(reset) %C(bold blue)%an%C(reset) %s%C(bold yellow)%d%C(reset)' --decorate --date=relative
+    lo = "!f(){ branch=$(git rev-parse --abbrev-ref HEAD); git log origin/$branch $@; }; f"
+    lom = log origin/master
     lg = log
     hash = rev-parse HEAD
     rl = reflog show --date=relative
@@ -180,6 +182,7 @@
     # reset
     rs = reset
     rso = "!f(){ branch=$(git rev-parse --abbrev-ref HEAD); git reset origin/$branch $@; }; f"
+    rsom = "!git reset origin/master"
     rsh = reset --hard
     rsho = "!f(){ branch=$(git rev-parse --abbrev-ref HEAD); git reset --hard origin/$branch $@; }; f"
     rshom = "!git reset --hard origin/master"
