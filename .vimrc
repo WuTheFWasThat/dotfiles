@@ -281,6 +281,7 @@ let g:loaded_syntastic_java_javac_checker = 1
 Plug 'sheerun/vim-polyglot'
 
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+" Plug 'flowtype/vim-flow', { 'for': 'javascript' }
 Plug 'leafgarland/typescript-vim'
 let g:syntastic_typescript_checkers = ['tslint'] " tsc
 " let g:syntastic_typescript_tsc_args = '--target ES6 -p .'

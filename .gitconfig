@@ -155,7 +155,11 @@
     # status
     s = "!f() { git chain 'status' $@; }; f"
     sh = show
+    sho = "!f(){ branch=$(git rev-parse --abbrev-ref HEAD); git show origin/$branch $@; }; f"
+    shom = show origin/master
     shs = show --stat
+    shso = "!f(){ branch=$(git rev-parse --abbrev-ref HEAD); git show --stat origin/$branch $@; }; f"
+    shsom = show --stat origin/master
     shop = "!f() { $(git editor) $(git show --pretty=\"format:\" --name-only $1); }; f"
 
 
