@@ -49,7 +49,7 @@ ZSH_THEME="jeffwu"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git extract)
+plugins=(git extract osx)
 
 # User configuration
 
@@ -103,7 +103,7 @@ function list_space {
   du -sh -- $1*  | sort -rg
 }
 
-alias h='history'
+alias h='history | less'
 alias b='popd'
 
 alias docs='pushd ~/Documents'
@@ -149,3 +149,7 @@ source ~/google-cloud-sdk/path.zsh.inc
 
 # The next line enables shell command completion for gcloud.
 source ~/google-cloud-sdk/completion.zsh.inc
+
+[[ -s ~/.openai/bashrc ]] && source ~/.openai/bashrc
+
+export PATH="$HOME/.yarn/bin:$PATH"

@@ -6,6 +6,7 @@
     # editor = nvim
 [alias]
     clo = clone --recursive
+    in = '!git init && git commit -m "root" --allow-empty'
     # https://github.com/$1.git
     # git@github.com:$1.git
 
@@ -52,10 +53,11 @@
     f = "!f() { git chain 'fetch --all --prune' $@; }; f"
     pu = "push -u"
     put = "push --tags"
-    puf = "push -u -f"
+    puf = "push -u --force-with-lease"
     pl = "pull"
     plr = "pull --rebase"
     pla = !"git pull; git submodule foreach git pull origin master"
+    rmp = "!f(){ remote=${1:-origin}; git remote prune $remote; }; f"
     track = "!f(){ branch=$(git rev-parse --abbrev-ref HEAD); cmd=\"git branch $branch -u ${1:-origin}/${2:-$branch}\"; echo $cmd; $cmd; }; f"
     untrack = "!f(){ branch=$(git rev-parse --abbrev-ref HEAD); cmd=\"git branch --unset-upstream ${1:-$branch}\"; echo $cmd; $cmd; }; f"
     # todo: get autocomplete for this
@@ -92,6 +94,7 @@
     a = add
     aahelper = "!git add .; git add -u ."
     aa = "!f() { git chain 'aahelper' $@; }; f"
+    aac = "!f() { git aahelper; git ac $@; }; f"
     ap = "!f() { local dir=${1:-.}; git add -p $dir; }; f"
     # cleanup
     cle = clean -f -d
@@ -142,6 +145,7 @@
     # diffs
     d = icdiff
     dc = icdiff --cached
+    dcs = diff --cached --stat
     ds = diff --stat
     dso = "!f(){ branch=$(git rev-parse --abbrev-ref HEAD); git diff --stat origin/$branch $@; }; f"
     dsom = diff --stat origin/master
@@ -199,6 +203,9 @@
     rvc = revert --continue
 
     # stash
+    # $ git config --global alias.stsh 'stash --keep-index'
+    # git config --global alias.staash 'stash --include-untracked'
+    # git config --global alias.staaash 'stash --all'
     st = "!f() { git chain stash $@; }; f"
     stl = stash list
     sta = stash apply

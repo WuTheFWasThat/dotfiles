@@ -20,6 +20,7 @@
 "highlight FoldColumn guibg=darkgrey guifg=white
 
 set nu
+set relativenumber
 
 " ignore case
 set ic
@@ -282,6 +283,7 @@ Plug 'sheerun/vim-polyglot'
 
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 " Plug 'flowtype/vim-flow', { 'for': 'javascript' }
+Plug 'ianks/vim-tsx'
 Plug 'leafgarland/typescript-vim'
 let g:syntastic_typescript_checkers = ['tslint'] " tsc
 " let g:syntastic_typescript_tsc_args = '--target ES6 -p .'
