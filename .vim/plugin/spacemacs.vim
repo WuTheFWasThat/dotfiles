@@ -69,6 +69,10 @@ nnoremap <Leader>fd :filetype detect<cr>
 nnoremap <Leader>i; mzA;<esc>`z
 " insert comma
 nnoremap <Leader>i, mzA,<esc>`z
+" insert other punctuation
+nnoremap <Leader>i. mzA.<esc>`z
+nnoremap <Leader>i? mzA?<esc>`z
+nnoremap <Leader>i! mzA!<esc>`z
 
 nnoremap <Leader>J :SplitjoinJoin<cr>
 nnoremap <Leader>K :SplitjoinSplit<cr>
