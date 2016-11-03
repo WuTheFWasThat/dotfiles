@@ -137,7 +137,6 @@ augroup suffixes
 
   let associations = [
               \["javascript", ".js,.jsx,.javascript,.es,.esx,.json"],
-              \["coffee", ".coffee"],
               \["python", ".py,.pyw"]
               \]
 
@@ -296,9 +295,6 @@ let g:elm_syntastic_show_warnings = 1
 " NOTE: C-J and C-K cause issues with rust, has something to do with delimitMate
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 "let g:rustfmt_autosave = 1
-
-Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
-let g:syntastic_coffee_checkers = ['coffeelint']
 
 Plug 'elzr/vim-json', { 'for' : 'json' }
 let g:vim_json_syntax_conceal = 0
