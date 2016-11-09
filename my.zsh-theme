@@ -66,7 +66,8 @@ function precmd() {
 # useful chars: » ● ✔ ✘
 setopt prompt_subst
 PROMPT=$'${ret_result}%B%F{blue}%c # %{$reset_color%}'
-RPROMPT='%B%F{blue}${vcs_info_msg_0_}%{$reset_color%} [%D{%L:%M:%S %p}]'
+VIM_PROMPT="%{$fg_bold[yellow]%} [% NORMAL]% %{$reset_color%}"
+RPROMPT='${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/} %B%F{blue}${vcs_info_msg_0_}%{$reset_color%} [%D{%L:%M:%S %p}]'
 
 # to update time:
 # TMOUT=1
@@ -76,6 +77,13 @@ RPROMPT='%B%F{blue}${vcs_info_msg_0_}%{$reset_color%} [%D{%L:%M:%S %p}]'
 #     zle reset-prompt
 #   fi
 # }
+
+# add vim prompt, see: https://dougblack.io/words/zsh-vi-mode.html
+function zle-line-init zle-keymap-select {
+  zle reset-prompt
+}
+zle -N zle-line-init
+zle -N zle-keymap-select
 
 autoload -U add-zsh-hook
 add-zsh-hook precmd  theme_precmd

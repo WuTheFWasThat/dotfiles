@@ -150,6 +150,34 @@ source ~/google-cloud-sdk/path.zsh.inc
 # The next line enables shell command completion for gcloud.
 source ~/google-cloud-sdk/completion.zsh.inc
 
-[[ -s ~/.openai/bashrc ]] && source ~/.openai/bashrc
+# [[ -s ~/.openai/bashrc ]] && source ~/.openai/bashrc
 
 export PATH="$HOME/.yarn/bin:$PATH"
+
+# set vi mode
+bindkey -v
+# decrease delay afer <ESC> key
+export KEYTIMEOUT=1
+
+# neither seems totally correct, but:
+# http://www.tcsh.org/tcsh.html/Editor_commands.html
+# `man bash`
+bindkey '^h' backward-char
+bindkey '^l' backward-char
+bindkey '^k' up-history
+bindkey '^j' down-history
+
+bindkey '^b' backward-word
+bindkey '^f' forward-word
+
+bindkey '^a' beginning-of-line
+bindkey '^e' end-of-line
+# bindkey '^w' backward-delete-word
+# bindkey '^w' unix-word-rubout
+# bindkey '^y' yank
+bindkey '^r' fzf-history-widget
+bindkey '^u' vi-kill-line
+# bindkey '^u' unix-line-discard
+bindkey '^g' clear-screen
+# bindkey '^r' history-incremental-search-backward
+# bindkey '^r' history-incremental-pattern-search-backward
