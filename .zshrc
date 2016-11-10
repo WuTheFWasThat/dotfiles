@@ -166,6 +166,9 @@ bindkey '^h' backward-char
 bindkey '^l' backward-char
 bindkey '^k' up-history
 bindkey '^j' down-history
+# ^k and ^j might not work in tmux (used for switching panges)
+bindkey '^p' up-history
+bindkey '^n' down-history
 
 bindkey '^b' backward-word
 bindkey '^f' forward-word

@@ -201,6 +201,9 @@ Plug 'airblade/vim-gitgutter'
 " must come AFTER ag.vim
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+" SEE: https://github.com/junegunn/fzf.vim/issues/66
+" disables use of tmux pane for fzf
+" let g:fzf_layout = {}
 " ctrlp, just cause i'm used to it
 nnoremap <C-p> :GitFiles<cr>
 nnoremap <C-b> :Buffers<cr>

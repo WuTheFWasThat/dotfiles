@@ -10,6 +10,8 @@ incomplete notes
   - in the repo, `ghar install`
 - install fasd (e.g. `brew install fasd`)
 - install fzf (e.g. `brew install fzf`)
+- install thefuck (https://github.com/nvbn/thefuck) (e.g. `brew install thefuck`)
+- make sure vim is 7.4+
 - install vim plugins: `vim +PlugInstall +qall`
 - optional:
   - install spacemacs
