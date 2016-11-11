@@ -103,6 +103,12 @@ function list_space {
   du -sh -- $1*  | sort -rg
 }
 
+alias g='git'
+function gj {
+  query=${1:-*}
+  dir=$(fasd -d $query -Rld | grep "^$(g root)" | head -n 1)
+  if [ -n "$dir" ]; then cd $dir; fi
+}
 alias h='history | less'
 alias b='popd'
 
