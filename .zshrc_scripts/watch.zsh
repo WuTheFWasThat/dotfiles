@@ -40,15 +40,22 @@ watch () {
         echo "Watching files.."
     fi
 
-    CTIME=$(date -j -f "%a %b %d %T %Z %Y" "`date`" "+%s")
+    local stat_opts='-f "%m"'
+    if [[ "$(uname)" == "Linux" ]]; then
+        stat_opts='-c "%Y"'
+    fi
+
+    local CTIME=$(printf "%i" $(date "+%s"))
+    local mtime
     while :; do
         sleep 1
         # Check if any files have changed
         for f in $(echo $FILES); do
-            eval $(stat -s $f)
+            mtime=$(eval stat $stat_opts $f)
+            mtime=$(printf "%i" $mtime)
             if [ $? -eq 0 ]; then
-                if [ $st_mtime -gt $CTIME ]; then
-                    CTIME=$(date -j -f "%a %b %d %T %Z %Y" "`date`" "+%s")
+                if [ $mtime -gt $CTIME ]; then
+                    CTIME=$(printf "%i" $(date "+%s"))
 
                     if [ $SILENT -eq 0 ]; then
                         echo 'Retrying: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
