@@ -3,6 +3,7 @@
 incomplete notes
 
 - install zsh
+  - install oh-my-zsh
   - put zsh theme in right place
 - set iterm colors, if appropriate
 - ghar
