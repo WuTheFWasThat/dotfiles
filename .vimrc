@@ -156,7 +156,14 @@ Plug 'moll/vim-bbye'
 
 " Plug 'mtth/scratch.vim'
 
+" use S instead of s in substitutions
 Plug 'tpope/vim-abolish'
+" substitute under cursor
+Plug 'wincent/scalpel'
+" Use <Leader>S instead of default <Leader>e
+nmap <Leader>S <Plug>(Scalpel)
+" find stuff in many files
+Plug 'pelodelfuego/vim-swoop'
 
 " doesn't work well in zsh
 " Plug 'christoomey/vim-run-interactive'
