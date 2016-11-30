@@ -231,6 +231,16 @@
     sms = submodule sync
 
     # fuzzy commands (require fzf)
+    # get commit hash
+    zh = "!f() { \
+      if fzf --help 2>&1 | grep --quiet '\\-\\-ansi'; then \
+        local commit=$(git l | fzf --ansi | cut -d '*' -f 2 | awk '{ print $1 }'); \
+        echo \"$commit\"; \
+      else \
+        local commit=$(git log --color --graph --pretty='%h %cd %an %s%d' --decorate --date=relative | fzf | cut -d '*' -f 2 | awk '{ print $1 }'); \
+        echo \"$commit\"; \
+      fi \
+    }; f"
     # fuzzy open
     zop = "!f() { \
       local file=$(git ls-files $(git rev-parse --show-toplevel) | fzf -m); \
@@ -248,19 +258,19 @@
     }; f"
     # fuzzy checkout (could be much improved, have tags, branches, remotes)
     zco = "!f() { \
-      local commit=$(git log --oneline | fzf | awk '{ print $1 }'); \
+      local commit=$(git zh); \
       if [[ -z $commit ]]; then return 1; fi; \
       git checkout $commit; \
     }; f"
     # fuzzy show
     zsh = "!f() { \
-      local commit=$(git log --oneline | fzf | awk '{ print $1 }'); \
+      local commit=$(git zh); \
       if [[ -z $commit ]]; then return 1; fi; \
       git show $commit; \
     }; f"
     # fuzzy diff
     zd = "!f() { \
-      local commit=$(git log --oneline | fzf | awk '{ print $1 }'); \
+      local commit=$(git zh); \
       if [[ -z $commit ]]; then return 1; fi; \
       git diff $commit; \
     }; f"
