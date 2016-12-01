@@ -234,7 +234,7 @@
     # get commit hash
     zh = "!f() { \
       if fzf --help 2>&1 | grep --quiet '\\-\\-ansi'; then \
-        local commit=$(git l | fzf --ansi | cut -d '*' -f 2 | awk '{ print $1 }'); \
+        local commit=$(git l | fzf --ansi | sed 's/.*\\*[^ ]*//g' | awk '{ print $1 }'); \
         echo \"$commit\"; \
       else \
         local commit=$(git log --color --graph --pretty='%h %cd %an %s%d' --decorate --date=relative | fzf | cut -d '*' -f 2 | awk '{ print $1 }'); \
