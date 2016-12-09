@@ -161,7 +161,7 @@ source ~/google-cloud-sdk/completion.zsh.inc
 export PATH="$HOME/.yarn/bin:$PATH"
 
 # set vi mode
-bindkey -v
+# bindkey -v
 # decrease delay afer <ESC> key
 export KEYTIMEOUT=1
 
@@ -169,24 +169,22 @@ export KEYTIMEOUT=1
 # http://www.tcsh.org/tcsh.html/Editor_commands.html
 # `man bash`
 bindkey '^h' backward-char
-bindkey '^l' backward-char
+bindkey '^l' forward-char
 bindkey '^k' up-history
 bindkey '^j' down-history
 # ^k and ^j might not work in tmux (used for switching panges)
 bindkey '^p' up-history
 bindkey '^n' down-history
 
+bindkey '^v' edit-command-line
+# bindkey -M vicmd v edit-command-line
+
 bindkey '^b' backward-word
 bindkey '^f' forward-word
 
 bindkey '^a' beginning-of-line
 bindkey '^e' end-of-line
-# bindkey '^w' backward-delete-word
-# bindkey '^w' unix-word-rubout
-# bindkey '^y' yank
 bindkey '^r' fzf-history-widget
-bindkey '^u' vi-kill-line
-# bindkey '^u' unix-line-discard
-bindkey '^g' clear-screen
 # bindkey '^r' history-incremental-search-backward
 # bindkey '^r' history-incremental-pattern-search-backward
+bindkey '^g' clear-screen
