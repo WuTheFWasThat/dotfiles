@@ -188,3 +188,11 @@ bindkey '^r' fzf-history-widget
 # bindkey '^r' history-incremental-search-backward
 # bindkey '^r' history-incremental-pattern-search-backward
 bindkey '^g' clear-screen
+
+# SEE: https://babushk.in/posts/renew-environment-tmux.html
+function preexec {
+  if [ -n "$TMUX" ]; then
+    export $(tmux show-environment | grep "^SSH_AUTH_SOCK")
+    export $(tmux show-environment | grep "^DISPLAY")
+  fi
+}
