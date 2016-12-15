@@ -1,7 +1,11 @@
 " to profile vim startup
-" vim --startuptime vim.log <somefile>
+" vim --startuptime vim.log asdf.js
+" less vim.log
+" cat vim.log | sort -k 2
+" time vim +qa
 
 " TODO LIST:
+" - way to make <leader>tn toggle relative number also
 " - some solution for tags
 "     instructions will need to then include
 "     install ctags: e.g. `apt-get install exuberant-ctags` or `brew install ctags`
