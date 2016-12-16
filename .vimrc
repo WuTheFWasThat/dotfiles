@@ -443,8 +443,6 @@ Plug 'tpope/vim-eunuch'
 
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 
-Plug 'unblevable/quick-scope'
-
 " TO TRY OUT?
 "  justinmk/vim-sneak
 
