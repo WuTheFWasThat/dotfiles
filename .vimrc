@@ -373,7 +373,7 @@ nnoremap <silent> S :OverCommandLine<cr>%s/
 " TODO: for some reason this doesn't work...
 " vnoremap <silent> S :OverCommandLine<cr>
 nnoremap  ;  :
-" nnoremap  :  ;
+nnoremap  :  ;
 
 " displays marks in gutter
 Plug 'kshenoy/vim-signature'
@@ -442,6 +442,11 @@ Plug 'szw/vim-maximizer'
 Plug 'tpope/vim-eunuch'
 
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+
+Plug 'unblevable/quick-scope'
+
+" TO TRY OUT?
+"  justinmk/vim-sneak
 
 Plug 'easymotion/vim-easymotion'
 " rebind leader to single key instead of 2
