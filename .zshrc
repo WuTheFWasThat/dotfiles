@@ -56,6 +56,8 @@ plugins=(git extract osx)
 export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 # export MANPATH="/usr/local/man:$MANPATH"
 
+# automatically upgrade
+export DISABLE_UPDATE_PROMPT=true
 source $ZSH/oh-my-zsh.sh
 
 # You may need to manually set your language environment
