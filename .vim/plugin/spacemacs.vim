@@ -73,6 +73,7 @@ nnoremap <Leader>i, mzA,<esc>`z
 nnoremap <Leader>i. mzA.<esc>`z
 nnoremap <Leader>i? mzA?<esc>`z
 nnoremap <Leader>i! mzA!<esc>`z
+nnoremap <Leader>i<cr> o<esc>
 
 nnoremap <Leader>J :SplitjoinJoin<cr>
 nnoremap <Leader>K :SplitjoinSplit<cr>
