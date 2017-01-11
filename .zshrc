@@ -1,5 +1,5 @@
 # Path to your oh-my-zsh installation.
-export ZSH=/Users/jeffwu/.oh-my-zsh
+export ZSH=$HOME/.oh-my-zsh
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -153,10 +153,9 @@ for file in ~/.zshrc_scripts/*; do
 done
 
 # The next line updates PATH for the Google Cloud SDK.
-source ~/google-cloud-sdk/path.zsh.inc
-
+# source ~/google-cloud-sdk/path.zsh.inc
 # The next line enables shell command completion for gcloud.
-source ~/google-cloud-sdk/completion.zsh.inc
+# source ~/google-cloud-sdk/completion.zsh.inc
 
 # [[ -s ~/.openai/bashrc ]] && source ~/.openai/bashrc
 

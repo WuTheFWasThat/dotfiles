@@ -54,4 +54,7 @@ map <Leader>bn gt
 nnoremap ; :
 nnoremap : ;
 
+" TODO:
+" Calling up Vim itself with C-i in a textarea?
+" set editor=/usr/local/bin/vim
 " USEFUL TO LOOK AT: https://github.com/januswel/dotfiles/blob/master/.vimperatorrc
