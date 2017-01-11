@@ -1,0 +1,53 @@
+" default search/suggest engine: google
+set defsearch=google
+set suggestengines=google
+
+ignorekeys clear
+ignorekeys add mail\\.google\\.com -except b,<C-n>,<C-p>,<Space>,<Leader>,:
+ignorekeys add localhost:3000
+
+" don't focus any "input" elements automatically when open pages.
+set focuscontent
+
+" clear all key mappings
+" to avoid troubles from loading rc file several times
+mapclear
+cmapclear
+imapclear
+
+" https://github.com/vimperator/vimperator-labs/issues/10
+" To Enable map <Space>
+js <<EOM
+  window.addEventListener('keypress',function (event) {
+    var code=event.charCode;
+    if ((liberator.mode === modes.INSERT && modes.extended === modes.MENU)
+    ||(liberator.mode ==modes.NORMAL && code==32)
+    ||(liberator.mode ==modes.COMMAND_LINE && code !=32)){
+      let map = mappings.get(liberator.mode, events.toString(event));
+      if (map) {
+        event.preventDefault();
+        event.stopPropagation();
+        map.execute();
+      }
+    }
+  },false);
+EOM
+map <Space> <Leader>
+
+" tab operation {{{2
+nnoremap <C-b> b
+nnoremap <C-h> gT
+nnoremap <C-l> gt
+map <Leader>bp gT
+map <Leader>bn gt
+" noremap <C-p> :tabmove! -1<CR>
+" noremap <C-n> :tabmove! +1<CR>
+
+" NOTE: this is not working
+" nnoremap <Leader>fed :source ~/.vimperatorrc<cr>
+" map S :source ~/.vimperatorrc<cr>
+
+nnoremap ; :
+nnoremap : ;
+
+" USEFUL TO LOOK AT: https://github.com/januswel/dotfiles/blob/master/.vimperatorrc
