@@ -1,5 +1,6 @@
 *.sw*
 .vim/.netrwhist
+.vim/indent/.netrwhist
 .vim/plugged
 .vimperator/info
 yankring_history*
