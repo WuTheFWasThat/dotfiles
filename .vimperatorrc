@@ -4,7 +4,11 @@ set suggestengines=google
 
 ignorekeys clear
 ignorekeys add mail\\.google\\.com -except b,<C-n>,<C-p>,<Space>,<Leader>,:
-ignorekeys add localhost:3000
+ignorekeys add www.pathery.com -except b,<C-n>,<C-p>,<Space>,<Leader>,:
+ignorekeys add beta.pathery.net -except b,<C-n>,<C-p>,<Space>,<Leader>,:
+ignorekeys add blue.pathery.net -except b,<C-n>,<C-p>,<Space>,<Leader>,:
+ignorekeys add localhost:3000 -except <C-n>,<C-p>
+ignorekeys add vimflowy.bitballoon.com -except <C-n>,<C-p>
 
 " don't focus any "input" elements automatically when open pages.
 set focuscontent
