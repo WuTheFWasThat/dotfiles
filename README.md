@@ -4,7 +4,7 @@ incomplete notes
 
 - install zsh
   - install oh-my-zsh
-  - put zsh theme in right place
+  - put zsh theme at ~/.oh-my-zsh/themes/jeffwu.zsh-theme
 - set iterm colors, if appropriate
 - ghar
   - install ghar

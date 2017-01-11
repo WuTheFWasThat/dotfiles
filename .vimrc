@@ -220,7 +220,7 @@ nnoremap <C-p> :GitFiles<cr>
 nnoremap <C-b> :Buffers<cr>
 nnoremap <C-f> :Files<cr>
 nnoremap ` :Marks<cr>
-" nnoremap <C-f> :Files /Users/jeffwu<cr>
+" nnoremap <C-f> :Files ~<cr>
 
 " Plug 'Shougo/unite.vim'
 " function! s:unite_settings() "{

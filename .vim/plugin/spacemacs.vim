@@ -64,6 +64,8 @@ nnoremap <leader>pt :call spacemacs#toggleExplorerAtRoot()<CR>
 " yank history
 " nnoremap <Leader>fp :<C-u>Unite history/yank<cr>
 nnoremap <Leader>fd :filetype detect<cr>
+call s:spacevim_bind('map', 'fl', 'reload-file', ':e', 1)
+call s:spacevim_bind('map', 'xx', 'save-quit-all', ':wqa', 1)
 
 " insert semicolon
 nnoremap <Leader>i; mzA;<esc>`z

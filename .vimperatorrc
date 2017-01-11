@@ -1,6 +1,16 @@
+" clear all key mappings
+" to avoid troubles from loading rc file several times
+mapclear
+cmapclear
+imapclear
+" clear user-defined commands
+comclear
+
 " default search/suggest engine: google
 set defsearch=google
 set suggestengines=google
+
+set! browser.bookmarks.showRecentlyBookmarked=false
 
 ignorekeys clear
 ignorekeys add mail\\.google\\.com -except b,<C-n>,<C-p>,<Space>,<Leader>,:
@@ -12,12 +22,6 @@ ignorekeys add vimflowy.bitballoon.com -except <C-n>,<C-p>
 
 " don't focus any "input" elements automatically when open pages.
 set focuscontent
-
-" clear all key mappings
-" to avoid troubles from loading rc file several times
-mapclear
-cmapclear
-imapclear
 
 " https://github.com/vimperator/vimperator-labs/issues/10
 " To Enable map <Space>
@@ -42,19 +46,26 @@ map <Space> <Leader>
 nnoremap <C-b> b
 nnoremap <C-h> gT
 nnoremap <C-l> gt
-map <Leader>bp gT
-map <Leader>bn gt
-" noremap <C-p> :tabmove! -1<CR>
-" noremap <C-n> :tabmove! +1<CR>
+nnoremap <Leader>bp gT
+nnoremap <Leader>bn gt
+nnoremap <Leader>bl :b#<CR>
+noremap <C-j> gt
+noremap <C-k> gT
+" reorder tabs
+noremap <C-p> :tabmove! -1<CR>
+noremap <C-n> :tabmove! +1<CR>
 
-" NOTE: this is not working
-" nnoremap <Leader>fed :source ~/.vimperatorrc<cr>
-" map S :source ~/.vimperatorrc<cr>
+nnoremap <Leader>fed :source ~/.vimperatorrc<cr>:echo "Configuration reloaded."<cr>
 
 nnoremap ; :
 nnoremap : ;
 
+" Scroll three times faster.
+nnoremap j 3j
+nnoremap k 3k
+
 " TODO:
-" Calling up Vim itself with C-i in a textarea?
+" - Calling up Vim itself with C-i in a textarea?
 " set editor=/usr/local/bin/vim
+" - why does sourcing twice mess things up??
 " USEFUL TO LOOK AT: https://github.com/januswel/dotfiles/blob/master/.vimperatorrc
