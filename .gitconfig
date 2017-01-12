@@ -14,6 +14,8 @@
 
     # utils
     root = rev-parse --show-toplevel
+    # functions screw up directory: see https://stackoverflow.com/questions/26243145/git-aliases-operate-in-the-wrong-directory
+    relative = "!f() { if [ -n \"$GIT_PREFIX\" ]; then echo \"$GIT_PREFIX\"; else echo \".\"; fi; }; f"
     # chains multiple commands (note: after first one, can't have spaces, for now)
     chain = "!f() { git $1; shift; if [ $# -ne 0 ]; then git chain $@; fi; }; f"
 
@@ -190,12 +192,13 @@
     op = "!f() { $(git editor) $(git ls-files | grep -i \"$@\"); }; f"
     # open edited
     eop = "! $(git editor) $(git ls-files --modified)"
-    g = "!git --no-pager grep"
-    gi = "!git --no-pager grep -i"
+
+    g = "!f() { if [ -n \"$GIT_PREFIX\" ]; then cd \"$GIT_PREFIX\"; fi; git --no-pager grep $@; }; f"
+    gi = "!f() { if [ -n \"$GIT_PREFIX\" ]; then cd \"$GIT_PREFIX\"; fi; git --no-pager grep -i $@; }; f"
     # grep and open
     gop = "!f(){ $(git editor) $(git grep --name-only \"$@\"); }; f"
     giop = "!f(){ $(git editor) $(git grep -i --name-only \"$@\"); }; f"
-    tree = ls-tree --full-tree -r HEAD
+    tree = ls-tree -r HEAD
 
     # reset
     rs = reset
