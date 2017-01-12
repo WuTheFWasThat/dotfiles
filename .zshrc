@@ -70,58 +70,6 @@ source $ZSH/oh-my-zsh.sh
 #   export EDITOR='mvim'
 # fi
 
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# ssh
-# export SSH_KEY_PATH="~/.ssh/dsa_id"
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-
-# for emacs mode:
-bindkey \^U backward-kill-line
-
-# use vim mode
-# bindkey -v
-# export KEYTIMEOUT=1
-
-#####
-# python
-#####
-
-export PYTHONPATH=.:/usr/local/lib/python
-alias py='python'
-alias py3='python3'
-alias ipy='ipython'
-
-function list_space {
-  du -sh -- $1*  | sort -rg
-}
-
-alias g='git'
-function gj {
-  query=${1:-*}
-  dir=$(fasd -d $query -Rld | grep "^$(g root)" | head -n 1)
-  if [ -n "$dir" ]; then cd $dir; fi
-}
-alias h='history | less'
-alias b='popd'
-
-alias docs='pushd ~/Documents'
-alias dls='pushd ~/Downloads'
-alias p='pushd ~/Projects'
-
-# stupid: nvim C-H doesn't work
-# alias vim='nvim'
-alias plug='vim +PlugInstall +qall'
-
 # ffuuuuu
 if which thefuck &>/dev/null; then
   eval "$(thefuck --alias fu)"
@@ -132,62 +80,12 @@ export PATH=$PATH:~/.multirust/toolchains/stable/cargo/bin
 export PATH=$PATH:~/.multirust/toolchains/1.5.0/cargo/bin
 export PATH=$PATH:~/Library/Haskell/bin
 export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.5/bin/
+export PATH=$HOME/.yarn/bin:$PATH
 export RUST_BACKTRACE=1
-
-# http://boredzo.org/blog/archives/2016-08-15/colorized-man-pages-understood-and-customized
-man() {
-    env \
-        LESS_TERMCAP_mb=$(printf "\e[1;31m") \
-        LESS_TERMCAP_md=$(printf "\e[1;31m") \
-        LESS_TERMCAP_me=$(printf "\e[0m") \
-        LESS_TERMCAP_se=$(printf "\e[0m") \
-        LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
-        LESS_TERMCAP_ue=$(printf "\e[0m") \
-        LESS_TERMCAP_us=$(printf "\e[1;32m") \
-            man "$@"
-}
 
 for file in ~/.zshrc_scripts/*; do
    source "$file"
 done
-
-# The next line updates PATH for the Google Cloud SDK.
-# source ~/google-cloud-sdk/path.zsh.inc
-# The next line enables shell command completion for gcloud.
-# source ~/google-cloud-sdk/completion.zsh.inc
-
-# [[ -s ~/.openai/bashrc ]] && source ~/.openai/bashrc
-
-export PATH="$HOME/.yarn/bin:$PATH"
-
-# set vi mode
-# bindkey -v
-# decrease delay afer <ESC> key
-export KEYTIMEOUT=1
-
-# neither seems totally correct, but:
-# http://www.tcsh.org/tcsh.html/Editor_commands.html
-# `man bash`
-bindkey '^h' backward-char
-bindkey '^l' forward-char
-bindkey '^k' up-history
-bindkey '^j' down-history
-# ^k and ^j might not work in tmux (used for switching panges)
-bindkey '^p' up-history
-bindkey '^n' down-history
-
-bindkey '^v' edit-command-line
-# bindkey -M vicmd v edit-command-line
-
-bindkey '^b' backward-word
-bindkey '^f' forward-word
-
-bindkey '^a' beginning-of-line
-bindkey '^e' end-of-line
-bindkey '^r' fzf-history-widget
-# bindkey '^r' history-incremental-search-backward
-# bindkey '^r' history-incremental-pattern-search-backward
-bindkey '^g' clear-screen
 
 # SEE: https://babushk.in/posts/renew-environment-tmux.html
 function preexec {
