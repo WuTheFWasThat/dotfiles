@@ -123,7 +123,7 @@ alias p='pushd ~/Projects'
 alias plug='vim +PlugInstall +qall'
 
 # ffuuuuu
-if which thefuck; then
+if which thefuck &>/dev/null; then
   eval "$(thefuck --alias fu)"
 fi
 
