@@ -190,8 +190,8 @@
     op = "!f() { $(git editor) $(git ls-files | grep -i \"$@\"); }; f"
     # open edited
     eop = "! $(git editor) $(git ls-files --modified)"
-    g = grep
-    gi = grep -i
+    g = "!git --no-pager grep"
+    gi = "!git --no-pager grep -i"
     # grep and open
     gop = "!f(){ $(git editor) $(git grep --name-only \"$@\"); }; f"
     giop = "!f(){ $(git editor) $(git grep -i --name-only \"$@\"); }; f"
@@ -213,6 +213,7 @@
     rvc = revert --continue
 
     # stash
+    # TODO: reimplement these with commits?
     # $ git config --global alias.stsh 'stash --keep-index'
     # git config --global alias.staash 'stash --include-untracked'
     # git config --global alias.staaash 'stash --all'
