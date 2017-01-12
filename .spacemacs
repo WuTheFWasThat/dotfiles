@@ -2,6 +2,15 @@
 ;; This file is loaded by Spacemacs at startup.
 ;; It must be stored in your home directory.
 
+;;  TODO:
+;;    - explore using layouts to mitigate global buffers issue?
+;;    - find-file-at-point (gf) should automatically choose when there's only one result
+;;      SEE: https://github.com/syl20bnr/spacemacs/issues/4837
+;;    - get python autocomplete working properly: https://github.com/syl20bnr/spacemacs/tree/master/layers/%2Blang/python
+;;    - figure out shell within emacs (https://github.com/syl20bnr/spacemacs/tree/master/layers/shell)
+;;    - make "tab" not bring up helm completion-at-point when there's nothing to complete
+;;    - alternative to minibufexpl
+
 (defun dotspacemacs/layers ()
   "Configuration Layers declaration.
 You should not put any user code in this function besides modifying the variable

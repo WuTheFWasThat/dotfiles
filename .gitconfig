@@ -5,6 +5,19 @@
     editor = vim
     # editor = nvim
 [alias]
+    # configuration
+    differ = "!f() { echo diff; }; f"
+    # differ = "!f() { echo icdiff; }; f"
+    editor = config --get core.editor
+    # editor = ! echo "emacsclient -c"
+    alias = "!f() { pattern=$@; rand=$(uuidgen); git config --get-regexp ^alias\\. | sed -e s/^alias\\.// | grep \"$pattern\" | sort | sed -e \"s| |$rand|\" | awk -F \"$rand\" '{ printf \"%12-s = %s\\n\", $1, $2 }'; }; f"
+
+    # utils
+    root = rev-parse --show-toplevel
+    # chains multiple commands (note: after first one, can't have spaces, for now)
+    chain = "!f() { git $1; shift; if [ $# -ne 0 ]; then git chain $@; fi; }; f"
+
+    # setup
     clo = clone --recursive
     in = '!git init && git commit -m "root" --allow-empty'
     # https://github.com/$1.git
@@ -45,9 +58,6 @@
       git fetch; git rebase origin/master; git push origin master; \
       if [ \"$mybranch\" != \"master\" ]; then git branch -D $mybranch; git push origin :$mybranch; fi; \
     }; f"
-
-    # chains multiple commands (note: after first one, can't have spaces, for now)
-    chain = "!f() { git $1; shift; if [ $# -ne 0 ]; then git chain $@; fi; }; f"
 
     # remotes
     f = "!f() { git chain 'fetch --all --prune' $@; }; f"
@@ -143,18 +153,18 @@
     mop = "!f() { $(git editor) $(git diff --name-only --diff-filter=U); }; f"
 
     # diffs
-    d = icdiff
-    dc = icdiff --cached
+    d = "!git $(git differ)"
+    dc = "!git $(git differ) --cached"
     dcs = diff --cached --stat
     ds = diff --stat
     dso = "!f(){ branch=$(git rev-parse --abbrev-ref HEAD); git diff --stat origin/$branch $@; }; f"
     dsom = diff --stat origin/master
     dsm = diff --stat master
     dop = "!f() { $(git editor) $(git diff --name-only $@); }; f"
-    dm = diff master
-    dom = diff origin/master
-    do = "!f(){ branch=$(git rev-parse --abbrev-ref HEAD); git diff origin/$branch $@; }; f"
-    du = diff @{upstream}
+    dm = "!git $(git differ) master"
+    dom = "!git $(git differ) origin/master"
+    do = "!f(){ branch=$(git rev-parse --abbrev-ref HEAD); git $(git differ) origin/$branch $@; }; f"
+    du = "!git $(git differ) @{upstream}"
 
     # status
     s = "!f() { git chain 'status' $@; }; f"
@@ -290,13 +300,6 @@
     fc = "!f() { git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short --grep=\"$@\"; }; f"
     # List contributors with number of commits
     contributors = shortlog --summary --numbered
-    root = rev-parse --show-toplevel
-
-    # configuration
-    editor = config --get core.editor
-    # editor = ! echo "emacsclient -c"
-    alias = "!f() { pattern=$@; rand=$(uuidgen); git config --get-regexp ^alias\\. | sed -e s/^alias\\.// | grep \"$pattern\" | sort | sed -e \"s| |$rand|\" | awk -F \"$rand\" '{ printf \"%12-s = %s\\n\", $1, $2 }'; }; f"
-
 
 [color]
     ui = true

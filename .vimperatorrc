@@ -7,20 +7,18 @@ imapclear
 comclear
 
 " default search/suggest engine: google
-" set defsearch=google
-" set suggestengines=google
-set defsearch=g
-set suggestengines=g
+set defsearch=google
+set suggestengines=google
 
 set! browser.bookmarks.showRecentlyBookmarked=false
 
 ignorekeys clear
-ignorekeys add mail\\.google\\.com -except b,<C-n>,<C-p>,<Space>,<Leader>,:
-ignorekeys add www.pathery.com -except b,<C-n>,<C-p>,<Space>,<Leader>,:
-ignorekeys add beta.pathery.net -except b,<C-n>,<C-p>,<Space>,<Leader>,:
-ignorekeys add blue.pathery.net -except b,<C-n>,<C-p>,<Space>,<Leader>,:
-ignorekeys add localhost:3000 -except <C-n>,<C-p>
-ignorekeys add vimflowy.bitballoon.com -except <C-n>,<C-p>
+ignorekeys add mail\\.google\\.com -except b,<C-n>,<C-p>,<C-j>,<C-k>,<Space>,<Leader>,:
+ignorekeys add www.pathery.com -except b,<C-n>,<C-p>,<C-j>,<C-k>,<Space>,<Leader>,:
+ignorekeys add beta.pathery.net -except b,<C-n>,<C-p>,<C-j>,<C-k>,<Space>,<Leader>,:
+ignorekeys add blue.pathery.net -except b,<C-n>,<C-p>,<C-j>,<C-k>,<Space>,<Leader>,:
+ignorekeys add localhost:3000 -except <C-n>,<C-p>,<C-j>,<C-k>,:
+ignorekeys add vimflowy.bitballoon.com -except <C-n>,<C-p>,<C-j>,<C-k>,:
 
 " don't focus any "input" elements automatically when open pages.
 " sadly, this messes with new tab
@@ -56,8 +54,8 @@ nnoremap <C-l> gt
 nnoremap <Leader>bp gT
 nnoremap <Leader>bn gt
 nnoremap <Leader>bl :b#<CR>
-noremap <C-j> gt
-noremap <C-k> gT
+nnoremap <C-j> gt
+nnoremap <C-k> gT
 " reorder tabs
 noremap <C-p> :tabmove! -1<CR>
 noremap <C-n> :tabmove! +1<CR>
@@ -78,5 +76,5 @@ source ~/.vimperator/plugin/smoozy.js
 " TODO:
 " - Calling up Vim itself with C-i in a textarea?
 " set editor=/usr/local/bin/vim
-" - why does sourcing twice mess things up??
-" USEFUL TO LOOK AT: https://github.com/januswel/dotfiles/blob/master/.vimperatorrc
+" - make left/right work for youtube... not just: ignorekeys add youtube.com -except <left>,<right>
+" - USEFUL TO LOOK AT: https://github.com/januswel/dotfiles/blob/master/.vimperatorrc

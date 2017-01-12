@@ -123,7 +123,9 @@ alias p='pushd ~/Projects'
 alias plug='vim +PlugInstall +qall'
 
 # ffuuuuu
-eval "$(thefuck --alias fu)"
+if which thefuck; then
+  eval "$(thefuck --alias fu)"
+fi
 
 # stuff for work
 source ~/.workrc.sh
