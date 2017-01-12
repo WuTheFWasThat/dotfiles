@@ -127,9 +127,6 @@ if which thefuck; then
   eval "$(thefuck --alias fu)"
 fi
 
-# stuff for work
-source ~/.workrc.sh
-
 export PATH=$PATH:/Library/TeX/texbin
 export PATH=$PATH:~/.multirust/toolchains/stable/cargo/bin
 export PATH=$PATH:~/.multirust/toolchains/1.5.0/cargo/bin
