@@ -188,16 +188,16 @@
     rl = reflog show --date=relative
 
     # file tools
-    find = "!git ls-files | grep -i"
-    op = "!f() { $(git editor) $(git ls-files | grep -i \"$@\"); }; f"
+    find = "!f() { if [ -n \"$GIT_PREFIX\" ]; then cd \"$GIT_PREFIX\"; fi; git ls-files | grep -i $@; }; f"
+    op = "!f() {  if [ -n \"$GIT_PREFIX\" ]; then cd \"$GIT_PREFIX\"; fi; $(git editor) $(git ls-files | grep -i \"$@\"); }; f"
     # open edited
     eop = "! $(git editor) $(git ls-files --modified)"
 
     g = "!f() { if [ -n \"$GIT_PREFIX\" ]; then cd \"$GIT_PREFIX\"; fi; git --no-pager grep $@; }; f"
     gi = "!f() { if [ -n \"$GIT_PREFIX\" ]; then cd \"$GIT_PREFIX\"; fi; git --no-pager grep -i $@; }; f"
     # grep and open
-    gop = "!f(){ $(git editor) $(git grep --name-only \"$@\"); }; f"
-    giop = "!f(){ $(git editor) $(git grep -i --name-only \"$@\"); }; f"
+    gop = "!f(){ if [ -n \"$GIT_PREFIX\" ]; then cd \"$GIT_PREFIX\"; fi; $(git editor) $(git grep --name-only \"$@\"); }; f"
+    giop = "!f(){ if [ -n \"$GIT_PREFIX\" ]; then cd \"$GIT_PREFIX\"; fi; $(git editor) $(git grep -i --name-only \"$@\"); }; f"
     tree = ls-tree -r HEAD
 
     # reset
