@@ -7,8 +7,10 @@ imapclear
 comclear
 
 " default search/suggest engine: google
-set defsearch=google
-set suggestengines=google
+" set defsearch=google
+" set suggestengines=google
+set defsearch=g
+set suggestengines=g
 
 set! browser.bookmarks.showRecentlyBookmarked=false
 
@@ -21,12 +23,16 @@ ignorekeys add localhost:3000 -except <C-n>,<C-p>
 ignorekeys add vimflowy.bitballoon.com -except <C-n>,<C-p>
 
 " don't focus any "input" elements automatically when open pages.
-set focuscontent
+" sadly, this messes with new tab
+" set focuscontent
 
 " https://github.com/vimperator/vimperator-labs/issues/10
 " To Enable map <Space>
 js <<EOM
-  window.addEventListener('keypress',function (event) {
+  if (window.enableVimperatorSpace) {
+    window.removeEventListener('keypress', window.enableVimperatorSpace);
+  }
+  window.enableVimperatorSpace = function(event) {
     var code=event.charCode;
     if ((liberator.mode === modes.INSERT && modes.extended === modes.MENU)
     ||(liberator.mode ==modes.NORMAL && code==32)
@@ -38,7 +44,8 @@ js <<EOM
         map.execute();
       }
     }
-  },false);
+  };
+  window.addEventListener('keypress', window.enableVimperatorSpace);
 EOM
 map <Space> <Leader>
 
@@ -55,14 +62,18 @@ noremap <C-k> gT
 noremap <C-p> :tabmove! -1<CR>
 noremap <C-n> :tabmove! +1<CR>
 
-nnoremap <Leader>fed :source ~/.vimperatorrc<cr>:echo "Configuration reloaded."<cr>
+nnoremap <Leader>fed :source ~/.vimperatorrc<cr>
+" TODO cant... :echo "Configuration reloaded."<cr>
 
 nnoremap ; :
 nnoremap : ;
 
-" Scroll three times faster.
-nnoremap j 3j
-nnoremap k 3k
+" Scroll faster.
+" nnoremap j 10j
+" nnoremap k 10k
+let g:smoozy_scroll_impulse="1000"
+let g:smoozy_scroll_interval="10"
+source ~/.vimperator/plugin/smoozy.js
 
 " TODO:
 " - Calling up Vim itself with C-i in a textarea?
