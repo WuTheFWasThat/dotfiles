@@ -6,7 +6,7 @@
     # editor = nvim
 [alias]
     # configuration
-    differ = "!f() { echo \"--no-pager -c color.diff=always diff\"; }; f"
+    differ = "!f() { echo diff; }; f"
     # differ = "!f() { echo icdiff; }; f"
     editor = config --get core.editor
     # editor = ! echo "emacsclient -c"

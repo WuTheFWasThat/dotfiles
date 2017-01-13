@@ -9,6 +9,8 @@ function list_space {
 }
 
 alias g='git'
+alias gnp='git --no-pager'
+
 function gj {
   query=${1:-*}
   dir=$(fasd -d $query -Rld | grep "^$(g root)" | head -n 1)
