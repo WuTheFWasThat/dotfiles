@@ -43,16 +43,16 @@ function +vi-git-st() {
     fi
 }
 
-# http://eseth.org/2010/git-in-zsh.html
-theme_precmd () {
-    vcs_info
-}
-
-function preexec() {
+function theme_preexec() {
+  # set time of start of command
   timer=${timer:-$SECONDS}
 }
 
-function precmd() {
+theme_precmd () {
+  # http://eseth.org/2010/git-in-zsh.html
+  vcs_info
+
+  # display time it took for last command to execute
   if [ $timer ]; then
     time_seconds=$(($SECONDS - $timer))
     unset timer
@@ -87,3 +87,4 @@ zle -N zle-keymap-select
 
 autoload -U add-zsh-hook
 add-zsh-hook precmd  theme_precmd
+add-zsh-hook preexec theme_preexec
