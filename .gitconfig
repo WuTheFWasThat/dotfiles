@@ -6,7 +6,7 @@
     # editor = nvim
 [alias]
     # configuration
-    differ = "!f() { echo diff; }; f"
+    differ = "!f() { echo \"--no-pager -c color.diff=always diff\"; }; f"
     # differ = "!f() { echo icdiff; }; f"
     editor = config --get core.editor
     # editor = ! echo "emacsclient -c"
@@ -157,11 +157,11 @@
     # diffs
     d = "!git $(git differ)"
     dc = "!git $(git differ) --cached"
-    dcs = diff --cached --stat
-    ds = diff --stat
+    dcs = "!git --no-pager -c color.diff=always diff --stat --cached"
+    ds = "!git --no-pager -c color.diff=always diff --stat"
     dso = "!f(){ branch=$(git rev-parse --abbrev-ref HEAD); git diff --stat origin/$branch $@; }; f"
-    dsom = diff --stat origin/master
-    dsm = diff --stat master
+    dsom = "!git --no-pager -c color.diff=always diff --stat origin/master"
+    dsm = "!git --no-pager -c color.diff=always diff --stat master"
     dop = "!f() { $(git editor) $(git diff --name-only $@); }; f"
     dm = "!git $(git differ) master"
     dom = "!git $(git differ) origin/master"
@@ -293,7 +293,7 @@
     zd = "!f() { \
       local commit=$(git zh); \
       if [[ -z $commit ]]; then return 1; fi; \
-      git diff $commit; \
+      git $(git differ) $commit; \
     }; f"
     # TODO: make a single command that lists
     #       commits, tags, branches, remotes
@@ -306,6 +306,7 @@
     contributors = shortlog --summary --numbered
 
 [color]
+    # diff = always
     ui = true
 [push]
     default = current
