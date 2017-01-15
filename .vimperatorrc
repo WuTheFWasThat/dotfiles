@@ -19,6 +19,7 @@ ignorekeys add beta.pathery.net -except b,<C-n>,<C-p>,<C-j>,<C-k>,<Space>,<Leade
 ignorekeys add blue.pathery.net -except b,<C-n>,<C-p>,<C-j>,<C-k>,<Space>,<Leader>,:
 ignorekeys add localhost:3000 -except <C-n>,<C-p>,<C-j>,<C-k>,:
 ignorekeys add vimflowy.bitballoon.com -except <C-n>,<C-p>,<C-j>,<C-k>,:
+ignorekeys add youtube.com -except b,<C-n>,<C-p>,<C-j>,<C-k>,<Space>,<Leader>,:
 
 " don't focus any "input" elements automatically when open pages.
 " sadly, this messes with new tab
@@ -76,5 +77,4 @@ source ~/.vimperator/plugin/smoozy.js
 " TODO:
 " - Calling up Vim itself with C-i in a textarea?
 " set editor=/usr/local/bin/vim
-" - make left/right work for youtube... not just: ignorekeys add youtube.com -except <left>,<right>
 " - USEFUL TO LOOK AT: https://github.com/januswel/dotfiles/blob/master/.vimperatorrc
