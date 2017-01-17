@@ -20,6 +20,7 @@ ignorekeys add blue.pathery.net -except b,<C-n>,<C-p>,<C-j>,<C-k>,<Space>,<Leade
 ignorekeys add localhost:3000 -except <C-n>,<C-p>,<C-j>,<C-k>,:
 ignorekeys add vimflowy.bitballoon.com -except <C-n>,<C-p>,<C-j>,<C-k>,:
 ignorekeys add youtube.com -except b,<C-n>,<C-p>,<C-j>,<C-k>,<Space>,<Leader>,:
+ignorekeys add workflowy.com -except <C-n>,<C-p>,<C-j>,<C-k>
 
 " don't focus any "input" elements automatically when open pages.
 " sadly, this messes with new tab
