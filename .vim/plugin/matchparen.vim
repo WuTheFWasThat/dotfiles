@@ -170,12 +170,26 @@ function! s:Highlight_Matching_Pair()
 
   " If a match is found setup match highlighting.
   if m_lnum > 0 && m_lnum >= stoplinetop && m_lnum <= stoplinebottom
-    if exists('*matchaddpos')
-      call matchaddpos('MatchParen', [[c_lnum, c_col - before], [m_lnum, m_col]], 10, 3)
+    " " ORIGINAL:
+    " if exists('*matchaddpos')
+    "   call matchaddpos('MatchParen', [[c_lnum, c_col - before], [m_lnum, m_col]], 10, 3)
+    " else
+    "   exe '3match MatchParen /\(\%' . c_lnum . 'l\%' . (c_col - before) .
+	  "   \ 'c\)\|\(\%' . m_lnum . 'l\%' . m_col . 'c\)/'
+    " endif
+    " " MODIFIED:
+    if (c_lnum < m_lnum || (c_lnum == m_lnum && c_col < m_col))
+      let small_line = c_lnum
+      let small_col = c_col
+      let big_line = m_lnum
+      let big_col = m_col+1
     else
-      exe '3match MatchParen /\(\%' . c_lnum . 'l\%' . (c_col - before) .
-	    \ 'c\)\|\(\%' . m_lnum . 'l\%' . m_col . 'c\)/'
+      let small_line = m_lnum
+      let small_col = m_col
+      let big_line = c_lnum
+      let big_col = c_col+1
     endif
+    exe '3match MatchParen /\(\%'.small_line.'l\%'.small_col.'c\_.*\%'.big_line.'l\%'.big_col.'c\)/'
     let w:paren_hl_on = 1
   endif
 endfunction

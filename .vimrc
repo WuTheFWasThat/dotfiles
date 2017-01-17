@@ -68,6 +68,9 @@ augroup misc
     \ endif
 augroup END
 
+" parentheses matching highlight colors
+hi MatchParen cterm=none ctermbg=237 ctermfg=none
+
 " search centers screen
 nnoremap <C-D> <C-D>zz
 nnoremap <C-U> <C-U>zz
