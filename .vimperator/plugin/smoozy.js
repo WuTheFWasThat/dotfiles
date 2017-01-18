@@ -14,7 +14,7 @@ liberator.plugins.smoozy = (function() {
     ["j", "<Down>"],
     "Smooth scroll down",
     function(count){
-      self.smoothScrollBy(getScrollImpulse() * (count || 1));
+      smoothScrollBy(getScrollImpulse() * (count || 1));
     },
     {
       count: true
@@ -25,7 +25,7 @@ liberator.plugins.smoozy = (function() {
     ["k", "<Up>"],
     "Smooth scroll up",
     function(count){
-      self.smoothScrollBy(getScrollImpulse() * -(count || 1));
+      smoothScrollBy(getScrollImpulse() * -(count || 1));
     },
     {
       count: true
@@ -36,7 +36,7 @@ liberator.plugins.smoozy = (function() {
     ["<C-f>", "<PageDown>"],
     "Smooth scroll down",
     function(count){
-      self.smoothScrollBy(2 * getScrollImpulse() * (count || 1));
+      smoothScrollBy(2 * getScrollImpulse() * (count || 1));
     },
     {
       count: true
@@ -47,23 +47,23 @@ liberator.plugins.smoozy = (function() {
     ["<C-b>", "<PageUp>"],
     "Smooth scroll up",
     function(count){
-      self.smoothScrollBy(2 * getScrollImpulse() * -(count || 1));
+      smoothScrollBy(2 * getScrollImpulse() * -(count || 1));
     },
     {
       count: true
     }
   );
   var PUBLICS = {
-    smoothScrollBy: function(impulse) {
-      win = Buffer.findScrollableWindow();
-      applyImpulse(impulse, win);
-    }
   }
 
   function getScrollImpulse()  { return window.eval(liberator.globalVariables.smoozy_scroll_impulse || '1000'); }
   function getScrollInterval() { return window.eval(liberator.globalVariables.smoozy_scroll_interval || '16.67'); }
   function getScrollFriction() { return window.eval(liberator.globalVariables.smoozy_scroll_friction || '5000'); }
   function getScrollAirDrag()  { return window.eval(liberator.globalVariables.smoozy_scroll_air_drag || '4'); }
+  function smoothScrollBy(impulse) {
+    win = Buffer.findScrollableWindow();
+    applyImpulse(impulse, win);
+  }
 
   function applyImpulse(impulse, win) {
     if (win.smoozyState) {

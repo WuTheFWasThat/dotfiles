@@ -65,6 +65,9 @@ noremap <C-n> :tabmove! +1<CR>
 nnoremap <Leader>fed :source ~/.vimperatorrc<cr>
 " TODO cant... :echo "Configuration reloaded."<cr>
 
+command! dev -description "Toggle developer tools" :emenu Tools.Web Developer.Web Console
+nnoremap <Leader>gd :dev<CR>
+
 nnoremap ; :
 nnoremap : ;
 
