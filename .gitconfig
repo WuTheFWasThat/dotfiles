@@ -216,7 +216,7 @@
     rvc = revert --continue
 
     # stash
-    # TODO: reimplement these with commits?
+    # TODO: reimplement this using branches
     # $ git config --global alias.stsh 'stash --keep-index'
     # git config --global alias.staash 'stash --include-untracked'
     # git config --global alias.staaash 'stash --all'

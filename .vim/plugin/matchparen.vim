@@ -40,6 +40,8 @@ function! s:Highlight_Matching_Pair()
   " Remove any previous match.
   if exists('w:paren_hl_on') && w:paren_hl_on
     silent! call matchdelete(3)
+    " NOTE: jeff added:
+    silent! call matchdelete(4)
     let w:paren_hl_on = 0
   endif
 
@@ -182,14 +184,17 @@ function! s:Highlight_Matching_Pair()
       let small_line = c_lnum
       let small_col = c_col
       let big_line = m_lnum
-      let big_col = m_col+1
+      let big_col = m_col
     else
-      let small_line = m_lnum
+      let small_line = m_lnum + 1
       let small_col = m_col
       let big_line = c_lnum
       let big_col = c_col+1
     endif
-    exe '3match MatchParen /\(\%'.small_line.'l\%'.small_col.'c\_.*\%'.big_line.'l\%'.big_col.'c\)/'
+    if exists('*matchaddpos')
+      call matchaddpos('MatchParen', [[c_lnum, c_col - before], [m_lnum, m_col]], 10, 4)
+    endif
+    exe '3match MatchContents /\(\%'.small_line.'l\%'.small_col.'c\_.*\%'.big_line.'l\%'.big_col.'c\)/'
     let w:paren_hl_on = 1
   endif
 endfunction
