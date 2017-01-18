@@ -186,8 +186,8 @@ function! s:Highlight_Matching_Pair()
       let big_line = m_lnum
       let big_col = m_col
     else
-      let small_line = m_lnum + 1
-      let small_col = m_col
+      let small_line = m_lnum
+      let small_col = m_col+1
       let big_line = c_lnum
       let big_col = c_col+1
     endif
