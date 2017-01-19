@@ -17,6 +17,7 @@ incomplete notes
   - install spacemacs
   - install screen/tmux
   - install git 2.3
+  - install hub (git wrapper)
   - install thefuck (https://github.com/nvbn/thefuck) (e.g. `brew install thefuck`)
   - install neovim
     ```
