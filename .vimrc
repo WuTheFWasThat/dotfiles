@@ -30,7 +30,10 @@ set relativenumber
 set ic
 
 set incsearch
+
 set cursorline
+hi CursorLine guibg=Grey40 ctermbg=235 term=none cterm=none
+" term=bold cterm=bold
 
 set noswapfile
 
