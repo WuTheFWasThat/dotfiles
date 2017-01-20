@@ -14,7 +14,7 @@ incomplete notes
 - install vim plugins: `vim +PlugInstall +qall`
 - optional:
   - set iterm colors, if appropriate
-  - install spacemacs
+  - install spacemacs (git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d)
   - install screen/tmux
   - install git 2.3
   - install hub (git wrapper)

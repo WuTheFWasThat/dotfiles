@@ -19,9 +19,9 @@ function emx {
   local name=$1
   shift
   if [ -n "$name" ]; then
-    emacsclient -c -s $name $@
+    emacsclient -nw -c -s $name $@
   else
-    emacsclient -c $@
+    emacsclient -nw -c $@
   fi
 }
 
