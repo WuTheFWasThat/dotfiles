@@ -1,0 +1,194 @@
+#!/usr/bin/env python
+
+import argparse
+import glob
+import sys
+import os
+import subprocess
+import stat
+import logging
+
+logging.basicConfig()
+logger = logging.getLogger('dotty')
+logger.setLevel(logging.INFO)
+
+class DottyException(Exception):
+    def __init__(self, msg):
+         super(Exception, self).__init__(msg)
+
+class FileStatus(object):
+    IS_MISSING = 1
+    IS_DIRECTORY = 2
+    IS_FILE = 3
+    IS_LINK = 4
+
+class LinkStatus(object):
+    # destination is already something, not a link to the right place
+    DST_WRONG = 1
+    # source file doesn't exist
+    SRC_MISSING = 2
+    # installed correctly
+    INSTALLED = 3
+    # not installed
+    UNINSTALLED = 4
+
+class DotFile(object):
+    def __init__(self, dotty_dir, src_path, dst_path=None):
+        if src_path[:len(dotty_dir)] != dotty_dir:
+            raise DottyException(
+                """
+                Internal error:
+                %s did not start with %s
+                """ % (src_path, dotty_dir)
+            )
+        self.dotty_dir = dotty_dir
+        self.src_path = src_path
+        self.name = src_path[len(dotty_dir)+1:]
+        if dst_path is None:
+            dst_path = os.path.join(os.path.expanduser('~'), self.name)
+        self.dst_path = dst_path
+
+def read_rcfile(dotty_dir):
+    dotty_rc = os.path.join(dotty_dir, "dotty.rc")
+    if not os.path.exists(dotty_rc):
+        logger.warn(
+            """
+            No dotty.rc file found!
+            Please place a file containing a pattern on each line at %s
+            """ % dotty_rc
+        )
+    lines = (line.strip() for line in open(dotty_rc))
+
+    dotfiles = []
+    for pattern in lines:
+        full_pattern = os.path.join(dotty_dir, pattern)
+        filepaths = glob.glob(full_pattern)
+        if len(filepaths) == 0:
+            logger.warn(
+                """
+                dotty.rc contained line with invalid pattern %s.
+                Expected a file like %s.  Ignoring line.
+                """ % (pattern, full_pattern)
+            )
+        dotfiles.extend([
+            DotFile(dotty_dir, filepath)
+            for filepath in filepaths
+        ])
+    return dotfiles
+
+def check_file(filepath):
+    if not os.path.exists(filepath):
+        return FileStatus.IS_MISSING
+    mode = os.lstat(filepath)[stat.ST_MODE]
+    if stat.S_ISDIR(mode):
+        return FileStatus.IS_DIRECTORY
+    elif stat.S_ISREG(mode):
+        return FileStatus.IS_FILE
+    elif stat.S_ISLNK(mode):
+        return FileStatus.IS_LINK
+    else:
+        raise DottyException(
+            """
+            Unhandled case:  %s is not file, directory, or link
+            """ % (filepath)
+        )
+
+def get_link_status(dotfile):
+    src_status = check_file(dotfile.src_path)
+    if src_status == FileStatus.IS_MISSING:
+        return LinkStatus.SRC_MISSING
+    dst_status = check_file(dotfile.dst_path)
+    if dst_status == FileStatus.IS_MISSING:
+        return LinkStatus.UNINSTALLED
+    elif dst_status == FileStatus.IS_DIRECTORY or \
+        dst_status == FileStatus.IS_FILE:
+        return LinkStatus.DST_WRONG
+    else:
+        assert dst_status == FileStatus.IS_LINK
+        source = os.readlink(dotfile.dst_path)
+        if source != dotfile.src_path:
+            return LinkStatus.DST_WRONG
+        else:
+            return LinkStatus.INSTALLED
+
+def get_statuses(dotty_dir):
+    dotfiles = read_rcfile(dotty_dir)
+    return [
+        (dotfile, get_link_status(dotfile))
+        for dotfile in dotfiles
+    ]
+
+
+argp = argparse.ArgumentParser(description='manage your dotfiles.')
+argp_sub = argp.add_subparsers(title='dotty commands')
+
+argp_status = argp_sub.add_parser('status', help="get status")
+def status(args):
+    statuses = get_statuses(args.dotty_dir)
+
+    lcol = max(len(pair[0].name) for pair in statuses)
+    for (dotfile, status) in statuses:
+        if status == LinkStatus.SRC_MISSING:
+            msg = 'UNINSTALLED (source file is missing)'
+        elif status == LinkStatus.DST_WRONG:
+            msg = 'UNINSTALLED (destination %s already exists)' % dotfile.dst_path
+        elif status == LinkStatus.UNINSTALLED:
+            msg = 'UNINSTALLED'
+        else:
+            assert status == LinkStatus.INSTALLED
+            msg = 'INSTALLED'
+        print ('%s : %s' % (dotfile.name.ljust(lcol), msg))
+
+argp_status.set_defaults(func=status)
+
+argp_install = argp_sub.add_parser('install', help="install symlinks")
+def install(args):
+    statuses = get_statuses(args.dotty_dir)
+
+    lcol = max(len(pair[0].name) for pair in statuses)
+    for (dotfile, status) in statuses:
+        if status == LinkStatus.SRC_MISSING:
+            msg = 'ERROR (source file is missing)'
+        elif status == LinkStatus.DST_WRONG:
+            msg = 'ERROR (destination %s already exists)' % dotfile.dst_path
+        elif status == LinkStatus.INSTALLED:
+            msg = 'SUCCESS (already installed)'
+        else:
+            assert status == LinkStatus.UNINSTALLED
+            os.symlink(dotfile.src_path, dotfile.dst_path)
+            msg = 'SUCCESS'
+        print ('%s : %s' % (dotfile.name.ljust(lcol), msg))
+argp_install.set_defaults(func=install)
+
+
+argp_uninstall = argp_sub.add_parser('uninstall', help="uninstall symlinks")
+def uninstall(args):
+    statuses = get_statuses(args.dotty_dir)
+
+    lcol = max(len(pair[0].name) for pair in statuses)
+    for (dotfile, status) in statuses:
+        if status == LinkStatus.SRC_MISSING or \
+           status == LinkStatus.DST_WRONG or \
+           status == LinkStatus.UNINSTALLED:
+            msg = 'SUCCESS (already uninstalled)'
+        else:
+            assert status == LinkStatus.INSTALLED
+            os.unlink(dotfile.dst_path)
+            msg = 'SUCCESS'
+        print ('%s : %s' % (dotfile.name.ljust(lcol), msg))
+argp_uninstall.set_defaults(func=uninstall)
+
+if __name__ == "__main__":
+    args = argp.parse_args()
+    args.dotty_dir = os.path.dirname(os.path.realpath(sys.argv[0]))
+
+    # Python3 doesn't error on parse_args with no subcommand.
+    try:
+        if 'func' in args:
+            args.func(args)
+        else:
+            argp.print_help()
+    except DottyException as e:
+        logger.error(e)
+        sys.exit(1)
+    sys.exit(0)
