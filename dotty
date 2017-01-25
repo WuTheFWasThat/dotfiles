@@ -45,7 +45,7 @@ class DotFile(object):
         self.src_path = src_path
         self.name = src_path[len(dotty_dir)+1:]
         if dst_path is None:
-            dst_path = os.path.join(os.path.expanduser('~'), self.name)
+            dst_path = os.path.join(os.path.expanduser('~'), '.' + self.name)
         self.dst_path = dst_path
 
 def read_rcfile(dotty_dir):
@@ -77,8 +77,6 @@ def read_rcfile(dotty_dir):
     return dotfiles
 
 def check_file(filepath):
-    if not os.path.exists(filepath):
-        return FileStatus.IS_MISSING
     mode = os.lstat(filepath)[stat.ST_MODE]
     if stat.S_ISDIR(mode):
         return FileStatus.IS_DIRECTORY
@@ -87,6 +85,10 @@ def check_file(filepath):
     elif stat.S_ISLNK(mode):
         return FileStatus.IS_LINK
     else:
+        # NOTE: this has to be *after* the link check
+        # to handle the case of broken links
+        if not os.path.exists(filepath):
+            return FileStatus.IS_MISSING
         raise DottyException(
             """
             Unhandled case:  %s is not file, directory, or link
@@ -142,6 +144,7 @@ def status(args):
 argp_status.set_defaults(func=status)
 
 argp_install = argp_sub.add_parser('install', help="install symlinks")
+argp_install.add_argument('-f', '--force', help='overwrite existing files', action='store_true')
 def install(args):
     statuses = get_statuses(args.dotty_dir)
 
@@ -150,7 +153,13 @@ def install(args):
         if status == LinkStatus.SRC_MISSING:
             msg = 'ERROR (source file is missing)'
         elif status == LinkStatus.DST_WRONG:
-            msg = 'ERROR (destination %s already exists)' % dotfile.dst_path
+            if args.force:
+                os.unlink(dotfile.dst_path)
+                # os.remove?  os.rmdir?
+                os.symlink(dotfile.src_path, dotfile.dst_path)
+                msg = 'SUCCESS'
+            else:
+                msg = 'ERROR (destination %s already exists)' % dotfile.dst_path
         elif status == LinkStatus.INSTALLED:
             msg = 'SUCCESS (already installed)'
         else:

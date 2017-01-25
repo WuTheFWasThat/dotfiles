@@ -1,7 +1,7 @@
 *.sw*
-.vim/.netrwhist
-.vim/indent/.netrwhist
-.vim/plugged
-.vimperator/info
+vim/.netrwhist
+vim/indent/.netrwhist
+vim/plugged
+vimperator/info
 yankring_history*
 .DS_Store
