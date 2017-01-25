@@ -26,6 +26,7 @@ incomplete notes
   - install icdiff, change gitconfig differ
 
 ## TODO
+  - make dotty link zsh-theme, takes A -> B in rcfile
   - vim, see .vimrc
   - spacemacs, see .spacemacs
   - vimperator, see .vimperatorrc
