@@ -2,12 +2,10 @@
 
 incomplete notes
 
+- `./dotty install`
 - install zsh
   - install oh-my-zsh
   - put zsh theme at ~/.oh-my-zsh/themes/jeffwu.zsh-theme
-- ghar
-  - install ghar
-  - in the repo, `ghar install`
 - install fasd (e.g. `brew install fasd`)
 - install fzf (e.g. `brew install fzf`)
 - make sure vim is 7.4+, preferably 8+

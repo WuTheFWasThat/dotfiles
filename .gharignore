@@ -1,7 +1,0 @@
-.git
-.gitignore
-.gitmodules
-my.itermcolors
-my.zsh-theme
-*.sw*
-*.md
