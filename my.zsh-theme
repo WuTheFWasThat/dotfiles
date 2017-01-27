@@ -65,7 +65,7 @@ theme_precmd () {
 
 # useful chars: » ● ✔ ✘
 setopt prompt_subst
-PROMPT=$'${ret_result}%B%F{blue}%c # %{$reset_color%}'
+PROMPT=$'${ret_result}%B%F{blue}%c${CUSTOM_PROMPT}%{$reset_color%} %B%F{blue}#%{$reset_color%} '
 VIM_PROMPT="%{$fg_bold[yellow]%} [% NORMAL]% %{$reset_color%}"
 RPROMPT='${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/} %B%F{blue}${vcs_info_msg_0_}%{$reset_color%} [%D{%L:%M:%S %p}]'
 
