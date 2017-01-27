@@ -61,6 +61,10 @@ def read_rcfile(dotty_dir):
 
     dotfiles = []
     for pattern in lines:
+        if pattern == "":
+            continue
+        if pattern.startswith("#"): # a comment
+            continue
         full_pattern = os.path.join(dotty_dir, pattern)
         filepaths = glob.glob(full_pattern)
         if len(filepaths) == 0:

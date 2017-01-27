@@ -6,5 +6,7 @@ vim
 vimperator
 vimperatorrc
 vimrc
-zshrc
 zshrc_scripts
+
+# NOTE: works, but better to source this in zshrc instead of installing it
+# zshrc

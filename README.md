@@ -1,18 +1,24 @@
 # setup:
 
 incomplete notes
+all commands ran from root directory
 
 - `./dotty install`
-- install zsh
+- install zsh (e.g. `brew install zsh zsh-completions`)
   - install oh-my-zsh
-  - put zsh theme at ~/.oh-my-zsh/themes/jeffwu.zsh-theme
+    `sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"`
+  - install zsh theme:
+    `ln -s $(pwd)/my.zsh-theme ~/.oh-my-zsh/themes/jeffwu.zsh-theme`
+  - add to zshrc:
+    `echo "source $(pwd)/zshrc" >> ~/.zshrc`
 - install fasd (e.g. `brew install fasd`)
 - install fzf (e.g. `brew install fzf`)
-- make sure vim is 7.4+, preferably 8+
+- make sure vim is 7.4+, preferably 8+ (e.g. `brew install vim`)
 - install vim plugins: `vim +PlugInstall +qall`
 - optional:
   - set iterm colors, if appropriate
-  - install spacemacs (git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d)
+  - install spacemacs:
+    `git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d`
   - install screen/tmux
   - install git 2.3
   - install hub (git wrapper)
@@ -24,7 +30,8 @@ incomplete notes
     sudo pip2 install neovim
     ```
   - install icdiff, change gitconfig differ
-  - install nvm (curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.0/install.sh | bash)
+  - install nvm
+    `curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.0/install.sh | bash`
 
 ## TODO
   - make dotty link zsh-theme, takes A -> B in rcfile
