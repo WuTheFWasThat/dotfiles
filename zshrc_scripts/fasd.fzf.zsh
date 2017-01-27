@@ -3,6 +3,8 @@ eval "$(fasd --init auto)"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+export FZF_CTRL_R_OPTS='--sort --exact'
+
 # alias a='fasd -a'        # any
 # alias s='fasd -si'       # show / search / select
 # alias d='fasd -d'        # directory

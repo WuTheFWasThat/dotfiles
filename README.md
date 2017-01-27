@@ -24,6 +24,7 @@ incomplete notes
     sudo pip2 install neovim
     ```
   - install icdiff, change gitconfig differ
+  - install nvm (curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.0/install.sh | bash)
 
 ## TODO
   - make dotty link zsh-theme, takes A -> B in rcfile
