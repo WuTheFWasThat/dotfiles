@@ -4,7 +4,7 @@ incomplete notes
 all commands ran from root directory
 
 - `./dotty install`
-- install zsh (e.g. `brew install zsh zsh-completions`)
+- install zsh (e.g. `brew install zsh zsh-completions` and `chsh -s /bin/zsh`)
   - install oh-my-zsh
     `sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"`
   - install zsh theme:
@@ -20,8 +20,8 @@ all commands ran from root directory
   - install spacemacs:
     `git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d`
   - install screen/tmux
-  - install git 2.3
-  - install hub (git wrapper)
+  - install git 2.3+
+  - install hub (git wrapper) `brew install hub`
   - install thefuck (https://github.com/nvbn/thefuck) (e.g. `brew install thefuck`)
   - install neovim
     ```

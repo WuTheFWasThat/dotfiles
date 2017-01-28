@@ -5,7 +5,6 @@ import glob
 import sys
 import os
 import subprocess
-import stat
 import logging
 
 logging.basicConfig()
@@ -81,23 +80,16 @@ def read_rcfile(dotty_dir):
     return dotfiles
 
 def check_file(filepath):
-    mode = os.lstat(filepath)[stat.ST_MODE]
-    if stat.S_ISDIR(mode):
-        return FileStatus.IS_DIRECTORY
-    elif stat.S_ISREG(mode):
-        return FileStatus.IS_FILE
-    elif stat.S_ISLNK(mode):
+    # NOTE: we do the link check before existence so that
+    # broken links are IS_LINK
+    if os.path.islink(filepath):
         return FileStatus.IS_LINK
+    elif os.path.isdir(filepath):
+        return FileStatus.IS_DIRECTORY
+    elif os.path.exists(filepath):
+        return FileStatus.IS_FILE
     else:
-        # NOTE: this has to be *after* the link check
-        # to handle the case of broken links
-        if not os.path.exists(filepath):
-            return FileStatus.IS_MISSING
-        raise DottyException(
-            """
-            Unhandled case:  %s is not file, directory, or link
-            """ % (filepath)
-        )
+        return FileStatus.IS_MISSING
 
 def get_link_status(dotfile):
     src_status = check_file(dotfile.src_path)
