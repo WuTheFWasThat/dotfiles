@@ -18,45 +18,50 @@ function addStyle(style_str, id) {
 }
 
 // TODO: make this work for all widths
-function toggleVideo() {
+function toggleCustomStyle() {
   const styleElemId = 'yt-custom-style';
   const styleEl = document.getElementById(styleElemId);
   if (styleEl) {
     styleEl.parentNode.removeChild(styleEl);
   } else {
     addStyle(`
-      #content {
-        min-width: none !important;
-        max-width: none !important;
+      .html5-video-player.playing-mode {
+        position: fixed;
+        left: 0;
+        bottom: 0px;
       }
-      .html5-main-video {
+      .playing-mode .html5-video-container {
+        width: 100% !important;
+        height: 100% !important;
+      }
+      .playing-mode .html5-main-video {
         width: 100% !important;
         height: 100% !important;
         left: 0px !important;
       }
-      .html5-video-container {
-        width: 100% !important;
-        height: 100% !important;
-      }
-      .html5-video-player {
-        position: fixed;
-        left: 0;
-        bottom: 0px;
+      #masthead-positioner {
+        z-index: 0 !important;
       }
     `, styleElemId);
   }
 }
 
 // toggle once by default
-toggleVideo();
+toggleCustomStyle();
+
+function togglePlay() {
+  $('.ytp-play-button').click();
+}
+
 document.addEventListener("keydown", function(e) {
   var keyCode = e.keyCode;
   if (keyCode === 13) { // enter
-    toggleVideo();
+    toggleCustomStyle();
+  } else if (keyCode === 0 || keyCode === 32) { // space
+    togglePlay();
   }
 }, false);
 
-/*
 function loadScript(src, callback) {
   var el = document.createElement('script');
   el.src = src;
@@ -74,4 +79,3 @@ function loadJquery(callback) {
 loadJquery(function($) {
   window.$ = $;
 });
-*/
