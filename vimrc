@@ -86,6 +86,10 @@ nnoremap Q <esc>
 " split at cursor
 nnoremap K i<cr><esc>
 
+" faster indent
+nnoremap > >>
+nnoremap < <<
+
 " TODO: these can't possibly both work
 " Make p in Visual mode replace the selected text with the "" register.
 vnoremap p <Esc>:let current_reg = @"<CR>gvs<C-R>=current_reg<CR><Esc>
@@ -229,6 +233,7 @@ nnoremap <C-b> :Buffers<cr>
 nnoremap <C-f> :Files<cr>
 nnoremap ` :Marks<cr>
 " nnoremap <C-f> :Files ~<cr>
+" NOTE: in an fzf query, prepending ' makes a word an exact match
 
 " Plug 'Shougo/unite.vim'
 " function! s:unite_settings() "{

@@ -44,11 +44,11 @@ call s:spacevim_bind('map', 'rx', 'runner-kill', ':VtrKillRunner ', 1)
 call s:spacevim_bind('map', 'fx', 'file-save-quit', ':w<CR>:bd', 1)
 
 "toggle
-" show/hide invisible chars
-nnoremap <Leader>t\ :set list!<CR>
-" paste mode
-nnoremap <Leader>tp :set paste!<CR>
-nnoremap <Leader>ti :IndentLinesToggle<CR>
+call s:spacevim_bind('map', 't\', 'toggle-invisible-chars', 'set list!', 1)
+call s:spacevim_bind('map', 'tp', 'toggle-paste', 'set paste!', 1)
+call s:spacevim_bind('map', 'ti', 'toggle-indent-lines', 'IndentLinesToggle', 1)
+call s:spacevim_bind('map', 'tn', 'toggle-line-numbers', ':setlocal invnumber<CR>:setlocal invrelativenumber<CR>', 0)
+call s:spacevim_bind('map', 'tg', 'toggle-git-gutter', 'GitGutterToggle', 1)
 
 " project
 function! spacemacs#toggleExplorerAtRoot()
