@@ -17,7 +17,7 @@
     # functions screw up directory: see https://stackoverflow.com/questions/26243145/git-aliases-operate-in-the-wrong-directory
     relative = "!f() { if [ -n \"$GIT_PREFIX\" ]; then echo \"$GIT_PREFIX\"; else echo \".\"; fi; }; f"
     # chains multiple commands (note: after first one, can't have spaces, for now)
-    chain = "!f() { git $1; shift; if [ $# -ne 0 ]; then git chain $@; fi; }; f"
+    chain = "!f() { if [ -n \"$GIT_PREFIX\" ]; then cd \"$GIT_PREFIX\"; fi; git $1; shift; if [ $# -ne 0 ]; then git chain $@; fi; }; f"
 
     # setup
     clo = clone --recursive
@@ -111,9 +111,9 @@
     # cleanup
     cle = clean -f -d
     # discard
-    xx = "!f() { local dir=${1:-.}; git checkout -- $dir; }; f"
+    xx = "!f() { if [ -n \"$GIT_PREFIX\" ]; then cd \"$GIT_PREFIX\"; fi; local dir=${1:-.}; git checkout -- $dir; }; f"
     # unstage
-    z = "!f(){ local dir=${1:-.}; git reset HEAD $dir; }; f"
+    z = "!f(){ if [ -n \"$GIT_PREFIX\" ]; then cd \"$GIT_PREFIX\"; fi; local dir=${1:-.}; git reset HEAD $dir; }; f"
 
     # committing (optionally with message)
     c = "!f() { if [ $# -eq 0 ]; then git commit -v; else git commit -m \"$*\"; fi; }; f"
@@ -169,7 +169,7 @@
     du = "!git $(git differ) @{upstream}"
 
     # status
-    s = "!f() { git chain 'status' $@; }; f"
+    s = "!f() { if [ -n \"$GIT_PREFIX\" ]; then cd \"$GIT_PREFIX\"; fi; git chain 'status' $@; }; f"
     sh = show
     sho = "!f(){ branch=$(git rev-parse --abbrev-ref HEAD); git show origin/$branch $@; }; f"
     shom = show origin/master
