@@ -33,7 +33,7 @@
     cop = checkout -p
     new = checkout -b
     bd = branch -D
-    bdm = "!git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"
+    bdm = "!gitty delete_merged_branches"
     # delete a branch (default to current branch).  if current branch deleted, checkout master
     bx = "!f() { \
       onbranch=$(git rev-parse --abbrev-ref HEAD); \
@@ -66,9 +66,9 @@
     pu = "push -u"
     put = "push --tags"
     puf = "push -u --force-with-lease"
-    pl = "pull"
-    plr = "pull --rebase"
-    pla = !"git pull; git submodule foreach git pull origin master"
+    # pl = "pull"
+    p = "pull --rebase"
+    pullsubmodules = "submodule foreach git pull origin master"
     rmp = "!f(){ remote=${1:-origin}; git remote prune $remote; }; f"
     track = "!f(){ branch=$(git rev-parse --abbrev-ref HEAD); cmd=\"git branch $branch -u ${1:-origin}/${2:-$branch}\"; echo $cmd; $cmd; }; f"
     untrack = "!f(){ branch=$(git rev-parse --abbrev-ref HEAD); cmd=\"git branch --unset-upstream ${1:-$branch}\"; echo $cmd; $cmd; }; f"
@@ -169,7 +169,7 @@
     du = "!git $(git differ) @{upstream}"
 
     # status
-    s = "!f() { if [ -n \"$GIT_PREFIX\" ]; then cd \"$GIT_PREFIX\"; fi; git chain 'status' $@; }; f"
+    s = "!gitty status"
     sh = show
     sho = "!f(){ branch=$(git rev-parse --abbrev-ref HEAD); git show origin/$branch $@; }; f"
     shom = show origin/master
@@ -246,29 +246,14 @@
     sms = submodule sync
 
     # fuzzy commands (require fzf)
-    # get commit hash
-    zh = "!f() { \
-      local target=$1; \
-      local commit=\"\"; \
-      if fzf --help 2>&1 | grep --quiet '\\-\\-ansi'; then \
-        commit=$(git l $target | fzf --ansi | sed 's/.*\\*[^ ]*//g' | awk '{ print $1 }'); \
-      else \
-        commit=$(git log --color --graph --pretty='%h %cd %an %s%d' --decorate --date=relative $target | fzf | cut -d '*' -f 2 | awk '{ print $1 }'); \
-      fi; \
-      echo \"$commit\"; \
-    }; f"
+    zh = "!gitty fuzzy_hash"
     # get file
     zf = "!f() { \
       local file=$(git ls-files $(git rev-parse --show-toplevel) | fzf -m); \
       if [[ -z $file ]]; then return 1; fi; \
       echo \"$file\"; \
     }; f"
-    # fuzzy open
-    zop = "!f() { \
-      local file=$(git zf); \
-      if [[ -z $file ]]; then return 1; fi; \
-      $(git editor) $file; \
-    }; f"
+    zop = "!gitty fuzzy_open"
     # fuzzy grep (does only one file)
     zgop = "!f() { \
       local raw_selection=$(git grep -n '.*' | fzf); \
@@ -278,12 +263,7 @@
       local line=${selection##*:}; \
       $(git editor) +\"$line\" \"$file\"; \
     }; f"
-    # fuzzy checkout (could be much improved, have tags, branches, remotes)
-    zco = "!f() { \
-      local commit=$(git zh); \
-      if [[ -z $commit ]]; then return 1; fi; \
-      git checkout $commit; \
-    }; f"
+    zco = "!gitty fuzzy_checkout"
     # fuzzy show
     zsh = "!f() { \
       local commit=$(git zh); \
@@ -301,8 +281,6 @@
     #       use in the fuzzy stuff
 
     # miscellaneous
-    # Find commits by commit message
-    fc = "!f() { git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short --grep=\"$@\"; }; f"
     # List contributors with number of commits
     contributors = shortlog --summary --numbered
 

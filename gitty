@@ -1,0 +1,214 @@
+#!/usr/bin/env python
+
+from __future__ import print_function
+
+import logging
+import os
+import re
+import shlex
+import sys
+
+import sh
+from pyfzf import FzfPrompt
+fzf = FzfPrompt().prompt
+
+logging.basicConfig()
+logger = logging.getLogger('gitty')
+logger.setLevel(logging.WARNING)
+
+CWD = os.getcwd()
+if os.getenv('GIT_PREFIX'):
+    CWD = os.path.join(CWD, os.getenv('GIT_PREFIX'))
+
+def get_kwargs(args):
+    kwargs = {}
+    i = 0
+    while i < len(args):
+        arg = args[i]
+        if arg[0] != '-':
+            break
+        arg = arg.lstrip('-')
+        if '=' in arg:
+            parts = arg.split('=')
+            assert len(parts) == 2
+            kwargs[parts[0]] = parts[1]
+        else:
+            kwargs[arg] = True
+        i += 1
+    return kwargs, args[i:]
+
+def chainable(num_args=0):
+    def fn_wrapper(f):
+        def fn_wrapped(cmd_wrapper, *args):
+            f_args = args[:num_args]
+            new_args = args[num_args:]
+            f(cmd_wrapper, *f_args)
+            if len(new_args):
+                cmd_wrapper.main(new_args)
+        return fn_wrapped
+    return fn_wrapper
+
+class CommandWrapper():
+    def __init__(self, wrapped_cmd, subcommands_map = {}):
+        self.wrapped_cmd = wrapped_cmd
+        self.subcommands_map = subcommands_map
+
+    def __call__(self, *args, **kwargs):
+        try:
+            self.main_cmd(*args, _cwd=CWD, **kwargs)
+        except sh.ErrorReturnCode as e:
+            sys.exit(e.exit_code)
+
+    def main(self, args):
+        logger.debug('Wrapper args: %s %s', self.wrapped_cmd, args)
+        (main_kwargs, args) = get_kwargs(args)
+
+        # rows, columns = os.popen('stty size', 'r').read().split()
+        self.main_cmd = sh.Command(*self.wrapped_cmd).bake(
+            # NOTE: cwd is ignored with _fg=True..
+            _cwd=CWD, _out=sys.stdout, _err=sys.stderr, _in=sys.stdin,
+            **main_kwargs
+        )
+
+        try:
+            if len(args):
+                main_subcmd = args[0]
+                if main_subcmd in self.subcommands_map:
+                    command_fn = self.subcommands_map[main_subcmd]
+                    args = args[1:]
+                    (kwargs, args) = get_kwargs(args)
+                    if callable(command_fn):
+                        command_fn(self, *args, **kwargs)
+                    elif type(command_fn) == str:
+                        self.main_cmd(*(shlex.split(command_fn) + args), **kwargs)
+                    else:
+                        assert False
+                    return
+
+            # fallback to main program
+            (kwargs, args) = get_kwargs(args)
+            self.main_cmd(*args, **kwargs)
+            return
+        except sh.ErrorReturnCode as e:
+            sys.exit(e.exit_code)
+        assert False
+
+def ansi_escape(text):
+    ansi_escape_re = re.compile(r'\x1b[^m]*m')
+    return ansi_escape_re.sub('', text)
+
+def git_stdout(*args, **kwargs):
+    if '_cwd' not in kwargs:
+        kwargs['_cwd'] = CWD
+    try:
+        ret = sh.git(
+            *args,
+            **kwargs
+        )
+        return ret.stdout.strip()
+    except sh.ErrorReturnCode as e:
+        logging.error(e)
+        sys.exit(e.exit_code)
+
+def current_branch():
+    return git_stdout('rev-parse', 'HEAD', abrev_ref=True)
+
+def root():
+    return git_stdout('rev-parse', show_toplevel=True)
+
+def fuzzy_commit(ref='HEAD'):
+    commits = git_stdout('--no-pager', 'log', ref, graph=True, **_log_kwargs())
+    result = fzf(commits.split('\n'), '--ansi')
+    if not len(result):
+        return None
+    assert len(result) == 1
+    commit = result[0].strip('* ').split(' ')[0]
+    return commit
+
+def all_files():
+    return git_stdout('ls-files', root(), _cwd=root()).split()
+
+def fuzzy_files():
+    return fzf(all_files(), '-m')
+
+def fuzzy_file():
+    result = fzf(all_files())
+    if not len(result):
+        return None
+    assert len(result) == 1
+    return result[0]
+
+def _log_kwargs(coloring=True):
+    def colored(str, color):
+        if not coloring:
+            return str
+        return '%C(' + color+ ')' + str + '%C(reset)'
+
+    pretty_fmt = ' '.join([
+        colored('%h', 'yellow'),
+        colored('%cd', 'magenta'),
+        colored('%an', 'bold blue'),
+        '%s' + colored('%d', 'bold yellow'),
+    ])
+
+    return {
+        'color': coloring,
+        'pretty': 'format:' + pretty_fmt, 'decorate': True, 'date': 'relative'
+    }
+
+def edit(files):
+    return sh.Command(git_stdout('config', '--get', 'core.editor'))(*files, _fg=True)
+    # return sh.emacsclient('-c', *files, _fg=True)
+
+def edit_cmd(files):
+    return git_stdout('config', '--get', 'core.editor') + " " + ' '.join(files)
+    # return "emacsclient  -c  " + " ".join(files)
+
+def merged_branches():
+    main_branch = 'master'
+    branches = [
+        ansi_escape(line.strip('* ')) for line in
+        git_stdout('branch', '--merged', main_branch).strip().split()
+    ]
+    return [ branch for branch in branches if branch != main_branch ]
+
+@chainable()
+def STATUS(git):
+    return git('status')
+
+# TODO: get from other branches, etc.
+def FUZZY_COMMIT(git, ref='HEAD'):
+    commit = fuzzy_commit(ref)
+    if commit is not None:
+        print(commit)
+
+# TODO: also have tags, branches, remotes
+def FUZZY_CHECKOUT(git, ref='HEAD'):
+    commit = fuzzy_commit(ref)
+    if commit is not None:
+        git('checkout', commit)
+
+def FUZZY_OPEN(git):
+    files = fuzzy_files()
+    if len(files):
+       edit(files)
+       print(edit_cmd(files))
+
+@chainable()
+def DELETE_MERGED_BRANCHES(git):
+    branches = merged_branches()
+    for branch in branches:
+        git('branch', '-d', branch)
+
+if __name__ == "__main__":
+    SUBCOMMANDS = {
+        'status': STATUS,
+        'delete_merged_branches': DELETE_MERGED_BRANCHES,
+        'fuzzy_checkout': FUZZY_CHECKOUT,
+        'fuzzy_open': FUZZY_OPEN,
+        'fuzzy_hash': FUZZY_COMMIT,
+    }
+    w = CommandWrapper(['git'], SUBCOMMANDS)
+
+    args = sys.argv[1:]
+    w.main(args)

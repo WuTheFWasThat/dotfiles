@@ -1,4 +1,5 @@
 *.sw*
+*.pyc
 vim/.netrwhist
 vim/indent/.netrwhist
 vim/plugged

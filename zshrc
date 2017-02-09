@@ -83,6 +83,10 @@ export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.5/bin/
 export PATH=$HOME/.yarn/bin:$PATH
 export RUST_BACKTRACE=1
 
+export PYTHONPATH=.:/usr/local/lib/python
+
+export PATH=$PATH:~/dotfiles
+
 for file in ~/.zshrc_scripts/*; do
    source "$file"
 done

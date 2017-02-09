@@ -1,5 +1,3 @@
-# python stuff
-export PYTHONPATH=.:/usr/local/lib/python
 alias py='python'
 alias py3='python3'
 alias ipy='ipython'
