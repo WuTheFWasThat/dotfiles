@@ -16,9 +16,11 @@ logging.basicConfig()
 logger = logging.getLogger('gitty')
 logger.setLevel(logging.WARNING)
 
-CWD = os.getcwd()
+GIT_ROOT = sh.git('rev-parse', show_toplevel=True).stdout.strip()
 if os.getenv('GIT_PREFIX'):
-    CWD = os.path.join(CWD, os.getenv('GIT_PREFIX'))
+    CWD = os.path.join(GIT_ROOT, os.getenv('GIT_PREFIX'))
+else:
+    CWD = GIT_ROOT
 
 def get_kwargs(args):
     kwargs = {}
@@ -37,84 +39,159 @@ def get_kwargs(args):
         i += 1
     return kwargs, args[i:]
 
+(main_kwargs, main_args) = get_kwargs(sys.argv[1:])
+GIT = sh.Command('git').bake(
+    # NOTE: cwd is ignored with _fg=True..
+    _out=sys.stdout, _err=sys.stderr, _in=sys.stdin,
+    **main_kwargs
+)
+
+def git_main(*args, **kwargs):
+    if '_cwd' not in kwargs:
+        kwargs['_cwd'] = CWD
+    try:
+        GIT(*args, **kwargs)
+    except sh.ErrorReturnCode as e:
+        sys.exit(e.exit_code)
+
+
 def chainable(num_args=0):
     def fn_wrapper(f):
-        def fn_wrapped(cmd_wrapper, *args):
+        def fn_wrapped(*args, **f_kwargs):
             f_args = args[:num_args]
             new_args = args[num_args:]
-            f(cmd_wrapper, *f_args)
+            f(*f_args, **f_kwargs)
             if len(new_args):
-                cmd_wrapper.main(new_args)
+                git_subcommand(new_args)
         return fn_wrapped
     return fn_wrapper
 
-class CommandWrapper():
-    def __init__(self, wrapped_cmd, subcommands_map = {}):
-        self.wrapped_cmd = wrapped_cmd
-        self.subcommands_map = subcommands_map
+def git_subcommand(args):
+    try:
+        if len(args):
+            main_subcmd = args[0]
+            if main_subcmd in SUBCOMMANDS:
+                command_fn = SUBCOMMANDS[main_subcmd]
+                args = args[1:]
+                (kwargs, args) = get_kwargs(args)
+                if callable(command_fn):
+                    command_fn(*args, **kwargs)
+                elif type(command_fn) == str:
+                    git_main(*(shlex.split(command_fn) + args), _cwd=CWD, **kwargs)
+                else:
+                    assert False
+                return
 
-    def __call__(self, *args, **kwargs):
-        try:
-            self.main_cmd(*args, _cwd=CWD, **kwargs)
-        except sh.ErrorReturnCode as e:
-            sys.exit(e.exit_code)
-
-    def main(self, args):
-        logger.debug('Wrapper args: %s %s', self.wrapped_cmd, args)
-        (main_kwargs, args) = get_kwargs(args)
-
-        # rows, columns = os.popen('stty size', 'r').read().split()
-        self.main_cmd = sh.Command(*self.wrapped_cmd).bake(
-            # NOTE: cwd is ignored with _fg=True..
-            _cwd=CWD, _out=sys.stdout, _err=sys.stderr, _in=sys.stdin,
-            **main_kwargs
-        )
-
-        try:
-            if len(args):
-                main_subcmd = args[0]
-                if main_subcmd in self.subcommands_map:
-                    command_fn = self.subcommands_map[main_subcmd]
-                    args = args[1:]
-                    (kwargs, args) = get_kwargs(args)
-                    if callable(command_fn):
-                        command_fn(self, *args, **kwargs)
-                    elif type(command_fn) == str:
-                        self.main_cmd(*(shlex.split(command_fn) + args), **kwargs)
-                    else:
-                        assert False
-                    return
-
-            # fallback to main program
-            (kwargs, args) = get_kwargs(args)
-            self.main_cmd(*args, **kwargs)
-            return
-        except sh.ErrorReturnCode as e:
-            sys.exit(e.exit_code)
-        assert False
+        # fallback to main program
+        (kwargs, args) = get_kwargs(args)
+        git_main(*args, _cwd=CWD, **kwargs)
+        return
+    except sh.ErrorReturnCode as e:
+        sys.exit(e.exit_code)
+    assert False
 
 def ansi_escape(text):
     ansi_escape_re = re.compile(r'\x1b[^m]*m')
     return ansi_escape_re.sub('', text)
+
+class Colors:
+    PURPLE = '\033[95m'
+    BLUE = '\033[94m'
+    GREEN = '\033[92m'
+    YELLOW = '\033[93m'
+    RED = '\033[91m'
+
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+
+    END = '\033[0m'
+
+def colored(text, color):
+    return color + text + Colors.END
 
 def git_stdout(*args, **kwargs):
     if '_cwd' not in kwargs:
         kwargs['_cwd'] = CWD
     try:
         ret = sh.git(
+            '--no-pager',
             *args,
             **kwargs
         )
-        return ret.stdout.strip()
+        return ret.stdout.rstrip()
     except sh.ErrorReturnCode as e:
-        logging.error(e)
+        print(e.stderr.strip())
         sys.exit(e.exit_code)
 
-def current_branch():
-    return git_stdout('rev-parse', 'HEAD', abrev_ref=True)
+def git_code(*args, **kwargs):
+    if '_cwd' not in kwargs:
+        kwargs['_cwd'] = CWD
+    try:
+        sh.git(
+            *args,
+            **kwargs
+        )
+        return 0
+    except sh.ErrorReturnCode as e:
+        return e.exit_code
 
-def root():
-    return git_stdout('rev-parse', show_toplevel=True)
+def get_hash(ref='HEAD', short=False):
+    if short:
+        return git_stdout('rev-parse', '--short', ref)
+    else:
+        return git_stdout('rev-parse', ref)
+
+def current_hash(short=False):
+    return get_hash(short=short)
+
+def current_branch():
+    return git_stdout('rev-parse', '--abbrev-ref', 'HEAD')
+
+def branch_exists(branch):
+    return git_code('rev-parse', '--verify', branch) == 0
+
+def list_branches():
+    return [
+        ansi_escape(line.strip('* ')) for line in
+        git_stdout('branch').strip().split()
+    ]
+
+def merged_branches():
+    main_branch = 'master'
+    branches = [
+        ansi_escape(line.strip('* ')) for line in
+        git_stdout('branch', '--merged', main_branch).strip().split()
+    ]
+    return [ branch for branch in branches if branch != main_branch ]
+
+STASH_PREFIX = 'stash-'
+
+def is_stash_branch(branch):
+    return branch.startswith(STASH_PREFIX)
+
+def stash_branch(n):
+    return STASH_PREFIX + str(n)
+
+def stashed_branches():
+    return [branch for branch in list_branches() if is_stash_branch(branch)]
+
+def stash_exists(n):
+    return branch_exists(stash_branch(n))
+
+def list_stashes():
+    stashes = []
+    for branch in stashed_branches():
+        num = int(branch.split('-')[1])
+        commit = git_stdout('rev-parse', branch)
+        stashes.append((num, branch, commit))
+    stashes.sort()
+    return stashes
+
+def highest_stash():
+    stashes = list_stashes()
+    if len(stashes):
+        return stashes[-1][0]
+    return 0
 
 def fuzzy_commit(ref='HEAD'):
     commits = git_stdout('--no-pager', 'log', ref, graph=True, **_log_kwargs())
@@ -126,7 +203,7 @@ def fuzzy_commit(ref='HEAD'):
     return commit
 
 def all_files():
-    return git_stdout('ls-files', root(), _cwd=root()).split()
+    return git_stdout('ls-files', GIT_ROOT, _cwd=GIT_ROOT).split()
 
 def fuzzy_files():
     return fzf(all_files(), '-m')
@@ -138,17 +215,15 @@ def fuzzy_file():
     assert len(result) == 1
     return result[0]
 
-def _log_kwargs(coloring=True):
-    def colored(str, color):
-        if not coloring:
-            return str
-        return '%C(' + color+ ')' + str + '%C(reset)'
+def colored_format(str, color):
+    return '%C(' + color+ ')' + str + '%C(reset)'
 
+def _log_kwargs():
     pretty_fmt = ' '.join([
-        colored('%h', 'yellow'),
-        colored('%cd', 'magenta'),
-        colored('%an', 'bold blue'),
-        '%s' + colored('%d', 'bold yellow'),
+        colored_format('%h', 'yellow'),
+        colored_format('%cd', 'red'),
+        colored_format('%an', 'bold blue'),
+        '%s' + colored_format('%d', 'bold yellow'),
     ])
 
     return {
@@ -164,51 +239,181 @@ def edit_cmd(files):
     return git_stdout('config', '--get', 'core.editor') + " " + ' '.join(files)
     # return "emacsclient  -c  " + " ".join(files)
 
-def merged_branches():
-    main_branch = 'master'
-    branches = [
-        ansi_escape(line.strip('* ')) for line in
-        git_stdout('branch', '--merged', main_branch).strip().split()
-    ]
-    return [ branch for branch in branches if branch != main_branch ]
+def add_all():
+    git_main('add', '.', _cwd=GIT_ROOT)
+    git_main('add', '-u', '.', _cwd=GIT_ROOT)
+
+#######################
+# COMMAND DEFINITIONS
+#######################
 
 @chainable()
-def STATUS(git):
-    return git('status')
+def REBASE_ORIGIN(*args, **kwargs):
+    branch = current_branch()
+    git_stdout('rebase', 'origin/' + branch, *args, **kwargs)
+
+@chainable()
+def STATUS(**kwargs):
+    res = git_stdout('status', short=True, **kwargs)
+    if len(res):
+        print(res)
+    else:
+        print('Working tree clean!')
+
+@chainable()
+def ADD_ALL_FIXUP():
+    add_all()
+    git_main('commit', '-v', '--amend', '--no-edit')
+    STATUS()
+
+@chainable()
+def FETCH():
+    return git_main('fetch', '--all', '--prune')
+
+@chainable()
+def ADD_ALL():
+    add_all()
+    STATUS()
+
+# TODO: implement --keep-index, --include-untracked, --all
+@chainable()
+def STASH_BRANCH_SAVE(m=None):
+    if not git_stdout('status', '--porcelain'):
+        print('Nothing to stash!')
+        return
+    branch = current_branch()
+    hash = current_hash(short=True)
+    old_commit_message = git_stdout('log', '-1', '--pretty=%B')
+    n = highest_stash() + 1
+    git_stdout('checkout', '-b', stash_branch(n), _cwd=GIT_ROOT)
+    add_all()
+    message = 'WIP on branch %s (%s) - %s' % (
+        branch, hash,
+        m if m else old_commit_message,
+    )
+    git_stdout('commit', '-m', message)
+    stash_out = git_stdout('show', '--stat', '--format=oneline', '--abbrev-commit', 'HEAD')
+    git_stdout('checkout', branch)
+    print(colored(stash_branch(n), Colors.BOLD) + ': ' + stash_out)
+
+def STASH_BRANCH_LIST(stat=False):
+    stashes = list_stashes()
+    if not len(stashes):
+        print('No stashes found!')
+        return
+    for (num, branch, commit) in reversed(stashes):
+        format = ' '.join([
+            colored_format('%cd', 'red'), '%B'
+        ])
+        if stat:
+            info = git_stdout(
+                'show', '--stat', '--format=' + format,
+                '--date=relative', '--abbrev-commit', commit
+            ).replace('\n\n', '').replace('\n ', '\n         ')
+        else:
+            info = git_stdout(
+                'log', '-1', '--format=' + format, '--date=relative', commit)
+        print(colored(branch, Colors.BOLD) + ': ' + info)
+
+def STASH_BRANCH_DROP(n=None):
+    if n is None:
+        n = highest_stash()
+        if n == 0:
+            print('No stashes to drop!')
+            return
+    n = int(n)
+    if not stash_exists(n):
+        print('Stash %d does not exist!' % n)
+        return
+    hash = get_hash(stash_branch(n), short=True)
+    git_stdout('branch', '-D', stash_branch(n))
+    print('Stash %d dropped (commit %s).' % (n, hash))
+
+# apply, drop, list, pop, show
+def STASH_BRANCH_APPLY(n=None):
+    if git_stdout('status', '--porcelain'):
+        print('Working directory would be overridden by stash!')
+        return
+    if n is None:
+        n = highest_stash()
+        if n == 0:
+            print('No stashes to apply!')
+            return
+    n = int(n)
+    if not stash_exists(n):
+        print('Stash %d does not exist!' % n)
+        return
+    git_stdout('cherry-pick', stash_branch(n))
+    git_stdout('reset', 'HEAD~')
+
+def STASH_BRANCH_POP(n=None):
+    if git_stdout('status', '--porcelain'):
+        print('Working directory would be overridden by stash!')
+        return
+    if n is None:
+        n = highest_stash()
+        if n == 0:
+            print('No stashes to pop!')
+            return
+    n = int(n)
+    if not stash_exists(n):
+        print('Stash %d does not exist!' % n)
+        return
+    git_stdout('cherry-pick', stash_branch(n))
+    git_stdout('reset', 'HEAD~')
+    git_stdout('branch', '-D', stash_branch(n))
 
 # TODO: get from other branches, etc.
-def FUZZY_COMMIT(git, ref='HEAD'):
+def FUZZY_COMMIT(ref='HEAD'):
     commit = fuzzy_commit(ref)
     if commit is not None:
         print(commit)
 
 # TODO: also have tags, branches, remotes
-def FUZZY_CHECKOUT(git, ref='HEAD'):
+def FUZZY_CHECKOUT(ref='HEAD'):
     commit = fuzzy_commit(ref)
     if commit is not None:
-        git('checkout', commit)
+        git_main('checkout', commit)
 
-def FUZZY_OPEN(git):
+def FUZZY_OPEN():
     files = fuzzy_files()
     if len(files):
        edit(files)
        print(edit_cmd(files))
 
 @chainable()
-def DELETE_MERGED_BRANCHES(git):
+def DELETE_MERGED_BRANCHES():
     branches = merged_branches()
     for branch in branches:
-        git('branch', '-d', branch)
+        git_main('branch', '-d', branch)
+
+@chainable()
+def LIST_BRANCHES():
+    lines = git_stdout('branch', '-vv').split('\n')
+    lines = [ line for line in lines if not line.strip().startswith(STASH_PREFIX) ]
+    print('\n'.join(lines))
+
+SUBCOMMANDS = {
+    'status': STATUS,
+    'fetch': FETCH,
+    'rebase_origin': REBASE_ORIGIN,
+
+    'add_all': ADD_ALL,
+    'add_all_fixup': ADD_ALL_FIXUP,
+
+    'branch_list': LIST_BRANCHES,
+    'delete_merged_branches': DELETE_MERGED_BRANCHES,
+
+    'fuzzy_checkout': FUZZY_CHECKOUT,
+    'fuzzy_open': FUZZY_OPEN,
+    'fuzzy_hash': FUZZY_COMMIT,
+
+    'stash_save': STASH_BRANCH_SAVE,
+    'stash_list': STASH_BRANCH_LIST,
+    'stash_drop': STASH_BRANCH_DROP,
+    'stash_apply': STASH_BRANCH_APPLY,
+    'stash_pop': STASH_BRANCH_POP,
+}
 
 if __name__ == "__main__":
-    SUBCOMMANDS = {
-        'status': STATUS,
-        'delete_merged_branches': DELETE_MERGED_BRANCHES,
-        'fuzzy_checkout': FUZZY_CHECKOUT,
-        'fuzzy_open': FUZZY_OPEN,
-        'fuzzy_hash': FUZZY_COMMIT,
-    }
-    w = CommandWrapper(['git'], SUBCOMMANDS)
-
-    args = sys.argv[1:]
-    w.main(args)
+    git_subcommand(main_args)

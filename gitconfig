@@ -26,7 +26,7 @@
     # git@github.com:$1.git
 
     # branch management
-    b = branch -vv
+    b = "!gitty branch_list"
     ba = branch -vv -a
     co = checkout
     com = checkout master
@@ -62,7 +62,7 @@
     }; f"
 
     # remotes
-    f = "!f() { git chain 'fetch --all --prune' $@; }; f"
+    f = "!gitty fetch"
     pu = "push -u"
     put = "push --tags"
     puf = "push -u --force-with-lease"
@@ -104,9 +104,8 @@
 
     # working tree
     a = add
-    aahelper = "!git add .; git add -u ."
-    aa = "!f() { git chain 'aahelper' $@; }; f"
-    aac = "!f() { git aahelper; git ac $@; }; f"
+    aa = "!gitty add_all"
+    aac = "!f() { git aa; git ac $@; }; f"
     ap = "!f() { local dir=${1:-.}; git add -p $dir; }; f"
     # cleanup
     cle = clean -f -d
@@ -124,7 +123,7 @@
     # add then commit variants
     ac = "!f() { if [ $# -eq 0 ]; then git commit -v -a; else git commit -a -m \"$*\"; fi; }; f"
     acs = "!f() { if [ $# -eq 0 ]; then git commit -v -a --amend; else git commit -a --amend -m \"$*\"; fi; }; f"
-    acf = "!f() { git chain 'commit -v -a --amend --no-edit' $@; }; f"
+    acf = "!gitty add_all_fixup"
 
     # cherry-pick
     cp = cherry-pick
@@ -138,8 +137,8 @@
     rba = rebase --abort
     rbs = rebase --skip
     rbc = "!git add .; git add -u .; git rebase --continue"
-    rbo = "!f(){ branch=$(git rev-parse --abbrev-ref HEAD); git rebase origin/$branch $@; }; f"
-    rboi = "!f(){ branch=$(git rev-parse --abbrev-ref HEAD); git rebase origin/$branch -i $@; }; f"
+    rbo = "!gitty rebase_origin"
+    rboi = "!gitty rebase_origin -i"
     rbm = rebase master
     rbmi = rebase master -i
     rbom = rebase origin/master
@@ -180,6 +179,7 @@
 
 
     # tree
+    #   to format with min column, put before %h or whatever:  %>(12)
     l = log --color --graph --pretty='%C(yellow)%h%C(reset) %Cred%cd%C(reset) %C(bold blue)%an%C(reset) %s%C(bold yellow)%d%C(reset)' --decorate --date=relative
     ls = log --color --pretty=format:'%C(yellow)%h%C(reset) %Cred%cd%C(reset) %C(bold blue)%an%C(reset) %s%C(bold yellow)%d%C(reset)' --decorate --date=relative --numstat
     lo = "!f(){ branch=$(git rev-parse --abbrev-ref HEAD); git log origin/$branch $@; }; f"
@@ -217,16 +217,11 @@
     rvc = revert --continue
 
     # stash
-    # TODO: reimplement this using branches
-    # $ git config --global alias.stsh 'stash --keep-index'
-    # git config --global alias.staash 'stash --include-untracked'
-    # git config --global alias.staaash 'stash --all'
-    st = "!f() { git chain stash $@; }; f"
-    stl = stash list
-    sta = stash apply
-    std = stash drop
-    sts = stash save
-    stp = stash pop
+    st = "!gitty stash_save"
+    stl = "!gitty stash_list"
+    sta = "!gitty stash_apply"
+    std = "!gitty stash_drop"
+    stp = "!gitty stash_pop"
 
     # tags
     t = tag
