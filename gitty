@@ -16,12 +16,6 @@ logging.basicConfig()
 logger = logging.getLogger('gitty')
 logger.setLevel(logging.WARNING)
 
-GIT_ROOT = sh.git('rev-parse', show_toplevel=True).stdout.strip()
-if os.getenv('GIT_PREFIX'):
-    CWD = os.path.join(GIT_ROOT, os.getenv('GIT_PREFIX'))
-else:
-    CWD = GIT_ROOT
-
 def get_kwargs(args):
     kwargs = {}
     i = 0
@@ -39,6 +33,40 @@ def get_kwargs(args):
         i += 1
     return kwargs, args[i:]
 
+CWD = None
+
+def git_stdout(*args, **kwargs):
+    if '_cwd' not in kwargs:
+        kwargs['_cwd'] = CWD
+    try:
+        ret = sh.git(
+            '--no-pager',
+            *args,
+            **kwargs
+        )
+        return ret.stdout.rstrip()
+    except sh.ErrorReturnCode as e:
+        print(e.stderr.strip())
+        sys.exit(e.exit_code)
+
+GIT_ROOT = git_stdout('rev-parse', show_toplevel=True)
+if os.getenv('GIT_PREFIX'):
+    CWD = os.path.join(GIT_ROOT, os.getenv('GIT_PREFIX'))
+else:
+    CWD = GIT_ROOT
+
+def git_code(*args, **kwargs):
+    if '_cwd' not in kwargs:
+        kwargs['_cwd'] = CWD
+    try:
+        sh.git(
+            *args,
+            **kwargs
+        )
+        return 0
+    except sh.ErrorReturnCode as e:
+        return e.exit_code
+
 (main_kwargs, main_args) = get_kwargs(sys.argv[1:])
 GIT = sh.Command('git').bake(
     # NOTE: cwd is ignored with _fg=True..
@@ -52,8 +80,17 @@ def git_main(*args, **kwargs):
     try:
         GIT(*args, **kwargs)
     except sh.ErrorReturnCode as e:
+        print(e.stderr.strip())
         sys.exit(e.exit_code)
 
+def git_tty(*args, **kwargs):
+    if '_cwd' not in kwargs:
+        kwargs['_cwd'] = CWD
+    try:
+        GIT(*args, _fg=True, **kwargs)
+    except sh.ErrorReturnCode as e:
+        print(e.stderr.strip())
+        sys.exit(e.exit_code)
 
 def chainable(num_args=0):
     def fn_wrapper(f):
@@ -87,6 +124,7 @@ def git_subcommand(args):
         git_main(*args, _cwd=CWD, **kwargs)
         return
     except sh.ErrorReturnCode as e:
+        print(e.stderr.strip())
         sys.exit(e.exit_code)
     assert False
 
@@ -109,31 +147,6 @@ class Colors:
 def colored(text, color):
     return color + text + Colors.END
 
-def git_stdout(*args, **kwargs):
-    if '_cwd' not in kwargs:
-        kwargs['_cwd'] = CWD
-    try:
-        ret = sh.git(
-            '--no-pager',
-            *args,
-            **kwargs
-        )
-        return ret.stdout.rstrip()
-    except sh.ErrorReturnCode as e:
-        print(e.stderr.strip())
-        sys.exit(e.exit_code)
-
-def git_code(*args, **kwargs):
-    if '_cwd' not in kwargs:
-        kwargs['_cwd'] = CWD
-    try:
-        sh.git(
-            *args,
-            **kwargs
-        )
-        return 0
-    except sh.ErrorReturnCode as e:
-        return e.exit_code
 
 def get_hash(ref='HEAD', short=False):
     if short:
@@ -250,7 +263,7 @@ def add_all():
 @chainable()
 def REBASE_ORIGIN(*args, **kwargs):
     branch = current_branch()
-    git_stdout('rebase', 'origin/' + branch, *args, **kwargs)
+    git_tty('rebase', 'origin/' + branch, *args, **kwargs)
 
 @chainable()
 def STATUS(**kwargs):
