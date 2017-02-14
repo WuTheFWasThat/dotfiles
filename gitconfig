@@ -16,8 +16,6 @@
     root = rev-parse --show-toplevel
     # functions screw up directory: see https://stackoverflow.com/questions/26243145/git-aliases-operate-in-the-wrong-directory
     relative = "!f() { if [ -n \"$GIT_PREFIX\" ]; then echo \"$GIT_PREFIX\"; else echo \".\"; fi; }; f"
-    # chains multiple commands (note: after first one, can't have spaces, for now)
-    chain = "!f() { if [ -n \"$GIT_PREFIX\" ]; then cd \"$GIT_PREFIX\"; fi; git $1; shift; if [ $# -ne 0 ]; then git chain $@; fi; }; f"
 
     # setup
     clo = clone --recursive
@@ -139,12 +137,12 @@
     rbc = "!git add .; git add -u .; git rebase --continue"
     rbo = "!gitty rebase_origin"
     rboi = "!gitty rebase_origin -i"
-    rbm = rebase master
-    rbmi = rebase master -i
-    rbom = rebase origin/master
-    rbomi = rebase origin/master -i
-    from = "!f() { git chain fetch rbom $@; }; f"
-    fro = "!f() { git chain fetch rbo $@; }; f"
+    rbm = "!gitty rebase_master"
+    rbmi = "!gitty rebase_master -i"
+    rbom = "!gitty rebase_origin_master"
+    rbomi = "!gitty rebase_origin_master -i"
+    fro = "!gitty fetch rebase_origin"
+    from = "!gitty fetch rebase_origin_master"
 
     # merge
     m = merge

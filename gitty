@@ -266,6 +266,14 @@ def REBASE_ORIGIN(*args, **kwargs):
     git_tty('rebase', 'origin/' + branch, *args, **kwargs)
 
 @chainable()
+def REBASE_ORIGIN_MASTER(*args, **kwargs):
+    git_tty('rebase', 'origin/master', *args, **kwargs)
+
+@chainable()
+def REBASE_MASTER(*args, **kwargs):
+    git_tty('rebase', 'master', *args, **kwargs)
+
+@chainable()
 def STATUS(**kwargs):
     res = git_stdout('status', short=True, **kwargs)
     if len(res):
@@ -410,6 +418,8 @@ SUBCOMMANDS = {
     'status': STATUS,
     'fetch': FETCH,
     'rebase_origin': REBASE_ORIGIN,
+    'rebase_origin_master': REBASE_ORIGIN_MASTER,
+    'rebase_master': REBASE_MASTER,
 
     'add_all': ADD_ALL,
     'add_all_fixup': ADD_ALL_FIXUP,
