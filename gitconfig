@@ -190,7 +190,15 @@
 
     # file tools
     find = "!f() { if [ -n \"$GIT_PREFIX\" ]; then cd \"$GIT_PREFIX\"; fi; git ls-files | grep -i $@; }; f"
-    op = "!f() {  if [ -n \"$GIT_PREFIX\" ]; then cd \"$GIT_PREFIX\"; fi; $(git editor) $(git ls-files | grep -i \"$@\"); }; f"
+    op = "!f() { \
+      if [ -n \"$GIT_PREFIX\" ]; then cd \"$GIT_PREFIX\"; fi; \
+      files=$(git ls-files | grep -i \"$@\"); \
+      if [ -n \"$files\" ]; then \
+        $(git editor) $files; \
+      else \
+        echo \"No files to open matching pattern: $@\"; \
+      fi; \
+    }; f"
     # open edited
     eop = "! $(git editor) $(git ls-files --modified)"
 
