@@ -310,8 +310,8 @@ Plug 'sheerun/vim-polyglot'
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 " Plug 'flowtype/vim-flow', { 'for': 'javascript' }
 Plug 'ianks/vim-tsx'
-Plug 'Shougo/vimproc.vim', {'do' : 'make'} | Plug 'Quramy/tsuquyomi'
-Plug 'leafgarland/typescript-vim'
+Plug 'Shougo/vimproc.vim', {'do' : 'make'} | Plug 'Quramy/tsuquyomi', { 'for': 'typescript '}
+Plug 'leafgarland/typescript-vim', { 'for': 'typescript '}
 let g:syntastic_typescript_checkers = ['tslint'] " tsc
 " let g:syntastic_typescript_tsc_args = '--target ES6 -p .'
 " let g:syntastic_typescript_tsc_args = '-p . --noEmit'
