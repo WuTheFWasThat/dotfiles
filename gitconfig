@@ -14,6 +14,8 @@
 
     # utils
     root = rev-parse --show-toplevel
+    # executes command at git root
+    rooted = "!git"
     # functions screw up directory: see https://stackoverflow.com/questions/26243145/git-aliases-operate-in-the-wrong-directory
     relative = "!f() { if [ -n \"$GIT_PREFIX\" ]; then echo \"$GIT_PREFIX\"; else echo \".\"; fi; }; f"
     # chains multiple commands (note: after first one, can't have spaces, for now)
@@ -155,17 +157,17 @@
     mop = "!f() { $(git editor) $(git diff --name-only --diff-filter=U); }; f"
 
     # diffs
-    d = "!git $(git differ)"
-    dc = "!git $(git differ) --cached"
+    d = "!f() { if [ -n \"$GIT_PREFIX\" ]; then cd \"$GIT_PREFIX\"; fi; git $(git differ) $@; }; f"
+    dc = "!f() { if [ -n \"$GIT_PREFIX\" ]; then cd \"$GIT_PREFIX\"; fi; git $(git differ) --cached $@; }; f"
     dcs = "!git --no-pager -c color.diff=always diff --stat --cached"
     ds = "!git --no-pager -c color.diff=always diff --stat"
     dso = "!f(){ branch=$(git rev-parse --abbrev-ref HEAD); git diff --stat origin/$branch $@; }; f"
     dsom = "!git --no-pager -c color.diff=always diff --stat origin/master"
     dsm = "!git --no-pager -c color.diff=always diff --stat master"
-    dop = "!f() { $(git editor) $(git diff --name-only $@); }; f"
-    dm = "!git $(git differ) master"
-    dom = "!git $(git differ) origin/master"
-    do = "!f(){ branch=$(git rev-parse --abbrev-ref HEAD); git $(git differ) origin/$branch $@; }; f"
+    dop = "!f() { if [ -n \"$GIT_PREFIX\" ]; then cd \"$GIT_PREFIX\"; fi; $(git editor) $(git diff --name-only $@); }; f"
+    dm = "!f(){ if [ -n \"$GIT_PREFIX\" ]; then cd \"$GIT_PREFIX\"; fi; git $(git differ) master; }; f"
+    dom = "!f(){ if [ -n \"$GIT_PREFIX\" ]; then cd \"$GIT_PREFIX\"; fi; git $(git differ) origin/master; }; f"
+    do = "!f(){ if [ -n \"$GIT_PREFIX\" ]; then cd \"$GIT_PREFIX\"; fi; branch=$(git rev-parse --abbrev-ref HEAD); git $(git differ) origin/$branch $@; }; f"
     du = "!git $(git differ) @{upstream}"
 
     # status
@@ -202,11 +204,12 @@
     # open edited
     eop = "! $(git editor) $(git ls-files --modified)"
 
-    g = "!f() { if [ -n \"$GIT_PREFIX\" ]; then cd \"$GIT_PREFIX\"; fi; git --no-pager grep \"$@\"; }; f"
-    gi = "!f() { if [ -n \"$GIT_PREFIX\" ]; then cd \"$GIT_PREFIX\"; fi; git --no-pager grep -i \"$@\"; }; f"
+
+    g = "!f() { if [ -n \"$GIT_PREFIX\" ]; then cd \"$GIT_PREFIX\"; fi; git --no-pager grep \"$1\" $2; }; f"
+    gi = "!f() { if [ -n \"$GIT_PREFIX\" ]; then cd \"$GIT_PREFIX\"; fi; git --no-pager grep -i \"$1\" $2; }; f"
     # grep and open
-    gop = "!f(){ if [ -n \"$GIT_PREFIX\" ]; then cd \"$GIT_PREFIX\"; fi; $(git editor) $(git grep --name-only \"$@\"); }; f"
-    giop = "!f(){ if [ -n \"$GIT_PREFIX\" ]; then cd \"$GIT_PREFIX\"; fi; $(git editor) $(git grep -i --name-only \"$@\"); }; f"
+    gop = "!f(){ if [ -n \"$GIT_PREFIX\" ]; then cd \"$GIT_PREFIX\"; fi; $(git editor) $(git grep --name-only \"$1\" $2); }; f"
+    giop = "!f(){ if [ -n \"$GIT_PREFIX\" ]; then cd \"$GIT_PREFIX\"; fi; $(git editor) $(git grep -i --name-only \"$1\" $2); }; f"
     tree = ls-tree -r HEAD
 
     # reset
