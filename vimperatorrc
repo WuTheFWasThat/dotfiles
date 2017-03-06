@@ -6,12 +6,6 @@ imapclear
 " clear user-defined commands
 comclear
 
-" hide all the stuffs
-" set gui=none
-" DOESNT WORK
-" set gui!=tabs
-" http://superuser.com/questions/704015/hide-status-line-bottom-bar-in-vimperator
-
 " default search/suggest engine: google
 set defsearch=google
 set suggestengines=google
@@ -90,9 +84,10 @@ nnoremap <Leader>fed :source ~/.vimperatorrc<cr>
 command! dev -description "Toggle developer tools" :emenu Tools.Web Developer.Web Console
 nnoremap <Leader>gd :dev<CR>
 
+" doesn't work, problems with space remapping: http://superuser.com/questions/704015/hide-status-line-bottom-bar-in-vimperator
 nnoremap ui :set gui!=addons,menu,navigation<CR>
 nnoremap <Leader>ta :set gui=invaddons,invmenu,invnavigation<CR>
-set gui=nobookmarks,noaddons,nomenu,nonavigation,tabs
+" set gui=nobookmarks,noaddons,nomenu,nonavigation,tabs
 
 " nnoremap ; :
 " nnoremap : ;
