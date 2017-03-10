@@ -347,6 +347,12 @@ set grepprg=grep\ -nH\ $*
 """""""""""""
 " editing
 """""""""""""
+Plug 'Chiel92/vim-autoformat'
+" let g:autoformat_autoindent = 0
+" let g:autoformat_retab = 0
+" au BufWrite * :Autoformat
+" let g:autoformat_remove_trailing_spaces = 0
+
 Plug 'Raimondi/delimitMate'
 " Plug 'vim-scripts/tComment'
 Plug 'tpope/vim-commentary'
