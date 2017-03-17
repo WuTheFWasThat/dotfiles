@@ -38,3 +38,6 @@ all commands ran from root directory
   - vim, see .vimrc
   - spacemacs, see .spacemacs
   - vimperator, see .vimperatorrc
+
+  - alias pip to pipenv
+    https://github.com/kennethreitz/pipenv

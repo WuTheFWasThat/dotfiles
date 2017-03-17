@@ -219,6 +219,7 @@
     rsh = reset --hard
     rsho = "!f(){ branch=$(git rev-parse --abbrev-ref HEAD); git reset --hard origin/$branch $@; }; f"
     rshom = "!git reset --hard origin/master"
+    rshm = "!git reset --hard master"
     # rewind
     rw = "!f() { local n=${1:-1}; git reset HEAD~$n; }; f"
     rwh = "!f() { local n=${1:-1}; git reset --hard HEAD~$n; }; f"
