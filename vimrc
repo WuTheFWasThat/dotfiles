@@ -56,9 +56,6 @@ set hidden
 set viminfo='100
 
 augroup misc
-  " strip whitespace on save
-  autocmd BufWritePre * :%s/\s\+$//e
-
   " For all text files set 'textwidth' to 80 characters.
   autocmd FileType text setlocal textwidth=80
 

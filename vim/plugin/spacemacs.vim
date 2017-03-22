@@ -58,7 +58,8 @@ function! spacemacs#toggleExplorerAtRoot()
     exe "NERDTreeToggle"
   endif
 endfunction
-nnoremap <leader>pt :call spacemacs#toggleExplorerAtRoot()<CR>
+call s:spacevim_bind('map', 'pt', 'toggle-explorer', ':call spacemacs#toggleExplorerAtRoot()', 1)
+call s:spacevim_bind('map', 'te', 'toggle-explorer', ':call spacemacs#toggleExplorerAtRoot()', 1)
 
 " files
 " yank history
@@ -99,5 +100,22 @@ nnoremap <Leader>b0 :b10<CR>
 nnoremap <Leader>bl :b#<CR>
 
 " nnoremap <Leader>bs :Scratch<CR>
+
+function! ToggleSaveAutoGroup()
+    if !exists('#onsave#BufWritePre')
+        augroup onsave
+            autocmd!
+            " strip whitespace on save
+            autocmd BufWritePre * :%s/\s\+$//e
+        augroup END
+    else
+        augroup onsave
+            autocmd!
+        augroup END
+    endif
+endfunction
+
+call s:spacevim_bind('map', 'tw', 'toggle-onsave-strip', ':call ToggleSaveAutoGroup()', 1)
+call ToggleSaveAutoGroup()
 
 " TODO: folding

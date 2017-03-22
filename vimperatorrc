@@ -15,6 +15,7 @@ set! browser.bookmarks.showRecentlyBookmarked=false
 ignorekeys clear
 ignorekeys add mail\\.google\\.com -except b,<C-n>,<C-p>,<C-j>,<C-k>,<Space>,<Leader>,:
 ignorekeys add inbox.google.com -except b,<C-n>,<C-p>,<C-j>,<C-k>,<Space>,<Leader>,:
+ignorekeys add docs.google.com -except <C-n>,<C-p>,<C-j>,<C-k>
 ignorekeys add www.pathery.com -except b,<C-n>,<C-p>,<C-j>,<C-k>,<Space>,<Leader>,:
 ignorekeys add beta.pathery.net -except b,<C-n>,<C-p>,<C-j>,<C-k>,<Space>,<Leader>,:
 ignorekeys add blue.pathery.net -except b,<C-n>,<C-p>,<C-j>,<C-k>,<Space>,<Leader>,:
