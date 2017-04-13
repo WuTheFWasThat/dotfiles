@@ -144,6 +144,8 @@ function! XTermPasteBegin()
   return ""
 endfunction
 
+" pasting in tmux
+" TODO: try https://sunaku.github.io/tmux-yank-osc52.html (if that doesnt work, https://gist.github.com/burke/5960455)
 
 " https://stackoverflow.com/questions/33093491/vim-gf-with-file-extension-based-on-current-filetype
 augroup suffixes
