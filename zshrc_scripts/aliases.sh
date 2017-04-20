@@ -8,6 +8,10 @@ function list_space {
   du -sh -- $1*  | sort -rg
 }
 
+function tmux_reload {
+  tmux source-file ~/.tmux.conf
+}
+
 alias g='git'
 alias gnp='git --no-pager'
 
