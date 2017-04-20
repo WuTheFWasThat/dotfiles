@@ -2,6 +2,7 @@
 vim/.netrwhist
 vim/indent/.netrwhist
 vim/plugged
+zshrc_scripts/local.sh
 vimperator/info
 yankring_history*
 .DS_Store

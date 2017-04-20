@@ -51,6 +51,3 @@ vv() {
   if [[ -z $files ]]; then return 1; fi
   vim $files
 }
-
-# disable tmux integration for fzf
-export FZF_TMUX=0
