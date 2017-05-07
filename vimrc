@@ -12,7 +12,8 @@
 " - map M to something useful
 " - map R to something useful
 " - map S to something useful
-" - map Q to something useful
+" - map Q to something useful (it's currently EX mode which is horrible)
+nnoremap Q <nop>
 " - figure out folding
 " - matching parentheses (%) fails after first time, in markdown files??
 
@@ -167,6 +168,12 @@ call plug#begin('~/.vim/plugged')
 """""""""""""
 " misc
 """""""""""""
+" Tried, meh:
+" - Plug 'terryma/vim-multiple-cursors'
+" instead, learn:
+" - use cgn
+" - apply macros on many lines :g/searchthing/normal @q
+
 Plug 'mhinz/vim-startify'
 Plug 'moll/vim-bbye'
 
@@ -179,7 +186,9 @@ Plug 'wincent/scalpel'
 " Use <Leader>S instead of default <Leader>e
 nmap <Leader>S <Plug>(Scalpel)
 " find stuff in many files
+" TODO: learn to use
 Plug 'pelodelfuego/vim-swoop'
+" Possibly try instead: Olical/vim-enmasse
 
 " doesn't work well in zsh
 " Plug 'christoomey/vim-run-interactive'
@@ -304,6 +313,9 @@ let g:loaded_syntastic_java_javac_checker = 1
 """""""""""""
 " languages
 """""""""""""
+
+" TODO: try this out
+" Plug 'davidhalter/jedi-vim'
 
 Plug 'sheerun/vim-polyglot'
 
