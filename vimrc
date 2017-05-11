@@ -89,10 +89,8 @@ nnoremap > >>
 nnoremap < <<
 
 " TODO: these can't possibly both work
-" Make p in Visual mode replace the selected text with the "" register.
-vnoremap p <Esc>:let current_reg = @"<CR>gvs<C-R>=current_reg<CR><Esc>
 " don't lose register contents when pasting in visual mode
-vnoremap p "_dp
+" vnoremap p "_dp
 
 " Use Vim settings, rather then Vi settings (much better!).
 " This must be first, because it changes other options as a side effect.
@@ -415,10 +413,17 @@ Plug 'kshenoy/vim-signature'
 "       plus, doesn't work with yankring properly
 " nnoremap p p=`]
 
-Plug 'vim-scripts/YankRing.vim'
-let g:yankring_history_dir = expand('$HOME/.vim/')
-let g:yankring_replace_n_pkey = '['
-let g:yankring_replace_n_nkey = ']'
+if has('nvim')
+  Plug 'bfredl/nvim-miniyank'
+  map p <Plug>(miniyank-autoput)
+  map P <Plug>(miniyank-autoPut)
+  map [ <Plug>(miniyank-cycle)
+else
+  Plug 'vim-scripts/YankRing.vim'
+  let g:yankring_history_dir = expand('$HOME/.vim/')
+  let g:yankring_replace_n_pkey = '['
+  let g:yankring_replace_n_nkey = ']'
+endif
 
 Plug 'AndrewRadev/splitjoin.vim'
 let g:splitjoin_split_mapping = ''

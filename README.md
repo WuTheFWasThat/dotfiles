@@ -23,7 +23,7 @@ all commands ran from root directory
   - install git 2.3+
   - install hub (git wrapper) `brew install hub`
   - install thefuck (https://github.com/nvbn/thefuck) (e.g. `brew install thefuck`)
-  - install neovim
+  - install neovim, then
     ```
     mkdir -p $HOME/.config
     ln -s ~/.vim $HOME/.config/nvim
@@ -38,6 +38,14 @@ all commands ran from root directory
   - vim, see .vimrc
   - spacemacs, see .spacemacs
   - vimperator, see .vimperatorrc
+  - for neovim
+    - https://github.com/neomake/neomake
+
+      let g:neomake_tsc_maker = { 'exe': 'tsc', 'args': [] }
+      autocmd BufEnter,BufWritePost *.ts Neomake! tsc
+
+      let g:neomake_cargo_maker = { 'exe': 'cargo', 'args': [] }
+      autocmd BufEnter,BufWritePost *.rs Neomake! cargo
 
   - alias pip to pipenv
     https://github.com/kennethreitz/pipenv
