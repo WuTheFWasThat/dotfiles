@@ -109,7 +109,7 @@
     aahelper = "!git add .; git add -u ."
     aa = "!f() { git chain 'aahelper' $@; }; f"
     aac = "!f() { git aahelper; git ac $@; }; f"
-    ap = "!f() { local dir=${1:-.}; git add -p $dir; }; f"
+    ap = "!f() { if [ -n \"$GIT_PREFIX\" ]; then cd \"$GIT_PREFIX\"; fi; local dir=${1:-.}; git add -p $dir; }; f"
     # cleanup
     cle = clean -f -d
     # discard
