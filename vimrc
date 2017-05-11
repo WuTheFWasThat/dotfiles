@@ -115,6 +115,11 @@ set showcmd          " display incomplete commands
 
 set mouse=a
 
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
 "====[ Make the 81st column stand out ]====================
 "
 " highlight ColorColumn ctermbg=magenta
@@ -164,6 +169,39 @@ augroup END
 call plug#begin('~/.vim/plugged')
 
 """""""""""""
+" spacevim!
+"""""""""""""
+
+function! SpacevimBind(map, binding, name, value, isCmd)
+  if a:isCmd
+    let l:value = ':' . a:value . '<cr>'
+  else
+    let l:value = a:value
+  endif
+  if a:map == "map"
+    let l:noremap = 'noremap'
+  elseif a:map == "nmap"
+    let l:noremap = 'nnoremap'
+  elseif a:map == "vmap"
+    let l:noremap = 'vnoremap'
+  endif
+  execute l:noremap . " <silent> <SID>" . a:name . " " . l:value
+  execute a:map . " <leader>" . a:binding . " <SID>" . a:name
+endfunction
+
+Plug 'hecal3/vim-leader-guide'
+set timeoutlen=400
+
+Plug 'ctjhoa/spacevim'
+let mapleader = "\<Space>"
+
+Plug 'vim-airline/vim-airline'
+" enable status line always
+set laststatus=2
+let g:airline_left_sep=''
+let g:airline_right_sep=''
+
+"""""""""""""
 " misc
 """""""""""""
 " Tried, meh:
@@ -180,13 +218,45 @@ Plug 'moll/vim-bbye'
 " use S instead of s in substitutions
 Plug 'tpope/vim-abolish'
 " substitute under cursor
-Plug 'wincent/scalpel'
+" Plug 'wincent/scalpel'
 " Use <Leader>S instead of default <Leader>e
-nmap <Leader>S <Plug>(Scalpel)
+" call SpacevimBind('nmap', 'S', 'scalpel', '<Plug>(Scalpel)', 1)
 " find stuff in many files
 " TODO: learn to use
 Plug 'pelodelfuego/vim-swoop'
 " Possibly try instead: Olical/vim-enmasse
+
+" TODO: get this to work
+" if has('nvim')
+"   tnoremap <Esc> <C-\><C-n>
+"   tnoremap <C-h> <C-\><C-N><C-w>h
+"   tnoremap <C-j> <C-\><C-N><C-w>j
+"   tnoremap <C-k> <C-\><C-N><C-w>k
+"   tnoremap <C-l> <C-\><C-N><C-w>l
+"
+"   autocmd BufWinEnter,WinEnter term://* startinsert
+"   autocmd BufLeave term://* stopinsert
+"
+"   " doesn't have stupid VtrKillRunner lag, doesn't require tmux
+"   Plug 'kassio/neoterm'
+"   let g:neoterm_position = 'vertical' " 'horizontal'
+"   " TODO: possibly useful (untested), run particular command
+"   " store command by :TMap <command>
+"   " then run with mapping:
+"   " let g:neoterm_automap_keys = '\<Space>rr'
+"
+"   " NOTE: Topen will instead resume a previous terminal, if that's better
+"   call SpacevimBind('map', 'rs', 'runner-open', 'Tnew', 1)
+"   call SpacevimBind('map', 'rf', 'runner-run-file', 'TREPLSendFile', 1)
+"   " TODO this doesn't work
+"   call SpacevimBind('nmap', 'rl', 'runner-run-lines', 'TREPLSendLine', 1)
+"   call SpacevimBind('vmap', 'rl', 'runner-run-lines', 'TREPLSendSelection', 1)
+"   " call SpacevimBind('map', 'rR', 'runner-reorient', ':VtrReorientRunner ', 1)
+"   call SpacevimBind('map', 'rx', 'runner-kill', 'Tclose', 1)
+"   call SpacevimBind('map', 'rq', 'runner-clear', 'call neoterm#clear()', 1)
+"   call SpacevimBind('map', 'rc', 'runner-cancel-cmd', 'call neoterm#kill()', 1)
+" else
+" END neovim TODO
 
 " doesn't work well in zsh
 " Plug 'christoomey/vim-run-interactive'
@@ -204,7 +274,21 @@ let g:VtrPercentage = 35
 augroup vtr
   autocmd VimLeavePre * :VtrKillRunner
 augroup END
+call SpacevimBind('map', 'rs', 'runner-open', 'VtrOpenRunner', 1)
+call SpacevimBind('map', 'rf', 'runner-run-file', 'VtrSendFile!', 1)
+call SpacevimBind('map', 'rl', 'runner-run-lines', 'VtrSendLinesToRunner!', 1)
+call SpacevimBind('map', 'rr', 'runner-rerun', 'VtrSendCommandToRunner!', 1)
+call SpacevimBind('map', 'rc', 'runner-run-custom', ':VtrSendCommandToRunner! ', 0)
+" call SpacevimBind('map', 'rR', 'runner-reorient', ':VtrReorientRunner ', 1)
+call SpacevimBind('map', 'rx', 'runner-kill', ':VtrKillRunner ', 1)
+
 " Plug 'benmills/vimux'
+" map <Leader>rf :call VimuxRunCommand("python " . bufname("%"))<CR>
+" map <Leader>rs :call VimuxRunCommand("")<CR>
+" map <Leader>rf :call VimuxRunCommand(join(getline(1,'$'), "\n"))<CR>
+" nmap <Leader>rr :call VimuxRunCommand(getline('.'))<CR>
+" vmap <Leader>rr :call VimuxRunCommand(Get_visual_selection())<CR>
+" map <Leader>rc :VimuxCloseRunner<CR>
 
 " NOTE: doesn't really work properly
 " Plug 'ervandew/screen'
@@ -479,36 +563,24 @@ Plug 'szw/vim-maximizer'
 Plug 'tpope/vim-eunuch'
 
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+" TODO: try
+" Plug 'Xuyuanp/nerdtree-git-plugin'
+" Plug 'jistr/vim-nerdtree-tabs'
 
 " TO TRY OUT?
 "  justinmk/vim-sneak
 
-Plug 'easymotion/vim-easymotion'
+" Plug 'easymotion/vim-easymotion'
 " rebind leader to single key instead of 2
 " map <Leader> <Plug>(easymotion-prefix)
 " map <Leader>w <Plug>(easymotion-bd-w)
 " map <Leader>t <Plug>(easymotion-bd-tl)
 " map <Leader>f <Plug>(easymotion-bd-f)
 " Use uppercase target labels and type as a lower case
-let g:EasyMotion_use_upper = 1
+" let g:EasyMotion_use_upper = 1
 " nmap <Tab> <Plug>(easymotion-bd-jk)
 " nmap <Tab><Tab> <Plug>(easymotion-jumptoanywhere)
 
-"""""""""""""
-" spacevim!
-"""""""""""""
-
-Plug 'hecal3/vim-leader-guide'
-set timeoutlen=400
-
-Plug 'ctjhoa/spacevim'
-let mapleader = "\<Space>"
-
-Plug 'vim-airline/vim-airline'
-" enable status line always
-set laststatus=2
-let g:airline_left_sep=''
-let g:airline_right_sep=''
 
 call plug#end()
 " automatically calls:

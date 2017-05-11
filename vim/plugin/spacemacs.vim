@@ -27,20 +27,6 @@ function! Get_visual_selection()
   return join(lines, "\n")
 endfunction
 
-" map <Leader>rf :call VimuxRunCommand("python " . bufname("%"))<CR>
-" map <Leader>rs :call VimuxRunCommand("")<CR>
-" map <Leader>rf :call VimuxRunCommand(join(getline(1,'$'), "\n"))<CR>
-" nmap <Leader>rr :call VimuxRunCommand(getline('.'))<CR>
-" vmap <Leader>rr :call VimuxRunCommand(Get_visual_selection())<CR>
-" map <Leader>rc :VimuxCloseRunner<CR>
-call s:spacevim_bind('map', 'rs', 'runner-open', 'VtrOpenRunner', 1)
-call s:spacevim_bind('map', 'rf', 'runner-run-file', 'VtrSendFile!', 1)
-call s:spacevim_bind('map', 'rl', 'runner-run-lines', 'VtrSendLinesToRunner!', 1)
-call s:spacevim_bind('map', 'rr', 'runner-rerun', 'VtrSendCommandToRunner!', 1)
-call s:spacevim_bind('map', 'rc', 'runner-run-custom', ':VtrSendCommandToRunner! ', 0)
-" call s:spacevim_bind('map', 'rR', 'runner-reorient', ':VtrReorientRunner ', 1)
-call s:spacevim_bind('map', 'rx', 'runner-kill', ':VtrKillRunner ', 1)
-
 call s:spacevim_bind('map', 'fx', 'file-save-quit', ':w<CR>:bd', 1)
 
 "toggle
