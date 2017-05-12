@@ -226,76 +226,80 @@ Plug 'tpope/vim-abolish'
 Plug 'pelodelfuego/vim-swoop'
 " Possibly try instead: Olical/vim-enmasse
 
-" TODO: get this to work
 " if has('nvim')
-"   tnoremap <Esc> <C-\><C-n>
-"   tnoremap <C-h> <C-\><C-N><C-w>h
-"   tnoremap <C-j> <C-\><C-N><C-w>j
-"   tnoremap <C-k> <C-\><C-N><C-w>k
-"   tnoremap <C-l> <C-\><C-N><C-w>l
-"
-"   autocmd BufWinEnter,WinEnter term://* startinsert
-"   autocmd BufLeave term://* stopinsert
-"
-"   " doesn't have stupid VtrKillRunner lag, doesn't require tmux
-"   Plug 'kassio/neoterm'
-"   let g:neoterm_position = 'vertical' " 'horizontal'
-"   " TODO: possibly useful (untested), run particular command
-"   " store command by :TMap <command>
-"   " then run with mapping:
-"   " let g:neoterm_automap_keys = '\<Space>rr'
-"
-"   " NOTE: Topen will instead resume a previous terminal, if that's better
-"   call SpacevimBind('map', 'rs', 'runner-open', 'Tnew', 1)
-"   call SpacevimBind('map', 'rf', 'runner-run-file', 'TREPLSendFile', 1)
-"   " TODO this doesn't work
-"   call SpacevimBind('nmap', 'rl', 'runner-run-lines', 'TREPLSendLine', 1)
-"   call SpacevimBind('vmap', 'rl', 'runner-run-lines', 'TREPLSendSelection', 1)
-"   " call SpacevimBind('map', 'rR', 'runner-reorient', ':VtrReorientRunner ', 1)
-"   call SpacevimBind('map', 'rx', 'runner-kill', 'Tclose', 1)
-"   call SpacevimBind('map', 'rq', 'runner-clear', 'call neoterm#clear()', 1)
-"   call SpacevimBind('map', 'rc', 'runner-cancel-cmd', 'call neoterm#kill()', 1)
-" else
-" END neovim TODO
+if 0
+  " NOTE: this messes with fzf
+  " tnoremap <Esc> <C-\><C-n>
+  " tnoremap <Esc> <C-\><C-n>:Tclose<CR>
+  tnoremap <C-s> <C-\><C-n>
+  tnoremap <C-h> <C-\><C-N><C-w>h
+  tnoremap <C-j> <C-\><C-N><C-w>j
+  tnoremap <C-k> <C-\><C-N><C-w>k
+  tnoremap <C-l> <C-\><C-N><C-w>l
 
-" doesn't work well in zsh
-" Plug 'christoomey/vim-run-interactive'
-" nnoremap <leader>~ :RunInInteractiveShell zsh<cr>
+  autocmd BufWinEnter,WinEnter term://* startinsert
+  autocmd BufLeave term://* stopinsert
 
-Plug 'christoomey/vim-tmux-navigator'
-Plug 'christoomey/vim-tmux-runner'
-let g:VtrGitCdUpOnOpen = 1
-let g:VtrStripLeadingWhitespace = 0
-let g:VtrClearEmptyLines = 0
-let g:VtrAppendNewline = 1
-" horizontal is nicer, but messes with copy-paste
-" let g:VtrOrientation = "h"
-let g:VtrPercentage = 35
-augroup vtr
-  autocmd VimLeavePre * :VtrKillRunner
-augroup END
-call SpacevimBind('map', 'rs', 'runner-open', 'VtrOpenRunner', 1)
-call SpacevimBind('map', 'rf', 'runner-run-file', 'VtrSendFile!', 1)
-call SpacevimBind('map', 'rl', 'runner-run-lines', 'VtrSendLinesToRunner!', 1)
-call SpacevimBind('map', 'rr', 'runner-rerun', 'VtrSendCommandToRunner!', 1)
-call SpacevimBind('map', 'rc', 'runner-run-custom', ':VtrSendCommandToRunner! ', 0)
-" call SpacevimBind('map', 'rR', 'runner-reorient', ':VtrReorientRunner ', 1)
-call SpacevimBind('map', 'rx', 'runner-kill', ':VtrKillRunner ', 1)
+  " doesn't have stupid VtrKillRunner lag, doesn't require tmux
+  Plug 'kassio/neoterm'
 
-" Plug 'benmills/vimux'
-" map <Leader>rf :call VimuxRunCommand("python " . bufname("%"))<CR>
-" map <Leader>rs :call VimuxRunCommand("")<CR>
-" map <Leader>rf :call VimuxRunCommand(join(getline(1,'$'), "\n"))<CR>
-" nmap <Leader>rr :call VimuxRunCommand(getline('.'))<CR>
-" vmap <Leader>rr :call VimuxRunCommand(Get_visual_selection())<CR>
-" map <Leader>rc :VimuxCloseRunner<CR>
+  let g:neoterm_eof = "\r"
+  let g:neoterm_position = 'vertical' " 'horizontal'
+  " TODO: possibly useful (untested), run particular command
+  " store command by :TMap <command>
+  " then run with mapping:
+  " let g:neoterm_automap_keys = '\<Space>rr'
 
-" NOTE: doesn't really work properly
-" Plug 'ervandew/screen'
-" let g:ScreenImpl = 'Tmux'
-" nnoremap <leader>ass :ScreenShell<cr>
-" nnoremap <leader>asr V:ScreenSend<cr>
-" vnoremap <leader>asr :ScreenSend<cr>
+  " NOTE: Topen will instead resume a previous terminal, if that's better
+  call SpacevimBind('map', 'rs', 'runner-open', 'Tnew', 1)
+  call SpacevimBind('map', 'rf', 'runner-run-file', 'TREPLSendFile', 1)
+  call SpacevimBind('nmap', 'rl', 'runner-run-lines', 'TREPLSendLine', 1)
+  " TODO this doesn't work for multi-line
+  call SpacevimBind('vmap', 'rl', 'runner-run-lines', 'TREPLSendSelection', 1)
+  " call SpacevimBind('map', 'rR', 'runner-reorient', ':VtrReorientRunner ', 1)
+  call SpacevimBind('map', 'rx', 'runner-kill', 'Tclose', 1)
+  call SpacevimBind('map', 'rq', 'runner-clear', 'call neoterm#clear()', 1)
+  call SpacevimBind('map', 'rc', 'runner-cancel-cmd', 'call neoterm#kill()', 1)
+else
+  " doesn't work well in zsh
+  " Plug 'christoomey/vim-run-interactive'
+  " nnoremap <leader>~ :RunInInteractiveShell zsh<cr>
+
+  Plug 'christoomey/vim-tmux-navigator'
+  Plug 'christoomey/vim-tmux-runner'
+  let g:VtrGitCdUpOnOpen = 1
+  let g:VtrStripLeadingWhitespace = 0
+  let g:VtrClearEmptyLines = 0
+  let g:VtrAppendNewline = 1
+  " horizontal is nicer, but messes with copy-paste
+  " let g:VtrOrientation = "h"
+  let g:VtrPercentage = 35
+  augroup vtr
+    autocmd VimLeavePre * :VtrKillRunner
+  augroup END
+  call SpacevimBind('map', 'rs', 'runner-open', 'VtrOpenRunner', 1)
+  call SpacevimBind('map', 'rf', 'runner-run-file', 'VtrSendFile!', 1)
+  call SpacevimBind('map', 'rl', 'runner-run-lines', 'VtrSendLinesToRunner!', 1)
+  call SpacevimBind('map', 'rr', 'runner-rerun', 'VtrSendCommandToRunner!', 1)
+  call SpacevimBind('map', 'rc', 'runner-run-custom', ':VtrSendCommandToRunner! ', 0)
+  " call SpacevimBind('map', 'rR', 'runner-reorient', ':VtrReorientRunner ', 1)
+  call SpacevimBind('map', 'rx', 'runner-kill', ':VtrKillRunner ', 1)
+
+  " Plug 'benmills/vimux'
+  " map <Leader>rf :call VimuxRunCommand("python " . bufname("%"))<CR>
+  " map <Leader>rs :call VimuxRunCommand("")<CR>
+  " map <Leader>rf :call VimuxRunCommand(join(getline(1,'$'), "\n"))<CR>
+  " nmap <Leader>rr :call VimuxRunCommand(getline('.'))<CR>
+  " vmap <Leader>rr :call VimuxRunCommand(Get_visual_selection())<CR>
+  " map <Leader>rc :VimuxCloseRunner<CR>
+
+  " NOTE: doesn't really work properly
+  " Plug 'ervandew/screen'
+  " let g:ScreenImpl = 'Tmux'
+  " nnoremap <leader>ass :ScreenShell<cr>
+  " nnoremap <leader>asr V:ScreenSend<cr>
+  " vnoremap <leader>asr :ScreenSend<cr>
+endif
 
 """""""""""""
 " version control
