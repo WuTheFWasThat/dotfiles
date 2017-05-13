@@ -88,9 +88,8 @@ nnoremap K i<cr><esc>
 nnoremap > >>
 nnoremap < <<
 
-" TODO: these can't possibly both work
 " don't lose register contents when pasting in visual mode
-" vnoremap p "_dp
+vnoremap p "_dP
 
 " Use Vim settings, rather then Vi settings (much better!).
 " This must be first, because it changes other options as a side effect.
@@ -503,9 +502,9 @@ Plug 'kshenoy/vim-signature'
 
 if has('nvim')
   Plug 'bfredl/nvim-miniyank'
-  map p <Plug>(miniyank-autoput)
-  map P <Plug>(miniyank-autoPut)
-  map [ <Plug>(miniyank-cycle)
+  nmap p <Plug>(miniyank-autoput)
+  nmap P <Plug>(miniyank-autoPut)
+  nmap [ <Plug>(miniyank-cycle)
 else
   Plug 'vim-scripts/YankRing.vim'
   let g:yankring_history_dir = expand('$HOME/.vim/')
@@ -613,3 +612,5 @@ set background=dark
 " colorscheme solarized
 " see: http://serverfault.com/questions/268555/how-to-tell-vim-to-extend-the-background-color-to-the-whole-screen
 set t_ut=
+
+
