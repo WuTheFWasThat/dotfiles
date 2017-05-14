@@ -399,7 +399,7 @@ let g:loaded_syntastic_java_javac_checker = 1
 " languages
 """""""""""""
 
-" TODO: try this out
+" TODO: try this out for python
 " Plug 'davidhalter/jedi-vim'
 
 Plug 'sheerun/vim-polyglot'
@@ -552,12 +552,6 @@ let g:indentLine_enabled = 0
 """""""""""""
 Plug 'szw/vim-maximizer'
 " NOTE: causes issues with leader-guide and with toggling syntastic pane
-" TODO: switch workflow away from this
-" Plug 'fholgado/minibufexpl.vim'
-" " let g:miniBufExplMapWindowNavVim = 1
-" let g:miniBufExplMapWindowNavArrows = 1
-" let g:miniBufExplMapCTabSwitchBufs = 1
-" let g:miniBufExplModSelTarget = 1
 
 """""""""""""
 " general utilities

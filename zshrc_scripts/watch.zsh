@@ -62,7 +62,6 @@ watch () {
                     fi
 
                     # Run the command
-                    clear
                     eval $CMD
 
                     # If it succeeded
