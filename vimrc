@@ -351,6 +351,7 @@ nnoremap ` :Marks<cr>
 
 " make tab be awesome
 Plug 'ervandew/supertab'
+set omnifunc=syntaxcomplete#Complete
 
 Plug 'Valloric/YouCompleteMe'
 " don't load until insert mode, see: https://github.com/junegunn/vim-plug/issues/53
@@ -367,7 +368,9 @@ Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 let g:ycm_key_list_select_completion = ['<C-j>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<C-k>', '<Up>']
 " go down the list, not up
-let g:SuperTabDefaultCompletionType = '<C-n>'
+" let g:SuperTabDefaultCompletionType = '<C-n>'
+let g:SuperTabDefaultCompletionType = "<C-X><C-O>"
+
 
 " better key bindings for UltiSnipsExpandTrigger
 let g:UltiSnipsExpandTrigger = "<tab>"
