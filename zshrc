@@ -88,12 +88,13 @@ for file in ~/.zshrc_scripts/*; do
 done
 
 # SEE: https://babushk.in/posts/renew-environment-tmux.html
-function preexec {
-  if [ -n "$TMUX" ]; then
-    export $(tmux show-environment | grep "^SSH_AUTH_SOCK")
-    export $(tmux show-environment | grep "^DISPLAY")
-  fi
-}
+# NOTE: causes issues with prompt display in mosh
+# function preexec {
+#   if [ -n "$TMUX" ]; then
+#     export $(tmux show-environment | grep "^SSH_AUTH_SOCK")
+#     export $(tmux show-environment | grep "^DISPLAY")
+#   fi
+# }
 
 # SEE: https://github.com/creationix/nvm/issues/539#issuecomment-245791291
 export NVM_DIR="$HOME/.nvm"

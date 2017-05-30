@@ -35,6 +35,8 @@ all commands ran from root directory
 
 ## TODO
   - make dotty link zsh-theme, takes A -> B in rcfile
+  - set up git aliases like described in answer here:
+    https://stackoverflow.com/questions/7275508/is-there-a-way-to-squash-a-number-of-commits-non-interactively
   - vim, see .vimrc
   - spacemacs, see .spacemacs
   - vimperator, see .vimperatorrc

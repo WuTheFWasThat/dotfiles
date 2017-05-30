@@ -13,6 +13,8 @@
 " - map R to something useful
 " - map S to something useful
 " - map Q to something useful (it's currently EX mode which is horrible)
+" - try out folds
+"   perhaps with https://stackoverflow.com/questions/7034215/is-there-a-way-to-expand-a-vim-fold-automatically-when-your-put-your-cursor-on-i
 nnoremap Q <nop>
 " - figure out folding
 " - matching parentheses (%) fails after first time, in markdown files??
