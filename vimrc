@@ -323,10 +323,10 @@ Plug 'junegunn/fzf.vim'
 " SEE: https://github.com/junegunn/fzf.vim/issues/66
 " disables use of tmux pane for fzf
 " let g:fzf_layout = {}
-" ctrlp, just cause i'm used to it
-nnoremap <C-p> :GitFiles<cr>
-nnoremap <C-b> :Buffers<cr>
-nnoremap <C-f> :Files<cr>
+nnoremap go :GitFiles<cr>
+nnoremap gb :Buffers<cr>
+" nnoremap <C-f> :Files<cr>
+nnoremap gl :Lines<cr>
 nnoremap ` :Marks<cr>
 " nnoremap <C-f> :Files ~<cr>
 " NOTE: in an fzf query, prepending ' makes a word an exact match
