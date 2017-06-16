@@ -281,6 +281,7 @@
       local file=$(git zf); \
       if [[ -z $file ]]; then return 1; fi; \
       $(git editor) $file; \
+      echo $(git editor) $file; \
     }; f"
     # fuzzy grep (does only one file)
     zgop = "!f() { \
@@ -290,24 +291,28 @@
       local file=${selection%:*}; \
       local line=${selection##*:}; \
       $(git editor) +\"$line\" \"$file\"; \
+      echo $(git editor) +\"$line\" \"$file\"; \
     }; f"
     # fuzzy checkout (could be much improved, have tags, branches, remotes)
     zco = "!f() { \
       local commit=$(git zh); \
       if [[ -z $commit ]]; then return 1; fi; \
       git checkout $commit; \
+      echo git checkout $commit; \
     }; f"
     # fuzzy show
     zsh = "!f() { \
       local commit=$(git zh); \
       if [[ -z $commit ]]; then return 1; fi; \
       git show $commit; \
+      echo git show $commit; \
     }; f"
     # fuzzy diff
     zd = "!f() { \
       local commit=$(git zh); \
       if [[ -z $commit ]]; then return 1; fi; \
       git $(git differ) $commit; \
+      echo git $(git differ) $commit; \
     }; f"
     # TODO: make a single command that lists
     #       commits, tags, branches, remotes
