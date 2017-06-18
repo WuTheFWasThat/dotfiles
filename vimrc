@@ -612,4 +612,56 @@ set background=dark
 " see: http://serverfault.com/questions/268555/how-to-tell-vim-to-extend-the-background-color-to-the-whole-screen
 set t_ut=
 
-
+" NOTE: i found vmail to be meh, this is not all fully tested
+" if !empty($IS_VMAIL)
+"   autocmd FileType vmailMessageList nmap <buffer> * <Plug>VmailToggleStar
+"   autocmd FileType vmailMessageList xmap <buffer> * <Plug>VmailToggleStar
+"   autocmd FileType vmailMessageList nmap <buffer> <leader>mu <Plug>VmailMarkAsUnread
+"   autocmd FileType vmailMessageList xmap <buffer> <leader>mu <Plug>VmailMarkAsUnread
+"   autocmd FileType vmailMessageList nmap <buffer> <leader>mr <Plug>VmailMarkAsRead
+"   autocmd FileType vmailMessageList xmap <buffer> <leader>mr <Plug>VmailMarkAsRead
+"   autocmd FileType vmailMessageList nmap <buffer> # <Plug>VmailDelete
+"   autocmd FileType vmailMessageList xmap <buffer> # <Plug>VmailDelete
+"   " autocmd FileType vmailMessageList nmap <buffer> d <Plug>VmailDelete
+"   " autocmd FileType vmailMessageList xmap <buffer> d <Plug>VmailDelete
+"   autocmd FileType vmailMessageList nmap <buffer> ! <Plug>VmailMarkAsSpam
+"   autocmd FileType vmailMessageList xmap <buffer> ! <Plug>VmailMarkAsSpam
+"   autocmd FileType vmailMessageList nmap <buffer> e <Plug>VmailArchiveMessage
+"   autocmd FileType vmailMessageList xmap <buffer> e <Plug>VmailArchiveMessage
+"   autocmd FileType vmailMessageList nmap <buffer> <leader>mp <Plug>VmailAppendMessagesToFile
+"   autocmd FileType vmailMessageList xmap <buffer> <leader>mp <Plug>VmailAppendMessagesToFile
+"   autocmd FileType vmailMessageList nmap <buffer> <leader>m/ <Plug>VmailSearch
+"   autocmd FileType vmailMessageList nmap <buffer> m <Plug>VmailSwitchMailbox
+"   autocmd FileType vmailMessageList nmap <buffer> <leader>mv <Plug>VmailMoveToMailbox
+"   autocmd FileType vmailMessageList xmap <buffer> <leader>mv <Plug>VmailMoveToMailbox
+"   autocmd FileType vmailMessageList nmap <buffer> <leader>mc <Plug>VmailCopyToMailbox
+"   autocmd FileType vmailMessageList xmap <buffer> <leader>mc <Plug>VmailCopyToMailbox
+"   autocmd FileType vmailMessageList nmap <buffer> c <Plug>VmailComposeNew
+"   autocmd FileType vmailMessageList nmap <buffer> r <Plug>VmailComposeReply
+"   autocmd FileType vmailMessageList nmap <buffer> a <Plug>VmailComposeReplyAll
+"   autocmd FileType vmailMessageList nmap <buffer> f <Plug>VmailForward
+"   autocmd FileType vmailMessageList nmap <buffer> o <Plug>VmailOpenMessage
+"   autocmd FileType vmailMessageList nmap <buffer> <CR> <Plug>VmailToggleWindow
+" 
+"   autocmd FileType mail nmap <buffer> r <Plug>VmailMessageWindow_Reply
+"   autocmd FileType mail nmap <buffer> a <Plug>VmailMessageWindow_ReplyToAll
+"   autocmd FileType mail nmap <buffer> f <Plug>VmailMessageWindow_Forward
+"   autocmd FileType mail nmap <buffer> R <Plug>VmailMessageWindow_ShowRaw
+"   autocmd FileType mail nmap <buffer> <C-j> <Plug>VmailMessageWindow_ShowNext
+"   autocmd FileType mail nmap <buffer> <C-k> <Plug>VmailMessageWindow_ShowPrev
+"   autocmd FileType mail nmap <buffer> c <Plug>VmailMessageWindow_ComposeMessage
+"   autocmd FileType mail nmap <buffer> # <Plug>VmailMessageWindow_DeleteMessage
+"   autocmd FileType mail nmap <buffer> * <Plug>VmailMessageWindow_ToggleStar
+"   autocmd FileType mail nmap <buffer> <leader>mr <Plug>VmailMessageWindow_MarkAsRead
+"   autocmd FileType mail nmap <buffer> <leader>mu <Plug>VmailMessageWindow_MarkAsUnread
+"   autocmd FileType mail nmap <buffer> ! <Plug>VmailMessageWindow_MarkAsSpam
+"   autocmd FileType mail nmap <buffer> e <Plug>VmailMessageWindow_ArchiveMessage
+"   autocmd FileType mail nmap <buffer> <leader>mv <Plug>VmailMessageWindow_MoveToMailbox
+"   autocmd FileType mail nmap <buffer> <leader>mc <Plug>VmailMessageWindow_CopyToMailbox
+"   autocmd FileType mail nmap <buffer> m <Plug>VmailMessageWindow_SwitchMailBox
+"   autocmd FileType mail nmap <buffer> <leader>mA <Plug>VmailMessageWindow_SaveAttachment
+"   autocmd FileType mail nmap <buffer> <CR> <Plug>VmailMessageWindow_ToggleWindow
+"   autocmd FileType mail nmap <buffer> <leader>mp <Plug>VmailMessageWindow_AppendMessagesToFile
+"   autocmd FileType mail nmap <buffer> <leader>m/ <Plug>VmailMessageWindow_Search
+"   autocmd Filetype mail nnoremap <silent> <leader>ms :call <SID>send_message()<CR>
+" endif
