@@ -66,9 +66,9 @@ augroup misc
   " Don't do it when the position is invalid or when inside an event handler
   " (happens when dropping a file on gvim).
   autocmd BufReadPost *
-    \ if line("'\"") > 0 && line("'\"") <= line("$") |
-    \   exe "normal g`\"" |
-    \ endif
+        \ if line("'\"") > 0 && line("'\"") <= line("$") |
+        \   exe "normal g`\"" |
+        \ endif
 augroup END
 
 " parentheses matching highlight colors
@@ -157,12 +157,12 @@ augroup suffixes
   autocmd!
 
   let associations = [
-              \["javascript", ".js,.jsx,.javascript,.es,.esx,.json"],
-              \["python", ".py,.pyw"]
-              \]
+        \["javascript", ".js,.jsx,.javascript,.es,.esx,.json"],
+        \["python", ".py,.pyw"]
+        \]
 
   for ft in associations
-      execute "autocmd FileType " . ft[0] . " setlocal suffixesadd=" . ft[1]
+    execute "autocmd FileType " . ft[0] . " setlocal suffixesadd=" . ft[1]
   endfor
 augroup END
 
@@ -452,7 +452,7 @@ set grepprg=grep\ -nH\ $*
 Plug 'Chiel92/vim-autoformat'
 " let g:autoformat_autoindent = 0
 " let g:autoformat_retab = 0
-" au BufWrite * :Autoformat
+" autocmd BufWrite * :Autoformat
 " let g:autoformat_remove_trailing_spaces = 0
 
 Plug 'Raimondi/delimitMate'
@@ -572,18 +572,6 @@ Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 " TO TRY OUT?
 "  justinmk/vim-sneak
 
-" Plug 'easymotion/vim-easymotion'
-" rebind leader to single key instead of 2
-" map <Leader> <Plug>(easymotion-prefix)
-" map <Leader>w <Plug>(easymotion-bd-w)
-" map <Leader>t <Plug>(easymotion-bd-tl)
-" map <Leader>f <Plug>(easymotion-bd-f)
-" Use uppercase target labels and type as a lower case
-" let g:EasyMotion_use_upper = 1
-" nmap <Tab> <Plug>(easymotion-bd-jk)
-" nmap <Tab><Tab> <Plug>(easymotion-jumptoanywhere)
-
-
 call plug#end()
 " automatically calls:
 " - filetype plugin indent on
@@ -642,7 +630,7 @@ set t_ut=
 "   autocmd FileType vmailMessageList nmap <buffer> f <Plug>VmailForward
 "   autocmd FileType vmailMessageList nmap <buffer> o <Plug>VmailOpenMessage
 "   autocmd FileType vmailMessageList nmap <buffer> <CR> <Plug>VmailToggleWindow
-" 
+"
 "   autocmd FileType mail nmap <buffer> r <Plug>VmailMessageWindow_Reply
 "   autocmd FileType mail nmap <buffer> a <Plug>VmailMessageWindow_ReplyToAll
 "   autocmd FileType mail nmap <buffer> f <Plug>VmailMessageWindow_Forward

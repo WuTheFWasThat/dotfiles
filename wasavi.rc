@@ -1,0 +1,5 @@
+" exrc for wasavi
+set noerrorbells
+set nolaunchbell
+map ; :
+map <C-enter> ZZ
