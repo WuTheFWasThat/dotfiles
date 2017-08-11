@@ -68,8 +68,8 @@ map , <Leader>
 
 " tab operation {{{2
 nnoremap <C-b> b
-nnoremap <C-h> gT
-nnoremap <C-l> gt
+" nnoremap <C-h> gT
+" nnoremap <C-l> gt
 nnoremap <Leader>bp gT
 nnoremap <Leader>bn gt
 nnoremap <Leader>bl :b#<CR>
@@ -78,6 +78,11 @@ nnoremap <C-k> gT
 " reorder tabs
 noremap <C-p> :tabmove! -1<CR>
 noremap <C-n> :tabmove! +1<CR>
+
+" jump to previous tab
+nnoremap <C-l> <C-6>
+" not working
+" nnoremap <A-q> <C-6>
 
 nnoremap <Leader>fed :source ~/.vimperatorrc<cr>
 " TODO cant... :echo "Configuration reloaded."<cr>
