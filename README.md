@@ -52,6 +52,9 @@ all commands ran from root directory
   - alias pip to pipenv
     https://github.com/kennethreitz/pipenv
 
+  - on remote machines, often useful to install:
+    https://github.com/skaji/remote-pbcopy-iterm2
+
 ## found to be meh
   - install vmail
     - make a vmailrc from the vmailrc.template

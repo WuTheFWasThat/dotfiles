@@ -572,6 +572,15 @@ Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 " TO TRY OUT?
 "  justinmk/vim-sneak
 
+" control c copies to clipboard in visual mode
+" no way to do command key in regular vim... maybe neovim though?
+" If on a local machine:
+vnoremap <C-c> "+y
+nnoremap <C-c> "+y
+" If installing on a remote machine, do this instead:
+" Plug 'haya14busa/vim-poweryank'
+" map <C-c> <Plug>(operator-poweryank-osc52)
+
 call plug#end()
 " automatically calls:
 " - filetype plugin indent on
@@ -582,11 +591,6 @@ call plug#end()
 
 " http://vim.wikia.com/wiki/Mac_OS_X_clipboard_sharing
 " set clipboard=unnamed
-
-" control c copies to clipboard in visual mode
-" no way to do command key in regular vim... maybe neovim though?
-vnoremap <C-c> "+y
-nnoremap <C-c> "+y
 
 " faster switch buffers
 nnoremap <tab> <Esc>:bn<CR>
