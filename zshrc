@@ -53,7 +53,7 @@ plugins=(git extract osx)
 
 # User configuration
 
-export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+# export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # automatically upgrade
@@ -80,7 +80,7 @@ export PATH=$PATH:~/.multirust/toolchains/stable/cargo/bin
 export PATH=$PATH:~/.multirust/toolchains/1.5.0/cargo/bin
 export PATH=$PATH:~/Library/Haskell/bin
 export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.5/bin/
-export PATH=$HOME/.yarn/bin:$PATH
+export PATH=$PATH:$HOME/.yarn/bin
 export RUST_BACKTRACE=1
 
 for file in ~/.zshrc_scripts/*; do

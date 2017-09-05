@@ -42,6 +42,12 @@ function toggleCustomStyle() {
       #masthead-positioner {
         z-index: 0 !important;
       }
+      #container {
+        display: none;
+      }
+      #main {
+        display: none;
+      }
     `, styleElemId);
   }
 }

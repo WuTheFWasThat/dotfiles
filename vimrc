@@ -400,6 +400,9 @@ let g:syntastic_html_tidy_ignore_errors=[ "proprietary attribute" ,"trimming emp
 " maybe undo this if i switch from intellij
 let g:loaded_syntastic_java_javac_checker = 1
 
+" for python 3
+let g:syntastic_python_python_exec = 'python3'
+
 """""""""""""
 " languages
 """""""""""""
