@@ -36,6 +36,8 @@ call s:spacevim_bind('map', 'ti', 'toggle-indent-lines', 'IndentLinesToggle', 1)
 call s:spacevim_bind('map', 'tn', 'toggle-line-numbers', ':setlocal invnumber<CR>:setlocal invrelativenumber<CR>', 0)
 call s:spacevim_bind('map', 'tg', 'toggle-git-gutter', 'GitGutterToggle', 1)
 
+call s:spacevim_bind('map', '/', 'search-current-file', 'BLines', 1)
+
 " project
 function! spacemacs#toggleExplorerAtRoot()
   if exists(':ProjectRootExe')
