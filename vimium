@@ -1,0 +1,55 @@
+# Insert your preferred key mappings here.
+# map <m-t> Vomnibar.activateInNewTab # this doesnt work
+map <c-t> Vomnibar.activateInNewTab
+map <c-a> Vomnibar.activateTabSelection
+
+map <c-b> Vomnibar.activateTabSelection
+# unmap b
+# unmap B
+map <space>bp previousTab
+map <space>bn nextTab
+unmap x
+map <c-h> previousTab
+map <c-l> nextTab
+map <c-b> visitPreviousTab
+map <space>bb visitPreviousTab
+map t Vomnibar.activateTabSelection
+unmap T
+unmap <c-e>
+unmap <c-y>
+unmap d
+unmap u
+map <c-d> scrollPageDown
+map <c-u> scrollPageUp
+map <c-w> removeTab
+
+unmap H
+unmap L
+map <c-o> goBack
+map <c-i> goForward
+
+unmap J
+unmap K
+map <c-h> previousTab
+map <c-l> nextTab
+
+
+unmap ^
+map <c-q> visitPreviousTab
+
+# Search engines:
+# w: http://www.wikipedia.org/w/index.php?title=Special:Search&search=%s Wikipedia
+# g: http://www.google.com/search?q=%s Google
+# gl: http://www.google.com/search?q=%s&btnI I'm feeling lucky...
+# y: http://www.youtube.com/results?search_query=%s Youtube
+# m: https://www.google.com/maps?q=%s Google maps
+# az: http://www.amazon.com/s/?field-keywords=%s Amazon
+
+# More examples.
+#
+# (Vimium supports search completion Wikipedia, as
+# above, and for these.)
+#
+# b: https://www.bing.com/search?q=%s Bing
+# d: https://duckduckgo.com/?q=%s DuckDuckGo
+# qw: https://www.qwant.com/?q=%s Qwant
