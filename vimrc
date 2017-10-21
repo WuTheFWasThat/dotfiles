@@ -5,6 +5,7 @@
 " time vim +qa
 
 " TODO LIST:
+" -  switch from syntastic to ALE https://vimawesome.com/plugin/ale
 " - way to make <leader>tn toggle relative number also
 " - some solution for tags
 "     instructions will need to then include
@@ -13,11 +14,20 @@
 " - map R to something useful
 " - map S to something useful
 " - map Q to something useful (it's currently EX mode which is horrible)
+nnoremap Q <nop>
 " - try out folds
 "   perhaps with https://stackoverflow.com/questions/7034215/is-there-a-way-to-expand-a-vim-fold-automatically-when-your-put-your-cursor-on-i
-nnoremap Q <nop>
 " - figure out folding
 " - matching parentheses (%) fails after first time, in markdown files??
+" - detect shiftwidth and expandtab automatically: https://vimawesome.com/plugin/sleuth-vim
+"
+"  - Neovim only: Deoplete, it shows a list of completions/typedefs/etc without any kind of slowdown https://github.com/Shougo/deoplete.nvim
+"    similar plugins:
+"     - https://github.com/prabirshrestha/asyncomplete.vim
+"     - https://github.com/lifepillar/vim-mucomplete
+"     - https://github.com/roxma/nvim-completion-manager
+"     - https://github.com/maralla/completor.vim (targeting vim8)
+"  - https://github.com/roman/golden-ratio for smaller screens?
 
 "set foldmethod=indent
 ""hi Folded guifg=white guibg=black ctermfg=white ctermbg=black
@@ -461,7 +471,12 @@ Plug 'Chiel92/vim-autoformat'
 Plug 'Raimondi/delimitMate'
 " Plug 'vim-scripts/tComment'
 Plug 'tpope/vim-commentary'
+xmap <Leader>;  <Plug>Commentary
+nmap <Leader>;  <Plug>Commentary
+omap <Leader>;  <Plug>Commentary
+nmap <Leader>;; <Plug>CommentaryLine
 Plug 'tpope/vim-surround'
+Plug 'docunext/closetag.vim'
 Plug 'michaeljsmith/vim-indent-object'
 " visual mode should just use s to surround
 vmap s S

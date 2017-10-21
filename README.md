@@ -37,7 +37,9 @@ all commands ran from root directory
   - make dotty link zsh-theme, takes A -> B in rcfile
   - set up git aliases like described in answer here:
     https://stackoverflow.com/questions/7275508/is-there-a-way-to-squash-a-number-of-commits-non-interactively
+  - integrate ripgrep into workflow http://owen.cymru/fzf-ripgrep-navigate-with-bash-faster-than-ever-before/
   - vim, see .vimrc
+  - maybe try intsead of fzf: https://github.com/jhawthorn/fzy
   - spacemacs, see .spacemacs
   - vimperator, see .vimperatorrc
   - for neovim

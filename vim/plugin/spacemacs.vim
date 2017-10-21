@@ -104,6 +104,6 @@ function! ToggleSaveAutoGroup()
 endfunction
 
 call s:spacevim_bind('map', 'tw', 'toggle-onsave-strip', ':call ToggleSaveAutoGroup()', 1)
-" call ToggleSaveAutoGroup()
+call ToggleSaveAutoGroup()
 
 " TODO: folding
