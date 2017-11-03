@@ -28,6 +28,7 @@ nnoremap Q <nop>
 "     - https://github.com/roxma/nvim-completion-manager
 "     - https://github.com/maralla/completor.vim (targeting vim8)
 "  - https://github.com/roman/golden-ratio for smaller screens?
+"  - no more incsearch? https://medium.com/@haya14busa/incsearch-vim-is-dead-long-live-incsearch-2b7070d55250
 
 "set foldmethod=indent
 ""hi Folded guifg=white guibg=black ctermfg=white ctermbg=black

@@ -48,6 +48,9 @@ function toggleCustomStyle() {
       #main {
         display: none;
       }
+      #items {
+        display: none;
+      }
     `, styleElemId);
   }
 }
@@ -56,7 +59,7 @@ function toggleCustomStyle() {
 toggleCustomStyle();
 
 function togglePlay() {
-  $('.ytp-play-button').click();
+  document.getElementsByClassName("ytp-play-button")[0].click();
 }
 
 document.addEventListener("keydown", function(e) {
@@ -68,6 +71,7 @@ document.addEventListener("keydown", function(e) {
   }
 }, false);
 
+/*
 function loadScript(src, callback) {
   var el = document.createElement('script');
   el.src = src;
@@ -85,3 +89,4 @@ function loadJquery(callback) {
 loadJquery(function($) {
   window.$ = $;
 });
+*/

@@ -3,6 +3,12 @@
 map <c-t> Vomnibar.activateInNewTab
 map <c-a> Vomnibar.activateTabSelection
 
+unmap <up>
+unmap <down>
+unmap <right>
+unmap <left>
+
+map b Vomnibar.activateTabSelection
 map <c-b> Vomnibar.activateTabSelection
 # unmap b
 # unmap B
@@ -32,6 +38,9 @@ unmap J
 unmap K
 map <c-h> previousTab
 map <c-l> nextTab
+# more sensible with firefox
+map <c-k> previousTab
+map <c-j> nextTab
 
 
 unmap ^
