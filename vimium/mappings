@@ -45,3 +45,6 @@ map <c-j> nextTab
 
 unmap ^
 map <c-q> visitPreviousTab
+
+unmap <a-p>
+map gp togglePinTab
