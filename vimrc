@@ -131,6 +131,12 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
+" resize windows
+" TODO: find better solution..
+nnoremap <C-W>h <C-w>>
+nnoremap <C-W>j <C-w>+
+nnoremap <C-W>k <C-w>-
+nnoremap <C-W>l <C-w><
 
 "====[ Make the 81st column stand out ]====================
 "
