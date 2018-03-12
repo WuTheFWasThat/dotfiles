@@ -78,6 +78,9 @@ nnoremap <C-k> gT
 " reorder tabs
 noremap <C-p> :tabmove! -1<CR>
 noremap <C-n> :tabmove! +1<CR>
+" new tab
+nnoremap g o
+nnoremap G t
 
 " jump to previous tab
 nnoremap <C-l> <C-6>
@@ -101,9 +104,11 @@ nnoremap <Leader>ta :set gui=invaddons,invmenu,invnavigation<CR>
 " Scroll faster.
 " nnoremap j 10j
 " nnoremap k 10k
-let g:smoozy_scroll_impulse="1000"
+let g:smoozy_scroll_impulse="1500"
 let g:smoozy_scroll_interval="10"
 source ~/.vimperator/plugin/smoozy.js
+
+set editor='bash -lc "mvim -f \$*" mvim '
 
 " TODO:
 " - Calling up Vim itself with C-i in a textarea?
