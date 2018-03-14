@@ -189,6 +189,7 @@
     lom = log origin/master
     lg = log
     hash = rev-parse HEAD
+    shash = rev-parse --short HEAD
     rl = reflog show --date=relative
 
     # file tools

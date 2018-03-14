@@ -101,9 +101,6 @@ nnoremap K i<cr><esc>
 nnoremap > >>
 nnoremap < <<
 
-" don't lose register contents when pasting in visual mode
-vnoremap p "_dP
-
 " Use Vim settings, rather then Vi settings (much better!).
 " This must be first, because it changes other options as a side effect.
 set nocompatible
@@ -628,6 +625,15 @@ set background=dark
 " colorscheme solarized
 " see: http://serverfault.com/questions/268555/how-to-tell-vim-to-extend-the-background-color-to-the-whole-screen
 set t_ut=
+
+" https://stackoverflow.com/questions/290465/how-to-paste-over-without-overwriting-register
+" don't lose register contents when pasting in visual mode
+" xnoremap p "_dP
+function! YRRunAfterMaps()
+  " From Steve Losh, Preserve the yank post selection/put.
+  " NOTE: doesn't work in nvim
+  vnoremap p :<c-u>YRPaste 'p', 'v'<cr>gv:YRYankRange 'v'<cr>
+endfunction
 
 " NOTE: i found vmail to be meh, this is not all fully tested
 " if !empty($IS_VMAIL)
