@@ -47,6 +47,8 @@ watch () {
 
     local CTIME=$(printf "%i" $(date "+%s"))
     local mtime
+    # Run the command
+    eval $CMD
     while :; do
         sleep 1
         # Check if any files have changed
