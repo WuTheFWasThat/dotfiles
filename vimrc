@@ -527,17 +527,17 @@ Plug 'kshenoy/vim-signature'
 "       plus, doesn't work with yankring properly
 " nnoremap p p=`]
 
-if has('nvim')
-  Plug 'bfredl/nvim-miniyank'
-  nmap p <Plug>(miniyank-autoput)
-  nmap P <Plug>(miniyank-autoPut)
-  nmap [ <Plug>(miniyank-cycle)
-else
-  Plug 'vim-scripts/YankRing.vim'
-  let g:yankring_history_dir = expand('$HOME/.vim/')
-  let g:yankring_replace_n_pkey = '['
-  let g:yankring_replace_n_nkey = ']'
-endif
+" if has('nvim')
+"   Plug 'bfredl/nvim-miniyank'
+"   nmap p <Plug>(miniyank-autoput)
+"   nmap P <Plug>(miniyank-autoPut)
+"   nmap [ <Plug>(miniyank-cycle)
+" else
+Plug 'vim-scripts/YankRing.vim'
+let g:yankring_history_dir = expand('$HOME/.vim/')
+let g:yankring_replace_n_pkey = '['
+let g:yankring_replace_n_nkey = ']'
+" endif
 
 Plug 'AndrewRadev/splitjoin.vim'
 let g:splitjoin_split_mapping = ''
@@ -631,7 +631,6 @@ set t_ut=
 " xnoremap p "_dP
 function! YRRunAfterMaps()
   " From Steve Losh, Preserve the yank post selection/put.
-  " NOTE: doesn't work in nvim
   vnoremap p :<c-u>YRPaste 'p', 'v'<cr>gv:YRYankRange 'v'<cr>
 endfunction
 
