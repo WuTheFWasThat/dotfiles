@@ -276,6 +276,13 @@
       if [[ -z $file ]]; then return 1; fi; \
       echo \"$file\"; \
     }; f"
+    # get branch
+    # consider: g branch -a --format '%(refname); \
+    zb = "!f() { \
+      local branch=$(git branch -a | fzf -m); \
+      if [[ -z $branch ]]; then return 1; fi; \
+      echo \"$branch\"; \
+    }; f"
     # fuzzy open
     zop = "!f() { \
       local file=$(git zf); \
