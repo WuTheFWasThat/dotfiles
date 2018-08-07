@@ -1,0 +1,45 @@
+! 10/18/2017, 9:40:41 PM https://www.wsj.com/articles/protecting-against-ais-existential-threat-1508332313
+www.wsj.com###trending_now > .zonedModule > .trending_now.module > .trending_videos
+
+! 10/18/2017, 9:40:51 PM https://www.wsj.com/articles/protecting-against-ais-existential-threat-1508332313
+www.wsj.com###trending_now > .zonedModule > .trending_now.module > .trending_articles
+
+! 10/22/2017, 2:04:26 PM https://go.twitch.tv/DreamHackSmash
+go.twitch.tv##.relative.flex-nowrap.flex-grow-1.flex-column.flex.overflow-hidden.full-height.chat__pane
+
+! 10/22/2017, 2:09:39 PM https://go.twitch.tv/DreamHackSmash
+go.twitch.tv##.pd-2.mg-b-2.full-width.c-background.border--marked.border-b.border-r.border-t.channel-login-upsell
+
+! 10/22/2017, 2:10:01 PM https://go.twitch.tv/DreamHackSmash
+go.twitch.tv##.ps--theme_twitch-side-nav.ps.flex-grow-1.full-width.side-nav__scrollable
+
+! 11/3/2017, 6:26:35 PM https://go.twitch.tv/beyondthesummit
+go.twitch.tv##.channel-panels-container
+
+! 1/24/2018, 10:03:37 PM https://uk.news.yahoo.com/kawhi-leonard-wants-leave-san-191039119.html
+uk.news.yahoo.com###YDC-Col2-Stack
+
+! 1/25/2018, 11:18:52 PM https://www.washingtonpost.com/news/early-lead/wp/2018/01/25/lebron-james-drafted-a-much-better-all-star-team-than-stephen-curry-says-everyone/?utm_term=.2fafc673e416
+www.washingtonpost.com##.content-strip
+
+! 2/2/2018, 4:24:10 PM http://www.bbc.com/news/world-latin-america-42916261
+www.bbc.com##.column--secondary
+
+! 2/16/2018, 5:06:01 PM https://motherboard.vice.com/en_us/article/mb53jn/fcc-inspector-general-investigation-ajit-pai-corruption
+motherboard.vice.com##.p-3-xs.up-next--visible.up-next
+
+! 2/16/2018, 5:06:27 PM https://motherboard.vice.com/en_us/article/mb53jn/fcc-inspector-general-investigation-ajit-pai-corruption
+motherboard.vice.com###article_5a85bc37b3e6197d537b9e83 > .short-form-article > .short-form-article__bounding-box > .m-r-0-xl.m-l-0-xl.m-r-aut-xs.m-l-aut-xs.short-form-article__body > .short-form-article__body__content > .m-b-6-xs.gutter > .col-12-xs.gutter__content > .col-12-xs.related__video
+
+! 6/9/2018, 9:54:31 PM https://www.netflix.com/browse
+||occ-0-1885-2794.1.nflxso.net/art/ffd11/e07842f601137572c9fa75c5e37523535d9ffd11.jpg$image
+
+! 8/5/2018, 7:57:22 PM https://www.cnet.com/news/an-ai-just-smashed-humans-beings-at-dota-2-open-ai-twitch/
+www.cnet.com##.uvpjs__controlbar
+
+! 8/5/2018, 7:57:37 PM https://www.cnet.com/news/an-ai-just-smashed-humans-beings-at-dota-2-open-ai-twitch/
+www.cnet.com##.entered.dock.inviewElement
+
+! 8/7/2018, 11:02:31 AM https://gizmodo.com/facebook-wanted-us-to-kill-this-investigative-tool-1826620111
+gizmodo.com##.sidebar
+
