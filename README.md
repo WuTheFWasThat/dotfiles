@@ -20,6 +20,16 @@ all commands ran from root directory
   - install screen/tmux (e.g. `brew install tmux`)
   - install git 2.3+
   - install hub (git wrapper) `brew install hub`
+    - for `git pr`, do:
+      - https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/
+      - Then add to `~/.config/hub`:
+        ```
+        ---
+        github.com:
+        - protocol: https
+          user: jeffwu
+          oauth_token: YOURTOKEN
+        ```
   - install thefuck (https://github.com/nvbn/thefuck) (e.g. `brew install thefuck`)
   - install icdiff, change gitconfig differ
 - very optional:

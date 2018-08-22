@@ -36,7 +36,30 @@ call s:spacevim_bind('map', 'ti', 'toggle-indent-lines', 'IndentLinesToggle', 1)
 call s:spacevim_bind('map', 'tn', 'toggle-line-numbers', ':setlocal invnumber<CR>:setlocal invrelativenumber<CR>', 0)
 call s:spacevim_bind('map', 'tg', 'toggle-git-gutter', 'GitGutterToggle', 1)
 
-call s:spacevim_bind('map', 'z', 'search-current-file', 'BLines', 1)
+call s:spacevim_bind('map', '/', 'search-current-file', 'BLines', 1)
+function! spacemacs#toggleAlleFolds()
+  if &foldlevel
+    normal! zM<CR>
+    " set foldlevel=0
+  else
+    normal! zR<CR>
+    " set foldlevel=20
+  endif
+endfunction
+" Just copying from http://vimdoc.sourceforge.net/htmldoc/fold.html
+call s:spacevim_bind('map', 'zz', 'toggle-all-folds', ":call spacemacs#toggleAlleFolds()", 1)
+call s:spacevim_bind('map', 'za', 'toggle-fold', ":za", 1)
+call s:spacevim_bind('map', 'zA', 'toggle-fold-recursive', ":zA", 1)
+call s:spacevim_bind('map', 'zf', 'create-fold', ":zf", 1)
+call s:spacevim_bind('map', 'zd', 'delete-fold', ":zd", 1)
+call s:spacevim_bind('map', 'zD', 'delete-fold-recursive', ":zD", 1)
+call s:spacevim_bind('map', 'zE', 'delete-all-folds', ":zE", 1)
+call s:spacevim_bind('map', 'zR', 'open-all-folds', ":zR", 1)
+call s:spacevim_bind('map', 'zM', 'close-all-folds', ":zM", 1)
+" call s:spacevim_bind('map', 'zo', 'open-fold', ":zo", 1)
+" call s:spacevim_bind('map', 'zO', 'open-fold-recursive', ":zO", 1)
+" call s:spacevim_bind('map', 'zc', 'close-fold', ":zc", 1)
+" call s:spacevim_bind('map', 'zC', 'close-fold-recursive', ":zC", 1)
 
 " project
 function! spacemacs#toggleExplorerAtRoot()

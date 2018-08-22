@@ -30,7 +30,10 @@ nnoremap Q <nop>
 "  - https://github.com/roman/golden-ratio for smaller screens?
 "  - no more incsearch? https://medium.com/@haya14busa/incsearch-vim-is-dead-long-live-incsearch-2b7070d55250
 
-"set foldmethod=indent
+set foldmethod=marker
+" no highlighting
+hi! link Folded SignColumn
+
 ""hi Folded guifg=white guibg=black ctermfg=white ctermbg=black
 "hi FoldColumn      guifg=#465457 guibg=#000000
 "hi Folded          guifg=#465457 guibg=#000000
