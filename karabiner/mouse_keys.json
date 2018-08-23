@@ -92,7 +92,7 @@
           "from": {
             "simultaneous": [
               {
-                "key_code": "d"
+                "key_code": "semicolon"
               },
               {
                 "key_code": "j"
@@ -227,7 +227,7 @@
           "from": {
             "simultaneous": [
               {
-                "key_code": "d"
+                "key_code": "semicolon"
               },
               {
                 "key_code": "k"
@@ -362,7 +362,7 @@
           "from": {
             "simultaneous": [
               {
-                "key_code": "d"
+                "key_code": "semicolon"
               },
               {
                 "key_code": "h"
@@ -497,7 +497,7 @@
           "from": {
             "simultaneous": [
               {
-                "key_code": "d"
+                "key_code": "semicolon"
               },
               {
                 "key_code": "l"
@@ -572,7 +572,7 @@
           "from": {
             "simultaneous": [
               {
-                "key_code": "d"
+                "key_code": "semicolon"
               },
               {
                 "key_code": "u"
@@ -645,7 +645,7 @@
           "from": {
             "simultaneous": [
               {
-                "key_code": "d"
+                "key_code": "semicolon"
               },
               {
                 "key_code": "i"
@@ -718,7 +718,7 @@
           "from": {
             "simultaneous": [
               {
-                "key_code": "d"
+                "key_code": "semicolon"
               },
               {
                 "key_code": "o"
@@ -802,7 +802,7 @@
           "from": {
             "simultaneous": [
               {
-                "key_code": "d"
+                "key_code": "semicolon"
               },
               {
                 "key_code": "g"
@@ -888,7 +888,7 @@
           "from": {
             "simultaneous": [
               {
-                "key_code": "d"
+                "key_code": "semicolon"
               },
               {
                 "key_code": "f"
@@ -965,7 +965,7 @@
           "from": {
             "simultaneous": [
               {
-                "key_code": "d"
+                "key_code": "semicolon"
               },
               {
                 "key_code": "s"
@@ -1051,7 +1051,7 @@
           "from": {
             "simultaneous": [
               {
-                "key_code": "d"
+                "key_code": "semicolon"
               },
               {
                 "key_code": "g"

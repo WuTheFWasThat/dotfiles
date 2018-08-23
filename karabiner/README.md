@@ -1,5 +1,8 @@
 First, install Karabiner elements
 
+See here for some example of complex modifications:
+https://pqrs.org/osx/karabiner/complex_modifications/
+
 # Mouse mode
 
 Open link in Chrome:
