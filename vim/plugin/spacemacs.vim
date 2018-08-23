@@ -15,6 +15,8 @@ function! s:spacevim_bind(map, binding, name, value, isCmd)
   endif
   execute l:noremap . " <silent> <SID>" . a:name . " " . l:value
   execute a:map . " <leader>" . a:binding . " <SID>" . a:name
+  " NOTE: this is much faster in some cases?  see fold commands below
+  " execute a:map . " <leader>" . a:binding . " " . l:value
 endfunction
 
 function! Get_visual_selection()
@@ -47,19 +49,22 @@ function! spacemacs#toggleAlleFolds()
   endif
 endfunction
 " Just copying from http://vimdoc.sourceforge.net/htmldoc/fold.html
-call s:spacevim_bind('map', 'zz', 'toggle-all-folds', ":call spacemacs#toggleAlleFolds()", 1)
-call s:spacevim_bind('map', 'za', 'toggle-fold', ":za", 1)
-call s:spacevim_bind('map', 'zA', 'toggle-fold-recursive', ":zA", 1)
-call s:spacevim_bind('map', 'zf', 'create-fold', ":zf", 1)
-call s:spacevim_bind('map', 'zd', 'delete-fold', ":zd", 1)
-call s:spacevim_bind('map', 'zD', 'delete-fold-recursive', ":zD", 1)
-call s:spacevim_bind('map', 'zE', 'delete-all-folds', ":zE", 1)
-call s:spacevim_bind('map', 'zR', 'open-all-folds', ":zR", 1)
-call s:spacevim_bind('map', 'zM', 'close-all-folds', ":zM", 1)
-" call s:spacevim_bind('map', 'zo', 'open-fold', ":zo", 1)
-" call s:spacevim_bind('map', 'zO', 'open-fold-recursive', ":zO", 1)
-" call s:spacevim_bind('map', 'zc', 'close-fold', ":zc", 1)
-" call s:spacevim_bind('map', 'zC', 'close-fold-recursive', ":zC", 1)
+call s:spacevim_bind('map', 'z', 'toggle-all-folds', "call spacemacs#toggleAlleFolds()", 1)
+" NOTE: for some reason these are slow!
+" call s:spacevim_bind('map', 'zz', 'toggle-all-folds', "call spacemacs#toggleAlleFolds()", 1)
+"" call s:spacevim_bind('map', 'za', 'toggle-fold', "normal! za", 1)
+" call s:spacevim_bind('map', 'za', 'toggle-fold', "za", 0)
+" call s:spacevim_bind('map', 'zA', 'toggle-fold-recursive', "zA", 0)
+" call s:spacevim_bind('map', 'zf', 'create-fold', "zf", 0)
+" call s:spacevim_bind('map', 'zd', 'delete-fold', "zd", 0)
+" call s:spacevim_bind('map', 'zD', 'delete-fold-recursive', "zD", 0)
+" call s:spacevim_bind('map', 'zE', 'delete-all-folds', "zE", 0)
+" call s:spacevim_bind('map', 'zR', 'open-all-folds', "zR", 0)
+" call s:spacevim_bind('map', 'zM', 'close-all-folds', "zM", 0)
+" call s:spacevim_bind('map', 'zo', 'open-fold', "zo", 0)
+" call s:spacevim_bind('map', 'zO', 'open-fold-recursive', "zO", 0)
+" call s:spacevim_bind('map', 'zc', 'close-fold', "zc", 0)
+" call s:spacevim_bind('map', 'zC', 'close-fold-recursive', "zC", 0)
 
 " project
 function! spacemacs#toggleExplorerAtRoot()
@@ -79,6 +84,11 @@ nnoremap <Leader>fd :filetype detect<cr>
 call s:spacevim_bind('map', 'fl', 'reload-file', ':e', 1)
 call s:spacevim_bind('map', 'bD', 'force-quit-buffer', ':bd!', 1)
 call s:spacevim_bind('map', 'xx', 'save-quit-all', ':wqa', 1)
+function! spacemacs#reloadVimrc()
+  source $MYVIMRC
+  exe "AirlineRefresh"
+endfunction
+call s:spacevim_bind('map', 'feR', 'sync-configuration', ':call spacemacs#reloadVimrc()', 1)
 
 " insert semicolon
 nnoremap <Leader>i; mzA;<esc>`z

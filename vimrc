@@ -31,6 +31,8 @@ nnoremap Q <nop>
 "  - no more incsearch? https://medium.com/@haya14busa/incsearch-vim-is-dead-long-live-incsearch-2b7070d55250
 
 set foldmethod=marker
+" { and } motions should skip over folds
+set foldopen-=block
 " no highlighting
 hi! link Folded SignColumn
 
