@@ -75,7 +75,7 @@
           "to": [
             {
               "mouse_key": {
-                "y": 1536
+                "y": 3072
               }
             }
           ],
@@ -131,7 +131,7 @@
             },
             {
               "mouse_key": {
-                "y": 1536
+                "y": 3072
               }
             }
           ],
@@ -210,7 +210,7 @@
           "to": [
             {
               "mouse_key": {
-                "y": -1536
+                "y": -3072
               }
             }
           ],
@@ -266,7 +266,7 @@
             },
             {
               "mouse_key": {
-                "y": -1536
+                "y": -3072
               }
             }
           ],
@@ -345,7 +345,7 @@
           "to": [
             {
               "mouse_key": {
-                "x": -1536
+                "x": -3072
               }
             }
           ],
@@ -401,7 +401,7 @@
             },
             {
               "mouse_key": {
-                "x": -1536
+                "x": -3072
               }
             }
           ],
@@ -480,7 +480,7 @@
           "to": [
             {
               "mouse_key": {
-                "x": 1536
+                "x": 3072
               }
             }
           ],
@@ -536,327 +536,13 @@
             },
             {
               "mouse_key": {
-                "x": 1536
+                "x": 3072
               }
             }
           ],
           "parameters": {
             "basic.simultaneous_threshold_milliseconds": 100
           }
-        },
-        {
-          "type": "basic",
-          "from": {
-            "key_code": "u",
-            "modifiers": {
-              "optional": [
-                "any"
-              ]
-            }
-          },
-          "to": [
-            {
-              "pointing_button": "button1"
-            }
-          ],
-          "conditions": [
-            {
-              "type": "variable_if",
-              "name": "mouse_keys_mode",
-              "value": 1
-            }
-          ]
-        },
-        {
-          "type": "basic",
-          "from": {
-            "simultaneous": [
-              {
-                "key_code": "semicolon"
-              },
-              {
-                "key_code": "u"
-              }
-            ],
-            "simultaneous_options": {
-              "key_down_order": "strict",
-              "key_up_order": "strict_inverse",
-              "to_after_key_up": [
-                {
-                  "set_variable": {
-                    "name": "mouse_keys_mode",
-                    "value": 0
-                  }
-                },
-                {
-                  "set_variable": {
-                    "name": "mouse_keys_mode_scroll",
-                    "value": 0
-                  }
-                }
-              ]
-            },
-            "modifiers": {
-              "optional": [
-                "any"
-              ]
-            }
-          },
-          "to": [
-            {
-              "set_variable": {
-                "name": "mouse_keys_mode",
-                "value": 1
-              }
-            },
-            {
-              "pointing_button": "button1"
-            }
-          ],
-          "parameters": {
-            "basic.simultaneous_threshold_milliseconds": 100
-          }
-        },
-        {
-          "type": "basic",
-          "from": {
-            "key_code": "i",
-            "modifiers": {
-              "optional": [
-                "any"
-              ]
-            }
-          },
-          "to": [
-            {
-              "pointing_button": "button3"
-            }
-          ],
-          "conditions": [
-            {
-              "type": "variable_if",
-              "name": "mouse_keys_mode",
-              "value": 1
-            }
-          ]
-        },
-        {
-          "type": "basic",
-          "from": {
-            "simultaneous": [
-              {
-                "key_code": "semicolon"
-              },
-              {
-                "key_code": "i"
-              }
-            ],
-            "simultaneous_options": {
-              "key_down_order": "strict",
-              "key_up_order": "strict_inverse",
-              "to_after_key_up": [
-                {
-                  "set_variable": {
-                    "name": "mouse_keys_mode",
-                    "value": 0
-                  }
-                },
-                {
-                  "set_variable": {
-                    "name": "mouse_keys_mode_scroll",
-                    "value": 0
-                  }
-                }
-              ]
-            },
-            "modifiers": {
-              "optional": [
-                "any"
-              ]
-            }
-          },
-          "to": [
-            {
-              "set_variable": {
-                "name": "mouse_keys_mode",
-                "value": 1
-              }
-            },
-            {
-              "pointing_button": "button3"
-            }
-          ],
-          "parameters": {
-            "basic.simultaneous_threshold_milliseconds": 100
-          }
-        },
-        {
-          "type": "basic",
-          "from": {
-            "key_code": "o",
-            "modifiers": {
-              "optional": [
-                "any"
-              ]
-            }
-          },
-          "to": [
-            {
-              "pointing_button": "button2"
-            }
-          ],
-          "conditions": [
-            {
-              "type": "variable_if",
-              "name": "mouse_keys_mode",
-              "value": 1
-            }
-          ]
-        },
-        {
-          "type": "basic",
-          "from": {
-            "simultaneous": [
-              {
-                "key_code": "semicolon"
-              },
-              {
-                "key_code": "o"
-              }
-            ],
-            "simultaneous_options": {
-              "key_down_order": "strict",
-              "key_up_order": "strict_inverse",
-              "to_after_key_up": [
-                {
-                  "set_variable": {
-                    "name": "mouse_keys_mode",
-                    "value": 0
-                  }
-                },
-                {
-                  "set_variable": {
-                    "name": "mouse_keys_mode_scroll",
-                    "value": 0
-                  }
-                }
-              ]
-            },
-            "modifiers": {
-              "optional": [
-                "any"
-              ]
-            }
-          },
-          "to": [
-            {
-              "set_variable": {
-                "name": "mouse_keys_mode",
-                "value": 1
-              }
-            },
-            {
-              "pointing_button": "button2"
-            }
-          ],
-          "parameters": {
-            "basic.simultaneous_threshold_milliseconds": 100
-          }
-        },
-        {
-          "type": "basic",
-          "from": {
-            "key_code": "g",
-            "modifiers": {
-              "optional": [
-                "any"
-              ]
-            }
-          },
-          "to": [
-            {
-              "set_variable": {
-                "name": "mouse_keys_mode_scroll",
-                "value": 1
-              }
-            }
-          ],
-          "conditions": [
-            {
-              "type": "variable_if",
-              "name": "mouse_keys_mode",
-              "value": 1
-            }
-          ],
-          "to_after_key_up": [
-            {
-              "set_variable": {
-                "name": "mouse_keys_mode_scroll",
-                "value": 0
-              }
-            }
-          ]
-        },
-        {
-          "type": "basic",
-          "from": {
-            "simultaneous": [
-              {
-                "key_code": "semicolon"
-              },
-              {
-                "key_code": "g"
-              }
-            ],
-            "simultaneous_options": {
-              "key_down_order": "strict",
-              "key_up_order": "strict_inverse",
-              "to_after_key_up": [
-                {
-                  "set_variable": {
-                    "name": "mouse_keys_mode",
-                    "value": 0
-                  }
-                },
-                {
-                  "set_variable": {
-                    "name": "mouse_keys_mode_scroll",
-                    "value": 0
-                  }
-                }
-              ]
-            },
-            "modifiers": {
-              "optional": [
-                "any"
-              ]
-            }
-          },
-          "to": [
-            {
-              "set_variable": {
-                "name": "mouse_keys_mode",
-                "value": 1
-              }
-            },
-            {
-              "set_variable": {
-                "name": "mouse_keys_mode_scroll",
-                "value": 1
-              }
-            }
-          ],
-          "parameters": {
-            "basic.simultaneous_threshold_milliseconds": 100
-          },
-          "to_after_key_up": [
-            {
-              "set_variable": {
-                "name": "mouse_keys_mode_scroll",
-                "value": 0
-              }
-            }
-          ]
         },
         {
           "type": "basic",
@@ -870,9 +556,7 @@
           },
           "to": [
             {
-              "mouse_key": {
-                "speed_multiplier": 2
-              }
+              "pointing_button": "button1"
             }
           ],
           "conditions": [
@@ -926,14 +610,253 @@
               }
             },
             {
-              "mouse_key": {
-                "speed_multiplier": 2
-              }
+              "pointing_button": "button1"
             }
           ],
           "parameters": {
             "basic.simultaneous_threshold_milliseconds": 100
           }
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "v",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "pointing_button": "button3"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "mouse_keys_mode",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "simultaneous": [
+              {
+                "key_code": "semicolon"
+              },
+              {
+                "key_code": "v"
+              }
+            ],
+            "simultaneous_options": {
+              "key_down_order": "strict",
+              "key_up_order": "strict_inverse",
+              "to_after_key_up": [
+                {
+                  "set_variable": {
+                    "name": "mouse_keys_mode",
+                    "value": 0
+                  }
+                },
+                {
+                  "set_variable": {
+                    "name": "mouse_keys_mode_scroll",
+                    "value": 0
+                  }
+                }
+              ]
+            },
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "set_variable": {
+                "name": "mouse_keys_mode",
+                "value": 1
+              }
+            },
+            {
+              "pointing_button": "button3"
+            }
+          ],
+          "parameters": {
+            "basic.simultaneous_threshold_milliseconds": 100
+          }
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "g",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "pointing_button": "button2"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "mouse_keys_mode",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "simultaneous": [
+              {
+                "key_code": "semicolon"
+              },
+              {
+                "key_code": "g"
+              }
+            ],
+            "simultaneous_options": {
+              "key_down_order": "strict",
+              "key_up_order": "strict_inverse",
+              "to_after_key_up": [
+                {
+                  "set_variable": {
+                    "name": "mouse_keys_mode",
+                    "value": 0
+                  }
+                },
+                {
+                  "set_variable": {
+                    "name": "mouse_keys_mode_scroll",
+                    "value": 0
+                  }
+                }
+              ]
+            },
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "set_variable": {
+                "name": "mouse_keys_mode",
+                "value": 1
+              }
+            },
+            {
+              "pointing_button": "button2"
+            }
+          ],
+          "parameters": {
+            "basic.simultaneous_threshold_milliseconds": 100
+          }
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "d",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "set_variable": {
+                "name": "mouse_keys_mode_scroll",
+                "value": 1
+              }
+            }
+          ],
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "mouse_keys_mode",
+              "value": 1
+            }
+          ],
+          "to_after_key_up": [
+            {
+              "set_variable": {
+                "name": "mouse_keys_mode_scroll",
+                "value": 0
+              }
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "simultaneous": [
+              {
+                "key_code": "semicolon"
+              },
+              {
+                "key_code": "d"
+              }
+            ],
+            "simultaneous_options": {
+              "key_down_order": "strict",
+              "key_up_order": "strict_inverse",
+              "to_after_key_up": [
+                {
+                  "set_variable": {
+                    "name": "mouse_keys_mode",
+                    "value": 0
+                  }
+                },
+                {
+                  "set_variable": {
+                    "name": "mouse_keys_mode_scroll",
+                    "value": 0
+                  }
+                }
+              ]
+            },
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "set_variable": {
+                "name": "mouse_keys_mode",
+                "value": 1
+              }
+            },
+            {
+              "set_variable": {
+                "name": "mouse_keys_mode_scroll",
+                "value": 1
+              }
+            }
+          ],
+          "parameters": {
+            "basic.simultaneous_threshold_milliseconds": 100
+          },
+          "to_after_key_up": [
+            {
+              "set_variable": {
+                "name": "mouse_keys_mode_scroll",
+                "value": 0
+              }
+            }
+          ]
         },
         {
           "type": "basic",
@@ -948,7 +871,7 @@
           "to": [
             {
               "mouse_key": {
-                "speed_multiplier": 0.5
+                "speed_multiplier": 0.25
               }
             }
           ],
@@ -1004,7 +927,7 @@
             },
             {
               "mouse_key": {
-                "speed_multiplier": 0.5
+                "speed_multiplier": 0.25
               }
             }
           ],
@@ -1054,7 +977,7 @@
                 "key_code": "semicolon"
               },
               {
-                "key_code": "g"
+                "key_code": "a"
               }
             ],
             "simultaneous_options": {

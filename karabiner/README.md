@@ -14,11 +14,11 @@ Key bindings:
 `j`: mouse down
 `k`: mouse up
 `l`: mouse right
-`u`: left click
-`i`: middle click
-`o`: right click
+`f`: left click
+`v`: middle click
+`g`: right click
 
-`d`: mouse mode (mouse move by d+hjkl)
-`f`: fast mode (fast mouse move by df+hjkl)
-`s`: slow mode (slow mouse move by ds+hjkl)
-`g`: scroll mode (scroll by dg+hjkl)
+`;`: mouse mode (mouse move by ;+hjkl)
+`s`: slow mode (slow mouse move by ;s+hjkl)
+`a`: arrow mode (arrow keys by ;a+hjkl)
+`d`: scroll mode (scroll by ;d+hjkl)
