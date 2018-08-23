@@ -1,7 +1,10 @@
+First, install Karabiner elements
+
 # Mouse mode
 
-Visit url in chrome:
-karabiner://karabiner/assets/complex_modifications/import?url=https://raw.githubusercontent.com/wuthefwasthat/dotfiles/master/karabiner/mouse_keys.json
+Open link in Chrome:
+
+`karabiner://karabiner/assets/complex_modifications/import?url=https://raw.githubusercontent.com/wuthefwasthat/dotfiles/master/karabiner/mouse_keys.json`
 
 Key bindings:
 `h`: mouse left
