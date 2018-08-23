@@ -1,0 +1,29 @@
+{
+  "title": "Caps+Space to Backspace",
+  "rules": [
+    {
+      "description": "Change caps + backspace to backspace",
+      "manipulators": [
+        {
+          "from": {
+            "key_code": "spacebar",
+            "modifiers": {
+              "mandatory": [
+                "left_control"
+              ],
+              "optional": [
+                "shift"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "delete_or_backspace"
+            }
+          ],
+          "type": "basic"
+        }
+      ]
+    }
+  ]
+}
