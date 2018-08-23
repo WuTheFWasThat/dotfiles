@@ -435,7 +435,7 @@
         {
           "type": "basic",
           "from": {
-            "key_code": "v",
+            "key_code": "u",
             "modifiers": {
               "optional": [
                 "any"
@@ -463,8 +463,8 @@
                 "key_code": "d"
               },
               {
-                "key_code": "v"
-              }
+                "key_code": "u"
+              u
             ],
             "simultaneous_options": {
               "key_down_order": "strict",
@@ -508,7 +508,7 @@
         {
           "type": "basic",
           "from": {
-            "key_code": "b",
+            "key_code": "i",
             "modifiers": {
               "optional": [
                 "any"
@@ -536,7 +536,7 @@
                 "key_code": "d"
               },
               {
-                "key_code": "b"
+                "key_code": "i"
               }
             ],
             "simultaneous_options": {
@@ -581,7 +581,7 @@
         {
           "type": "basic",
           "from": {
-            "key_code": "n",
+            "key_code": "o",
             "modifiers": {
               "optional": [
                 "any"
@@ -609,7 +609,7 @@
                 "key_code": "d"
               },
               {
-                "key_code": "n"
+                "key_code": "o"
               }
             ],
             "simultaneous_options": {
@@ -654,7 +654,7 @@
         {
           "type": "basic",
           "from": {
-            "key_code": "s",
+            "key_code": "g",
             "modifiers": {
               "optional": [
                 "any"
@@ -693,7 +693,7 @@
                 "key_code": "d"
               },
               {
-                "key_code": "s"
+                "key_code": "g"
               }
             ],
             "simultaneous_options": {
@@ -826,7 +826,7 @@
         {
           "type": "basic",
           "from": {
-            "key_code": "g",
+            "key_code": "s",
             "modifiers": {
               "optional": [
                 "any"
@@ -856,7 +856,7 @@
                 "key_code": "d"
               },
               {
-                "key_code": "g"
+                "key_code": "s"
               }
             ],
             "simultaneous_options": {
