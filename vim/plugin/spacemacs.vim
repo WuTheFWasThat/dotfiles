@@ -90,18 +90,15 @@ function! spacemacs#reloadVimrc()
 endfunction
 call s:spacevim_bind('map', 'feR', 'sync-configuration', ':call spacemacs#reloadVimrc()', 1)
 
-" insert semicolon
-nnoremap <Leader>i; mzA;<esc>`z
-" insert comma
-nnoremap <Leader>i, mzA,<esc>`z
-" insert other punctuation
-nnoremap <Leader>i. mzA.<esc>`z
-nnoremap <Leader>i? mzA?<esc>`z
-nnoremap <Leader>i! mzA!<esc>`z
-nnoremap <Leader>i<cr> o<esc>
+call s:spacevim_bind('map', 'i;', 'insert-semicolon', 'mzA;<esc>`z', 0)
+call s:spacevim_bind('map', 'i,', 'insert-comma', 'mzA,<esc>`z', 0)
+call s:spacevim_bind('map', 'i.', 'insert-period', 'mzA.<esc>`z', 0)
+call s:spacevim_bind('map', 'i?', 'insert-question', 'mzA?<esc>`z', 0)
+call s:spacevim_bind('map', 'i!', 'insert-exclamation', 'mzA!<esc>`z', 0)
+call s:spacevim_bind('map', 'i<cr>', 'insert-return', 'o<esc>', 0)
 
-nnoremap <Leader>J :SplitjoinJoin<cr>
-nnoremap <Leader>K :SplitjoinSplit<cr>
+call s:spacevim_bind('map', 'J', 'smart-join', ':SplitjoinJoin', 1)
+call s:spacevim_bind('map', 'K', 'smart-split', ':SplitjoinJoin', 1)
 
 " git
 nnoremap <Leader>ga :Git add --all<CR>
