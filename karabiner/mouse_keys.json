@@ -113,6 +113,12 @@
                     "name": "mouse_keys_mode_scroll",
                     "value": 0
                   }
+                },
+                {
+                  "set_variable": {
+                    "name": "mouse_keys_mode_arrows",
+                    "value": 0
+                  }
                 }
               ]
             },
@@ -246,6 +252,12 @@
                 {
                   "set_variable": {
                     "name": "mouse_keys_mode_scroll",
+                    "value": 0
+                  }
+                },
+                {
+                  "set_variable": {
+                    "name": "mouse_keys_mode_arrows",
                     "value": 0
                   }
                 }
@@ -383,6 +395,12 @@
                     "name": "mouse_keys_mode_scroll",
                     "value": 0
                   }
+                },
+                {
+                  "set_variable": {
+                    "name": "mouse_keys_mode_arrows",
+                    "value": 0
+                  }
                 }
               ]
             },
@@ -518,6 +536,12 @@
                     "name": "mouse_keys_mode_scroll",
                     "value": 0
                   }
+                },
+                {
+                  "set_variable": {
+                    "name": "mouse_keys_mode_arrows",
+                    "value": 0
+                  }
                 }
               ]
             },
@@ -593,6 +617,12 @@
                     "name": "mouse_keys_mode_scroll",
                     "value": 0
                   }
+                },
+                {
+                  "set_variable": {
+                    "name": "mouse_keys_mode_arrows",
+                    "value": 0
+                  }
                 }
               ]
             },
@@ -666,6 +696,12 @@
                     "name": "mouse_keys_mode_scroll",
                     "value": 0
                   }
+                },
+                {
+                  "set_variable": {
+                    "name": "mouse_keys_mode_arrows",
+                    "value": 0
+                  }
                 }
               ]
             },
@@ -737,6 +773,12 @@
                 {
                   "set_variable": {
                     "name": "mouse_keys_mode_scroll",
+                    "value": 0
+                  }
+                },
+                {
+                  "set_variable": {
+                    "name": "mouse_keys_mode_arrows",
                     "value": 0
                   }
                 }
@@ -821,6 +863,12 @@
                 {
                   "set_variable": {
                     "name": "mouse_keys_mode_scroll",
+                    "value": 0
+                  }
+                },
+                {
+                  "set_variable": {
+                    "name": "mouse_keys_mode_arrows",
                     "value": 0
                   }
                 }
@@ -909,6 +957,12 @@
                     "name": "mouse_keys_mode_scroll",
                     "value": 0
                   }
+                },
+                {
+                  "set_variable": {
+                    "name": "mouse_keys_mode_arrows",
+                    "value": 0
+                  }
                 }
               ]
             },
@@ -987,6 +1041,12 @@
                 {
                   "set_variable": {
                     "name": "mouse_keys_mode",
+                    "value": 0
+                  }
+                },
+                {
+                  "set_variable": {
+                    "name": "mouse_keys_mode_scroll",
                     "value": 0
                   }
                 },
