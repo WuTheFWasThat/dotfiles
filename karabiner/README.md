@@ -38,3 +38,10 @@ Ctrl+Space = Backspace
 (assumes you have caps lock mapped to left_control)
 
 `karabiner://karabiner/assets/complex_modifications/import?url=https://raw.githubusercontent.com/wuthefwasthat/dotfiles/master/karabiner/better_backspace.json`
+
+## Better caps
+
+Caps lock = left control, or esc if alone
+Shift = parentheses if alone
+
+`karabiner://karabiner/assets/complex_modifications/import?url=https://raw.githubusercontent.com/wuthefwasthat/dotfiles/master/karabiner/better_caps.json`
