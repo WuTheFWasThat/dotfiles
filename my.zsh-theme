@@ -65,7 +65,20 @@ theme_precmd () {
 
 # useful chars: » ● ✔ ✘
 setopt prompt_subst
-PROMPT=$'${ret_result}%B%F{blue}%c${CUSTOM_PROMPT}%{$reset_color%} %B%F{blue}#%{$reset_color%} '
+
+if [ -n  "$SSH_CLIENT" ] || [ -n  "$SSH_TTY" ] || [ -n  "$SSH_CONNECTION" ] ||
+   # gce instance, probably gcloud compute ssh
+   curl metadata.google.internal -i &> /dev/null;
+then
+  PROMPT_SHOW_HOSTNAME=true
+fi
+
+if [ -n "$PROMPT_SHOW_HOSTNAME" ]; then
+  PROMPT_MACHINE="%B%F{green}$(hostname) "
+else
+  PROMPT_MACHINE=""
+fi
+PROMPT=$'${ret_result}$PROMPT_MACHINE%B%F{blue}%c${CUSTOM_PROMPT}%{$reset_color%} %B%F{blue}#%{$reset_color%} '
 VIM_PROMPT="%{$fg_bold[yellow]%} [% NORMAL]% %{$reset_color%}"
 RPROMPT='${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/} %B%F{blue}${vcs_info_msg_0_}%{$reset_color%} [%D{%L:%M:%S %p}]'
 

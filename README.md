@@ -12,9 +12,9 @@ all commands ran from root directory
   - add to zshrc:
     `echo "source $(pwd)/zshrc" >> ~/.zshrc`
 - install fasd (e.g. `brew install fasd`)
-- install fzf (e.g. `brew install fzf`)
 - make sure vim is 7.4+, preferably 8+ (e.g. `brew install vim`)
 - install vim plugins: `vim +PlugInstall +qall`
+  - this should install fzf (if not, do e.g. `brew install fzf`)
 - optional
   - set iterm colors, if appropriate
   - install screen/tmux (e.g. `brew install tmux`)
