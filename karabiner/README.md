@@ -1,35 +1,38 @@
 First, install Karabiner elements
 
-# Simple modifications
+Then set up the simple modification:
 
-`caps_lock` -> `left_control`
+`right_command` -> `escape`
 
-`right_command` -> `esc`
+Then at a terminal, do:
 
-# Complex modifications
+`open karabiner://karabiner/assets/complex_modifications/import?url=https://raw.githubusercontent.com/wuthefwasthat/dotfiles/master/karabiner/mouse_keys.json`
 
-See here for some example of complex modifications:
-https://pqrs.org/osx/karabiner/complex_modifications/
+This will install a number of useful modifications, of which you can enable any subset.
+(replace `master` with a git hash if you want.  You can also just open the link directly in Chrome).
+
+NOTE: See [here](https://pqrs.org/osx/karabiner/complex_modifications/) for some other example complex modifications.
 
 ## Mouse mode
 
-Open link in Chrome:
-
-`karabiner://karabiner/assets/complex_modifications/import?url=https://raw.githubusercontent.com/wuthefwasthat/dotfiles/master/karabiner/mouse_keys.json`
-
 Key bindings:
-`h`: mouse left
-`j`: mouse down
-`k`: mouse up
-`l`: mouse right
-`f`: left click
-`v`: middle click
-`g`: right click
 
-`;`: mouse mode (mouse move by ;+hjkl)
-`s`: slow mode (slow mouse move by ;s+hjkl)
-`a`: arrow mode (arrow keys by ;a+hjkl)
-`d`: scroll mode (scroll by ;d+hjkl)
+`command-m`: toggle mouse mode
+`semicolon-m`: toggle mouse mode
+
+`hjkl`: mouse move
+`f + hjkl`: fast mouse move
+`s + hjkl`: slow mouse move
+`d + hjkl`: scroll
+`shift + hjkl`: scroll
+
+`u` or `f`: left click
+`i` or `v`: middle click
+`o` or `F` or `g`: right click
+
+## Better arrows
+
+`; + hjkl`: arrow keys
 
 ## Better backspace
 
@@ -37,11 +40,10 @@ Ctrl+Space = Backspace
 
 (assumes you have caps lock mapped to left_control)
 
-`karabiner://karabiner/assets/complex_modifications/import?url=https://raw.githubusercontent.com/wuthefwasthat/dotfiles/master/karabiner/better_backspace.json`
-
 ## Better caps
 
 Caps lock = left control, or esc if alone
-Shift = parentheses if alone
 
-`karabiner://karabiner/assets/complex_modifications/import?url=https://raw.githubusercontent.com/wuthefwasthat/dotfiles/master/karabiner/better_caps.json`
+## Better shift
+
+Shift = parentheses if alone
