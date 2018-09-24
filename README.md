@@ -43,3 +43,5 @@ all commands ran from root directory
     ```
   - install nvm
     `curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.0/install.sh | bash`
+  - install latex
+    `brew cask install mactex`
