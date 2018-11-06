@@ -374,7 +374,9 @@ nnoremap ` :Marks<cr>
 Plug 'ervandew/supertab'
 set omnifunc=syntaxcomplete#Complete
 
-Plug 'Valloric/YouCompleteMe'
+Plug 'zxqfl/tabnine-vim'
+" Plug 'ajh17/VimCompletesMe'
+" Plug 'Valloric/YouCompleteMe'
 " don't load until insert mode, see: https://github.com/junegunn/vim-plug/issues/53
 " Plug 'Valloric/YouCompleteMe', { 'on': [] }
 " augroup load_us_ycm
