@@ -216,6 +216,7 @@
     # reset
     rs = reset
     rso = "!f(){ branch=$(git rev-parse --abbrev-ref HEAD); git reset origin/$branch $@; }; f"
+    rsm = "!git reset master"
     rsom = "!git reset origin/master"
     rsh = reset --hard
     rsho = "!f(){ branch=$(git rev-parse --abbrev-ref HEAD); git reset --hard origin/$branch $@; }; f"
