@@ -51,3 +51,24 @@ vv() {
   if [[ -z $files ]]; then return 1; fi
   vim $files
 }
+
+killz() {
+  local tokill=$(ps aux | tail -n +2 | fzf -m  | awk '{print $2}')
+
+  echo "=== Killing the following processes ==="
+  while read -r pid; do
+    echo "$pid: $(ps -p $pid -o command=)"
+  done <<< $tokill
+  echo "=== Hit y to continue ==="
+  read REPLY
+  if [[ $REPLY =~ ^[Yy]$ ]]
+  then
+    while read -r pid; do
+      echo "killing: $(ps -p $pid -o command=)"
+      kill -9 $pid
+    done <<< $tokill
+  else
+    echo "Aborted"
+  fi
+}
+
