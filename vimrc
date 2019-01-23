@@ -429,7 +429,8 @@ let g:syntastic_python_python_exec = 'python3'
 """""""""""""
 
 " TODO: try this out for python
-" Plug 'davidhalter/jedi-vim'
+Plug 'davidhalter/jedi-vim'
+Plug 'integralist/vim-mypy'
 
 Plug 'sheerun/vim-polyglot'
 

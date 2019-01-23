@@ -7,6 +7,8 @@ all commands ran from root directory
 - install zsh (e.g. `brew install zsh zsh-completions` and `chsh -s /bin/zsh`)
   - install oh-my-zsh
     `sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"`
+    If using in a script (see https://github.com/robbyrussell/oh-my-zsh/issues/5873):
+    `sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sed 's:env zsh::g' | sed 's:chsh -s .*$::g')"`
   - install zsh theme:
     `ln -s $(pwd)/my.zsh-theme ~/.oh-my-zsh/themes/jeffwu.zsh-theme`
   - add to zshrc:
