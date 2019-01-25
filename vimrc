@@ -493,6 +493,37 @@ Plug 'michaeljsmith/vim-indent-object'
 " visual mode should just use s to surround
 vmap s S
 Plug 'tpope/vim-repeat'
+" repeat for movements
+" See https://github.com/Houl/repmo-vim
+Plug 'Houl/repmo-vim'
+noremap <expr> b repmo#SelfKey('b', 'w')|sunmap b
+noremap <expr> e repmo#SelfKey('e', 'ge')|sunmap e
+noremap <expr> w repmo#SelfKey('w', 'b')|sunmap w
+noremap <expr> B repmo#SelfKey('B', 'W')|sunmap B
+noremap <expr> E repmo#SelfKey('E', 'gE')|sunmap E
+noremap <expr> W repmo#SelfKey('W', 'B')|sunmap W
+noremap <expr> } repmo#SelfKey('}', '{')
+noremap <expr> { repmo#SelfKey('{', '}')
+noremap <expr> ) repmo#SelfKey(')', '(')
+noremap <expr> ( repmo#SelfKey('(', ')')
+noremap <expr> h repmo#SelfKey('h', 'l')|sunmap h
+noremap <expr> l repmo#SelfKey('l', 'h')|sunmap l
+noremap <expr> j repmo#SelfKey('j', 'k')|sunmap j
+noremap <expr> k repmo#SelfKey('k', 'j')|sunmap k
+" noremap <expr> j repmo#SelfKey('gj', 'gk')|sunmap j
+" noremap <expr> k repmo#SelfKey('gk', 'gj')|sunmap k
+noremap <expr> <C-E> repmo#SelfKey('<C-E>', '<C-Y>')
+noremap <expr> <C-Y> repmo#SelfKey('<C-Y>', '<C-E>')
+noremap <expr> <C-U> repmo#SelfKey('<C-U>', '<C-D>')
+noremap <expr> <C-D> repmo#SelfKey('<C-D>', '<C-U>')
+noremap <expr> <C-I> repmo#SelfKey('<C-I>', '<C-O>')
+noremap <expr> <C-O> repmo#SelfKey('<C-O>', '<C-I>')
+map <expr> ; repmo#LastKey(';')|sunmap ;
+map <expr> , repmo#LastRevKey(',')|sunmap ,
+noremap <expr> f repmo#ZapKey('f')|sunmap f
+noremap <expr> F repmo#ZapKey('F')|sunmap F
+noremap <expr> t repmo#ZapKey('t')|sunmap t
+noremap <expr> T repmo#ZapKey('T')|sunmap T
 
 " highlight all search results
 Plug 'haya14busa/incsearch.vim'
@@ -519,13 +550,13 @@ Plug 'osyo-manga/vim-over'
 " NOTE: overcommandline also has weird autocomplete
 " nnoremap <silent> ; :OverCommandLine<cr>
 " nnoremap <silent> : :OverCommandLine<cr>
-vnoremap <silent> ; :OverCommandLine<cr>
-vnoremap <silent> : :OverCommandLine<cr>
+" vnoremap <silent> ; :OverCommandLine<cr>
+" vnoremap <silent> : :OverCommandLine<cr>
 nnoremap <silent> S :OverCommandLine<cr>%s/
 " TODO: for some reason this doesn't work...
 " vnoremap <silent> S :OverCommandLine<cr>
-nnoremap  ;  :
-nnoremap  :  ;
+" nnoremap  ;  :
+" nnoremap  :  ;
 
 " displays marks in gutter
 Plug 'kshenoy/vim-signature'
