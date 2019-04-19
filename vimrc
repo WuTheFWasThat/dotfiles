@@ -5,7 +5,6 @@
 " time vim +qa
 
 " TODO LIST:
-" -  switch from syntastic to ALE https://vimawesome.com/plugin/ale
 " - way to make <leader>tn toggle relative number also
 " - some solution for tags
 "     instructions will need to then include
@@ -402,27 +401,7 @@ let g:UltiSnipsJumpForwardTrigger = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 " let g:UltiSnipsEditSplit="vertical"
 
-Plug 'scrooloose/syntastic', { 'do': './install.py' }
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_javascript_checkers = ['eslint']
-" 'jshint'
-
-" ignore annoying errors
-let g:syntastic_html_tidy_ignore_errors=[ "proprietary attribute" ,"trimming empty <"]
-
-" HACKY: see http://stackoverflow.com/questions/15937042/syntastic-disable-automatic-compilation-of-java
-" maybe undo this if i switch from intellij
-let g:loaded_syntastic_java_javac_checker = 1
-
-" for python 3
-let g:syntastic_python_python_exec = 'python3'
+Plug 'w0rp/ale'
 
 """""""""""""
 " languages
@@ -439,13 +418,9 @@ Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'ianks/vim-tsx'
 Plug 'Shougo/vimproc.vim', {'do' : 'make'} | Plug 'Quramy/tsuquyomi', { 'for': 'typescript '}
 Plug 'leafgarland/typescript-vim', { 'for': 'typescript '}
-let g:syntastic_typescript_checkers = ['tslint'] " tsc
-" let g:syntastic_typescript_tsc_args = '--target ES6 -p .'
-" let g:syntastic_typescript_tsc_args = '-p . --noEmit'
 
 Plug 'ElmCast/elm-vim', { 'for': 'elm' }
 let g:elm_format_autosave = 1
-let g:elm_syntastic_show_warnings = 1
 
 " NOTE: C-J and C-K cause issues with rust, has something to do with delimitMate
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }
