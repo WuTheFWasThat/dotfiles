@@ -5,6 +5,8 @@
     editor = vim
     # editor = nvim
 [alias]
+    # https://github.com/jeffkaufman/icdiff
+    icdiff = "!f() { git difftool --no-prompt --extcmd=\"icdiff $(git config --get icdiff.options)\" \"$@\" | less -R; }; f"
     # configuration
     differ = "!f() { if which icdiff > /dev/null; then echo icdiff; else echo diff; fi; }; f"
     editor = config --get core.editor

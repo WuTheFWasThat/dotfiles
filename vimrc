@@ -373,7 +373,7 @@ nnoremap ` :Marks<cr>
 Plug 'ervandew/supertab'
 set omnifunc=syntaxcomplete#Complete
 
-Plug 'zxqfl/tabnine-vim'
+" Plug 'zxqfl/tabnine-vim'
 " Plug 'ajh17/VimCompletesMe'
 " Plug 'Valloric/YouCompleteMe'
 " don't load until insert mode, see: https://github.com/junegunn/vim-plug/issues/53
