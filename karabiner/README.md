@@ -8,6 +8,10 @@ Then at a terminal, do:
 
 `open karabiner://karabiner/assets/complex_modifications/import?url=https://raw.githubusercontent.com/wuthefwasthat/dotfiles/master/karabiner/mouse_keys.json`
 
+Or if cloned:
+
+`open karabiner://karabiner/assets/complex_modifications/import?url=file:///Users/jeffwu/dotfiles/karabiner/mouse_mode.json`
+
 This will install a number of useful modifications, of which you can enable any subset.
 (replace `master` with a git hash if you want.  You can also just open the link directly in Chrome).
 

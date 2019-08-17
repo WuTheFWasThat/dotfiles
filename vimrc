@@ -401,7 +401,10 @@ let g:UltiSnipsJumpForwardTrigger = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 " let g:UltiSnipsEditSplit="vertical"
 
+" better than syntastic
 Plug 'w0rp/ale'
+let b:ale_fixers = {'python': ['black', 'pylint']}
+" Plug 'python/black'
 
 """""""""""""
 " languages
@@ -418,6 +421,10 @@ Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'ianks/vim-tsx'
 Plug 'Shougo/vimproc.vim', {'do' : 'make'} | Plug 'Quramy/tsuquyomi', { 'for': 'typescript '}
 Plug 'leafgarland/typescript-vim', { 'for': 'typescript '}
+
+Plug 'evanleck/vim-svelte'
+au BufReadPost *.svelte set syntax=html
+au BufReadPost *.sve set syntax=html
 
 Plug 'ElmCast/elm-vim', { 'for': 'elm' }
 let g:elm_format_autosave = 1

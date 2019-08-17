@@ -5,3 +5,4 @@ vim/plugged
 vimperator/info
 yankring_history*
 .DS_Store
+.mypy_cache
