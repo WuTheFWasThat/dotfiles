@@ -12,6 +12,7 @@ function tmux_reload {
   tmux source-file ~/.tmux.conf
 }
 
+alias o='open'
 alias g='git'
 alias gnp='git --no-pager'
 

@@ -90,7 +90,7 @@ function! spacemacs#reloadVimrc()
 endfunction
 call s:spacevim_bind('map', 'feR', 'sync-configuration', ':call spacemacs#reloadVimrc()', 1)
 " TODO: switch saving stuff to s instead of f?
-" call s:spacevim_bind('map', 'fS', 'sudo-write', ':w !sudo tee %', 1)
+call s:spacevim_bind('map', 'fS', 'sudo-write', ':w !sudo tee %', 1)
 
 call s:spacevim_bind('map', 'i;', 'insert-semicolon', 'mzA;<esc>`z', 0)
 call s:spacevim_bind('map', 'i,', 'insert-comma', 'mzA,<esc>`z', 0)
