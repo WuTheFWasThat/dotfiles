@@ -456,16 +456,6 @@ with open(os.path.realpath(__file__).replace('.py', '.json'), 'w') as f:
             #     "manipulators": right_command_rules,
             # },
             {
-                "description": "LeftCommand to Space.",
-                "manipulators": [
-                    basic_rule({
-                        "from": single_key("left_command"),
-                        "to": [ { "key_code": "left_command" } ],
-                        "to_if_alone": [ { "key_code": "spacebar" } ],
-                    })
-                ]
-            },
-            {
                 "description": "semicolon = arrows",
                 "manipulators": arrow_rules,
             },
