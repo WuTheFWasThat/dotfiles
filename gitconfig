@@ -90,8 +90,33 @@
              fi; \
          done }; f"
 
+    remoteuser = "!f() { \
+            remote=${1:-origin}; \
+            git_remote=$(git remote -v | head -n 1 | cut -f 2 -d ':'); \
+            echo $(git remote get-url $remote | cut -f 2 -d ':' | cut -f 1 -d '/'); \
+          }; f"
+
+    remoterepo = "!f() { \
+            remote=${1:-origin}; \
+            git_remote=$(git remote -v | head -n 1 | cut -f 2 -d ':'); \
+            git_repo=$(git remote get-url $remote | cut -f 2 -d ':' | cut -f 2 -d '/'); \
+            git_repo=${git_repo::$((${#git_repo}-4))}; \
+            echo $git_repo; \
+          }; f"
+
     # github
-    pr = "!git push; hub pull-request"
+    # pr = "!git push; hub pull-request"
+    pr = "!f() { \
+            remote=${1:-origin}; \
+            git push; \
+            git_user=$(git remoteuser); \
+            git_repo=$(git remoterepo); \
+            # cur_branch=$(git branch --show-current);\n \
+            cur_branch=$(git rev-parse --abbrev-ref HEAD); \
+            echo open \"https://github.com/$git_user/$git_repo/compare/master...$cur_branch\"; \
+            # open \"https://github.com/$git_user/$git_repo/pull/create?base=$git_user%3Amaster&head=$git_user%3A$cur_branch\"; \n\
+            open \"https://github.com/$git_user/$git_repo/compare/master...$cur_branch\"; \
+          }; f"
     h = "!f() { hash=${1:-$(git rev-parse --abbrev-ref HEAD)}; hub browse -- tree/$hash; }; f"
     hi = "!hub browse -- issues"
     hin = "!hub browse -- issues/new"
