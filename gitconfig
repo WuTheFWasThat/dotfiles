@@ -41,8 +41,8 @@
     bdm = "!git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"
     # delete a branch (default to current branch).  if current branch deleted, checkout master
     bx = "!f() { \
-      onbranch=$(git bb); \
-      branch=${1:-$onbranch}; \
+      local onbranch=$(git bb); \
+      local branch=${1:-$onbranch}; \
       if [ \"$branch\" = \"master\" ]; then \
         echo \"Can't delete master!\";  \
         return 1;  \
@@ -54,13 +54,13 @@
     }; f"
     # delete remote branch
     bxr = "!f() { \
-      onbranch=$(git bb); \
-      branch=${1:-$onbranch}; \
+      local onbranch=$(git bb); \
+      local branch=${1:-$onbranch}; \
       git push origin :$branch; \
     }; f"
     # Remove branches that have already been merged with master, a.k.a. ‘delete merged’
     done = "!f() { \
-      mybranch=$(git bb); \
+      local mybranch=$(git bb); \
       if [ \"$mybranch\" != \"master\" ]; then git checkout master; git reset --hard $mybranch; fi; \
       git fetch; git rebase origin/master; git push origin master; \
       if [ \"$mybranch\" != \"master\" ]; then git branch -D $mybranch; git push origin :$mybranch; fi; \
