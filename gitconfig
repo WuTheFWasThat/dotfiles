@@ -107,18 +107,38 @@
           }; f"
 
     # github
-    # pr = "!git push; hub pull-request"
-    pr = "!f() { \
-            remote=${1:-origin}; \
-            git push; \
-            git_user=$(git remoteuser); \
-            git_repo=$(git remoterepo); \
-            # cur_branch=$(git branch --show-current);\n \
-            cur_branch=$(git rev-parse --abbrev-ref HEAD); \
-            echo open \"https://github.com/$git_user/$git_repo/compare/master...$cur_branch\"; \
-            # open \"https://github.com/$git_user/$git_repo/pull/create?base=$git_user%3Amaster&head=$git_user%3A$cur_branch\"; \n\
-            open \"https://github.com/$git_user/$git_repo/compare/master...$cur_branch\"; \
-          }; f"
+    pr = "!git push; hub pull-request"
+    # pr = "!f() { \
+    #         remote=${1:-origin}; \
+    #         git push; \
+    #         git_user=$(git remoteuser); \
+    #         git_repo=$(git remoterepo); \
+    #         cur_branch=$(git bb); \
+    #         echo open \"https://github.com/$git_user/$git_repo/compare/master...$cur_branch\"; \
+    #         # open \"https://github.com/$git_user/$git_repo/pull/create?base=$git_user%3Amaster&head=$git_user%3A$cur_branch\"; \n\
+    #         open \"https://github.com/$git_user/$git_repo/compare/master...$cur_branch\"; \
+    #       }; f"
+    prm = "!f() { \
+        local remote=${1-origin}; \
+        local merge_method=${2:-merge}; \
+        local GITHUB_TOKEN=$(cat ~/.github_token); \
+        local user=$(git remoteuser $remote); \
+        local repo=$(git remoterepo $remote); \
+        local branch=$(git bb); \
+        prnum=$(curl -X GET -H \"Authorization: token $GITHUB_TOKEN\" https://api.github.com/repos/$user/$repo/pulls | jq '.[] | select(.head.ref==\"'$branch'\") | .number'); \
+        curl -X PUT -H \"Authorization: token $GITHUB_TOKEN\" -d '{\"merge_method\": \"'$merge_method'\"}' https://api.github.com/repos/$user/$repo/pulls/$prnum/merge; \
+    }; f"
+    prr = "!f() { local remote=${1:-origin}; git prm $remote rebase; }; f"
+    prs = "!f() { local remote=${1:-origin}; git prm $remote squash; }; f"
+    donepr = "!f() { \
+      local remote=${1-origin}; \
+      local merge_method=${2:-merge}; \
+      local mybranch=$(git bb); \
+      git prm $remote $merge_method; \
+      if [ \"$mybranch\" != \"master\" ]; then git branch -D $mybranch; git push origin :$mybranch; fi; \
+    }; f"
+    doneprr = "!f() { local remote=${1:-origin}; git donepr $remote rebase; }; f"
+    doneprs = "!f() { local remote=${1:-origin}; git donepr $remote squash; }; f"
     h = "!f() { hash=${1:-$(git bb)}; hub browse -- tree/$hash; }; f"
     hi = "!hub browse -- issues"
     hin = "!hub browse -- issues/new"
