@@ -403,6 +403,9 @@ let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 " better than syntastic
 Plug 'w0rp/ale'
 let b:ale_fixers = {'python': ['black', 'pylint']}
+" don't check line length
+let g:ale_python_flake8_options = '--ignore=E501'
+
 " Plug 'python/black'
 
 """""""""""""

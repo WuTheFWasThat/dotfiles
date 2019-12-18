@@ -13,6 +13,9 @@
     # editor = ! echo "emacsclient -c"
     alias = "!f() { pattern=$@; rand=$(uuidgen); git config --get-regexp ^alias\\. | sed -e s/^alias\\.// | grep \"$pattern\" | sort | sed -e \"s| |$rand|\" | awk -F \"$rand\" '{ printf \"%12-s = %s\\n\", $1, $2 }'; }; f"
 
+    linecount = "!git ls-files | grep -v package-lock.json | grep -v Pipfile.lock | xargs cat | wc -l"
+    linecounts = "!for f in $(git ls-files | grep -v package-lock.json | grep -v Pipfile.lock); do echo $(wc -l $f); done"
+
     # utils
     root = rev-parse --show-toplevel
     # executes command at git root
