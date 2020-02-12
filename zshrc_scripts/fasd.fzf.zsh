@@ -71,4 +71,3 @@ killz() {
     echo "Aborted"
   fi
 }
-

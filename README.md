@@ -17,6 +17,9 @@ all commands ran from root directory
 - make sure vim is 7.4+, preferably 8+ (e.g. `brew install vim`)
 - install vim plugins: `vim +PlugInstall +qall`
   - this should install fzf (if not, do e.g. `brew install fzf`)
+- install `Ag` (https://github.com/ggreer/the_silver_searcher):
+  - `brew install the_silver_searcher`
+
 - optional
   - set iterm colors, if appropriate
   - install screen/tmux (e.g. `brew install tmux`)
