@@ -53,6 +53,7 @@
       if [ \"$branch\" = \"$onbranch\" ]; then \
         git checkout master;  \
       fi;  \
+      git tag shelved/$branch; \
       git branch -D $branch;  \
     }; f"
     # delete remote branch
@@ -391,12 +392,16 @@
     fc = "!f() { git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short --grep=\"$@\"; }; f"
     # List contributors with number of commits
     contributors = shortlog --summary --numbered
+    # shelf = "!f() { git tag  | grep shelved } ; f"
+
 
 [color]
     # diff = always
     ui = true
 [push]
     default = current
+[rerere]
+    enabled = true
 # [branch]
 #     autosetupmerge = always
 #     autosetuprebase = always
