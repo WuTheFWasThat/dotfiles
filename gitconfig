@@ -52,8 +52,8 @@
       fi;  \
       if [ \"$branch\" = \"$onbranch\" ]; then \
         git checkout master;  \
-      fi;  \
-      git tag shelved/$branch $branch; \
+      fi &&  \
+      git tag shelved/$branch $branch && \
       git branch -D $branch;  \
     }; f"
     # delete remote branch
