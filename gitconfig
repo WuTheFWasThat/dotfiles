@@ -370,11 +370,18 @@
       echo git checkout $commit; \
     }; f"
     # fuzzy show
+    # see: https://gist.github.com/junegunn/f4fca918e937e6bf5bad
     zsh = "!f() { \
-      local commit=$(git zh); \
-      if [[ -z $commit ]]; then return 1; fi; \
-      git show $commit; \
-      echo git show $commit; \
+      git log --graph --color=always --abbrev=7 --format='%C(auto)%h %an %C(blue)%s %C(yellow)%cr' $@ | fzf --ansi --no-sort --reverse --tiebreak=index \
+      --preview \"f() { set -- \\$(echo -- \\$@ | grep -o '[a-f0-9]\\{7\\}'); [ \\$# -eq 0 ] || git show --color=always \\$1 $filter; }; f {}\" \
+      --preview-window=right:60% \
+      --height 80%; \
+    }; f"
+    zshs = "!f() { \
+      git log --graph --color=always --abbrev=7 --format='%C(auto)%h %an %C(blue)%s %C(yellow)%cr' $@ | fzf --ansi --no-sort --reverse --tiebreak=index \
+      --preview \"f() { set -- \\$(echo -- \\$@ | grep -o '[a-f0-9]\\{7\\}'); [ \\$# -eq 0 ] || git show --color=always --stat \\$1 $filter; }; f {}\" \
+      --preview-window=right:60% \
+      --height 80%; \
     }; f"
     # fuzzy diff
     zd = "!f() { \

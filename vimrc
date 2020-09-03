@@ -214,11 +214,13 @@ set timeoutlen=400
 Plug 'ctjhoa/spacevim'
 let mapleader = "\<Space>"
 
+" POSSIBLY SLOW?
 Plug 'vim-airline/vim-airline'
 " enable status line always
 set laststatus=2
 let g:airline_left_sep=''
 let g:airline_right_sep=''
+let g:airline_extensions = []
 
 """""""""""""
 " misc
