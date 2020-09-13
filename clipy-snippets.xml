@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<folders>
+	<folder>
+		<title>js</title>
+		<snippets>
+			<snippet>
+				<title>add jquery</title>
+				<content>function addScript(url) {
+  var s = document.createElement(&quot;script&quot;);
+  s.type = &quot;text/javascript&quot;;
+  s.src = url;
+  document.head.appendChild(s);
+}
+
+addScript(&quot;https://code.jquery.com/jquery-3.3.1.min.js&quot;);</content>
+			</snippet>
+		</snippets>
+	</folder>
+	<folder>
+		<title>py</title>
+		<snippets>
+			<snippet>
+				<title>ipdb</title>
+				<content>import ipdb; ipdb.set_trace()</content>
+			</snippet>
+			<snippet>
+				<title>tfsimple</title>
+				<content>import tensorflow as tf
+
+a = tf.Variable(dtype=tf.float32, initial_value=tf.zeros([1]))
+b = tf.placeholder(dtype=tf.int32, shape=[None])
+c = tf.constant([[0.0, 1.0], [1.0, 1.0]])
+sess = tf.Session()
+sess.__enter__()
+# sess.run(tf.initialize_all_variables())
+# print(sess.run(a))</content>
+			</snippet>
+			<snippet>
+				<title>tfgraph</title>
+				<content>import tensorflow as tf
+
+with tf.Graph().as_default() as g:
+    with tf.Session() as sess:
+        a = tf.Variable(dtype=tf.float32, initial_value=tf.zeros([1]))
+        b = tf.placeholder(dtype=tf.int32, shape=[None])
+        c = tf.constant([[0.0, 1.0], [1.0, 1.0]])
+        # sess.run(tf.initialize_all_variables())
+        # print(sess.run(a))</content>
+			</snippet>
+			<snippet>
+				<title>tftimeline</title>
+				<content># add additional options to trace the session execution
+    options = tf.RunOptions(trace_level=tf.RunOptions.FULL_TRACE)
+    run_metadata = tf.RunMetadata()
+    sess.run(res, options=options, run_metadata=run_metadata)
+
+    # Create the Timeline object, and write it to a json file
+    fetched_timeline = timeline.Timeline(run_metadata.step_stats)
+    chrome_trace = fetched_timeline.generate_chrome_trace_format()
+    with open(&apos;timeline_01.json&apos;, &apos;w&apos;) as f:
+        f.write(chrome_trace)</content>
+			</snippet>
+			<snippet>
+				<title>tfeager</title>
+				<content>import tensorflow as tf
+tf.enable_eager_execution()</content>
+			</snippet>
+			<snippet>
+				<title>torch-print</title>
+				<content>def printr(name, tensor):
+    import torch.distributed as dist
+    print(f&apos;[{dist.get_rank()}] {name} \n {tensor.cpu().detach().numpy()}\n&apos;)</content>
+			</snippet>
+		</snippets>
+	</folder>
+	<folder>
+		<title>bash</title>
+		<snippets>
+			<snippet>
+				<title>tee stderr+stdout</title>
+				<content>2&gt;&amp;1 | tee</content>
+			</snippet>
+			<snippet>
+				<title>date</title>
+				<content>date +%Y-%m-%d-%H-%M</content>
+			</snippet>
+		</snippets>
+	</folder>
+	<folder>
+		<title>openai</title>
+		<snippets>
+			<snippet>
+				<title>datestr</title>
+				<content>$(date +%y%m%d%H%M)</content>
+			</snippet>
+		</snippets>
+	</folder>
+</folders>
