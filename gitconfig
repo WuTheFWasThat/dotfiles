@@ -146,7 +146,12 @@
         local branch=${2:-$(git bb)}; \
         local merge_method=${3:-merge}; \
         git try prm $remote $branch $merge_method; \
-        if [ \"$branch\" != \"master\" ]; then git checkout master; git branch -D $mybranch; git push origin :$mybranch; fi; \
+        if [ \"$branch\" != \"master\" ]; then \
+          if [ \"$branch\" == \"$(git bb)\" ]; then \
+            git checkout master; \
+          fi; \
+          git branch -D $branch; git push origin :$branch; \
+        fi; \
     }; f"
     donepr = "!f() { \
       local remote=${1-origin}; \
