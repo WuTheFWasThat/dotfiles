@@ -37,6 +37,7 @@ all commands ran from root directory
           user: jeffwu
           oauth_token: YOURTOKEN
         ```
+      - also put that token in a file at `~/.github_token` for some of my git aliases to work
   - install thefuck (https://github.com/nvbn/thefuck) (e.g. `brew install thefuck`)
   - install icdiff, change gitconfig differ
 - very optional:
