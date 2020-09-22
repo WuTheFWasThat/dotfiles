@@ -1,17 +1,17 @@
 # Watch files in infinite loop
-watch () {
+watchcmd () {
     # This script will re-run every time any of the specified files changes.
     #
     # $1: Command to execute
-    # $*: Files to watch (can be a glob pattern)
+    # $*: Files to watchcmd (can be a glob pattern)
 
     if (( $# < 2 ))
     then
-        echo "Usage: watch <CMD> <FILES>"
+        echo "Usage: watchcmd <CMD> <FILES>"
         return 1
     fi
 
-    # Should watch log anything? 1 means no
+    # Should watchcmd log anything? 1 means no
     SILENT=0
 
     while getopts ":s" opt; do
