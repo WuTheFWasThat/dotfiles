@@ -144,7 +144,7 @@
     trypr = "!f() { \
         local remote=${1-origin}; \
         local branch=${2:-$(git bb)}; \
-        local merge_method=${3:-merge}; \
+        local merge_method=${3:-rebase}; \
         git try prm $remote $branch $merge_method; \
         if [ \"$branch\" != \"master\" ]; then \
           if [ \"$branch\" == \"$(git bb)\" ]; then \
@@ -156,7 +156,7 @@
     donepr = "!f() { \
       local remote=${1-origin}; \
       local mybranch=${2:-$(git bb)}; \
-      local merge_method=${3:-merge}; \
+      local merge_method=${3:-rebase}; \
       git prm $remote $mybranch $merge_method || echo fail to merge && exit 1; \
       if [ \"$mybranch\" != \"master\" ]; then git checkout master; git branch -D $mybranch; git push origin :$mybranch; fi; \
     }; f"
