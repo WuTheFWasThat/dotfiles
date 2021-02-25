@@ -31,3 +31,5 @@ alias p='pushd ~/Projects'
 # stupid: nvim C-H doesn't work
 # alias vim='nvim'
 alias plug='vim +PlugInstall +qall'
+
+alias pypibump='rm -rf dist build *.egg-info && python3 setup.py sdist bdist_wheel && python3 -m twine upload dist/*'
