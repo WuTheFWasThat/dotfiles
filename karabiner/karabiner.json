@@ -765,6 +765,30 @@
                                     }
                                 ],
                                 "from": {
+                                    "key_code": "spacebar",
+                                    "modifiers": {
+                                        "mandatory": [],
+                                        "optional": [
+                                            "any"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "pointing_button": "button1"
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "mouse_keys_mode",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    }
+                                ],
+                                "from": {
                                     "key_code": "f",
                                     "modifiers": {
                                         "mandatory": [],
@@ -792,7 +816,7 @@
                                             "key_code": "semicolon"
                                         },
                                         {
-                                            "key_code": "f"
+                                            "key_code": "spacebar"
                                         }
                                     ],
                                     "simultaneous_options": {
