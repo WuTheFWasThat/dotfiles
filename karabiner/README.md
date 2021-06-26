@@ -3,6 +3,7 @@ First, install Karabiner elements
 Then set up the simple modification:
 
 `right_command` -> `escape`
+`caps_lock` -> `left_control`
 
 Then at a terminal, do:
 
