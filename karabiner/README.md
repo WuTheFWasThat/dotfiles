@@ -5,6 +5,12 @@ Then set up the simple modification:
 `right_command` -> `escape`
 `caps_lock` -> `left_control`
 
+Then just move the config in place:
+`mv ~/.config/karabiner/karabiner.json ~/.config/karabiner/karabiner.old.json`
+`cp karabiner/karabiner.json ~/.config/karabiner/karabiner.json`
+
+# Complex (NO LONGER WORKS)
+
 Then at a terminal, do:
 
 `open karabiner://karabiner/assets/complex_modifications/import?url=https://raw.githubusercontent.com/wuthefwasthat/dotfiles/master/karabiner/mouse_keys.json`
