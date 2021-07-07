@@ -94,8 +94,25 @@ done
 # }
 
 # SEE: https://github.com/creationix/nvm/issues/539#issuecomment-245791291
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" --no-use # This loads nvm
-alias node='unalias node ; unalias npm ; nvm use default ; node $@'
-alias npm='unalias node ; unalias npm ; nvm use default ; npm $@'
-alias tsc='unalias node ; unalias npm ; unalias tsc ; nvm use default ; tsc $@'
+lazynvm() {
+  echo "Loading nvm, node, npm first time"
+  unset -f nvm node npm
+  export NVM_DIR=~/.nvm
+  [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+  echo "Done loading nvm, node, npm first time"
+}
+
+nvm() {
+  lazynvm
+  nvm $@
+}
+
+node() {
+  lazynvm
+  node $@
+}
+
+npm() {
+  lazynvm
+  npm $@
+}

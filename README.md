@@ -13,8 +13,9 @@ all commands ran from root directory
 
   - install zsh theme:
     `ln -s $(pwd)/my.zsh-theme ~/.oh-my-zsh/themes/jeffwu.zsh-theme`
-  - add to zshrc:
-    `echo "source $(pwd)/zshrc" >> ~/.zshrc`
+  - overwrite zshrc:
+    `echo "source $(pwd)/zshrc" > ~/.zshrc`
+
 - install fasd (e.g. `brew install fasd`)
 - make sure vim is 7.4+, preferably 8+ (e.g. `brew install vim`)
 - install vim plugins: `vim +PlugInstall +qall`
