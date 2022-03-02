@@ -48,7 +48,8 @@ all commands ran from root directory
     ```
     mkdir -p $HOME/.config
     ln -s ~/.vim $HOME/.config/nvim
-    sudo pip2 install neovim
+    # sudo pip3 install neovim
+    sudo pip3 install pynvim
     ```
   - install nvm
     `curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.0/install.sh | bash`

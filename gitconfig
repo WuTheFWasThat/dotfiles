@@ -2,8 +2,8 @@
     name = Jeff Wu
     email = wuthefwasthat@gmail.com
 [core]
-    editor = vim -V9/tmp/myVim.log
-    # editor = nvim
+    # editor = vim -V9/tmp/myVim.log
+    editor = nvim
 [alias]
     # https://github.com/jeffkaufman/icdiff
     icdiff = "!f() { git difftool --no-prompt --extcmd=\"icdiff $(git config --get icdiff.options)\" \"$@\" | less -R; }; f"
