@@ -327,6 +327,7 @@ endif
 """""""""""""
 
 Plug 'tpope/vim-fugitive'
+call SpacevimBind('map', 'gb', 'git-blame', ':Git blame ', 1)
 Plug 'junegunn/gv.vim'
 Plug 'airblade/vim-gitgutter'
 
