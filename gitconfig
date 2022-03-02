@@ -2,7 +2,7 @@
     name = Jeff Wu
     email = wuthefwasthat@gmail.com
 [core]
-    editor = vim
+    editor = vim -V9/tmp/myVim.log
     # editor = nvim
 [alias]
     # https://github.com/jeffkaufman/icdiff
