@@ -1,0 +1,90 @@
+// notes: command shift P, search for "Preferences: Open settings (JSON)"
+{
+  "vim.leader": "<Space>",
+  "vim.insertModeKeyBindingsNonRecursive": [
+  ],
+  "vim.normalModeKeyBindingsNonRecursive": [
+    // https://code.visualstudio.com/docs/getstarted/keybindings
+    // TODO: find definitive version
+    {
+      "before": ["<leader>", "q", "q"],
+      "commands": ["workbench.action.closeWindow"]
+    },
+    {
+      "before": ["<leader>", "w", "c"],
+      "commands": ["workbench.action.closeEditorsInGroup"]
+    },
+    {
+      "before": ["<leader>", "w", "v"],
+      "commands": ["workbench.action.splitEditor"]
+    },
+    {
+      "before": ["<leader>", "f", "s"],
+      "commands": ["workbench.action.files.save"]
+    },
+    {
+      "before": ["<leader>", "e", "n"],
+      "commands": ["editor.action.marker.nextInFiles"]
+    },
+    {
+      "before": ["<leader>", "e", "p"],
+      "commands": ["editor.action.marker.prevInFiles"]
+    },
+    // {
+    //   "before": ["<leader>", "b", "b"],
+    //   "commands": ["workbench.action.navigateEditorGroups"]
+    // },
+    {
+      "before": ["<leader>", "b", "d"],
+      "commands": ["workbench.action.closeActiveEditor"]
+    },
+    {
+      "before": ["<leader>", "b", "n"],
+      "commands": ["workbench.action.nextEditor"]
+    },
+    {
+      "before": ["<leader>", "b", "p"],
+      "commands": ["workbench.action.previousEditor"]
+    },
+    {
+      "before": ["<C-c>"],
+      "commands": ["editor.action.clipboardCopyAction"]
+    },
+    {
+      "before": ["g", "o"],
+      "commands": ["workbench.action.quickOpen"]
+    },
+    {
+      "before": ["<C-h>"],
+      "after": ["<C-w>", "h"]
+    },
+    {
+      "before": ["<C-j>"],
+      "after": ["<C-w>", "j"]
+    },
+    {
+      "before": ["<C-k>"],
+      "after": ["<C-w>", "k"]
+    },
+    {
+      "before": ["<C-l>"],
+      "after": ["<C-w>", "l"]
+    },
+    {
+      "before": ["<leader>", "r", "l"], "after": [],
+      "commands": [ {"command": "runInTerminal.run", "args": {"name": "l"}} ]
+    },
+  ],
+  "editor.tabSize": 4,
+  "editor.cursorStyle": "line",
+  "editor.insertSpaces": true,
+  "editor.lineNumbers": "on",
+  "editor.wordWrap": "off",
+  "github.copilot.advanced": {
+    "debug.forceUseEarhartModel": true,
+    "secret_key": "REDACTED"
+  },
+  "copilot.enabled": {
+    "python": false
+  },
+}
