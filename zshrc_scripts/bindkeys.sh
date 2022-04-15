@@ -9,7 +9,8 @@ zle -N down-line-or-beginning-search
 # for emacs mode:
 bindkey '^u' backward-kill-line
 # normally this is ^k
-bindkey '^i' kill-line
+# NOTE: '^i' is also tab
+bindkey '^o' kill-line
 
 # set vi mode
 # bindkey -v
