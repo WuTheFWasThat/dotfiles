@@ -14,13 +14,14 @@
     navigate = true  # use n and N to move between diff sections
 
 [alias]
+    # TODO:  DIFF TOOL, ACTUALLY MAYBE ... https://difftastic.wilfred.me.uk/git.html
+
     # https://github.com/jeffkaufman/icdiff
     # configuration
     # icdiff = "!f() { git difftool --no-prompt --extcmd=\"icdiff $(git config --get icdiff.options)\" \"$@\" | less -R; }; f"
     # differ = "!f() { if which icdiff > /dev/null; then echo icdiff; else echo diff; fi; }; f"
 
     delta = "!f() { git diff \"$@\" | delta -s; }; f"
-
     differ = "!f() { if which delta > /dev/null; then echo delta; else echo diff; fi; }; f"
 
     editor = config --get core.editor

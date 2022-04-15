@@ -4,6 +4,15 @@ alias py='python'
 alias py3='python3'
 alias ipy='ipython'
 
+if which bat > /dev/null; then
+  alias cat='bat'
+fi
+
+# TODO: use fd instead of find
+# https://github.com/sharkdp/fd#installation
+
+# TODO: use ripgrep instead of grep
+
 function list_space {
   du -sh -- $1*  | sort -rg
 }

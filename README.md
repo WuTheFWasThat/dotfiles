@@ -55,3 +55,7 @@ all commands ran from root directory
     `curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.0/install.sh | bash`
   - install latex
     `brew cask install mactex`
+
+# TODO
+- try pv (pipeviewer)?   like command line tqdm
+- try https://github.com/eradman/entr instead of watch
