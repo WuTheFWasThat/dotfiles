@@ -83,6 +83,7 @@ export RUST_BACKTRACE=1
 for file in ~/.zshrc_scripts/*; do
    source "$file"
 done
+alias w='watchcmd'
 
 # SEE: https://babushk.in/posts/renew-environment-tmux.html
 # NOTE: causes issues with prompt display in mosh

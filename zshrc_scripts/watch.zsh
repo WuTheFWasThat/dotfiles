@@ -1,4 +1,5 @@
 # Watch files in infinite loop
+# Example:  watchcmd 'git diff' *
 watchcmd () {
     # This script will re-run every time any of the specified files changes.
     #
