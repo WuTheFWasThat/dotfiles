@@ -4,6 +4,8 @@ Then set up the simple modification:
 
 `right_command` -> `escape`
 `caps_lock` -> `left_control`
+`semicolon` -> `return_or_enter`
+`return_or_enter` -> `semicolon`
 
 Then just move the config in place:
 `mv ~/.config/karabiner/karabiner.json ~/.config/karabiner/karabiner.old.json`
@@ -35,6 +37,7 @@ Key bindings:
 `f + hjkl`: fast mouse move
 `s + hjkl`: slow mouse move
 `d + hjkl`: scroll
+`r + hjkl`: scroll
 `shift + hjkl`: scroll
 
 `u` or `f`: left click

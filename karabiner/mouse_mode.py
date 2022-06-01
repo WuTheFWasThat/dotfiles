@@ -1,7 +1,7 @@
 import os
 import json
 
-MOUSE_MODE_KEY = "semicolon"
+MOUSE_MODE_KEY = "return_or_enter"
 
 ACTIVATE_TOGGLE = "m"
 DOWN = "j"
