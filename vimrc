@@ -376,15 +376,20 @@ nnoremap ` :Marks<cr>
 Plug 'ervandew/supertab'
 set omnifunc=syntaxcomplete#Complete
 
-" Plug 'ajh17/VimCompletesMe'
-" Plug 'Valloric/YouCompleteMe'
-" don't load until insert mode, see: https://github.com/junegunn/vim-plug/issues/53
-" Plug 'Valloric/YouCompleteMe', { 'on': [] }
-" augroup load_us_ycm
-"   autocmd!
-"   autocmd InsertEnter * call plug#load('YouCompleteMe')
-"                      \| call youcompleteme#Enable()
-" augroup END
+if has('nvim')
+  Plug 'github/copilot.vim', { 'branch': 'release' }
+  autocmd VimEnter * Copilot setup
+else
+  " Plug 'ajh17/VimCompletesMe'
+  " Plug 'Valloric/YouCompleteMe'
+  " don't load until insert mode, see: https://github.com/junegunn/vim-plug/issues/53
+  " Plug 'Valloric/YouCompleteMe', { 'on': [] }
+  " augroup load_us_ycm
+  "   autocmd!
+  "   autocmd InsertEnter * call plug#load('YouCompleteMe')
+  "                      \| call youcompleteme#Enable()
+  " augroup END
+endif
 " snippets engine, actual snippets
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 
