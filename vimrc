@@ -208,8 +208,9 @@ function! SpacevimBind(map, binding, name, value, isCmd)
   execute a:map . " <leader>" . a:binding . " <SID>" . a:name
 endfunction
 
-Plug 'hecal3/vim-leader-guide'
-set timeoutlen=400
+" doing weird infinite loop stuff
+" Plug 'hecal3/vim-leader-guide'
+" set timeoutlen=400
 
 Plug 'ctjhoa/spacevim'
 let mapleader = "\<Space>"
