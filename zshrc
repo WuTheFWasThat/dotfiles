@@ -94,26 +94,4 @@ alias w='watchcmd'
 #   fi
 # }
 
-# SEE: https://github.com/creationix/nvm/issues/539#issuecomment-245791291
-lazynvm() {
-  echo "Loading nvm, node, npm first time"
-  unset -f nvm node npm
-  export NVM_DIR=~/.nvm
-  [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-  echo "Done loading nvm, node, npm first time"
-}
-
-nvm() {
-  lazynvm
-  nvm $@
-}
-
-node() {
-  lazynvm
-  node $@
-}
-
-npm() {
-  lazynvm
-  npm $@
-}
+eval "$(fnm env --use-on-cd)"

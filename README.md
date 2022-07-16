@@ -51,8 +51,8 @@ all commands ran from root directory
     # sudo pip3 install neovim
     sudo pip3 install pynvim
     ```
-  - install nvm
-    `curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.0/install.sh | bash`
+  - install [fnm](https://github.com/Schniz/fnm#shell-setup)
+    `brew install fnm`
   - install latex
     `brew cask install mactex`
 
