@@ -37,7 +37,7 @@ Key bindings:
 `f + hjkl`: fast mouse move
 `s + hjkl`: slow mouse move
 `d + hjkl`: scroll
-`r + hjkl`: scroll
+`r + hjkl`: arrows
 `shift + hjkl`: scroll
 
 `u` or `f`: left click
