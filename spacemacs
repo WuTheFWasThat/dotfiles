@@ -307,9 +307,10 @@ you should place you code here."
   (define-key evil-normal-state-map (kbd ";") 'evil-ex)
 
   ; configuration for ranger
-  (setq-default dotspacemacs-configuration-layers
-                '(ranger :variables
-                         ranger-show-preview t))
+  ;; NOTE: this seems to give a warning in newer versions of spacemacs
+  ;; (setq-default dotspacemacs-configuration-layers
+  ;;               '(ranger :variables
+  ;;                        ranger-show-preview t))
   (setq ranger-ignored-extensions '("mkv" "iso" "mp4"))
   (setq ranger-max-preview-size 10) ; in mb
   ; (setq ranger-width-preview 0.55)

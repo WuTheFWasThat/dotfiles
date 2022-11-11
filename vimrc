@@ -421,7 +421,6 @@ let g:ale_python_flake8_options = '--ignore=E501'
 " languages
 """""""""""""
 
-" TODO: try this out for python
 Plug 'davidhalter/jedi-vim'
 Plug 'integralist/vim-mypy'
 

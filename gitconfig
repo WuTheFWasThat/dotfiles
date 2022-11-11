@@ -85,6 +85,8 @@
       if [ \"$mybranch\" != \"master\" ]; then git branch -D $mybranch; git push origin :$mybranch; fi; \
     }; f"
 
+    rmc = "rm --cached"
+
     # remotes
     f = "!f() { git chain 'fetch --all --prune' $@; }; f"
     pu = "push -u"
@@ -250,7 +252,9 @@
     dso = "!f(){ branch=$(git bb); git diff --stat origin/$branch $@; }; f"
     dsom = "!git --no-pager -c color.diff=always diff --stat origin/master"
     dsm = "!git --no-pager -c color.diff=always diff --stat master"
-    dop = "!f() { $(git editor) $(git diff --name-only $@); }; f"
+    df = "!f() { git diff --name-only $@; }; f"
+    dcf = "!f() { git diff --cached --name-only $@; }; f"
+    dop = "!f() { $(git editor) $(git df); }; f"
     dcop = "!f() { $(git editor) $(git diff --cached --name-only $@); }; f"
     dm = "!f(){ if [ -n \"$GIT_PREFIX\" ]; then cd \"$GIT_PREFIX\"; fi; git $(git differ) master; }; f"
     dom = "!f(){ if [ -n \"$GIT_PREFIX\" ]; then cd \"$GIT_PREFIX\"; fi; git $(git differ) origin/master; }; f"
