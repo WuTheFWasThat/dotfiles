@@ -253,6 +253,7 @@
     dsom = "!git --no-pager -c color.diff=always diff --stat origin/master"
     dsm = "!git --no-pager -c color.diff=always diff --stat master"
     df = "!f() { git diff --name-only $@; }; f"
+    dfom = "!f() { git diff --name-only origin/master; }; f"
     dcf = "!f() { git diff --cached --name-only $@; }; f"
     dop = "!f() { $(git editor) $(git df); }; f"
     dcop = "!f() { $(git editor) $(git diff --cached --name-only $@); }; f"
