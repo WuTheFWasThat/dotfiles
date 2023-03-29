@@ -1182,15 +1182,7 @@
           ],
           "parameters": {
             "basic.simultaneous_threshold_milliseconds": 100
-          },
-          "to_after_key_up": [
-            {
-              "set_variable": {
-                "name": "vim_keys_mode_scroll",
-                "value": 0
-              }
-            }
-          ]
+          }
         }
       ]
     },

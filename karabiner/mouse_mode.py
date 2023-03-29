@@ -196,17 +196,23 @@ VIM_KEYS_AFTER_UP = [
     set_var(VIM_KEYS_ARROW_MODE, 0),
 ]
 
+def scroll_rules(key, to):
+    return [
+        basic_rule({
+          "from": single_key(key),
+          "to": [to],
+          "conditions": [
+            var_is_set(VIM_KEYS_MOUSE_MODE),
+            var_is_set(VIM_KEYS_SCROLL_MODE),
+          ]
+        }),
+    ]
+
 vim_keys_rules = [
-    basic_rule({
-      "from": single_key(DOWN),
-      "to": [
-        { "mouse_key": { "vertical_wheel": 32 } }
-      ],
-      "conditions": [
-        var_is_set(VIM_KEYS_MOUSE_MODE),
-        var_is_set(VIM_KEYS_SCROLL_MODE),
-      ]
-    }),
+    *scroll_rules(DOWN, { "mouse_key": { "vertical_wheel": MOUSE_SCROLL_SPEED }}),
+    *scroll_rules(UP, { "mouse_key": { "vertical_wheel": -MOUSE_SCROLL_SPEED }}),
+    *scroll_rules(LEFT, { "mouse_key": { "horizontal_wheel": MOUSE_SCROLL_SPEED }}),
+    *scroll_rules(RIGHT, { "mouse_key": { "horizontal_wheel": -MOUSE_SCROLL_SPEED }}),
     basic_rule({
       "from": single_key(DOWN),
       "to": [
@@ -233,16 +239,6 @@ vim_keys_rules = [
             { "mouse_key": { "y": MOUSE_SPEED } }
         ],
         "parameters": SIMULTANEOUS_THRESHOLD_MS_RULE
-    }),
-    basic_rule({
-        "from": single_key(UP),
-        "to": [
-            { "mouse_key": { "vertical_wheel": -MOUSE_SCROLL_SPEED } }
-        ],
-        "conditions": [
-            var_is_set(VIM_KEYS_MOUSE_MODE),
-            var_is_set(VIM_KEYS_SCROLL_MODE),
-        ]
     }),
     basic_rule({
         "from": single_key(UP),
@@ -274,16 +270,6 @@ vim_keys_rules = [
     basic_rule({
         "from": single_key(LEFT),
         "to": [
-            { "mouse_key": { "horizontal_wheel": MOUSE_SCROLL_SPEED } }
-        ],
-        "conditions": [
-            var_is_set(VIM_KEYS_MOUSE_MODE),
-            var_is_set(VIM_KEYS_SCROLL_MODE),
-        ]
-    }),
-    basic_rule({
-        "from": single_key(LEFT),
-        "to": [
             { "key_code": "left_arrow" }
         ],
         "conditions": [
@@ -307,16 +293,6 @@ vim_keys_rules = [
             { "mouse_key": { "x": -MOUSE_SPEED } }
         ],
         "parameters": SIMULTANEOUS_THRESHOLD_MS_RULE
-    }),
-    basic_rule({
-        "from": single_key(RIGHT),
-        "to": [
-            { "mouse_key": { "horizontal_wheel": -MOUSE_SCROLL_SPEED } }
-        ],
-        "conditions": [
-            var_is_set(VIM_KEYS_MOUSE_MODE),
-            var_is_set(VIM_KEYS_SCROLL_MODE),
-        ]
     }),
     basic_rule({
         "from": single_key(RIGHT),
@@ -472,9 +448,6 @@ vim_keys_rules = [
             set_var(VIM_KEYS_ARROW_MODE, 1),
         ],
         "parameters": SIMULTANEOUS_THRESHOLD_MS_RULE,
-        "to_after_key_up": [
-            set_var(VIM_KEYS_SCROLL_MODE, 0),
-        ]
     })
 ]
 
