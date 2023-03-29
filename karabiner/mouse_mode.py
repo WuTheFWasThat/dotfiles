@@ -65,12 +65,12 @@ def simultaneous_keys(key_codes, after_up=None, modifiers=()):
             { "key_code": key_code } for key_code in key_codes
         ],
         "simultaneous_options": {
-            "key_down_order": "strict",
-            "key_up_order": "strict_inverse",
+            "key_down_order": "insensitive",
+            "key_up_order": "insensitive",
         },
         "modifiers": {
             "mandatory": list(modifiers),
-            "optional": [ "any" ] 
+            "optional": [ "any" ],
         }
     }
     if after_up is not None:
@@ -207,7 +207,7 @@ def basic_vim_rules(key, to, modifiers=(), extra_conditions=()):
         }),
         basic_rule({
             "from": simultaneous_keys([VIM_MODE_KEY, key], after_up=VIM_KEYS_AFTER_UP, modifiers=modifiers),
-            "to": [
+            "to_if_alone": [
                 set_var(VIM_KEYS_MODE, 1),
                 to,
             ],
