@@ -46,11 +46,11 @@ def set_var(var, value=1):
         }
     }
 
-def single_key(key_code, modifiers=[]):
+def single_key(key_code, modifiers=()):
     return {
         "key_code": key_code,
         "modifiers": {
-            "mandatory": modifiers,
+            "mandatory": list(modifiers),
             "optional": [
                 "any"
             ]
@@ -196,182 +196,61 @@ VIM_KEYS_AFTER_UP = [
     set_var(VIM_KEYS_ARROW_MODE, 0),
 ]
 
-def scroll_rules(key, to):
-    return [
-        basic_rule({
-          "from": single_key(key),
-          "to": [to],
-          "conditions": [
+def basic_vim_rule(key, to, modifiers=(), extra_conditions=()):
+    return basic_rule({
+        "from": single_key(key, modifiers=modifiers),
+        "to": [to],
+        "conditions": [
             var_is_set(VIM_KEYS_MOUSE_MODE),
-            var_is_set(VIM_KEYS_SCROLL_MODE),
-          ]
+        ] + list(extra_conditions)
+    })
+
+def vim_scroll_rules(key, to, modifiers=()):
+    return [
+        basic_vim_rule(key, to, extra_conditions=[var_is_set(VIM_KEYS_SCROLL_MODE)]),
+        basic_rule({
+            "from": simultaneous_keys([VIM_MODE_KEY, SCROLL, DOWN], after_up=VIM_KEYS_AFTER_UP),
+            "to": [
+                set_var(VIM_KEYS_MOUSE_MODE, 1),
+                set_var(VIM_KEYS_SCROLL_MODE, 1),
+                to,
+            ],
+            "parameters": SIMULTANEOUS_THRESHOLD_MS_RULE
+        }),
+    ]
+
+def vim_mouse_rules(key, to, modifiers=()):
+    return [
+        # TODO: extra condition here
+        basic_vim_rule(key, to),
+        basic_rule({
+            # TODO extra key here
+            "from": simultaneous_keys([VIM_MODE_KEY, key], after_up=VIM_KEYS_AFTER_UP),
+            "to": [
+                set_var(VIM_KEYS_MOUSE_MODE, 1),
+                # TODO extra mode here
+                to
+            ],
+            "parameters": SIMULTANEOUS_THRESHOLD_MS_RULE
         }),
     ]
 
 vim_keys_rules = [
-    *scroll_rules(DOWN, { "mouse_key": { "vertical_wheel": MOUSE_SCROLL_SPEED }}),
-    *scroll_rules(UP, { "mouse_key": { "vertical_wheel": -MOUSE_SCROLL_SPEED }}),
-    *scroll_rules(LEFT, { "mouse_key": { "horizontal_wheel": MOUSE_SCROLL_SPEED }}),
-    *scroll_rules(RIGHT, { "mouse_key": { "horizontal_wheel": -MOUSE_SCROLL_SPEED }}),
-    basic_rule({
-      "from": single_key(DOWN),
-      "to": [
-        { "key_code": "down_arrow" }
-      ],
-      "conditions": [
-        var_is_set(VIM_KEYS_MOUSE_MODE),
-        var_is_set(VIM_KEYS_ARROW_MODE),
-      ]
-    }),
-    basic_rule({
-      "from": single_key(DOWN),
-      "to": [
-        { "mouse_key": { "y": MOUSE_SPEED } }
-      ],
-      "conditions": [
-        var_is_set(VIM_KEYS_MOUSE_MODE),
-      ]
-    }),
-    basic_rule({
-        "from": simultaneous_keys([VIM_MODE_KEY, DOWN], after_up=VIM_KEYS_AFTER_UP),
-        "to": [
-            set_var(VIM_KEYS_MOUSE_MODE, 1),
-            { "mouse_key": { "y": MOUSE_SPEED } }
-        ],
-        "parameters": SIMULTANEOUS_THRESHOLD_MS_RULE
-    }),
-    basic_rule({
-        "from": single_key(UP),
-        "to": [
-            { "key_code": "up_arrow" }
-        ],
-        "conditions": [
-            var_is_set(VIM_KEYS_MOUSE_MODE),
-            var_is_set(VIM_KEYS_ARROW_MODE),
-        ]
-    }),
-    basic_rule({
-        "from": single_key(UP),
-        "to": [
-            { "mouse_key": { "y": -MOUSE_SPEED } }
-        ],
-        "conditions": [
-            var_is_set(VIM_KEYS_MOUSE_MODE),
-        ]
-    }),
-    basic_rule({
-        "from": simultaneous_keys([VIM_MODE_KEY, UP], after_up=VIM_KEYS_AFTER_UP),
-        "to": [
-            set_var(VIM_KEYS_MOUSE_MODE, 1),
-            { "mouse_key": { "y": -MOUSE_SPEED } }
-        ],
-        "parameters": SIMULTANEOUS_THRESHOLD_MS_RULE
-    }),
-    basic_rule({
-        "from": single_key(LEFT),
-        "to": [
-            { "key_code": "left_arrow" }
-        ],
-        "conditions": [
-            var_is_set(VIM_KEYS_MOUSE_MODE),
-            var_is_set(VIM_KEYS_ARROW_MODE),
-        ]
-    }),
-    basic_rule({
-        "from": single_key(LEFT),
-        "to": [
-            { "mouse_key": { "x": -MOUSE_SPEED } }
-        ],
-        "conditions": [
-            var_is_set(VIM_KEYS_MOUSE_MODE),
-        ]
-    }),
-    basic_rule({
-        "from": simultaneous_keys([VIM_MODE_KEY, LEFT], after_up=VIM_KEYS_AFTER_UP),
-        "to": [
-            set_var(VIM_KEYS_MOUSE_MODE, 1),
-            { "mouse_key": { "x": -MOUSE_SPEED } }
-        ],
-        "parameters": SIMULTANEOUS_THRESHOLD_MS_RULE
-    }),
-    basic_rule({
-        "from": single_key(RIGHT),
-        "to": [
-            { "key_code": "right_arrow" }
-        ],
-        "conditions": [
-            var_is_set(VIM_KEYS_MOUSE_MODE),
-            var_is_set(VIM_KEYS_ARROW_MODE),
-        ]
-    }),
-    basic_rule({
-        "from": single_key(RIGHT),
-        "to": [
-            { "mouse_key": { "x": MOUSE_SPEED } }
-        ],
-        "conditions": [
-            var_is_set(VIM_KEYS_MOUSE_MODE),
-        ]
-    }),
-    basic_rule({
-        "from": simultaneous_keys([VIM_MODE_KEY, RIGHT], after_up=VIM_KEYS_AFTER_UP),
-        "to": [
-            set_var(VIM_KEYS_MOUSE_MODE, 1),
-            { "mouse_key": { "x": MOUSE_SPEED } }
-        ],
-        "parameters": SIMULTANEOUS_THRESHOLD_MS_RULE
-    }),
-    basic_rule({
-        "from": single_key(LEFT_CLICK),
-        "to": [
-            { "pointing_button": "button1" }
-        ],
-        "conditions": [
-            var_is_set(VIM_KEYS_MOUSE_MODE),
-        ]
-    }),
-    basic_rule({
-        "from": simultaneous_keys([VIM_MODE_KEY, LEFT_CLICK], after_up=VIM_KEYS_AFTER_UP),
-        "to": [
-            set_var(VIM_KEYS_MOUSE_MODE, 1),
-            { "pointing_button": "button1" }
-        ],
-        "parameters": SIMULTANEOUS_THRESHOLD_MS_RULE
-    }),
-    basic_rule({
-        "from": single_key(MIDDLE_CLICK),
-        "to": [
-            { "pointing_button": "button3" }
-        ],
-        "conditions": [
-            var_is_set(VIM_KEYS_MOUSE_MODE),
-        ]
-    }),
-    basic_rule({
-        "from": simultaneous_keys([VIM_MODE_KEY, MIDDLE_CLICK], after_up=VIM_KEYS_AFTER_UP),
-        "to": [
-            set_var(VIM_KEYS_MOUSE_MODE, 1),
-            { "pointing_button": "button3" }
-        ],
-        "parameters": SIMULTANEOUS_THRESHOLD_MS_RULE
-    }),
-    basic_rule({
-        "from": single_key(RIGHT_CLICK),
-        "to": [
-            { "pointing_button": "button2" }
-        ],
-        "conditions": [
-            var_is_set(VIM_KEYS_MOUSE_MODE),
-        ]
-    }),
-    basic_rule({
-        "from": simultaneous_keys([VIM_MODE_KEY, RIGHT_CLICK], after_up=VIM_KEYS_AFTER_UP),
-        "to": [
-            set_var(VIM_KEYS_MOUSE_MODE, 1),
-            { "pointing_button": "button2" }
-        ],
-        "parameters": SIMULTANEOUS_THRESHOLD_MS_RULE
-    }),
+    *vim_scroll_rules(DOWN, { "mouse_key": { "vertical_wheel": MOUSE_SCROLL_SPEED }}),
+    *vim_scroll_rules(UP, { "mouse_key": { "vertical_wheel": -MOUSE_SCROLL_SPEED }}),
+    *vim_scroll_rules(LEFT, { "mouse_key": { "horizontal_wheel": MOUSE_SCROLL_SPEED }}),
+    *vim_scroll_rules(RIGHT, { "mouse_key": { "horizontal_wheel": -MOUSE_SCROLL_SPEED }}),
+    # basic_vim_rule(DOWN, { "key_code": "down_arrow" }),
+    # basic_vim_rule(UP, { "key_code": "up_arrow" }),
+    # basic_vim_rule(LEFT, { "key_code": "left_arrow" }),
+    # basic_vim_rule(RIGHT, { "key_code": "right_arrow" }),
+    *vim_mouse_rules(DOWN, { "mouse_key": { "y": MOUSE_SPEED }}),
+    *vim_mouse_rules(UP, { "mouse_key": { "y": -MOUSE_SPEED }}),
+    *vim_mouse_rules(LEFT, { "mouse_key": { "x": -MOUSE_SPEED }}),
+    *vim_mouse_rules(RIGHT, { "mouse_key": { "x": MOUSE_SPEED }}),
+    *vim_mouse_rules(LEFT_CLICK, { "pointing_button": "button1" }),
+    *vim_mouse_rules(MIDDLE_CLICK, { "pointing_button": "button3" }),
+    *vim_mouse_rules(RIGHT_CLICK, { "pointing_button": "button2" }),
     basic_rule({
         "from": single_key(SCROLL),
         "to": [
