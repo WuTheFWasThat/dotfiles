@@ -250,6 +250,7 @@
     dcs = "!git --no-pager -c color.diff=always diff --stat --cached"
     ds = "!git --no-pager -c color.diff=always diff --stat"
     dso = "!f(){ branch=$(git bb); git diff --stat origin/$branch $@; }; f"
+    dsop = "!f() { $(git editor) $(git --no-pager -c color.diff=always diff --stat --name-only $1); }; f"
     dsom = "!git --no-pager -c color.diff=always diff --stat origin/master"
     dsm = "!git --no-pager -c color.diff=always diff --stat master"
     df = "!f() { git diff --name-only $@; }; f"
