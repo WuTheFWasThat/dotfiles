@@ -2,7 +2,7 @@
   "title": "Jeff Wu's karabiner settings",
   "rules": [
     {
-      "description": "Mouse Keys",
+      "description": "Vim Keys: Semicolon to enable",
       "manipulators": [
         {
           "type": "basic",
@@ -25,12 +25,12 @@
           "conditions": [
             {
               "type": "variable_if",
-              "name": "mouse_keys_mode",
+              "name": "vim_keys_mouse_mode",
               "value": 1
             },
             {
               "type": "variable_if",
-              "name": "mouse_keys_mode_scroll",
+              "name": "vim_keys_mode_scroll",
               "value": 1
             }
           ]
@@ -54,12 +54,12 @@
           "conditions": [
             {
               "type": "variable_if",
-              "name": "mouse_keys_mode",
+              "name": "vim_keys_mouse_mode",
               "value": 1
             },
             {
               "type": "variable_if",
-              "name": "mouse_keys_mode_arrows",
+              "name": "vim_keys_mode_arrows",
               "value": 1
             }
           ]
@@ -85,7 +85,7 @@
           "conditions": [
             {
               "type": "variable_if",
-              "name": "mouse_keys_mode",
+              "name": "vim_keys_mouse_mode",
               "value": 1
             }
           ]
@@ -107,19 +107,19 @@
               "to_after_key_up": [
                 {
                   "set_variable": {
-                    "name": "mouse_keys_mode",
+                    "name": "vim_keys_mouse_mode",
                     "value": 0
                   }
                 },
                 {
                   "set_variable": {
-                    "name": "mouse_keys_mode_scroll",
+                    "name": "vim_keys_mode_scroll",
                     "value": 0
                   }
                 },
                 {
                   "set_variable": {
-                    "name": "mouse_keys_mode_arrows",
+                    "name": "vim_keys_mode_arrows",
                     "value": 0
                   }
                 }
@@ -134,7 +134,7 @@
           "to": [
             {
               "set_variable": {
-                "name": "mouse_keys_mode",
+                "name": "vim_keys_mouse_mode",
                 "value": 1
               }
             },
@@ -169,12 +169,12 @@
           "conditions": [
             {
               "type": "variable_if",
-              "name": "mouse_keys_mode",
+              "name": "vim_keys_mouse_mode",
               "value": 1
             },
             {
               "type": "variable_if",
-              "name": "mouse_keys_mode_scroll",
+              "name": "vim_keys_mode_scroll",
               "value": 1
             }
           ]
@@ -198,12 +198,12 @@
           "conditions": [
             {
               "type": "variable_if",
-              "name": "mouse_keys_mode",
+              "name": "vim_keys_mouse_mode",
               "value": 1
             },
             {
               "type": "variable_if",
-              "name": "mouse_keys_mode_arrows",
+              "name": "vim_keys_mode_arrows",
               "value": 1
             }
           ]
@@ -229,7 +229,7 @@
           "conditions": [
             {
               "type": "variable_if",
-              "name": "mouse_keys_mode",
+              "name": "vim_keys_mouse_mode",
               "value": 1
             }
           ]
@@ -251,19 +251,19 @@
               "to_after_key_up": [
                 {
                   "set_variable": {
-                    "name": "mouse_keys_mode",
+                    "name": "vim_keys_mouse_mode",
                     "value": 0
                   }
                 },
                 {
                   "set_variable": {
-                    "name": "mouse_keys_mode_scroll",
+                    "name": "vim_keys_mode_scroll",
                     "value": 0
                   }
                 },
                 {
                   "set_variable": {
-                    "name": "mouse_keys_mode_arrows",
+                    "name": "vim_keys_mode_arrows",
                     "value": 0
                   }
                 }
@@ -278,7 +278,7 @@
           "to": [
             {
               "set_variable": {
-                "name": "mouse_keys_mode",
+                "name": "vim_keys_mouse_mode",
                 "value": 1
               }
             },
@@ -313,12 +313,12 @@
           "conditions": [
             {
               "type": "variable_if",
-              "name": "mouse_keys_mode",
+              "name": "vim_keys_mouse_mode",
               "value": 1
             },
             {
               "type": "variable_if",
-              "name": "mouse_keys_mode_scroll",
+              "name": "vim_keys_mode_scroll",
               "value": 1
             }
           ]
@@ -342,12 +342,12 @@
           "conditions": [
             {
               "type": "variable_if",
-              "name": "mouse_keys_mode",
+              "name": "vim_keys_mouse_mode",
               "value": 1
             },
             {
               "type": "variable_if",
-              "name": "mouse_keys_mode_arrows",
+              "name": "vim_keys_mode_arrows",
               "value": 1
             }
           ]
@@ -373,7 +373,7 @@
           "conditions": [
             {
               "type": "variable_if",
-              "name": "mouse_keys_mode",
+              "name": "vim_keys_mouse_mode",
               "value": 1
             }
           ]
@@ -395,19 +395,19 @@
               "to_after_key_up": [
                 {
                   "set_variable": {
-                    "name": "mouse_keys_mode",
+                    "name": "vim_keys_mouse_mode",
                     "value": 0
                   }
                 },
                 {
                   "set_variable": {
-                    "name": "mouse_keys_mode_scroll",
+                    "name": "vim_keys_mode_scroll",
                     "value": 0
                   }
                 },
                 {
                   "set_variable": {
-                    "name": "mouse_keys_mode_arrows",
+                    "name": "vim_keys_mode_arrows",
                     "value": 0
                   }
                 }
@@ -422,7 +422,7 @@
           "to": [
             {
               "set_variable": {
-                "name": "mouse_keys_mode",
+                "name": "vim_keys_mouse_mode",
                 "value": 1
               }
             },
@@ -457,12 +457,12 @@
           "conditions": [
             {
               "type": "variable_if",
-              "name": "mouse_keys_mode",
+              "name": "vim_keys_mouse_mode",
               "value": 1
             },
             {
               "type": "variable_if",
-              "name": "mouse_keys_mode_scroll",
+              "name": "vim_keys_mode_scroll",
               "value": 1
             }
           ]
@@ -486,12 +486,12 @@
           "conditions": [
             {
               "type": "variable_if",
-              "name": "mouse_keys_mode",
+              "name": "vim_keys_mouse_mode",
               "value": 1
             },
             {
               "type": "variable_if",
-              "name": "mouse_keys_mode_arrows",
+              "name": "vim_keys_mode_arrows",
               "value": 1
             }
           ]
@@ -517,7 +517,7 @@
           "conditions": [
             {
               "type": "variable_if",
-              "name": "mouse_keys_mode",
+              "name": "vim_keys_mouse_mode",
               "value": 1
             }
           ]
@@ -539,19 +539,19 @@
               "to_after_key_up": [
                 {
                   "set_variable": {
-                    "name": "mouse_keys_mode",
+                    "name": "vim_keys_mouse_mode",
                     "value": 0
                   }
                 },
                 {
                   "set_variable": {
-                    "name": "mouse_keys_mode_scroll",
+                    "name": "vim_keys_mode_scroll",
                     "value": 0
                   }
                 },
                 {
                   "set_variable": {
-                    "name": "mouse_keys_mode_arrows",
+                    "name": "vim_keys_mode_arrows",
                     "value": 0
                   }
                 }
@@ -566,7 +566,7 @@
           "to": [
             {
               "set_variable": {
-                "name": "mouse_keys_mode",
+                "name": "vim_keys_mouse_mode",
                 "value": 1
               }
             },
@@ -599,7 +599,7 @@
           "conditions": [
             {
               "type": "variable_if",
-              "name": "mouse_keys_mode",
+              "name": "vim_keys_mouse_mode",
               "value": 1
             }
           ]
@@ -621,19 +621,19 @@
               "to_after_key_up": [
                 {
                   "set_variable": {
-                    "name": "mouse_keys_mode",
+                    "name": "vim_keys_mouse_mode",
                     "value": 0
                   }
                 },
                 {
                   "set_variable": {
-                    "name": "mouse_keys_mode_scroll",
+                    "name": "vim_keys_mode_scroll",
                     "value": 0
                   }
                 },
                 {
                   "set_variable": {
-                    "name": "mouse_keys_mode_arrows",
+                    "name": "vim_keys_mode_arrows",
                     "value": 0
                   }
                 }
@@ -648,7 +648,7 @@
           "to": [
             {
               "set_variable": {
-                "name": "mouse_keys_mode",
+                "name": "vim_keys_mouse_mode",
                 "value": 1
               }
             },
@@ -679,7 +679,7 @@
           "conditions": [
             {
               "type": "variable_if",
-              "name": "mouse_keys_mode",
+              "name": "vim_keys_mouse_mode",
               "value": 1
             }
           ]
@@ -701,19 +701,19 @@
               "to_after_key_up": [
                 {
                   "set_variable": {
-                    "name": "mouse_keys_mode",
+                    "name": "vim_keys_mouse_mode",
                     "value": 0
                   }
                 },
                 {
                   "set_variable": {
-                    "name": "mouse_keys_mode_scroll",
+                    "name": "vim_keys_mode_scroll",
                     "value": 0
                   }
                 },
                 {
                   "set_variable": {
-                    "name": "mouse_keys_mode_arrows",
+                    "name": "vim_keys_mode_arrows",
                     "value": 0
                   }
                 }
@@ -728,7 +728,7 @@
           "to": [
             {
               "set_variable": {
-                "name": "mouse_keys_mode",
+                "name": "vim_keys_mouse_mode",
                 "value": 1
               }
             },
@@ -759,7 +759,7 @@
           "conditions": [
             {
               "type": "variable_if",
-              "name": "mouse_keys_mode",
+              "name": "vim_keys_mouse_mode",
               "value": 1
             }
           ]
@@ -781,19 +781,19 @@
               "to_after_key_up": [
                 {
                   "set_variable": {
-                    "name": "mouse_keys_mode",
+                    "name": "vim_keys_mouse_mode",
                     "value": 0
                   }
                 },
                 {
                   "set_variable": {
-                    "name": "mouse_keys_mode_scroll",
+                    "name": "vim_keys_mode_scroll",
                     "value": 0
                   }
                 },
                 {
                   "set_variable": {
-                    "name": "mouse_keys_mode_arrows",
+                    "name": "vim_keys_mode_arrows",
                     "value": 0
                   }
                 }
@@ -808,7 +808,7 @@
           "to": [
             {
               "set_variable": {
-                "name": "mouse_keys_mode",
+                "name": "vim_keys_mouse_mode",
                 "value": 1
               }
             },
@@ -834,7 +834,7 @@
           "to": [
             {
               "set_variable": {
-                "name": "mouse_keys_mode_scroll",
+                "name": "vim_keys_mode_scroll",
                 "value": 1
               }
             }
@@ -842,14 +842,14 @@
           "conditions": [
             {
               "type": "variable_if",
-              "name": "mouse_keys_mode",
+              "name": "vim_keys_mouse_mode",
               "value": 1
             }
           ],
           "to_after_key_up": [
             {
               "set_variable": {
-                "name": "mouse_keys_mode_scroll",
+                "name": "vim_keys_mode_scroll",
                 "value": 0
               }
             }
@@ -872,19 +872,19 @@
               "to_after_key_up": [
                 {
                   "set_variable": {
-                    "name": "mouse_keys_mode",
+                    "name": "vim_keys_mouse_mode",
                     "value": 0
                   }
                 },
                 {
                   "set_variable": {
-                    "name": "mouse_keys_mode_scroll",
+                    "name": "vim_keys_mode_scroll",
                     "value": 0
                   }
                 },
                 {
                   "set_variable": {
-                    "name": "mouse_keys_mode_arrows",
+                    "name": "vim_keys_mode_arrows",
                     "value": 0
                   }
                 }
@@ -899,13 +899,13 @@
           "to": [
             {
               "set_variable": {
-                "name": "mouse_keys_mode",
+                "name": "vim_keys_mouse_mode",
                 "value": 1
               }
             },
             {
               "set_variable": {
-                "name": "mouse_keys_mode_scroll",
+                "name": "vim_keys_mode_scroll",
                 "value": 1
               }
             }
@@ -916,7 +916,7 @@
           "to_after_key_up": [
             {
               "set_variable": {
-                "name": "mouse_keys_mode_scroll",
+                "name": "vim_keys_mode_scroll",
                 "value": 0
               }
             }
@@ -943,7 +943,7 @@
           "conditions": [
             {
               "type": "variable_if",
-              "name": "mouse_keys_mode",
+              "name": "vim_keys_mouse_mode",
               "value": 1
             }
           ]
@@ -965,19 +965,19 @@
               "to_after_key_up": [
                 {
                   "set_variable": {
-                    "name": "mouse_keys_mode",
+                    "name": "vim_keys_mouse_mode",
                     "value": 0
                   }
                 },
                 {
                   "set_variable": {
-                    "name": "mouse_keys_mode_scroll",
+                    "name": "vim_keys_mode_scroll",
                     "value": 0
                   }
                 },
                 {
                   "set_variable": {
-                    "name": "mouse_keys_mode_arrows",
+                    "name": "vim_keys_mode_arrows",
                     "value": 0
                   }
                 }
@@ -992,7 +992,7 @@
           "to": [
             {
               "set_variable": {
-                "name": "mouse_keys_mode",
+                "name": "vim_keys_mouse_mode",
                 "value": 1
               }
             },
@@ -1027,7 +1027,7 @@
           "conditions": [
             {
               "type": "variable_if",
-              "name": "mouse_keys_mode",
+              "name": "vim_keys_mouse_mode",
               "value": 1
             }
           ]
@@ -1049,19 +1049,19 @@
               "to_after_key_up": [
                 {
                   "set_variable": {
-                    "name": "mouse_keys_mode",
+                    "name": "vim_keys_mouse_mode",
                     "value": 0
                   }
                 },
                 {
                   "set_variable": {
-                    "name": "mouse_keys_mode_scroll",
+                    "name": "vim_keys_mode_scroll",
                     "value": 0
                   }
                 },
                 {
                   "set_variable": {
-                    "name": "mouse_keys_mode_arrows",
+                    "name": "vim_keys_mode_arrows",
                     "value": 0
                   }
                 }
@@ -1076,7 +1076,7 @@
           "to": [
             {
               "set_variable": {
-                "name": "mouse_keys_mode",
+                "name": "vim_keys_mouse_mode",
                 "value": 1
               }
             },
@@ -1104,7 +1104,7 @@
           "to": [
             {
               "set_variable": {
-                "name": "mouse_keys_mode_arrows",
+                "name": "vim_keys_mode_arrows",
                 "value": 1
               }
             }
@@ -1112,14 +1112,14 @@
           "conditions": [
             {
               "type": "variable_if",
-              "name": "mouse_keys_mode",
+              "name": "vim_keys_mouse_mode",
               "value": 1
             }
           ],
           "to_after_key_up": [
             {
               "set_variable": {
-                "name": "mouse_keys_mode_arrows",
+                "name": "vim_keys_mode_arrows",
                 "value": 0
               }
             }
@@ -1142,19 +1142,19 @@
               "to_after_key_up": [
                 {
                   "set_variable": {
-                    "name": "mouse_keys_mode",
+                    "name": "vim_keys_mouse_mode",
                     "value": 0
                   }
                 },
                 {
                   "set_variable": {
-                    "name": "mouse_keys_mode_scroll",
+                    "name": "vim_keys_mode_scroll",
                     "value": 0
                   }
                 },
                 {
                   "set_variable": {
-                    "name": "mouse_keys_mode_arrows",
+                    "name": "vim_keys_mode_arrows",
                     "value": 0
                   }
                 }
@@ -1169,13 +1169,13 @@
           "to": [
             {
               "set_variable": {
-                "name": "mouse_keys_mode",
+                "name": "vim_keys_mouse_mode",
                 "value": 1
               }
             },
             {
               "set_variable": {
-                "name": "mouse_keys_mode_arrows",
+                "name": "vim_keys_mode_arrows",
                 "value": 1
               }
             }
@@ -1186,7 +1186,7 @@
           "to_after_key_up": [
             {
               "set_variable": {
-                "name": "mouse_keys_mode_scroll",
+                "name": "vim_keys_mode_scroll",
                 "value": 0
               }
             }

@@ -1,9 +1,12 @@
 import os
 import json
 
-MOUSE_MODE_KEY = "return_or_enter"
+VIM_MODE_KEY = "return_or_enter"
+# VIM_MODE_KEY = "spacebar" # is mostly great except sometimes false negatives
+# VIM_MODE_KEY = "d" # is mostly great except sometimes false negatives
+# VIM_MODE_KEY = "a" # is mostly great except sometimes false negatives ...
 
-ACTIVATE_TOGGLE = "m"
+# ACTIVATE_TOGGLE = "m"
 DOWN = "j"
 UP = "k"
 LEFT = "h"
@@ -24,10 +27,6 @@ MOUSE_SPEED = 1200
 MOUSE_SLOW_MULTIPLIER = 0.25
 MOUSE_FAST_MULTIPLIER = 2
 
-MOUSE_MODE = "jeffwu_mouse_mode"
-# ARROW_MODE = "jeffwu_arrow_mode"
-SCROLL_MODE = "jeffwu_scroll_mode"
-
 SIMULTANEOUS_THRESHOLD_MS = 100
 
 def var_is_set(var, value=1):
@@ -39,7 +38,7 @@ def var_is_set(var, value=1):
     }
 
 def set_var(var, value=1):
-    """ Returns condition that variable is set. """
+    """ Sets variable to value. """
     return {
         "set_variable": {
             "name": var,
@@ -88,231 +87,14 @@ def _scroll_combos(key):
         simultaneous_keys([SCROLL, key]),
     ]
 
-def _toggle_combos():
-    return [
-        single_key(ACTIVATE_TOGGLE, ["left_command"]),
-        single_key(ACTIVATE_TOGGLE, ["right_command"]),
-        simultaneous_keys([MOUSE_MODE_KEY, ACTIVATE_TOGGLE]),
-        # DONT KNOW WHY THIS DOESNT WORK
-        simultaneous_keys(["escape", ACTIVATE_TOGGLE]),
-    ]
-
-# mouse_mode_rules = [
-#     *[
-#         basic_rule({
-#             "from": fr,
-#             "to": [ set_var(MOUSE_MODE, 0) ],
-#             "conditions": [ var_is_set(MOUSE_MODE, 1) ]
-#         }) for fr in [ single_key("escape"), single_key(MOUSE_MODE_KEY), single_key(ACTIVATE_TOGGLE) ]
-#     ],
-#     *[
-#         basic_rule({
-#             "from": fr,
-#             "to": [
-#                 set_var(MOUSE_MODE, 1),
-#             ],
-#             "conditions": [
-#                 var_is_set(MOUSE_MODE, 0),
-#             ],
-#             "parameters": { "basic.simultaneous_threshold_milliseconds": SIMULTANEOUS_THRESHOLD_MS },
-#         }) for fr in _toggle_combos()
-#     ],
-#     *[
-#         basic_rule({
-#             "from": fr,
-#             "to": [
-#                 set_var(MOUSE_MODE, 0),
-#             ],
-#             "conditions": [
-#                 var_is_set(MOUSE_MODE, 1),
-#             ],
-#             "parameters": { "basic.simultaneous_threshold_milliseconds": SIMULTANEOUS_THRESHOLD_MS },
-#         }) for fr in _toggle_combos()
-#     ],
-#     # NO-OP TO PREVENT WEIRD BEHAVIOR (sending d while scrolling)
-#     basic_rule({
-#         "from": single_key(UP),
-#         "to": [
-#             { "mouse_key": { "vertical_wheel": -MOUSE_SCROLL_SPEED } }
-#         ],
-#         "conditions": [
-#             var_is_set(MOUSE_MODE),
-#             var_is_set(SCROLL_MODE),
-#         ]
-#     }),
-#     basic_rule({
-#         "from": single_key(DOWN),
-#         "to": [
-#             { "mouse_key": { "vertical_wheel": MOUSE_SCROLL_SPEED } }
-#         ],
-#         "conditions": [
-#             var_is_set(MOUSE_MODE),
-#             var_is_set(SCROLL_MODE),
-#         ]
-#     }),
-#     basic_rule({
-#         "from": single_key(RIGHT),
-#         "to": [
-#             { "mouse_key": { "horizontal_wheel": MOUSE_SCROLL_SPEED } }
-#         ],
-#         "conditions": [
-#             var_is_set(MOUSE_MODE),
-#             var_is_set(SCROLL_MODE),
-#         ]
-#     }),
-#     basic_rule({
-#         "from": single_key(LEFT),
-#         "to": [
-#             { "mouse_key": { "horizontal_wheel": -MOUSE_SCROLL_SPEED } }
-#         ],
-#         "conditions": [
-#             var_is_set(MOUSE_MODE),
-#             var_is_set(SCROLL_MODE),
-#         ]
-#     }),
-#     *[
-#         basic_rule({
-#             "from": fr,
-#             "to": [
-#                 { "mouse_key": { "vertical_wheel": -MOUSE_SCROLL_SPEED } }
-#             ],
-#             "conditions": [
-#                 var_is_set(MOUSE_MODE),
-#             ]
-#         }) for fr in _scroll_combos(UP)
-#     ],
-#     *[
-#         basic_rule({
-#             "from": fr,
-#             "to": [
-#                 { "mouse_key": { "vertical_wheel": MOUSE_SCROLL_SPEED } }
-#             ],
-#             "conditions": [
-#                 var_is_set(MOUSE_MODE),
-#             ]
-#         }) for fr in _scroll_combos(DOWN)
-#     ],
-#     *[
-#         basic_rule({
-#             "from": fr,
-#             "to": [
-#                 { "mouse_key": { "horizontal_wheel": MOUSE_SCROLL_SPEED } }
-#             ],
-#             "conditions": [
-#                 var_is_set(MOUSE_MODE),
-#             ]
-#         }) for fr in _scroll_combos(RIGHT)
-#     ],
-#     *[
-#         basic_rule({
-#             "from": fr,
-#             "to": [
-#                 { "mouse_key": { "horizontal_wheel": -MOUSE_SCROLL_SPEED } }
-#             ],
-#             "conditions": [
-#                 var_is_set(MOUSE_MODE),
-#             ]
-#         }) for fr in _scroll_combos(LEFT)
-#     ],
-#     basic_rule({
-#         "from": single_key(SCROLL),
-#         "to": [
-#             set_var(MOUSE_MODE, 1),
-#             set_var(SCROLL_MODE, 1),
-#         ],
-#         "to_after_key_up": [ set_var(SCROLL_MODE, 0) ],
-#         "conditions": [
-#             var_is_set(MOUSE_MODE, 1),
-#         ]
-#     }),
-#     basic_rule({
-#       "from": single_key(DOWN),
-#       "to": [
-#           { "mouse_key": { "y": MOUSE_SPEED } }
-#       ],
-#       "conditions": [
-#           var_is_set(MOUSE_MODE),
-#       ]
-#     }),
-#     basic_rule({
-#       "from": single_key(UP),
-#       "to": [
-#           { "mouse_key": { "y": -MOUSE_SPEED } }
-#       ],
-#       "conditions": [
-#           var_is_set(MOUSE_MODE),
-#       ]
-#     }),
-#     basic_rule({
-#       "from": single_key(LEFT),
-#       "to": [
-#           { "mouse_key": { "x": -MOUSE_SPEED } }
-#       ],
-#       "conditions": [
-#           var_is_set(MOUSE_MODE),
-#       ]
-#     }),
-#     basic_rule({
-#       "from": single_key(RIGHT),
-#       "to": [
-#           { "mouse_key": { "x": MOUSE_SPEED } }
-#       ],
-#       "conditions": [
-#           var_is_set(MOUSE_MODE),
-#       ]
-#     }),
-#     *[
-#         basic_rule({
-#             "from": f,
-#             "to": [
-#                 { "pointing_button": "button1" }
-#             ],
-#             "conditions": [
-#                 var_is_set(MOUSE_MODE),
-#             ]
-#         }) for f in [single_key(LEFT_CLICK), single_key(LEFT_CLICK_2)]
-#     ],
-#     *[
-#         basic_rule({
-#             "from": f,
-#             "to": [
-#                 { "pointing_button": "button3" }
-#             ],
-#             "conditions": [
-#                 var_is_set(MOUSE_MODE),
-#             ]
-#         }) for f in [single_key(MIDDLE_CLICK), single_key(MIDDLE_CLICK_2)]
-#     ],
-#     *[
-#         basic_rule({
-#             "from": f,
-#             "to": [
-#                 { "pointing_button": "button2" }
-#             ],
-#             "conditions": [
-#                 var_is_set(MOUSE_MODE),
-#             ]
-#         }) for f in [single_key(RIGHT_CLICK), single_key(RIGHT_CLICK_2), single_key(LEFT_CLICK, ["left_shift"]), single_key(LEFT_CLICK, ["right_shift"])]
-#     ],
-#     basic_rule({
-#         "from": single_key(SLOW),
-#         "to": [
-#             { "mouse_key": { "speed_multiplier": MOUSE_SLOW_MULTIPLIER } }
-#         ],
-#         "conditions": [
-#             var_is_set(MOUSE_MODE),
-#         ]
-#     }),
-#     basic_rule({
-#         "from": single_key(FAST),
-#         "to": [
-#             { "mouse_key": { "speed_multiplier": MOUSE_FAST_MULTIPLIER } }
-#         ],
-#         "conditions": [
-#             var_is_set(MOUSE_MODE),
-#         ]
-#     }),
-# ]
+# def _toggle_combos():
+#     return [
+#         single_key(ACTIVATE_TOGGLE, ["left_command"]),
+#         single_key(ACTIVATE_TOGGLE, ["right_command"]),
+#         simultaneous_keys([VIM_MODE_KEY, ACTIVATE_TOGGLE]),
+#         # DONT KNOW WHY THIS DOESNT WORK
+#         simultaneous_keys(["escape", ACTIVATE_TOGGLE]),
+#     ]
 
 caps_lock_rules = [
     basic_rule({
@@ -401,72 +183,28 @@ shift_rules = [
     })
 ]
 
-# TODO: make it so holding works
-# arrow_rules = [
-#     basic_rule({
-#         "from": simultaneous_keys([ARROW, LEFT], after_up=[set_var(ARROW_MODE, 0)]),
-#         "to": [ { "key_code": "left_arrow" }, set_var(ARROW_MODE, 1) ],
-#         "parameters": { "basic.simultaneous_threshold_milliseconds": SIMULTANEOUS_THRESHOLD_MS },
-#     }),
-#     basic_rule({
-#         "from": simultaneous_keys([ARROW, DOWN], after_up=[set_var(ARROW_MODE, 0)]),
-#         "to": [ { "key_code": "down_arrow" }, set_var(ARROW_MODE, 1) ],
-#         "parameters": { "basic.simultaneous_threshold_milliseconds": SIMULTANEOUS_THRESHOLD_MS },
-#     }),
-#     basic_rule({
-#         "from": simultaneous_keys([ARROW, RIGHT], after_up=[set_var(ARROW_MODE, 0)]),
-#         "to": [ { "key_code": "right_arrow" }, set_var(ARROW_MODE, 1) ],
-#         "parameters": { "basic.simultaneous_threshold_milliseconds": SIMULTANEOUS_THRESHOLD_MS },
-#     }),
-#     basic_rule({
-#         "from": simultaneous_keys([ARROW, UP], after_up=[set_var(ARROW_MODE, 0)]),
-#         "to": [ { "key_code": "up_arrow" }, set_var(ARROW_MODE, 1) ],
-#         "parameters": { "basic.simultaneous_threshold_milliseconds": SIMULTANEOUS_THRESHOLD_MS },
-#     }),
-#     basic_rule({
-#         "from": single_key(LEFT),
-#         "to": [ { "key_code": "left_arrow" } ],
-#         "conditions": [ var_is_set(ARROW_MODE), ]
-#     }),
-#     basic_rule({
-#         "from": single_key(DOWN),
-#         "to": [ { "key_code": "down_arrow" } ],
-#         "conditions": [ var_is_set(ARROW_MODE), ]
-#     }),
-#     basic_rule({
-#         "from": single_key(RIGHT),
-#         "to": [ { "key_code": "right_arrow" } ],
-#         "conditions": [ var_is_set(ARROW_MODE), ]
-#     }),
-#     basic_rule({
-#         "from": single_key(UP),
-#         "to": [ { "key_code": "up_arrow" } ],
-#         "conditions": [ var_is_set(ARROW_MODE), ]
-#     }),
-# ]
-
 SIMULTANEOUS_THRESHOLD_MS = 100
 SIMULTANEOUS_THRESHOLD_MS_RULE = { "basic.simultaneous_threshold_milliseconds": SIMULTANEOUS_THRESHOLD_MS }
 
-MOUSE_KEYS_MOUSE_MODE = "mouse_keys_mode"
-MOUSE_KEYS_SCROLL_MODE = "mouse_keys_mode_scroll"
-MOUSE_KEYS_ARROW_MODE = "mouse_keys_mode_arrows"
+VIM_KEYS_MOUSE_MODE = "vim_keys_mouse_mode"
+VIM_KEYS_SCROLL_MODE = "vim_keys_mode_scroll"
+VIM_KEYS_ARROW_MODE = "vim_keys_mode_arrows"
 
-MOUSE_KEYS_AFTER_UP = [
-    set_var(MOUSE_KEYS_MOUSE_MODE, 0),
-    set_var(MOUSE_KEYS_SCROLL_MODE, 0),
-    set_var(MOUSE_KEYS_ARROW_MODE, 0),
+VIM_KEYS_AFTER_UP = [
+    set_var(VIM_KEYS_MOUSE_MODE, 0),
+    set_var(VIM_KEYS_SCROLL_MODE, 0),
+    set_var(VIM_KEYS_ARROW_MODE, 0),
 ]
 
-mouse_keys_rules = [
+vim_keys_rules = [
     basic_rule({
       "from": single_key(DOWN),
       "to": [
         { "mouse_key": { "vertical_wheel": 32 } }
       ],
       "conditions": [
-        var_is_set(MOUSE_KEYS_MOUSE_MODE),
-        var_is_set(MOUSE_KEYS_SCROLL_MODE),
+        var_is_set(VIM_KEYS_MOUSE_MODE),
+        var_is_set(VIM_KEYS_SCROLL_MODE),
       ]
     }),
     basic_rule({
@@ -475,8 +213,8 @@ mouse_keys_rules = [
         { "key_code": "down_arrow" }
       ],
       "conditions": [
-        var_is_set(MOUSE_KEYS_MOUSE_MODE),
-        var_is_set(MOUSE_KEYS_ARROW_MODE),
+        var_is_set(VIM_KEYS_MOUSE_MODE),
+        var_is_set(VIM_KEYS_ARROW_MODE),
       ]
     }),
     basic_rule({
@@ -485,13 +223,13 @@ mouse_keys_rules = [
         { "mouse_key": { "y": MOUSE_SPEED } }
       ],
       "conditions": [
-        var_is_set(MOUSE_KEYS_MOUSE_MODE),
+        var_is_set(VIM_KEYS_MOUSE_MODE),
       ]
     }),
     basic_rule({
-        "from": simultaneous_keys([MOUSE_MODE_KEY, DOWN], after_up=MOUSE_KEYS_AFTER_UP),
+        "from": simultaneous_keys([VIM_MODE_KEY, DOWN], after_up=VIM_KEYS_AFTER_UP),
         "to": [
-            set_var(MOUSE_KEYS_MOUSE_MODE, 1),
+            set_var(VIM_KEYS_MOUSE_MODE, 1),
             { "mouse_key": { "y": MOUSE_SPEED } }
         ],
         "parameters": SIMULTANEOUS_THRESHOLD_MS_RULE
@@ -502,8 +240,8 @@ mouse_keys_rules = [
             { "mouse_key": { "vertical_wheel": -MOUSE_SCROLL_SPEED } }
         ],
         "conditions": [
-            var_is_set(MOUSE_KEYS_MOUSE_MODE),
-            var_is_set(MOUSE_KEYS_SCROLL_MODE),
+            var_is_set(VIM_KEYS_MOUSE_MODE),
+            var_is_set(VIM_KEYS_SCROLL_MODE),
         ]
     }),
     basic_rule({
@@ -512,8 +250,8 @@ mouse_keys_rules = [
             { "key_code": "up_arrow" }
         ],
         "conditions": [
-            var_is_set(MOUSE_KEYS_MOUSE_MODE),
-            var_is_set(MOUSE_KEYS_ARROW_MODE),
+            var_is_set(VIM_KEYS_MOUSE_MODE),
+            var_is_set(VIM_KEYS_ARROW_MODE),
         ]
     }),
     basic_rule({
@@ -522,13 +260,13 @@ mouse_keys_rules = [
             { "mouse_key": { "y": -MOUSE_SPEED } }
         ],
         "conditions": [
-            var_is_set(MOUSE_KEYS_MOUSE_MODE),
+            var_is_set(VIM_KEYS_MOUSE_MODE),
         ]
     }),
     basic_rule({
-        "from": simultaneous_keys([MOUSE_MODE_KEY, UP], after_up=MOUSE_KEYS_AFTER_UP),
+        "from": simultaneous_keys([VIM_MODE_KEY, UP], after_up=VIM_KEYS_AFTER_UP),
         "to": [
-            set_var(MOUSE_KEYS_MOUSE_MODE, 1),
+            set_var(VIM_KEYS_MOUSE_MODE, 1),
             { "mouse_key": { "y": -MOUSE_SPEED } }
         ],
         "parameters": SIMULTANEOUS_THRESHOLD_MS_RULE
@@ -539,8 +277,8 @@ mouse_keys_rules = [
             { "mouse_key": { "horizontal_wheel": MOUSE_SCROLL_SPEED } }
         ],
         "conditions": [
-            var_is_set(MOUSE_KEYS_MOUSE_MODE),
-            var_is_set(MOUSE_KEYS_SCROLL_MODE),
+            var_is_set(VIM_KEYS_MOUSE_MODE),
+            var_is_set(VIM_KEYS_SCROLL_MODE),
         ]
     }),
     basic_rule({
@@ -549,8 +287,8 @@ mouse_keys_rules = [
             { "key_code": "left_arrow" }
         ],
         "conditions": [
-            var_is_set(MOUSE_KEYS_MOUSE_MODE),
-            var_is_set(MOUSE_KEYS_ARROW_MODE),
+            var_is_set(VIM_KEYS_MOUSE_MODE),
+            var_is_set(VIM_KEYS_ARROW_MODE),
         ]
     }),
     basic_rule({
@@ -559,13 +297,13 @@ mouse_keys_rules = [
             { "mouse_key": { "x": -MOUSE_SPEED } }
         ],
         "conditions": [
-            var_is_set(MOUSE_KEYS_MOUSE_MODE),
+            var_is_set(VIM_KEYS_MOUSE_MODE),
         ]
     }),
     basic_rule({
-        "from": simultaneous_keys([MOUSE_MODE_KEY, LEFT], after_up=MOUSE_KEYS_AFTER_UP),
+        "from": simultaneous_keys([VIM_MODE_KEY, LEFT], after_up=VIM_KEYS_AFTER_UP),
         "to": [
-            set_var(MOUSE_KEYS_MOUSE_MODE, 1),
+            set_var(VIM_KEYS_MOUSE_MODE, 1),
             { "mouse_key": { "x": -MOUSE_SPEED } }
         ],
         "parameters": SIMULTANEOUS_THRESHOLD_MS_RULE
@@ -576,8 +314,8 @@ mouse_keys_rules = [
             { "mouse_key": { "horizontal_wheel": -MOUSE_SCROLL_SPEED } }
         ],
         "conditions": [
-            var_is_set(MOUSE_KEYS_MOUSE_MODE),
-            var_is_set(MOUSE_KEYS_SCROLL_MODE),
+            var_is_set(VIM_KEYS_MOUSE_MODE),
+            var_is_set(VIM_KEYS_SCROLL_MODE),
         ]
     }),
     basic_rule({
@@ -586,8 +324,8 @@ mouse_keys_rules = [
             { "key_code": "right_arrow" }
         ],
         "conditions": [
-            var_is_set(MOUSE_KEYS_MOUSE_MODE),
-            var_is_set(MOUSE_KEYS_ARROW_MODE),
+            var_is_set(VIM_KEYS_MOUSE_MODE),
+            var_is_set(VIM_KEYS_ARROW_MODE),
         ]
     }),
     basic_rule({
@@ -596,13 +334,13 @@ mouse_keys_rules = [
             { "mouse_key": { "x": MOUSE_SPEED } }
         ],
         "conditions": [
-            var_is_set(MOUSE_KEYS_MOUSE_MODE),
+            var_is_set(VIM_KEYS_MOUSE_MODE),
         ]
     }),
     basic_rule({
-        "from": simultaneous_keys([MOUSE_MODE_KEY, RIGHT], after_up=MOUSE_KEYS_AFTER_UP),
+        "from": simultaneous_keys([VIM_MODE_KEY, RIGHT], after_up=VIM_KEYS_AFTER_UP),
         "to": [
-            set_var(MOUSE_KEYS_MOUSE_MODE, 1),
+            set_var(VIM_KEYS_MOUSE_MODE, 1),
             { "mouse_key": { "x": MOUSE_SPEED } }
         ],
         "parameters": SIMULTANEOUS_THRESHOLD_MS_RULE
@@ -613,13 +351,13 @@ mouse_keys_rules = [
             { "pointing_button": "button1" }
         ],
         "conditions": [
-            var_is_set(MOUSE_KEYS_MOUSE_MODE),
+            var_is_set(VIM_KEYS_MOUSE_MODE),
         ]
     }),
     basic_rule({
-        "from": simultaneous_keys([MOUSE_MODE_KEY, LEFT_CLICK], after_up=MOUSE_KEYS_AFTER_UP),
+        "from": simultaneous_keys([VIM_MODE_KEY, LEFT_CLICK], after_up=VIM_KEYS_AFTER_UP),
         "to": [
-            set_var(MOUSE_KEYS_MOUSE_MODE, 1),
+            set_var(VIM_KEYS_MOUSE_MODE, 1),
             { "pointing_button": "button1" }
         ],
         "parameters": SIMULTANEOUS_THRESHOLD_MS_RULE
@@ -630,13 +368,13 @@ mouse_keys_rules = [
             { "pointing_button": "button3" }
         ],
         "conditions": [
-            var_is_set(MOUSE_KEYS_MOUSE_MODE),
+            var_is_set(VIM_KEYS_MOUSE_MODE),
         ]
     }),
     basic_rule({
-        "from": simultaneous_keys([MOUSE_MODE_KEY, MIDDLE_CLICK], after_up=MOUSE_KEYS_AFTER_UP),
+        "from": simultaneous_keys([VIM_MODE_KEY, MIDDLE_CLICK], after_up=VIM_KEYS_AFTER_UP),
         "to": [
-            set_var(MOUSE_KEYS_MOUSE_MODE, 1),
+            set_var(VIM_KEYS_MOUSE_MODE, 1),
             { "pointing_button": "button3" }
         ],
         "parameters": SIMULTANEOUS_THRESHOLD_MS_RULE
@@ -647,13 +385,13 @@ mouse_keys_rules = [
             { "pointing_button": "button2" }
         ],
         "conditions": [
-            var_is_set(MOUSE_KEYS_MOUSE_MODE),
+            var_is_set(VIM_KEYS_MOUSE_MODE),
         ]
     }),
     basic_rule({
-        "from": simultaneous_keys([MOUSE_MODE_KEY, RIGHT_CLICK], after_up=MOUSE_KEYS_AFTER_UP),
+        "from": simultaneous_keys([VIM_MODE_KEY, RIGHT_CLICK], after_up=VIM_KEYS_AFTER_UP),
         "to": [
-            set_var(MOUSE_KEYS_MOUSE_MODE, 1),
+            set_var(VIM_KEYS_MOUSE_MODE, 1),
             { "pointing_button": "button2" }
         ],
         "parameters": SIMULTANEOUS_THRESHOLD_MS_RULE
@@ -661,24 +399,24 @@ mouse_keys_rules = [
     basic_rule({
         "from": single_key(SCROLL),
         "to": [
-            set_var(MOUSE_KEYS_SCROLL_MODE, 1),
+            set_var(VIM_KEYS_SCROLL_MODE, 1),
         ],
         "conditions": [
-            var_is_set(MOUSE_KEYS_MOUSE_MODE),
+            var_is_set(VIM_KEYS_MOUSE_MODE),
         ],
         "to_after_key_up": [
-            set_var(MOUSE_KEYS_SCROLL_MODE, 0),
+            set_var(VIM_KEYS_SCROLL_MODE, 0),
         ]
     }),
     basic_rule({
-        "from": simultaneous_keys([MOUSE_MODE_KEY, SCROLL], after_up=MOUSE_KEYS_AFTER_UP),
+        "from": simultaneous_keys([VIM_MODE_KEY, SCROLL], after_up=VIM_KEYS_AFTER_UP),
         "to": [
-            set_var(MOUSE_KEYS_MOUSE_MODE, 1),
-            set_var(MOUSE_KEYS_SCROLL_MODE, 1),
+            set_var(VIM_KEYS_MOUSE_MODE, 1),
+            set_var(VIM_KEYS_SCROLL_MODE, 1),
         ],
         "parameters": SIMULTANEOUS_THRESHOLD_MS_RULE,
         "to_after_key_up": [
-            set_var(MOUSE_KEYS_SCROLL_MODE, 0),
+            set_var(VIM_KEYS_SCROLL_MODE, 0),
         ]
     }),
     basic_rule({
@@ -687,13 +425,13 @@ mouse_keys_rules = [
             { "mouse_key": { "speed_multiplier": MOUSE_FAST_MULTIPLIER } }
         ],
         "conditions": [
-            var_is_set(MOUSE_KEYS_MOUSE_MODE),
+            var_is_set(VIM_KEYS_MOUSE_MODE),
         ]
     }),
     basic_rule({
-        "from": simultaneous_keys([MOUSE_MODE_KEY, FAST], after_up=MOUSE_KEYS_AFTER_UP),
+        "from": simultaneous_keys([VIM_MODE_KEY, FAST], after_up=VIM_KEYS_AFTER_UP),
         "to": [
-            set_var(MOUSE_KEYS_MOUSE_MODE, 1),
+            set_var(VIM_KEYS_MOUSE_MODE, 1),
             { "mouse_key": { "speed_multiplier": MOUSE_FAST_MULTIPLIER } }
         ],
         "parameters": SIMULTANEOUS_THRESHOLD_MS_RULE
@@ -704,13 +442,13 @@ mouse_keys_rules = [
             { "mouse_key": { "speed_multiplier": MOUSE_SLOW_MULTIPLIER } }
         ],
         "conditions": [
-            var_is_set(MOUSE_KEYS_MOUSE_MODE),
+            var_is_set(VIM_KEYS_MOUSE_MODE),
         ]
     }),
     basic_rule({
-        "from": simultaneous_keys([MOUSE_MODE_KEY, SLOW], after_up=MOUSE_KEYS_AFTER_UP),
+        "from": simultaneous_keys([VIM_MODE_KEY, SLOW], after_up=VIM_KEYS_AFTER_UP),
         "to": [
-            set_var(MOUSE_KEYS_MOUSE_MODE, 1),
+            set_var(VIM_KEYS_MOUSE_MODE, 1),
             { "mouse_key": { "speed_multiplier": MOUSE_SLOW_MULTIPLIER } }
         ],
         "parameters": SIMULTANEOUS_THRESHOLD_MS_RULE
@@ -718,28 +456,72 @@ mouse_keys_rules = [
     basic_rule({
         "from": single_key(ARROW),
         "to": [
-            set_var(MOUSE_KEYS_ARROW_MODE, 1),
+            set_var(VIM_KEYS_ARROW_MODE, 1),
         ],
         "conditions": [
-            var_is_set(MOUSE_KEYS_MOUSE_MODE),
+            var_is_set(VIM_KEYS_MOUSE_MODE),
         ],
         "to_after_key_up": [
-            set_var(MOUSE_KEYS_ARROW_MODE, 0),
+            set_var(VIM_KEYS_ARROW_MODE, 0),
         ]
     }),
     basic_rule({
-        "from": simultaneous_keys([MOUSE_MODE_KEY, ARROW], after_up=MOUSE_KEYS_AFTER_UP),
+        "from": simultaneous_keys([VIM_MODE_KEY, ARROW], after_up=VIM_KEYS_AFTER_UP),
         "to": [
-            set_var(MOUSE_KEYS_MOUSE_MODE, 1),
-            set_var(MOUSE_KEYS_ARROW_MODE, 1),
+            set_var(VIM_KEYS_MOUSE_MODE, 1),
+            set_var(VIM_KEYS_ARROW_MODE, 1),
         ],
         "parameters": SIMULTANEOUS_THRESHOLD_MS_RULE,
         "to_after_key_up": [
-            set_var(MOUSE_KEYS_SCROLL_MODE, 0),
+            set_var(VIM_KEYS_SCROLL_MODE, 0),
         ]
     })
 ]
 
+# VIM_MODE_KEY = "return_or_enter"
+# VIM_KEYS_MODE = "vim_keys_mode"
+# VIM_KEYS_AFTER_UP = [
+#     set_var(VIM_KEYS_MODE, 0),
+# ]
+
+# def make_vim_keys_rules(key, to):
+#     if key.upper() == key:
+#         from_modifiers = ["left_shift", "right_shift"]
+#         key = key.lower()
+#     else:
+#         from_modifiers = []
+#     return [
+#         basic_rule({
+#             "from": single_key(key, modifiers=from_modifiers),
+#             "to": to,
+#             "conditions": [
+#                 var_is_set(VIM_KEYS_MODE),
+#             ]
+#         }),
+#         basic_rule({
+#             "from": simultaneous_keys([VIM_MODE_KEY, key], after_up=VIM_KEYS_AFTER_UP),
+#             "to": [
+#                 set_var(VIM_KEYS_MODE, 1),
+#             ],
+#             "parameters": SIMULTANEOUS_THRESHOLD_MS_RULE
+#         }),
+#     ]
+
+# vim_keys_rules = [
+#     *make_vim_keys_rules("j", [ { "key_code": "down_arrow" } ]),
+#     *make_vim_keys_rules("k", [ { "key_code": "up_arrow" } ]),
+#     *make_vim_keys_rules("h", [ { "key_code": "left_arrow" } ]),
+#     *make_vim_keys_rules("l", [ { "key_code": "right_arrow" } ]),
+#     *make_vim_keys_rules("f", [ { "key_code": "right_arrow", "modifiers": ["option"] } ]),
+#     *make_vim_keys_rules("w", [ { "key_code": "right_arrow", "modifiers": ["option"] } ]),
+#     *make_vim_keys_rules("b", [ { "key_code": "left_arrow", "modifiers": ["option"] } ]),
+#     *make_vim_keys_rules("J", [ { "key_code": "down_arrow", "modifiers": ["option"] } ]),
+#     *make_vim_keys_rules("K", [ { "key_code": "up_arrow", "modifiers": ["option"] } ]),
+#     *make_vim_keys_rules("H", [ { "key_code": "left_arrow", "modifiers": ["left_command"] } ]),
+#     *make_vim_keys_rules("L", [ { "key_code": "right_arrow", "modifiers": ["left_command"] } ]),
+#     *make_vim_keys_rules("g", [ { "key_code": "up_arrow", "modifiers": ["left_command"] } ]),
+#     *make_vim_keys_rules("G", [ { "key_code": "down_arrow", "modifiers": ["left_command"] } ]),
+# ]
 
 with open(os.path.realpath(__file__).replace('.py', '.json'), 'w') as f:
     json.dump({
@@ -750,8 +532,8 @@ with open(os.path.realpath(__file__).replace('.py', '.json'), 'w') as f:
             #     "manipulators": mouse_mode_rules,
             # },
             {
-                "description": "Mouse Keys",
-                "manipulators": mouse_keys_rules,
+                "description": f"Vim Keys: Semicolon to enable",
+                "manipulators": vim_keys_rules,
             },
             {
                 "description": "Caps Lock to Control, Escape on single press.",
@@ -769,6 +551,10 @@ with open(os.path.realpath(__file__).replace('.py', '.json'), 'w') as f:
                 "description": "Better Shifting: Parentheses on shift keys",
                 "manipulators": shift_rules,
             },
+            # {
+            #     "description": f"Vim mode rules: hold {VIM_MODE_KEY} to enable",
+            #     "manipulators": vim_keys_rules,
+            # },
             {
                 "description": "Change caps + space to backspace",
                 "manipulators": [
@@ -778,7 +564,7 @@ with open(os.path.realpath(__file__).replace('.py', '.json'), 'w') as f:
                         "to": [ { "key_code": "delete_or_backspace" } ],
                     }),
                 ]
-            }
+            },
     ],
     }, f, indent=2)
 
