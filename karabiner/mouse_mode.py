@@ -205,6 +205,30 @@ def basic_vim_rule(key, to, modifiers=(), extra_conditions=()):
         ] + list(extra_conditions)
     })
 
+def vim_submode_rules(key, mode):
+    return [
+        basic_rule({
+            "from": single_key(key),
+            "to": [
+                set_var(mode, 1),
+            ],
+            "conditions": [
+                var_is_set(VIM_KEYS_MOUSE_MODE),
+            ],
+            "to_after_key_up": [
+                set_var(mode, 0),
+            ]
+        }),
+        basic_rule({
+            "from": simultaneous_keys([VIM_MODE_KEY, key], after_up=VIM_KEYS_AFTER_UP),
+            "to": [
+                set_var(VIM_KEYS_MOUSE_MODE, 1),
+                set_var(mode, 1),
+            ],
+            "parameters": SIMULTANEOUS_THRESHOLD_MS_RULE,
+        }),
+    ]
+
 def vim_scroll_rules(key, to, modifiers=()):
     return [
         basic_vim_rule(key, to, extra_conditions=[var_is_set(VIM_KEYS_SCROLL_MODE)]),
@@ -235,11 +259,30 @@ def vim_mouse_rules(key, to, modifiers=()):
         }),
     ]
 
+def vim_combo_rules(key, to):
+    # TODO support modifiers?
+    return [
+        basic_rule({
+            "from": single_key(key),
+            "to": [ to ],
+            "conditions": [
+                var_is_set(VIM_KEYS_MOUSE_MODE),
+            ]
+        }),
+        basic_rule({
+            "from": simultaneous_keys([VIM_MODE_KEY, key], after_up=VIM_KEYS_AFTER_UP),
+            "to": [set_var(VIM_KEYS_MOUSE_MODE, 1), to],
+            "parameters": SIMULTANEOUS_THRESHOLD_MS_RULE
+        }),
+    ]
+
 vim_keys_rules = [
+    *vim_submode_rules(SCROLL, VIM_KEYS_SCROLL_MODE),
     *vim_scroll_rules(DOWN, { "mouse_key": { "vertical_wheel": MOUSE_SCROLL_SPEED }}),
     *vim_scroll_rules(UP, { "mouse_key": { "vertical_wheel": -MOUSE_SCROLL_SPEED }}),
     *vim_scroll_rules(LEFT, { "mouse_key": { "horizontal_wheel": MOUSE_SCROLL_SPEED }}),
     *vim_scroll_rules(RIGHT, { "mouse_key": { "horizontal_wheel": -MOUSE_SCROLL_SPEED }}),
+    # *vim_submode_rules(ARROW, VIM_KEYS_ARROW_MODE),
     # basic_vim_rule(DOWN, { "key_code": "down_arrow" }),
     # basic_vim_rule(UP, { "key_code": "up_arrow" }),
     # basic_vim_rule(LEFT, { "key_code": "left_arrow" }),
@@ -251,83 +294,8 @@ vim_keys_rules = [
     *vim_mouse_rules(LEFT_CLICK, { "pointing_button": "button1" }),
     *vim_mouse_rules(MIDDLE_CLICK, { "pointing_button": "button3" }),
     *vim_mouse_rules(RIGHT_CLICK, { "pointing_button": "button2" }),
-    basic_rule({
-        "from": single_key(SCROLL),
-        "to": [
-            set_var(VIM_KEYS_SCROLL_MODE, 1),
-        ],
-        "conditions": [
-            var_is_set(VIM_KEYS_MOUSE_MODE),
-        ],
-        "to_after_key_up": [
-            set_var(VIM_KEYS_SCROLL_MODE, 0),
-        ]
-    }),
-    basic_rule({
-        "from": simultaneous_keys([VIM_MODE_KEY, SCROLL], after_up=VIM_KEYS_AFTER_UP),
-        "to": [
-            set_var(VIM_KEYS_MOUSE_MODE, 1),
-            set_var(VIM_KEYS_SCROLL_MODE, 1),
-        ],
-        "parameters": SIMULTANEOUS_THRESHOLD_MS_RULE,
-        "to_after_key_up": [
-            set_var(VIM_KEYS_SCROLL_MODE, 0),
-        ]
-    }),
-    basic_rule({
-        "from": single_key(FAST),
-        "to": [
-            { "mouse_key": { "speed_multiplier": MOUSE_FAST_MULTIPLIER } }
-        ],
-        "conditions": [
-            var_is_set(VIM_KEYS_MOUSE_MODE),
-        ]
-    }),
-    basic_rule({
-        "from": simultaneous_keys([VIM_MODE_KEY, FAST], after_up=VIM_KEYS_AFTER_UP),
-        "to": [
-            set_var(VIM_KEYS_MOUSE_MODE, 1),
-            { "mouse_key": { "speed_multiplier": MOUSE_FAST_MULTIPLIER } }
-        ],
-        "parameters": SIMULTANEOUS_THRESHOLD_MS_RULE
-    }),
-    basic_rule({
-        "from": single_key(SLOW),
-        "to": [
-            { "mouse_key": { "speed_multiplier": MOUSE_SLOW_MULTIPLIER } }
-        ],
-        "conditions": [
-            var_is_set(VIM_KEYS_MOUSE_MODE),
-        ]
-    }),
-    basic_rule({
-        "from": simultaneous_keys([VIM_MODE_KEY, SLOW], after_up=VIM_KEYS_AFTER_UP),
-        "to": [
-            set_var(VIM_KEYS_MOUSE_MODE, 1),
-            { "mouse_key": { "speed_multiplier": MOUSE_SLOW_MULTIPLIER } }
-        ],
-        "parameters": SIMULTANEOUS_THRESHOLD_MS_RULE
-    }),
-    basic_rule({
-        "from": single_key(ARROW),
-        "to": [
-            set_var(VIM_KEYS_ARROW_MODE, 1),
-        ],
-        "conditions": [
-            var_is_set(VIM_KEYS_MOUSE_MODE),
-        ],
-        "to_after_key_up": [
-            set_var(VIM_KEYS_ARROW_MODE, 0),
-        ]
-    }),
-    basic_rule({
-        "from": simultaneous_keys([VIM_MODE_KEY, ARROW], after_up=VIM_KEYS_AFTER_UP),
-        "to": [
-            set_var(VIM_KEYS_MOUSE_MODE, 1),
-            set_var(VIM_KEYS_ARROW_MODE, 1),
-        ],
-        "parameters": SIMULTANEOUS_THRESHOLD_MS_RULE,
-    })
+    *vim_combo_rules(FAST, { "mouse_key": { "speed_multiplier": MOUSE_FAST_MULTIPLIER } }),
+    *vim_combo_rules(SLOW, { "mouse_key": { "speed_multiplier": MOUSE_SLOW_MULTIPLIER } }),
 ]
 
 # VIM_MODE_KEY = "return_or_enter"
