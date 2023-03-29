@@ -14,7 +14,6 @@ RIGHT = "l"
 FAST = "a"
 SLOW = "s"
 SCROLL = "d"
-ARROW = "r"
 LEFT_CLICK = "f"
 MIDDLE_CLICK = "v"
 RIGHT_CLICK = "g"
@@ -294,6 +293,9 @@ vim_keys_rules = [
     *vim_mouse_rules(LEFT_CLICK, { "pointing_button": "button1" }),
     *vim_mouse_rules(MIDDLE_CLICK, { "pointing_button": "button3" }),
     *vim_mouse_rules(RIGHT_CLICK, { "pointing_button": "button2" }),
+    *vim_mouse_rules(LEFT_CLICK_2, { "pointing_button": "button1" }),
+    *vim_mouse_rules(MIDDLE_CLICK_2, { "pointing_button": "button3" }),
+    *vim_mouse_rules(RIGHT_CLICK_2, { "pointing_button": "button2" }),
     *vim_combo_rules(FAST, { "mouse_key": { "speed_multiplier": MOUSE_FAST_MULTIPLIER } }),
     *vim_combo_rules(SLOW, { "mouse_key": { "speed_multiplier": MOUSE_SLOW_MULTIPLIER } }),
 ]
