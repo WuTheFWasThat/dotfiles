@@ -1,6 +1,49 @@
 import os
 import json
 
+simple_rules = [
+    {
+        "from": {
+            "key_code": "caps_lock"
+        },
+        "to": [
+            {
+                "key_code": "left_control"
+            }
+        ]
+    },
+    {
+        "from": {
+            "key_code": "right_command"
+        },
+        "to": [
+            {
+                "key_code": "escape"
+            }
+        ]
+    },
+    {
+        "from": {
+            "key_code": "return_or_enter"
+        },
+        "to": [
+            {
+                "key_code": "semicolon"
+            }
+        ]
+    },
+    {
+        "from": {
+            "key_code": "semicolon"
+        },
+        "to": [
+            {
+                "key_code": "return_or_enter"
+            }
+        ]
+    },
+]
+
 VIM_MODE_KEY = "return_or_enter"
 # VIM_MODE_KEY = "spacebar" # is mostly great except sometimes false negatives
 # VIM_MODE_KEY = "d" # is mostly great except sometimes false negatives
@@ -310,49 +353,62 @@ vim_keys_rules = [
     # *basic_vim_rules("G", { "key_code": "down_arrow", "modifiers": ["left_command"] }, extra_conditions=VIM_SUBMODES_OFF),
 ]
 
+complex_rules = [
+    # {
+    #     "description": "Mouse Mode",
+    #     "manipulators": mouse_mode_rules,
+    # },
+    {
+        "description": f"Vim Keys: Semicolon to enable",
+        "manipulators": vim_keys_rules,
+    },
+    {
+        "description": "Caps Lock to Control, Escape on single press.",
+        "manipulators": caps_lock_rules,
+    },
+    # {
+    #     "description": "Right Command to Escape.",
+    #     "manipulators": right_command_rules,
+    # },
+    # {
+    #     "description": "semicolon = arrows",
+    #     "manipulators": arrow_rules,
+    # },
+    {
+        "description": "Better Shifting: Parentheses on shift keys",
+        "manipulators": shift_rules,
+    },
+    # {
+    #     "description": f"Vim mode rules: hold {VIM_MODE_KEY} to enable",
+    #     "manipulators": vim_keys_rules,
+    # },
+    {
+        "description": "Change caps + space to backspace",
+        "manipulators": [
+            basic_rule({
+                # use left control since we map caps to that
+                "from": single_key("spacebar", [ "left_control" ]),
+                "to": [ { "key_code": "delete_or_backspace" } ],
+            }),
+        ]
+    },
+]
+
+path = os.path.join(
+    os.path.dirname(os.path.dirname(os.path.realpath(__file__))),
+    "config/karabiner/karabiner.json"
+)
+with open(path, "r") as f:
+    data = json.load(f)
+with open(path, "w") as f:
+    assert len(data['profiles']) == 1
+    profile = data['profiles'][0]
+    profile['simple_modifications'] = simple_rules
+    profile['complex_modifications']['rules'] = complex_rules
+    json.dump(data, f, indent=4)
+
 with open(os.path.realpath(__file__).replace('.py', '.json'), 'w') as f:
     json.dump({
         "title": "Jeff Wu's karabiner settings",
-        "rules": [
-            # {
-            #     "description": "Mouse Mode",
-            #     "manipulators": mouse_mode_rules,
-            # },
-            {
-                "description": f"Vim Keys: Semicolon to enable",
-                "manipulators": vim_keys_rules,
-            },
-            {
-                "description": "Caps Lock to Control, Escape on single press.",
-                "manipulators": caps_lock_rules,
-            },
-            # {
-            #     "description": "Right Command to Escape.",
-            #     "manipulators": right_command_rules,
-            # },
-            # {
-            #     "description": "semicolon = arrows",
-            #     "manipulators": arrow_rules,
-            # },
-            {
-                "description": "Better Shifting: Parentheses on shift keys",
-                "manipulators": shift_rules,
-            },
-            # {
-            #     "description": f"Vim mode rules: hold {VIM_MODE_KEY} to enable",
-            #     "manipulators": vim_keys_rules,
-            # },
-            {
-                "description": "Change caps + space to backspace",
-                "manipulators": [
-                    basic_rule({
-                        # use left control since we map caps to that
-                        "from": single_key("spacebar", [ "left_control" ]),
-                        "to": [ { "key_code": "delete_or_backspace" } ],
-                    }),
-                ]
-            },
-    ],
+        "rules": complex_rules,
     }, f, indent=2)
-
-
