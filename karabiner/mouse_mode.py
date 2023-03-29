@@ -188,11 +188,13 @@ shift_rules = [
 SIMULTANEOUS_THRESHOLD_MS = 100
 SIMULTANEOUS_THRESHOLD_MS_RULE = { "basic.simultaneous_threshold_milliseconds": SIMULTANEOUS_THRESHOLD_MS }
 
+VIM_KEYS_MODE = "vim_keys_mode"
 VIM_KEYS_MOUSE_MODE = "vim_keys_mouse_mode"
 VIM_KEYS_SCROLL_MODE = "vim_keys_mode_scroll"
 VIM_KEYS_ARROW_MODE = "vim_keys_mode_arrows"
 
 VIM_KEYS_AFTER_UP = [
+    set_var(VIM_KEYS_MODE, 0),
     set_var(VIM_KEYS_MOUSE_MODE, 0),
     set_var(VIM_KEYS_SCROLL_MODE, 0),
     set_var(VIM_KEYS_ARROW_MODE, 0),
@@ -204,13 +206,13 @@ def basic_vim_rules(key, to, modifiers=(), extra_conditions=()):
             "from": single_key(key, modifiers=modifiers),
             "to": [to],
             "conditions": [
-                var_is_set(VIM_KEYS_MOUSE_MODE),
+                var_is_set(VIM_KEYS_MODE),
             ] + list(extra_conditions)
         }),
         basic_rule({
             "from": simultaneous_keys([VIM_MODE_KEY, key], after_up=VIM_KEYS_AFTER_UP, modifiers=modifiers),
             "to": [
-                set_var(VIM_KEYS_MOUSE_MODE, 1),
+                set_var(VIM_KEYS_MODE, 1),
                 to,
             ],
             "conditions": list(extra_conditions),
@@ -226,7 +228,7 @@ def vim_enter_submode_rules(key, mode, modifiers=()):
                 set_var(mode, 1),
             ],
             "conditions": [
-                var_is_set(VIM_KEYS_MOUSE_MODE),
+                var_is_set(VIM_KEYS_MODE),
             ],
             "to_after_key_up": [
                 set_var(mode, 0),
@@ -235,7 +237,7 @@ def vim_enter_submode_rules(key, mode, modifiers=()):
         basic_rule({
             "from": simultaneous_keys([VIM_MODE_KEY, key], after_up=VIM_KEYS_AFTER_UP, modifiers=modifiers),
             "to": [
-                set_var(VIM_KEYS_MOUSE_MODE, 1),
+                set_var(VIM_KEYS_MODE, 1),
                 set_var(mode, 1),
             ],
             "parameters": SIMULTANEOUS_THRESHOLD_MS_RULE,
@@ -248,7 +250,7 @@ def vim_submode_rules(mode, mode_key, key, to, modifiers=()):
         basic_rule({
             "from": simultaneous_keys([VIM_MODE_KEY, mode_key, key], after_up=VIM_KEYS_AFTER_UP, modifiers=modifiers),
             "to": [
-                set_var(VIM_KEYS_MOUSE_MODE, 1),
+                set_var(VIM_KEYS_MODE, 1),
                 set_var(mode, 1),
                 to,
             ],
