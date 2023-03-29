@@ -51,8 +51,8 @@
               }
             ],
             "simultaneous_options": {
-              "key_down_order": "insensitive",
-              "key_up_order": "insensitive",
+              "key_down_order": "strict",
+              "key_up_order": "strict_inverse",
               "to_after_key_up": [
                 {
                   "set_variable": {
@@ -148,8 +148,8 @@
               }
             ],
             "simultaneous_options": {
-              "key_down_order": "insensitive",
-              "key_up_order": "insensitive",
+              "key_down_order": "strict",
+              "key_up_order": "strict_inverse",
               "to_after_key_up": [
                 {
                   "set_variable": {
@@ -223,8 +223,8 @@
               }
             ],
             "simultaneous_options": {
-              "key_down_order": "insensitive",
-              "key_up_order": "insensitive",
+              "key_down_order": "strict",
+              "key_up_order": "strict_inverse",
               "to_after_key_up": [
                 {
                   "set_variable": {
@@ -326,8 +326,8 @@
               }
             ],
             "simultaneous_options": {
-              "key_down_order": "insensitive",
-              "key_up_order": "insensitive",
+              "key_down_order": "strict",
+              "key_up_order": "strict_inverse",
               "to_after_key_up": [
                 {
                   "set_variable": {
@@ -401,8 +401,8 @@
               }
             ],
             "simultaneous_options": {
-              "key_down_order": "insensitive",
-              "key_up_order": "insensitive",
+              "key_down_order": "strict",
+              "key_up_order": "strict_inverse",
               "to_after_key_up": [
                 {
                   "set_variable": {
@@ -504,8 +504,8 @@
               }
             ],
             "simultaneous_options": {
-              "key_down_order": "insensitive",
-              "key_up_order": "insensitive",
+              "key_down_order": "strict",
+              "key_up_order": "strict_inverse",
               "to_after_key_up": [
                 {
                   "set_variable": {
@@ -579,8 +579,8 @@
               }
             ],
             "simultaneous_options": {
-              "key_down_order": "insensitive",
-              "key_up_order": "insensitive",
+              "key_down_order": "strict",
+              "key_up_order": "strict_inverse",
               "to_after_key_up": [
                 {
                   "set_variable": {
@@ -682,8 +682,8 @@
               }
             ],
             "simultaneous_options": {
-              "key_down_order": "insensitive",
-              "key_up_order": "insensitive",
+              "key_down_order": "strict",
+              "key_up_order": "strict_inverse",
               "to_after_key_up": [
                 {
                   "set_variable": {
@@ -757,8 +757,8 @@
               }
             ],
             "simultaneous_options": {
-              "key_down_order": "insensitive",
-              "key_up_order": "insensitive",
+              "key_down_order": "strict",
+              "key_up_order": "strict_inverse",
               "to_after_key_up": [
                 {
                   "set_variable": {
@@ -864,8 +864,8 @@
               }
             ],
             "simultaneous_options": {
-              "key_down_order": "insensitive",
-              "key_up_order": "insensitive",
+              "key_down_order": "strict",
+              "key_up_order": "strict_inverse",
               "to_after_key_up": [
                 {
                   "set_variable": {
@@ -1740,8 +1740,8 @@
               }
             ],
             "simultaneous_options": {
-              "key_down_order": "insensitive",
-              "key_up_order": "insensitive",
+              "key_down_order": "strict",
+              "key_up_order": "strict_inverse",
               "to_after_key_up": [
                 {
                   "set_variable": {
@@ -1818,8 +1818,8 @@
               }
             ],
             "simultaneous_options": {
-              "key_down_order": "insensitive",
-              "key_up_order": "insensitive",
+              "key_down_order": "strict",
+              "key_up_order": "strict_inverse",
               "to_after_key_up": [
                 {
                   "set_variable": {
@@ -1928,8 +1928,8 @@
               }
             ],
             "simultaneous_options": {
-              "key_down_order": "insensitive",
-              "key_up_order": "insensitive",
+              "key_down_order": "strict",
+              "key_up_order": "strict_inverse",
               "to_after_key_up": [
                 {
                   "set_variable": {
@@ -2006,8 +2006,8 @@
               }
             ],
             "simultaneous_options": {
-              "key_down_order": "insensitive",
-              "key_up_order": "insensitive",
+              "key_down_order": "strict",
+              "key_up_order": "strict_inverse",
               "to_after_key_up": [
                 {
                   "set_variable": {
@@ -2116,8 +2116,8 @@
               }
             ],
             "simultaneous_options": {
-              "key_down_order": "insensitive",
-              "key_up_order": "insensitive",
+              "key_down_order": "strict",
+              "key_up_order": "strict_inverse",
               "to_after_key_up": [
                 {
                   "set_variable": {
@@ -2194,8 +2194,8 @@
               }
             ],
             "simultaneous_options": {
-              "key_down_order": "insensitive",
-              "key_up_order": "insensitive",
+              "key_down_order": "strict",
+              "key_up_order": "strict_inverse",
               "to_after_key_up": [
                 {
                   "set_variable": {
@@ -2304,8 +2304,8 @@
               }
             ],
             "simultaneous_options": {
-              "key_down_order": "insensitive",
-              "key_up_order": "insensitive",
+              "key_down_order": "strict",
+              "key_up_order": "strict_inverse",
               "to_after_key_up": [
                 {
                   "set_variable": {
@@ -2382,8 +2382,8 @@
               }
             ],
             "simultaneous_options": {
-              "key_down_order": "insensitive",
-              "key_up_order": "insensitive",
+              "key_down_order": "strict",
+              "key_up_order": "strict_inverse",
               "to_after_key_up": [
                 {
                   "set_variable": {
@@ -2492,8 +2492,8 @@
               }
             ],
             "simultaneous_options": {
-              "key_down_order": "insensitive",
-              "key_up_order": "insensitive",
+              "key_down_order": "strict",
+              "key_up_order": "strict_inverse",
               "to_after_key_up": [
                 {
                   "set_variable": {
@@ -2570,8 +2570,8 @@
               }
             ],
             "simultaneous_options": {
-              "key_down_order": "insensitive",
-              "key_up_order": "insensitive",
+              "key_down_order": "strict",
+              "key_up_order": "strict_inverse",
               "to_after_key_up": [
                 {
                   "set_variable": {
@@ -2680,8 +2680,8 @@
               }
             ],
             "simultaneous_options": {
-              "key_down_order": "insensitive",
-              "key_up_order": "insensitive",
+              "key_down_order": "strict",
+              "key_up_order": "strict_inverse",
               "to_after_key_up": [
                 {
                   "set_variable": {
@@ -2758,8 +2758,8 @@
               }
             ],
             "simultaneous_options": {
-              "key_down_order": "insensitive",
-              "key_up_order": "insensitive",
+              "key_down_order": "strict",
+              "key_up_order": "strict_inverse",
               "to_after_key_up": [
                 {
                   "set_variable": {
@@ -2860,8 +2860,8 @@
               }
             ],
             "simultaneous_options": {
-              "key_down_order": "insensitive",
-              "key_up_order": "insensitive",
+              "key_down_order": "strict",
+              "key_up_order": "strict_inverse",
               "to_after_key_up": [
                 {
                   "set_variable": {
@@ -2952,8 +2952,8 @@
               }
             ],
             "simultaneous_options": {
-              "key_down_order": "insensitive",
-              "key_up_order": "insensitive",
+              "key_down_order": "strict",
+              "key_up_order": "strict_inverse",
               "to_after_key_up": [
                 {
                   "set_variable": {
@@ -3057,8 +3057,8 @@
               }
             ],
             "simultaneous_options": {
-              "key_down_order": "insensitive",
-              "key_up_order": "insensitive",
+              "key_down_order": "strict",
+              "key_up_order": "strict_inverse",
               "to_after_key_up": [
                 {
                   "set_variable": {
@@ -3176,8 +3176,8 @@
               }
             ],
             "simultaneous_options": {
-              "key_down_order": "insensitive",
-              "key_up_order": "insensitive",
+              "key_down_order": "strict",
+              "key_up_order": "strict_inverse",
               "to_after_key_up": [
                 {
                   "set_variable": {
@@ -3295,8 +3295,8 @@
               }
             ],
             "simultaneous_options": {
-              "key_down_order": "insensitive",
-              "key_up_order": "insensitive",
+              "key_down_order": "strict",
+              "key_up_order": "strict_inverse",
               "to_after_key_up": [
                 {
                   "set_variable": {
@@ -3414,8 +3414,8 @@
               }
             ],
             "simultaneous_options": {
-              "key_down_order": "insensitive",
-              "key_up_order": "insensitive",
+              "key_down_order": "strict",
+              "key_up_order": "strict_inverse",
               "to_after_key_up": [
                 {
                   "set_variable": {
