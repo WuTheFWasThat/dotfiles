@@ -26,27 +26,19 @@ This will install a number of useful modifications, of which you can enable any 
 
 NOTE: See [here](https://pqrs.org/osx/karabiner/complex_modifications/) for some other example complex modifications.
 
-## Mouse mode
+## Vim mode
 
-Key bindings:
+Hold down `;` for vim mode
 
-`command-m`: toggle mouse mode
-`semicolon-m`: toggle mouse mode
-
-`hjkl`: mouse move
-`f + hjkl`: fast mouse move
-`s + hjkl`: slow mouse move
-`d + hjkl`: scroll
-`r + hjkl`: arrows
-`shift + hjkl`: scroll
+`hjkl`: arrows
+`a` + `hjkl`: fast mouse move
+`s` + `hjkl`: fast mouse move
+`d` + `hjkl`: fast scroll
+`d` + `s` + `hjkl`: slow scroll
 
 `u` or `f`: left click
 `i` or `v`: middle click
 `o` or `F` or `g`: right click
-
-## Better arrows
-
-`; + hjkl`: arrow keys
 
 ## Better backspace
 

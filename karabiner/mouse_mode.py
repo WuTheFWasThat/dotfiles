@@ -12,7 +12,9 @@ UP = "k"
 LEFT = "h"
 RIGHT = "l"
 FAST = "a"
+MOUSE = "a"
 SLOW = "s"
+MOUSE_SLOW = "s"
 SCROLL = "d"
 LEFT_CLICK = "f"
 MIDDLE_CLICK = "v"
@@ -21,8 +23,9 @@ LEFT_CLICK_2 = "u"
 MIDDLE_CLICK_2 = "i"
 RIGHT_CLICK_2 = "o"
 
-MOUSE_SCROLL_SPEED = 32
-MOUSE_SPEED = 1200
+MOUSE_SCROLL_SPEED = 64
+MOUSE_SPEED = 2400
+MOUSE_SPEED_SLOW = 600
 MOUSE_SLOW_MULTIPLIER = 0.25
 MOUSE_FAST_MULTIPLIER = 2
 
@@ -81,22 +84,6 @@ def basic_rule(items):
         **items
     }
 
-
-def _scroll_combos(key):
-    return [
-        single_key(key, [ "left_shift" ]),
-        single_key(key, [ "right_shift" ]),
-        simultaneous_keys([SCROLL, key]),
-    ]
-
-# def _toggle_combos():
-#     return [
-#         single_key(ACTIVATE_TOGGLE, ["left_command"]),
-#         single_key(ACTIVATE_TOGGLE, ["right_command"]),
-#         simultaneous_keys([VIM_MODE_KEY, ACTIVATE_TOGGLE]),
-#         # DONT KNOW WHY THIS DOESNT WORK
-#         simultaneous_keys(["escape", ACTIVATE_TOGGLE]),
-#     ]
 
 caps_lock_rules = [
     basic_rule({
@@ -193,14 +180,23 @@ VIM_KEYS_MOUSE_MODE = "vim_keys_mouse_mode"
 VIM_KEYS_SCROLL_MODE = "vim_keys_mode_scroll"
 VIM_KEYS_ARROW_MODE = "vim_keys_mode_arrows"
 
+VIM_SUBMODES = [VIM_KEYS_MOUSE_MODE, VIM_KEYS_SCROLL_MODE, VIM_KEYS_ARROW_MODE]
 VIM_KEYS_AFTER_UP = [
-    set_var(VIM_KEYS_MODE, 0),
-    set_var(VIM_KEYS_MOUSE_MODE, 0),
-    set_var(VIM_KEYS_SCROLL_MODE, 0),
-    set_var(VIM_KEYS_ARROW_MODE, 0),
+    set_var(mode, 0)
+    for mode in [VIM_KEYS_MODE] + VIM_SUBMODES
+]
+
+VIM_SUBMODES_OFF = [
+    var_is_set(mode, 0)
+    for mode in VIM_SUBMODES
 ]
 
 def basic_vim_rules(key, to, modifiers=(), extra_conditions=()):
+    if key.upper() == key:
+        modifiers = ["left_shift", "right_shift"] + list(modifiers)
+        key = key.lower()
+    else:
+        modifiers = []
     return [
         basic_rule({
             "from": single_key(key, modifiers=modifiers),
@@ -220,6 +216,11 @@ def basic_vim_rules(key, to, modifiers=(), extra_conditions=()):
     ]
 
 def vim_enter_submode_rules(key, mode, modifiers=()):
+    if key.upper() == key:
+        modifiers = ["left_shift", "right_shift"] + list(modifiers)
+        key = key.lower()
+    else:
+        modifiers = []
     return [
         basic_rule({
             "from": single_key(key, modifiers=modifiers),
@@ -243,9 +244,15 @@ def vim_enter_submode_rules(key, mode, modifiers=()):
         }),
     ]
 
-def vim_submode_rules(mode, mode_key, key, to, modifiers=()):
+def vim_submode_rules(mode, mode_key, key, to, modifiers=(), extra_conditions=()):
+    if key.upper() == key:
+        modifiers = ["left_shift", "right_shift"] + list(modifiers)
+        key = key.lower()
+    else:
+        modifiers = []
+    extra_conditions = list(extra_conditions)
     return [
-        *basic_vim_rules(key, to, extra_conditions=[var_is_set(mode)], modifiers=modifiers),
+        *basic_vim_rules(key, to, extra_conditions=[var_is_set(mode)] + extra_conditions, modifiers=modifiers),
         basic_rule({
             "from": simultaneous_keys([VIM_MODE_KEY, mode_key, key], after_up=VIM_KEYS_AFTER_UP, modifiers=modifiers),
             "to": [
@@ -253,7 +260,8 @@ def vim_submode_rules(mode, mode_key, key, to, modifiers=()):
                 set_var(mode, 1),
                 to,
             ],
-            "parameters": SIMULTANEOUS_THRESHOLD_MS_RULE
+            "parameters": SIMULTANEOUS_THRESHOLD_MS_RULE,
+            "conditions": extra_conditions
         }),
     ]
 
@@ -262,19 +270,7 @@ def vim_scroll_rules(key, to, modifiers=()):
     return vim_submode_rules(VIM_KEYS_SCROLL_MODE, SCROLL, key, to, modifiers=modifiers)
 
 def vim_mouse_rules(key, to, modifiers=()):
-    return [
-        # TODO: extra condition here
-        *basic_vim_rules(key, to, modifiers=modifiers),
-        basic_rule({
-            "from": simultaneous_keys([VIM_MODE_KEY, key], after_up=VIM_KEYS_AFTER_UP, modifiers=modifiers),
-            "to": [
-                set_var(VIM_KEYS_MOUSE_MODE, 1),
-                # TODO extra mode here
-                to
-            ],
-            "parameters": SIMULTANEOUS_THRESHOLD_MS_RULE
-        }),
-    ]
+    return vim_submode_rules(VIM_KEYS_MOUSE_MODE, MOUSE, key, to, modifiers=modifiers, extra_conditions=[var_is_set(VIM_KEYS_SCROLL_MODE, 0)])
 
 
 vim_keys_rules = [
@@ -284,10 +280,7 @@ vim_keys_rules = [
     *vim_scroll_rules(LEFT, { "mouse_key": { "horizontal_wheel": MOUSE_SCROLL_SPEED }}),
     *vim_scroll_rules(RIGHT, { "mouse_key": { "horizontal_wheel": -MOUSE_SCROLL_SPEED }}),
     # *vim_enter_submode_rules(ARROW, VIM_KEYS_ARROW_MODE),
-    # basic_vim_rule(DOWN, { "key_code": "down_arrow" }),
-    # basic_vim_rule(UP, { "key_code": "up_arrow" }),
-    # basic_vim_rule(LEFT, { "key_code": "left_arrow" }),
-    # basic_vim_rule(RIGHT, { "key_code": "right_arrow" }),
+    *vim_enter_submode_rules(MOUSE, VIM_KEYS_MOUSE_MODE),
     *vim_mouse_rules(DOWN, { "mouse_key": { "y": MOUSE_SPEED }}),
     *vim_mouse_rules(UP, { "mouse_key": { "y": -MOUSE_SPEED }}),
     *vim_mouse_rules(LEFT, { "mouse_key": { "x": -MOUSE_SPEED }}),
@@ -300,52 +293,21 @@ vim_keys_rules = [
     *vim_mouse_rules(RIGHT_CLICK_2, { "pointing_button": "button2" }),
     *basic_vim_rules(FAST, { "mouse_key": { "speed_multiplier": MOUSE_FAST_MULTIPLIER } }),
     *basic_vim_rules(SLOW, { "mouse_key": { "speed_multiplier": MOUSE_SLOW_MULTIPLIER } }),
+    *basic_vim_rules(DOWN, { "key_code": "down_arrow" }, extra_conditions=VIM_SUBMODES_OFF),
+    *basic_vim_rules(UP, { "key_code": "up_arrow" }, extra_conditions=VIM_SUBMODES_OFF),
+    *basic_vim_rules(LEFT, { "key_code": "left_arrow" }, extra_conditions=VIM_SUBMODES_OFF),
+    *basic_vim_rules(RIGHT, { "key_code": "right_arrow" }, extra_conditions=VIM_SUBMODES_OFF),
+    # these are just not that much easier than using arrows and holding option or command
+    # *basic_vim_rules("f", { "key_code": "right_arrow", "modifiers": ["option"] }, extra_conditions=VIM_SUBMODES_OFF),
+    # *basic_vim_rules("w", { "key_code": "right_arrow", "modifiers": ["option"] }, extra_conditions=VIM_SUBMODES_OFF),
+    # *basic_vim_rules("b", { "key_code": "left_arrow", "modifiers": ["option"] }, extra_conditions=VIM_SUBMODES_OFF),
+    # *basic_vim_rules("J", { "key_code": "down_arrow", "modifiers": ["option"] }, extra_conditions=VIM_SUBMODES_OFF),
+    # *basic_vim_rules("K", { "key_code": "up_arrow", "modifiers": ["option"] }, extra_conditions=VIM_SUBMODES_OFF),
+    # *basic_vim_rules("H", { "key_code": "left_arrow", "modifiers": ["left_command"] }, extra_conditions=VIM_SUBMODES_OFF),
+    # *basic_vim_rules("L", { "key_code": "right_arrow", "modifiers": ["left_command"] }, extra_conditions=VIM_SUBMODES_OFF),
+    # *basic_vim_rules("g", { "key_code": "up_arrow", "modifiers": ["left_command"] }, extra_conditions=VIM_SUBMODES_OFF),
+    # *basic_vim_rules("G", { "key_code": "down_arrow", "modifiers": ["left_command"] }, extra_conditions=VIM_SUBMODES_OFF),
 ]
-
-# VIM_MODE_KEY = "return_or_enter"
-# VIM_KEYS_MODE = "vim_keys_mode"
-# VIM_KEYS_AFTER_UP = [
-#     set_var(VIM_KEYS_MODE, 0),
-# ]
-
-# def make_vim_keys_rules(key, to):
-#     if key.upper() == key:
-#         from_modifiers = ["left_shift", "right_shift"]
-#         key = key.lower()
-#     else:
-#         from_modifiers = []
-#     return [
-#         basic_rule({
-#             "from": single_key(key, modifiers=from_modifiers),
-#             "to": to,
-#             "conditions": [
-#                 var_is_set(VIM_KEYS_MODE),
-#             ]
-#         }),
-#         basic_rule({
-#             "from": simultaneous_keys([VIM_MODE_KEY, key], after_up=VIM_KEYS_AFTER_UP),
-#             "to": [
-#                 set_var(VIM_KEYS_MODE, 1),
-#             ],
-#             "parameters": SIMULTANEOUS_THRESHOLD_MS_RULE
-#         }),
-#     ]
-
-# vim_keys_rules = [
-#     *make_vim_keys_rules("j", [ { "key_code": "down_arrow" } ]),
-#     *make_vim_keys_rules("k", [ { "key_code": "up_arrow" } ]),
-#     *make_vim_keys_rules("h", [ { "key_code": "left_arrow" } ]),
-#     *make_vim_keys_rules("l", [ { "key_code": "right_arrow" } ]),
-#     *make_vim_keys_rules("f", [ { "key_code": "right_arrow", "modifiers": ["option"] } ]),
-#     *make_vim_keys_rules("w", [ { "key_code": "right_arrow", "modifiers": ["option"] } ]),
-#     *make_vim_keys_rules("b", [ { "key_code": "left_arrow", "modifiers": ["option"] } ]),
-#     *make_vim_keys_rules("J", [ { "key_code": "down_arrow", "modifiers": ["option"] } ]),
-#     *make_vim_keys_rules("K", [ { "key_code": "up_arrow", "modifiers": ["option"] } ]),
-#     *make_vim_keys_rules("H", [ { "key_code": "left_arrow", "modifiers": ["left_command"] } ]),
-#     *make_vim_keys_rules("L", [ { "key_code": "right_arrow", "modifiers": ["left_command"] } ]),
-#     *make_vim_keys_rules("g", [ { "key_code": "up_arrow", "modifiers": ["left_command"] } ]),
-#     *make_vim_keys_rules("G", [ { "key_code": "down_arrow", "modifiers": ["left_command"] } ]),
-# ]
 
 with open(os.path.realpath(__file__).replace('.py', '.json'), 'w') as f:
     json.dump({
