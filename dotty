@@ -160,6 +160,7 @@ def install(args):
             msg = 'SUCCESS (already installed)'
         else:
             assert status == LinkStatus.UNINSTALLED
+            os.makedirs(os.path.dirname(dotfile.dst_path), exist_ok=True)
             os.symlink(dotfile.src_path, dotfile.dst_path)
             msg = 'SUCCESS'
         print ('%s : %s' % (dotfile.name.ljust(lcol), msg))
