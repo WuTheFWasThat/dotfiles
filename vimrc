@@ -209,8 +209,8 @@ function! SpacevimBind(map, binding, name, value, isCmd)
 endfunction
 
 " doing weird infinite loop stuff
-" Plug 'hecal3/vim-leader-guide'
-" set timeoutlen=400
+Plug 'spinks/vim-leader-guide'
+set timeoutlen=400
 
 Plug 'ctjhoa/spacevim'
 let mapleader = "\<Space>"
@@ -379,7 +379,7 @@ set omnifunc=syntaxcomplete#Complete
 
 if has('nvim')
   Plug 'github/copilot.vim', { 'branch': 'release' }
-  autocmd VimEnter * Copilot setup
+  " autocmd VimEnter * Copilot setup
 else
   " Plug 'ajh17/VimCompletesMe'
   " Plug 'Valloric/YouCompleteMe'

@@ -119,6 +119,9 @@ nnoremap <Leader>b0 :b10<CR>
 
 nnoremap <Leader>bl :b#<CR>
 
+" copilot
+call s:spacevim_bind('map', 'cp', 'copilot-setup', ':Copilot setup<CR>', 0)
+
 " nnoremap <Leader>bs :Scratch<CR>
 
 function! ToggleSaveAutoGroup()
