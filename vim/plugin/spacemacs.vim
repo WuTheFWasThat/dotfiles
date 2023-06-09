@@ -142,7 +142,3 @@ call s:spacevim_bind('map', 'tw', 'toggle-onsave-strip', ':call ToggleSaveAutoGr
 call ToggleSaveAutoGroup()
 
 " TODO: folding
-"
-" See https://github.com/spinks/vim-leader-guide
-call leaderGuide#register_prefix_descriptions("<Space>", "g:lmap")
-

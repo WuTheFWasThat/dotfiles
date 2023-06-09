@@ -208,9 +208,10 @@ function! SpacevimBind(map, binding, name, value, isCmd)
   execute a:map . " <leader>" . a:binding . " <SID>" . a:name
 endfunction
 
-" doing weird infinite loop stuff
+" See https://github.com/spinks/vim-leader-guide
 Plug 'spinks/vim-leader-guide'
 set timeoutlen=400
+call leaderGuide#register_prefix_descriptions("<Space>", "g:lmap")
 
 Plug 'ctjhoa/spacevim'
 let mapleader = "\<Space>"
