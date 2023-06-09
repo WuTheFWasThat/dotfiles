@@ -211,7 +211,9 @@ endfunction
 " See https://github.com/spinks/vim-leader-guide
 Plug 'spinks/vim-leader-guide'
 set timeoutlen=400
-call leaderGuide#register_prefix_descriptions("<Space>", "g:lmap")
+if exists(':LeaderGuide')
+  call leaderGuide#register_prefix_descriptions("<Space>", "g:lmap")
+endif
 
 Plug 'ctjhoa/spacevim'
 let mapleader = "\<Space>"
