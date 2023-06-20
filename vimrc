@@ -669,6 +669,15 @@ function! YRRunAfterMaps()
   vnoremap p :<c-u>YRPaste 'p', 'v'<cr>gv:YRYankRange 'v'<cr>
 endfunction
 
+" TODO put into spacevim
+let g:rg_command = '
+  \ rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --color "always"
+  \ -g "*.{js,json,php,md,styl,jade,html,config,py,cpp,c,go,hs,rb,conf}"
+  \ -g "!*.{min.js,swp,o,zip}"
+  \ -g "!{.git,node_modules,vendor}/*" '
+
+command! -bang -nargs=* Gg call fzf#vim#grep(g:rg_command .shellescape(<q-args>), 1, <bang>0)
+
 " NOTE: i found vmail to be meh, this is not all fully tested
 " if !empty($IS_VMAIL)
 "   autocmd FileType vmailMessageList nmap <buffer> * <Plug>VmailToggleStar
