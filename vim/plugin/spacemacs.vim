@@ -31,6 +31,23 @@ endfunction
 
 call s:spacevim_bind('map', 'fx', 'file-save-quit', ':w<CR>:bd', 1)
 
+function! CustomFzfGrep()
+  " Get user input from a popup
+  let user_input = input('Enter search query: ')
+
+  " Build the rg command with user input
+  let g:rg_command = '
+    \ rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --color "always"
+    \  '
+  let command_with_input = g:rg_command . shellescape(user_input)
+
+  " Call fzf#vim#grep with the command and input
+  call fzf#vim#grep(command_with_input, 1)
+endfunction
+
+" git grep
+call s:spacevim_bind('map', 'gg', 'git-grep', ':call CustomFzfGrep()', 1)
+
 "toggle
 call s:spacevim_bind('map', 't\', 'toggle-invisible-chars', 'set list!', 1)
 call s:spacevim_bind('map', 'tp', 'toggle-paste', 'set paste!', 1)
