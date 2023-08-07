@@ -21,6 +21,7 @@
     # icdiff = "!f() { git difftool --no-prompt --extcmd=\"icdiff $(git config --get icdiff.options)\" \"$@\" | less -R; }; f"
     # differ = "!f() { if which icdiff > /dev/null; then echo icdiff; else echo diff; fi; }; f"
 
+    main = "!f() { if git rev-parse --verify main >/dev/null 2>&1; then echo main; else echo master; fi; }; f"
     delta = "!f() { git diff \"$@\" | delta -s; }; f"
     differ = "!f() { if which delta > /dev/null; then echo delta; else echo diff; fi; }; f"
 
@@ -52,21 +53,22 @@
     # bb = branch --show-current # works in newer version of git
     ba = branch -vv -a
     co = checkout
-    com = checkout master
+    com = "!f() { git checkout $(git main) $@; }; f"
     cop = checkout -p
     new = checkout -b
     bd = branch -D
     bdm = "!git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"
-    # delete a branch (default to current branch).  if current branch deleted, checkout master
+    # delete a branch (default to current branch).  if current branch deleted, checkout main
     bx = "!f() { \
       local onbranch=$(git bb); \
       local branch=${1:-$onbranch}; \
-      if [ \"$branch\" = \"master\" ]; then \
-        echo \"Can't delete master!\";  \
+      local mainbranch=$(git main); \
+      if [ \"$branch\" = \"$mainbranch\" ]; then \
+        echo \"Can't delete $mainbranch!\";  \
         return 1;  \
       fi;  \
       if [ \"$branch\" = \"$onbranch\" ]; then \
-        git checkout master;  \
+        git checkout $mainbranch;  \
       fi &&  \
       git tag -f shelved/$branch $branch && \
       git branch -D $branch;  \
@@ -77,12 +79,13 @@
       local branch=${1:-$onbranch}; \
       git push origin :$branch; \
     }; f"
-    # Remove branches that have already been merged with master, a.k.a. ‘delete merged’
+    # Remove branches that have already been merged with main, a.k.a. ‘delete merged’
     done = "!f() { \
       local mybranch=$(git bb); \
-      if [ \"$mybranch\" != \"master\" ]; then git checkout master; git reset --hard $mybranch; fi; \
-      git fetch; git rebase origin/master; git push origin master; \
-      if [ \"$mybranch\" != \"master\" ]; then git branch -D $mybranch; git push origin :$mybranch; fi; \
+      local mainbranch=$(git main); \
+      if [ \"$mybranch\" != \"$mainbranch\" ]; then git checkout $mainbranch; git reset --hard $mybranch; fi; \
+      git fetch; git rebase origin/$mainbranch; git push origin $mainbranch; \
+      if [ \"$mybranch\" != \"$mainbranch\" ]; then git branch -D $mybranch; git push origin :$mybranch; fi; \
     }; f"
 
     rmc = "rm --cached"
@@ -94,7 +97,7 @@
     puf = "push -u --force-with-lease"
     pl = "pull"
     plr = "pull --rebase"
-    pla = !"git pull; git submodule foreach git pull origin master"
+    pla = "!f() { git pull; git submodule foreach git pull origin $(git main); }; f"
     rmp = "!f(){ remote=${1:-origin}; git remote prune $remote; }; f"
     track = "!f(){ branch=$(git bb); cmd=\"git branch $branch -u ${1:-origin}/${2:-$branch}\"; echo $cmd; $cmd; }; f"
     untrack = "!f(){ branch=$(git bb); cmd=\"git branch --unset-upstream ${1:-$branch}\"; echo $cmd; $cmd; }; f"
@@ -130,14 +133,15 @@
     # github
     pr = "!git push; hub pull-request"
     # pr = "!f() { \
-    #         remote=${1:-origin}; \
+    #         local remote=${1:-origin}; \
+    #         local mainbranch=$(git main); \
     #         git push; \
     #         git_user=$(git remoteuser); \
     #         git_repo=$(git remoterepo); \
     #         cur_branch=$(git bb); \
-    #         echo open \"https://github.com/$git_user/$git_repo/compare/master...$cur_branch\"; \
-    #         # open \"https://github.com/$git_user/$git_repo/pull/create?base=$git_user%3Amaster&head=$git_user%3A$cur_branch\"; \n\
-    #         open \"https://github.com/$git_user/$git_repo/compare/master...$cur_branch\"; \
+    #         echo open \"https://github.com/$git_user/$git_repo/compare/$mainbranch...$cur_branch\"; \
+    #         # open \"https://github.com/$git_user/$git_repo/pull/create?base=$git_user%3A$mainbranch&head=$git_user%3A$cur_branch\"; \n\
+    #         open \"https://github.com/$git_user/$git_repo/compare/$mainbranch...$cur_branch\"; \
     #       }; f"
     try = "!f() { \
         if [ -n \"$GIT_PREFIX\" ]; then cd \"$GIT_PREFIX\"; fi; \
@@ -161,11 +165,12 @@
     trypr = "!f() { \
         local remote=${1-origin}; \
         local branch=${2:-$(git bb)}; \
+        local mainbranch=$(git main); \
         local merge_method=${3:-rebase}; \
         git try prm $remote $branch $merge_method; \
-        if [ \"$branch\" != \"master\" ]; then \
+        if [ \"$branch\" != \"$mainbranch\" ]; then \
           if [ \"$branch\" == \"$(git bb)\" ]; then \
-            git checkout master; \
+            git checkout $mainbranch; \
           fi; \
           git branch -D $branch; git push origin :$branch; \
         fi; \
@@ -173,9 +178,10 @@
     donepr = "!f() { \
       local remote=${1-origin}; \
       local mybranch=${2:-$(git bb)}; \
+      local mainbranch=$(git main); \
       local merge_method=${3:-rebase}; \
       git prm $remote $mybranch $merge_method || echo fail to merge && exit 1; \
-      if [ \"$mybranch\" != \"master\" ]; then git checkout master; git branch -D $mybranch; git push origin :$mybranch; fi; \
+      if [ \"$mybranch\" != \"$mainbranch\" ]; then git checkout $mainbranch; git branch -D $mybranch; git push origin :$mybranch; fi; \
     }; f"
     doneprr = "!f() { local remote=${1:-origin}; git donepr $remote rebase; }; f"
     doneprs = "!f() { local remote=${1:-origin}; git donepr $remote squash; }; f"
@@ -183,8 +189,8 @@
     hi = "!hub browse -- issues"
     hin = "!hub browse -- issues/new"
     hp = "!f() { pr=$1; if [ -z \"$1\" ]; then hub browse -- pulls; else hub browse -- pull/$pr ; fi; }; f"
-    hf = "!hub browse -- find/master"
-    hop = "!f() { hub browse -- blob/master/$(git find \"$@\" | head -n 1); }; f"
+    hf = "!f() { local mainbranch=$(git main); hub browse -- find/$mainbranch; }; f"
+    hop = "!f() { local mainbranch=$(git main); hub browse -- blob/$mainbranch/$(git find \"$@\" | head -n 1); }; f"
     # hub log
     hl = "!f() { hash=${1:-$(git rev-parse HEAD)}; hub browse -- commits/$hash; }; f"
     # hub show
@@ -228,12 +234,12 @@
     rba = rebase --abort
     rbs = rebase --skip
     rbc = "!git add .; git add -u .; git rebase --continue"
-    rbo = "!f(){ branch=$(git bb); git rebase origin/$branch $@; }; f"
-    rboi = "!f(){ branch=$(git bb); git rebase origin/$branch -i $@; }; f"
-    rbm = rebase master
-    rbmi = rebase master -i
-    rbom = rebase origin/master
-    rbomi = rebase origin/master -i
+    rbo = "!f(){ local branch=$(git bb); git rebase origin/$branch $@; }; f"
+    rboi = "!f(){ local branch=$(git bb); git rebase origin/$branch -i $@; }; f"
+    rbm = "!f(){ local mainbranch=$(git main); git rebase $mainbranch $@; }; f"
+    rbmi = rbm -i
+    rbom = "!f(){ local mainbranch=$(git main); git rebase origin/$mainbranch $@; }; f"
+    rbomi = rbom -i
     from = "!f() { git chain fetch rbom $@; }; f"
     fro = "!f() { git chain fetch rbo $@; }; f"
 
@@ -249,36 +255,36 @@
     dc = "!f() { if [ -n \"$GIT_PREFIX\" ]; then cd \"$GIT_PREFIX\"; fi; git $(git differ) --cached $@; }; f"
     dcs = "!git --no-pager -c color.diff=always diff --stat --cached"
     ds = "!git --no-pager -c color.diff=always diff --stat"
-    dso = "!f(){ branch=$(git bb); git diff --stat origin/$branch $@; }; f"
+    dso = "!f(){ local branch=$(git bb); git diff --stat origin/$branch $@; }; f"
     dsop = "!f() { $(git editor) $(git --no-pager -c color.diff=always diff --stat --name-only $1); }; f"
-    dsom = "!git --no-pager -c color.diff=always diff --stat origin/master"
-    dsm = "!git --no-pager -c color.diff=always diff --stat master"
+    dsom = "!f() { local mainbranch=$(git main); git --no-pager -c color.diff=always diff --stat origin/$mainbranch;}; f"
+    dsm = "!f() { local mainbranch=$(git main); git --no-pager -c color.diff=always diff --stat $mainbranch;}; f"
     df = "!f() { git diff --name-only $@; }; f"
-    dfom = "!f() { git diff --name-only origin/master; }; f"
+    dfom = "!f() { local mainbranch=$(git main); git diff --name-only origin/$mainbranch; }; f"
     dcf = "!f() { git diff --cached --name-only $@; }; f"
     dop = "!f() { $(git editor) $(git df); }; f"
     dcop = "!f() { $(git editor) $(git diff --cached --name-only $@); }; f"
-    dm = "!f(){ if [ -n \"$GIT_PREFIX\" ]; then cd \"$GIT_PREFIX\"; fi; git $(git differ) master; }; f"
-    dom = "!f(){ if [ -n \"$GIT_PREFIX\" ]; then cd \"$GIT_PREFIX\"; fi; git $(git differ) origin/master; }; f"
-    do = "!f(){ if [ -n \"$GIT_PREFIX\" ]; then cd \"$GIT_PREFIX\"; fi; branch=$(git bb); git $(git differ) origin/$branch $@; }; f"
+    dm = "!f(){ local mainbranch=$(git main); if [ -n \"$GIT_PREFIX\" ]; then cd \"$GIT_PREFIX\"; fi; git $(git differ) $mainbranch; }; f"
+    dom = "!f(){ local mainbranch=$(git main); if [ -n \"$GIT_PREFIX\" ]; then cd \"$GIT_PREFIX\"; fi; git $(git differ) origin/$mainbranch; }; f"
+    do = "!f(){ if [ -n \"$GIT_PREFIX\" ]; then cd \"$GIT_PREFIX\"; fi; local branch=$(git bb); git $(git differ) origin/$branch $@; }; f"
     du = "!git $(git differ) @{upstream}"
 
     # status
     s = "!f() { if [ -n \"$GIT_PREFIX\" ]; then cd \"$GIT_PREFIX\"; fi; git chain 'status' $@; }; f"
     sh = show
-    sho = "!f(){ branch=$(git bb); git show origin/$branch $@; }; f"
-    shom = show origin/master
+    sho = "!f(){ local branch=$(git bb); git show origin/$branch $@; }; f"
+    shom = "!f() { local mainbranch=$(git main); git show origin/$mainbranch; }; f"
     shs = "!git --no-pager show --stat"
-    shso = "!f(){ branch=$(git bb); git --no-pager show --stat origin/$branch $@; }; f"
-    shsom = "!git --no-pager show --stat origin/master"
+    shso = "!f(){ local branch=$(git bb); git --no-pager show --stat origin/$branch $@; }; f"
+    shsom = "!f() { local mainbranch=$(git main); git --no-pager show --stat origin/$mainbranch; }; f"
     shop = "!f() { $(git editor) $(git show --pretty=\"format:\" --name-only $1); }; f"
 
 
     # tree
     l = log --color --graph --pretty='%C(yellow)%h%C(reset) %Cred%cd%C(reset) %C(bold blue)%an%C(reset) %s%C(bold yellow)%d%C(reset)' --decorate --date=relative
     ls = log --color --pretty=format:'%C(yellow)%h%C(reset) %Cred%cd%C(reset) %C(bold blue)%an%C(reset) %s%C(bold yellow)%d%C(reset)' --decorate --date=relative --numstat
-    lo = "!f(){ branch=$(git bb); git log origin/$branch $@; }; f"
-    lom = log origin/master
+    lo = "!f(){ local branch=$(git bb); git log origin/$branch $@; }; f"
+    lom = "!f() { local mainbranch=$(git main); git log origin/$mainbranch; }; f"
     lg = log
     hash = rev-parse HEAD
     shash = rev-parse --short HEAD
@@ -308,13 +314,13 @@
 
     # reset
     rs = reset
-    rso = "!f(){ branch=$(git bb); git reset origin/$branch $@; }; f"
-    rsm = "!git reset master"
-    rsom = "!git reset origin/master"
+    rso = "!f(){ local branch=$(git bb); git reset origin/$branch $@; }; f"
+    rsm = "!git reset $(git main)"
+    rsom = "!git reset origin/$(git main)"
     rsh = reset --hard
-    rsho = "!f(){ branch=$(git bb); git reset --hard origin/$branch $@; }; f"
-    rshom = "!git reset --hard origin/master"
-    rshm = "!git reset --hard master"
+    rsho = "!f(){ local branch=$(git bb); git reset --hard origin/$branch $@; }; f"
+    rshom = "!git reset --hard origin/$(git main)"
+    rshm = "!git reset --hard $(git main)"
     # rewind
     rw = "!f() { local n=${1:-1}; git reset HEAD~$n; }; f"
     rwh = "!f() { local n=${1:-1}; git reset --hard HEAD~$n; }; f"
