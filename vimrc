@@ -425,6 +425,10 @@ let g:ale_python_flake8_options = '--ignore=E501'
 """""""""""""
 
 Plug 'davidhalter/jedi-vim'
+" TODO: deoplete / deoplete-jedi
+" let g:jedi#show_call_signatures = "0"
+" otherwise way too slow with pytorch, see https://github.com/davidhalter/jedi-vim/issues/703
+let g:jedi#popup_on_dot = 0
 Plug 'integralist/vim-mypy'
 
 Plug 'sheerun/vim-polyglot'
