@@ -383,6 +383,15 @@ set omnifunc=syntaxcomplete#Complete
 if has('nvim')
   Plug 'github/copilot.vim', { 'branch': 'release' }
   " autocmd VimEnter * Copilot setup
+  Plug 'MunifTanjim/nui.nvim'
+  Plug 'dense-analysis/neural'
+  let g:neural = {
+  \   'source': {
+  \       'openai': {
+  \           'api_key': $OPENAI_API_KEY,
+  \       },
+  \   },
+  \}
 else
   " Plug 'ajh17/VimCompletesMe'
   " Plug 'Valloric/YouCompleteMe'
@@ -413,7 +422,7 @@ let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 " let g:UltiSnipsEditSplit="vertical"
 
 " better than syntastic
-Plug 'w0rp/ale'
+Plug 'dense-analysis/ale'
 let b:ale_fixers = {'python': ['black', 'pylint']}
 " don't check line length
 let g:ale_python_flake8_options = '--ignore=E501'
@@ -726,3 +735,5 @@ endfunction
 "   autocmd FileType mail nmap <buffer> <leader>m/ <Plug>VmailMessageWindow_Search
 "   autocmd Filetype mail nnoremap <silent> <leader>ms :call <SID>send_message()<CR>
 " endif
+"
+" 
