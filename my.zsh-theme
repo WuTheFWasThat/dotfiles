@@ -66,10 +66,8 @@ theme_precmd () {
 # useful chars: » ● ✔ ✘
 setopt prompt_subst
 
-if [ -n  "$SSH_CLIENT" ] || [ -n  "$SSH_TTY" ] || [ -n  "$SSH_CONNECTION" ] ||
-   # gce instance, probably gcloud compute ssh
-   curl metadata.google.internal -i &> /dev/null;
-then
+if [ -n  "$SSH_CLIENT" ] || [ -n  "$SSH_TTY" ] || [ -n  "$SSH_CONNECTION" ]; then
+# if [[ "$(uname)" != "Darwin" ]]; then
   PROMPT_SHOW_HOSTNAME=true
 fi
 
