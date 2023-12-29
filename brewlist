@@ -1,67 +1,126 @@
-brew install aspell
-brew install autoconf
-brew install automake
-brew install boost
-brew install camlp5
-brew install camlp5-606
-brew install chromedriver
-brew install cmake
-brew install coq83
-brew install coreutils
-brew install cowsay
-brew install ctags
-brew install emacs
-brew install ffmpeg
-brew install flac
-brew install freetype
-brew install fzf
-brew install gdbm
-brew install gettext
-brew install gmp
-brew install hub
-brew install imagemagick
-brew install jpeg
-brew install lame
-brew install libao
-brew install libevent
-brew install libogg
-brew install libpng
-brew install libtiff
-brew install libtool
-brew install libvorbis
-brew install lzlib
-brew install maven
-brew install mlton
-brew install mongodb
-brew install mysql
-brew install neovim
-brew install nginx
-brew install objective-caml312
-brew install ocaml
-brew install openssl
-brew install pcre
-brew install pkg-config
-brew install postgresql
-brew install powerline
-brew install pstree
-brew install python
-brew install readline
-brew install rsync
-brew install screen
-brew install selenium-server-standalone
-brew install sl
-brew install speex
-brew install sqlite
-brew install the_silver_searcher
-brew install thefuck
-brew install thrift
-brew install timidity
-brew install tmux
-brew install tree
-brew install vim
-brew install wget
-brew install x264
-brew install xvid
-brew install xz
-brew install zsh
-brew install zsh-completions
+abseil
+autoconf
+azure-cli
+bat
+bdw-gc
+berkeley-db
+boost
+ca-certificates
+cmake
+coreutils
+double-conversion
+edencommon
+elan-init
+emacs
+fasd
+fb303
+fbthrift
+fizz
+fmt
+fnm
+folly
+fzf
+gcc
+gdbm
+gettext
+gflags
+ghostscript
+git-delta
+glog
+gmp
+gnupg
+gnutls
+guile
+heroku
+heroku-node
+htop
+hub
+hwloc
+icu4c
+isl
+jansson
+jpeg
+jq
+jsoncpp
+krb5
+kubernetes-cli
+libassuan
+libevent
+libgcrypt
+libgpg-error
+libidn2
+libksba
+libmpc
+libnghttp2
+libomp
+libsodium
+libtasn1
+libtermkey
+libtiff
+libtool
+libunistring
+libusb
+libuv
+libvterm
+libyaml
+little-cms2
+lua
+luajit
+luajit-openresty
+luv
+lz4
+m4
+mosh
+mpdecimal
+mpfr
+mpich
+msgpack
+mysql
+ncurses
+neovim
+nettle
+npth
+oniguruma
+openssl@1.1
+openssl@3
+p11-kit
+p7zip
+pcre
+pcre2
+perl
+pinentry
+pipenv
+pkg-config
+postgresql
+postgresql@14
+protobuf
+pyenv
+python@2
+python@3.10
+python@3.11
+python@3.9
+readline
+ripgrep
+ruby
+six
+snappy
+sqlite
+swig
+tfswitch
+the_silver_searcher
+tmux
+tree
+tree-sitter
+unbound
+unibilium
+utf8proc
+vim
+wangle
+watch
+watchman
+xz
+zlib
+zstd
+bitbar
+calibre
+mactex
