@@ -479,6 +479,20 @@ let g:tex_flavor='latex'
 " program to always generate a file-name.
 set grepprg=grep\ -nH\ $*
 
+" NOTE: only works for nvim?  do i need a conditional?
+Plug 'Julian/lean.nvim', {'for': 'lean'}
+Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-lua/plenary.nvim'
+
+" Optional Dependencies:
+Plug 'hrsh7th/nvim-cmp'        " For LSP completion
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/vim-vsnip'       " For snippets
+Plug 'andrewradev/switch.vim'  " For Lean switch support
+Plug 'tomtom/tcomment_vim'     " For commenting motions
+Plug 'nvim-telescope/telescope.nvim' " For Loogle search
+
 """""""""""""
 " editing
 """""""""""""
