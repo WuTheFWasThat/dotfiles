@@ -7,6 +7,7 @@
 
     # pager = "if which icdiff > /dev/null; then PAG='git difftool --no-prompt --extcmd=\"icdiff\"'; else PAG='less'; fi; $PAG"
     pager = "if which delta > /dev/null; then PAG='delta -s'; else PAG='less'; fi; $PAG"
+    excludesfile = ~/.gitignore_global
 
 # [interactive]
 #     diffFilter = delta --color-only -s
@@ -39,7 +40,8 @@
     # functions screw up directory: see https://stackoverflow.com/questions/26243145/git-aliases-operate-in-the-wrong-directory
     relative = "!f() { if [ -n \"$GIT_PREFIX\" ]; then echo \"$GIT_PREFIX\"; else echo \".\"; fi; }; f"
     # chains multiple commands (note: after first one, can't have spaces, for now)
-    chain = "!f() { if [ -n \"$GIT_PREFIX\" ]; then cd \"$GIT_PREFIX\"; fi; git $1; shift; if [ $# -ne 0 ]; then git chain $@; fi; }; f"
+    chain = "!f() { if [ -n \"$GIT_PREFIX\" ]; then cd \"$GIT_PREFIX\"; fi; if [ $# -eq 0 ]; then return 0; fi; git $1; shift; git chain $@; }; f"
+
 
     # setup
     clo = clone --recursive
@@ -91,7 +93,16 @@
     rmc = "rm --cached"
 
     # remotes
-    f = "!f() { git chain 'fetch --all --prune' $@; }; f"
+    # f = "!f() { git chain 'fetch --all --prune' $@; }; f"
+    f = "!f() { \
+        if [ \"$(git root)\" = \"$HOME/openai/openai\" ]; then \
+            git fetch origin "refs/heads/${OPENAI_USER}*:refs/remotes/origin/${OPENAI_USER}*"; \
+            git fetch origin master; \
+            git chain $@; \
+        else \
+            git chain 'fetch --all --prune' $@; \
+        fi; \
+    }; f"
     pu = "push -u"
     put = "push --tags"
     puf = "push -u --force-with-lease"
@@ -456,3 +467,18 @@
 # [branch]
 #     autosetupmerge = always
 #     autosetuprebase = always
+[merge]
+	conflictstyle = zdiff3
+[rebase]
+  autosquash = true
+  autostash = true
+[init]
+  defaultBranch = main
+[fetch]
+  fsckObjects = true
+[transfer]
+  fsckObjects = true
+[receive]
+  fsckObjects = true
+[gc]
+  auto = 256

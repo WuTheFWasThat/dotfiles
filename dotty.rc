@@ -1,4 +1,5 @@
 gitconfig
+gitignore_global
 screenrc
 spacemacs
 tmux.conf
