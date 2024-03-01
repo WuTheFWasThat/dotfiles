@@ -106,6 +106,7 @@
     pu = "push -u"
     put = "push --tags"
     puf = "push -u --force-with-lease"
+    pufback = "!f() { local nback=${1:-1}; git puf origin HEAD~${nback}:$(git b --show-current); }; f"
     pl = "pull"
     plr = "pull --rebase"
     pla = "!f() { git pull; git submodule foreach git pull origin $(git main); }; f"
