@@ -333,7 +333,7 @@ endif
 Plug 'tpope/vim-fugitive'
 call SpacevimBind('map', 'gb', 'git-blame', ':Git blame ', 1)
 Plug 'junegunn/gv.vim'
-Plug 'airblade/vim-gitgutter'
+Plug 'airblade/vim-gitgutter', { 'branch': 'main' }
 
 """""""""""""
 " search
@@ -448,7 +448,7 @@ Plug 'ianks/vim-tsx'
 Plug 'Shougo/vimproc.vim', {'do' : 'make'} | Plug 'Quramy/tsuquyomi', { 'for': 'typescript '}
 Plug 'leafgarland/typescript-vim', { 'for': 'typescript '}
 
-Plug 'evanleck/vim-svelte'
+Plug 'evanleck/vim-svelte', {'branch': 'main'}
 au BufReadPost *.svelte set syntax=html
 au BufReadPost *.sve set syntax=html
 
