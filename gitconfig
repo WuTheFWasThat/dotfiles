@@ -376,22 +376,22 @@
       local target=$1; \
       local commit=\"\"; \
       if fzf --help 2>&1 | grep --quiet '\\-\\-ansi'; then \
-        commit=$(git l $target | fzf --ansi | sed 's/.*\\*[^ ]*//g' | awk '{ print $1 }'); \
+        commit=$(git l $target | fzf --preview 'git --no-pager show --color {2}' --ansi | sed 's/.*\\*[^ ]*//g' | awk '{ print $1 }'); \
       else \
-        commit=$(git log --color --graph --pretty='%h %cd %an %s%d' --decorate --date=relative $target | fzf | cut -d '*' -f 2 | awk '{ print $1 }'); \
+        commit=$(git log --color --graph --pretty='%h %cd %an %s%d' --decorate --date=relative $target | fzf --preview 'git --no-pager show --color {2}' | cut -d '*' -f 2 | awk '{ print $1 }'); \
       fi; \
       echo \"$commit\"; \
     }; f"
     # get file
     zf = "!f() { \
-      local file=$(git ls-files $(git rev-parse --show-toplevel) | fzf -m); \
+      local file=$(git ls-files $(git rev-parse --show-toplevel) | fzf -m --preview 'cat {1}'); \
       if [[ -z $file ]]; then return 1; fi; \
       echo \"$file\"; \
     }; f"
     # get branch
     # consider: g branch -a --format '%(refname); \
     zb = "!f() { \
-      local branch=$(git branch -a --sort=-committerdate | grep -v 'remotes/' | fzf -m); \
+      local branch=$(git branch -a --sort=-committerdate | grep -v 'remotes/' | fzf -m --preview 'git l {1}'); \
       if [[ -z $branch ]]; then return 1; fi; \
       echo \"$branch\"; \
     }; f"
@@ -403,15 +403,7 @@
       echo $(git editor) $file; \
     }; f"
     # fuzzy grep (does only one file)
-    zgop = "!f() { \
-      local raw_selection=$(git grep -n '.*' | fzf); \
-      if [[ -z $raw_selection ]]; then return 1; fi; \
-      local selection=${raw_selection%:*}; \
-      local file=${selection%:*}; \
-      local line=${selection##*:}; \
-      $(git editor) +\"$line\" \"$file\"; \
-      echo $(git editor) +\"$line\" \"$file\"; \
-    }; f"
+    zgop = "!f() { rg --color ansi --vimgrep $@ | fzf --ansi --preview '~/.preview.sh {}' | pyp 'z = x.split(\":\"); print(f\"+{z[1]} -c \\\"normal {z[2]}|\\\" {shlex.quote(z[0])}\")' | xargs -o vim; }; f"
     # fuzzy checkout (could be much improved, have tags, branches, remotes)
     zc = "!f() { \
       local branch=$(git zb); \
