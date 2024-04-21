@@ -13,7 +13,13 @@
 #     diffFilter = delta --color-only -s
 [delta]
     navigate = true  # use n and N to move between diff sections
-
+    # syntax-theme = zenburn
+    minus-style = "#eeaaaa" bold "#440000"
+    minus-emph-style = "#eeaaaa" bold "#440000"
+    minus-non-emph-style = "#eeaa88" bold "#444422"
+    plus-style = "#aaeeaa" bold "#004400"
+    plus-emph-style = "#aaeeaa" bold "#004400"
+    plus-non-emph-style = "#aaee88" bold "#444422"
 [alias]
     # TODO:  DIFF TOOL, ACTUALLY MAYBE ... https://difftastic.wilfred.me.uk/git.html
 
@@ -392,6 +398,11 @@
     # consider: g branch -a --format '%(refname); \
     zb = "!f() { \
       local branch=$(git branch -a --sort=-committerdate | grep -v 'remotes/' | fzf -m --preview 'git l {1}'); \
+      if [[ -z $branch ]]; then return 1; fi; \
+      echo \"$branch\"; \
+    }; f"
+    zba = "!f() { \
+      local branch=$(git branch -a --sort=-committerdate | fzf -m --preview 'git l {1}'); \
       if [[ -z $branch ]]; then return 1; fi; \
       echo \"$branch\"; \
     }; f"
