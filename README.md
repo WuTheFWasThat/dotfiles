@@ -16,7 +16,9 @@ all commands ran from root directory
   - overwrite zshrc:
     `echo "source $(pwd)/zshrc" > ~/.zshrc`
 
-- install fasd (e.g. `brew install fasd`)
+- install fasd
+    `cd ~; git clone https://github.com/whjvenyl/fasd.git; cd fasd; make install`
+    used to work, but no longer works `brew install fasd` (as of may 2024)
 - make sure vim is 7.4+, preferably 8+ (e.g. `brew install vim`)
 - install vim plugins: `vim +PlugInstall +qall`
   - this should install fzf (if not, do e.g. `brew install fzf`)

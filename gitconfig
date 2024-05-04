@@ -486,3 +486,6 @@
   fsckObjects = true
 [gc]
   auto = 256
+# [safe]
+# 	directory = /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core
+# 	directory = /usr/local/Homebrew/Library/Taps/homebrew/homebrew-cask
