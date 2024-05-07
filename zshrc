@@ -71,6 +71,11 @@ if which thefuck &>/dev/null; then
   eval "$(thefuck --alias fu)"
 fi
 
+if which nvim &>/dev/null; then
+  alias vim="nvim"
+fi
+
+
 export PATH=$PATH:/Library/TeX/texbin
 export PATH=$PATH:~/.multirust/toolchains/stable/cargo/bin
 export PATH=$PATH:~/.multirust/toolchains/1.5.0/cargo/bin
@@ -94,4 +99,6 @@ alias w='watchcmd'
 #   fi
 # }
 
-eval "$(fnm env --use-on-cd)"
+if which fnm &>/dev/null; then
+  eval "$(fnm env --use-on-cd)"
+fi
