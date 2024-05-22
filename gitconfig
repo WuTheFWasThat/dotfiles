@@ -34,7 +34,8 @@
 
     editor = config --get core.editor
     # editor = ! echo "emacsclient -c"
-    alias = "!f() { pattern=$@; rand=$(uuidgen); git config --get-regexp ^alias\\. | sed -e s/^alias\\.// | grep \"$pattern\" | sort | sed -e \"s| |$rand|\" | awk -F \"$rand\" '{ printf \"%12-s = %s\\n\", $1, $2 }'; }; f"
+    alias = "!f() { pattern=$@; git config --get-regexp ^alias\\. | sed -e s/^alias\\.//  -e 's/ / = /' | awk -v pat=\"$pattern\" '{ if ($0 ~ pat) print }' | sort -u; }; f"
+    which = "!f() { pattern=$@; git config --get-regexp ^alias\\. | sed -e s/^alias\\.//  -e 's/ / = /' | awk -v pat=\"$pattern\" -F '=' '{ if ($1 ~ pat) print $0 }' | sort -u; }; f"
 
     linecount = "!f() { git ls-files $@ | grep -v package-lock.json | grep -v Pipfile.lock | xargs cat | wc -l; }; f"
     linecounts = "!f() { for f in $(git ls-files $@ | grep -v package-lock.json | grep -v Pipfile.lock); do echo $(wc -l $f); done; }; f"

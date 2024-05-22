@@ -403,23 +403,27 @@ else
   "                      \| call youcompleteme#Enable()
   " augroup END
 endif
-" snippets engine, actual snippets
-Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
-
-" make YCM compatible with UltiSnips (using supertab)
-let g:ycm_key_list_select_completion = ['<C-j>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-k>', '<Up>']
-" go down the list, not up
-" let g:SuperTabDefaultCompletionType = '<C-n>'
-let g:SuperTabDefaultCompletionType = "<C-X><C-O>"
 
 
-" better key bindings for UltiSnipsExpandTrigger
-let g:UltiSnipsExpandTrigger = "<tab>"
-" for jumping between sections of the snippet
-let g:UltiSnipsJumpForwardTrigger = "<tab>"
-let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
-" let g:UltiSnipsEditSplit="vertical"
+if 0
+  " snippets engine, actual snippets
+  Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+
+  " make YCM compatible with UltiSnips (using supertab)
+  let g:ycm_key_list_select_completion = ['<C-j>', '<Down>']
+  let g:ycm_key_list_previous_completion = ['<C-k>', '<Up>']
+  " go down the list, not up
+  " let g:SuperTabDefaultCompletionType = '<C-n>'
+  let g:SuperTabDefaultCompletionType = "<C-X><C-O>"
+
+
+  " better key bindings for UltiSnipsExpandTrigger
+  let g:UltiSnipsExpandTrigger = "<tab>"
+  " for jumping between sections of the snippet
+  let g:UltiSnipsJumpForwardTrigger = "<tab>"
+  let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+  " let g:UltiSnipsEditSplit="vertical"
+endif
 
 " better than syntastic
 Plug 'dense-analysis/ale'
