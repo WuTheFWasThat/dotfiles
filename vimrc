@@ -208,6 +208,7 @@ function! SpacevimBind(map, binding, name, value, isCmd)
   execute a:map . " <leader>" . a:binding . " <SID>" . a:name
 endfunction
 
+
 " See https://github.com/spinks/vim-leader-guide
 Plug 'spinks/vim-leader-guide'
 set timeoutlen=400
@@ -286,29 +287,53 @@ if 0
   call SpacevimBind('map', 'rq', 'runner-clear', 'call neoterm#clear()', 1)
   call SpacevimBind('map', 'rc', 'runner-cancel-cmd', 'call neoterm#kill()', 1)
 else
-  " doesn't work well in zsh
-  " Plug 'christoomey/vim-run-interactive'
-  " nnoremap <leader>~ :RunInInteractiveShell zsh<cr>
-
   Plug 'christoomey/vim-tmux-navigator'
-  Plug 'christoomey/vim-tmux-runner'
-  let g:VtrGitCdUpOnOpen = 1
-  let g:VtrStripLeadingWhitespace = 0
-  let g:VtrClearEmptyLines = 0
-  let g:VtrAppendNewline = 1
-  " horizontal is nicer, but messes with copy-paste
-  " let g:VtrOrientation = "h"
-  let g:VtrPercentage = 35
-  augroup vtr
-    autocmd VimLeavePre * :VtrKillRunner
-  augroup END
-  call SpacevimBind('map', 'rs', 'runner-open', 'VtrOpenRunner', 1)
-  call SpacevimBind('map', 'rf', 'runner-run-file', 'VtrSendFile!', 1)
-  call SpacevimBind('map', 'rl', 'runner-run-lines', 'VtrSendLinesToRunner!', 1)
-  call SpacevimBind('map', 'rr', 'runner-rerun', 'VtrSendCommandToRunner!', 1)
-  call SpacevimBind('map', 'rc', 'runner-run-custom', ':VtrSendCommandToRunner! ', 0)
-  " call SpacevimBind('map', 'rR', 'runner-reorient', ':VtrReorientRunner ', 1)
-  call SpacevimBind('map', 'rx', 'runner-kill', ':VtrKillRunner ', 1)
+
+  " Plug 'jpalardy/vim-slime'
+  " let g:slime_target = "tmux"
+  " call SpacevimBind('vmap', 'rl', 'runner-run-lines', 'SlimeSend', 1)
+  " call SpacevimBind('map', 'rl', 'runner-run-lines', 'SlimeSend', 1)
+  
+  Plug 'preservim/vimux'
+
+  call SpacevimBind('map', 'rs', 'runner-open', 'VimuxOpenRunner', 1)
+  " call SpacevimBind('vmap', 'rl', 'runner-run-lines', 'call VimuxSendText', 1)
+  " call SpacevimBind('map', 'rl', 'runner-run-line', 'call VimuxSendText', 1)
+  " Bind 'rl' in visual mode to run the selected lines
+  " call SpacevimBind('vmap', 'rl', 'runner-run-lines', ":'<,'>y \| call VimuxSendText(@\")", 1)
+  " Bind 'rl' in normal mode to run the current line
+  function! SendNormalVimux()
+    call VimuxSendText(getline('.'))
+    call VimuxSendKeys("Enter")
+  endfunction
+  call SpacevimBind('map', 'rl', 'runner-run-line', "call SendNormalVimux()", 1)
+
+  function! SendVisualVimux()
+      call VimuxSendText(@v)
+      call VimuxSendKeys("Enter")
+  endfunction
+  vmap <LocalLeader>rl "vy :call SendVisualVimux()<CR>
+    
+  " call SpacevimBind('vmap', 'rl', 'runner-run-selection', 'call SendVisualSelection()', 1)
+
+  " Plug 'christoomey/vim-tmux-runner'
+  " let g:VtrGitCdUpOnOpen = 1
+  " let g:VtrStripLeadingWhitespace = 0
+  " let g:VtrClearEmptyLines = 0
+  " let g:VtrAppendNewline = 1
+  " " horizontal is nicer, but messes with copy-paste
+  " " let g:VtrOrientation = "h"
+  " let g:VtrPercentage = 35
+  " augroup vtr
+  "   autocmd VimLeavePre * :VtrKillRunner
+  " augroup END
+  " call SpacevimBind('map', 'rs', 'runner-open', 'VtrOpenRunner', 1)
+  " call SpacevimBind('map', 'rf', 'runner-run-file', 'VtrSendFile!', 1)
+  " call SpacevimBind('map', 'rl', 'runner-run-lines', 'VtrSendLinesToRunner!', 1)
+  " call SpacevimBind('map', 'rr', 'runner-rerun', 'VtrSendCommandToRunner!', 1)
+  " call SpacevimBind('map', 'rc', 'runner-run-custom', ':VtrSendCommandToRunner! ', 0)
+  " " call SpacevimBind('map', 'rR', 'runner-reorient', ':VtrReorientRunner ', 1)
+  " call SpacevimBind('map', 'rx', 'runner-kill', ':VtrKillRunner ', 1)
 
   " Plug 'benmills/vimux'
   " map <Leader>rf :call VimuxRunCommand("python " . bufname("%"))<CR>
