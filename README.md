@@ -17,7 +17,9 @@ all commands ran from root directory
     `echo "source $(pwd)/zshrc" > ~/.zshrc`
 
 - install fasd
-    `cd ~; git clone https://github.com/whjvenyl/fasd.git; cd fasd; make install`
+    ```
+    cd ~; git clone https://github.com/whjvenyl/fasd.git; cd fasd; make install; mkdir -p ~/.cache
+    ```
     used to work, but no longer works `brew install fasd` (as of may 2024)
 - make sure vim is 7.4+, preferably 8+ (e.g. `brew install vim`)
 - install vim plugins: `vim +PlugInstall +qall`
