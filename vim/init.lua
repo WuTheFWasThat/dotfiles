@@ -1,87 +1,21 @@
 --[[
+ TODO:
+- copilot setup
+  Plug 'github/copilot.vim', { 'branch': 'release' }
+  " autocmd VimEnter * Copilot setup
+  Plug 'MunifTanjim/nui.nvim'
+  Plug 'dense-analysis/neural'
+- vim bbye
+- tpope/vim-fugitive
+- junegunn/gv.vim
+- airblade/vim-gitgutter
 
-=====================================================================
-==================== READ THIS BEFORE CONTINUING ====================
-=====================================================================
-========                                    .-----.          ========
-========         .----------------------.   | === |          ========
-========         |.-""""""""""""""""""-.|   |-----|          ========
-========         ||                    ||   | === |          ========
-========         ||   KICKSTART.NVIM   ||   |-----|          ========
-========         ||                    ||   | === |          ========
-========         ||                    ||   |-----|          ========
-========         ||:Tutor              ||   |:::::|          ========
-========         |'-..................-'|   |____o|          ========
-========         `"")----------------(""`   ___________      ========
-========        /::::::::::|  |::::::::::\  \ no mouse \     ========
-========       /:::========|  |==hjkl==:::\  \ required \    ========
-========      '""""""""""""'  '""""""""""""'  '""""""""""'   ========
-========                                                     ========
-=====================================================================
-=====================================================================
+- syntax checking?
+Plug 'dense-analysis/ale'
+let b:ale_fixers = {'python': ['black', 'pylint']}
+" don't check line length
+let g:ale_python_flake8_options = '--ignore=E501'
 
-What is Kickstart?
-
-  Kickstart.nvim is *not* a distribution.
-
-  Kickstart.nvim is a starting point for your own configuration.
-    The goal is that you can read every line of code, top-to-bottom, understand
-    what your configuration is doing, and modify it to suit your needs.
-
-    Once you've done that, you can start exploring, configuring and tinkering to
-    make Neovim your own! That might mean leaving Kickstart just the way it is for a while
-    or immediately breaking it into modular pieces. It's up to you!
-
-    If you don't know anything about Lua, I recommend taking some time to read through
-    a guide. One possible example which will only take 10-15 minutes:
-      - https://learnxinyminutes.com/docs/lua/
-
-    After understanding a bit more about Lua, you can use `:help lua-guide` as a
-    reference for how Neovim integrates Lua.
-    - :help lua-guide
-    - (or HTML version): https://neovim.io/doc/user/lua-guide.html
-
-Kickstart Guide:
-
-  TODO: The very first thing you should do is to run the command `:Tutor` in Neovim.
-
-    If you don't know what this means, type the following:
-      - <escape key>
-      - :
-      - Tutor
-      - <enter key>
-
-    (If you already know the Neovim basics, you can skip this step.)
-
-  Once you've completed that, you can continue working through **AND READING** the rest
-  of the kickstart init.lua.
-
-  Next, run AND READ `:help`.
-    This will open up a help window with some basic information
-    about reading, navigating and searching the builtin help documentation.
-
-    This should be the first place you go to look when you're stuck or confused
-    with something. It's one of my favorite Neovim features.
-
-    MOST IMPORTANTLY, we provide a keymap "<space>sh" to [s]earch the [h]elp documentation,
-    which is very useful when you're not exactly sure of what you're looking for.
-
-  I have left several `:help X` comments throughout the init.lua
-    These are hints about where to find more information about the relevant settings,
-    plugins or Neovim features used in Kickstart.
-
-   NOTE: Look for lines like this
-
-    Throughout the file. These are for you, the reader, to help you understand what is happening.
-    Feel free to delete them once you know what you're doing, but they should serve as a guide
-    for when you are first encountering a few different constructs in your Neovim config.
-
-If you experience any errors while trying to install kickstart, run `:checkhealth` for more info.
-
-I hope you enjoy your Neovim journey,
-- TJ
-
-P.S. You can delete this when you're done too. It's your config now! :)
 --]]
 
 -- Set <space> as the leader key
@@ -100,9 +34,8 @@ vim.g.have_nerd_font = false
 
 -- Make line numbers default
 vim.opt.number = true
--- You can also add relative line numbers, to help with jumping.
---  Experiment for yourself to see if you like it!
--- vim.opt.relativenumber = true
+-- Relative line numbers
+vim.opt.relativenumber = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = 'a'
@@ -114,9 +47,9 @@ vim.opt.showmode = false
 --  Schedule the setting after `UiEnter` because it can increase startup-time.
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
-vim.schedule(function()
-  vim.opt.clipboard = 'unnamedplus'
-end)
+-- vim.schedule(function()
+--   vim.opt.clipboard = 'unnamedplus'
+-- end)
 
 -- Enable break indent
 vim.opt.breakindent = true
@@ -190,6 +123,145 @@ vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right win
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
+--[[
+MY CUSTOM STUFF
+--]]
+
+vim.keymap.set('n', 'n', 'nzz', { noremap = true, desc = 'search centers screen' })
+vim.keymap.set('n', 'N', 'Nzz', { noremap = true, desc = 'search centers screen' })
+
+vim.keymap.set('n', 'K', 'i<cr><esc>', { desc = 'Split at cursor' })
+vim.keymap.set('n', '>', '>>', { desc = 'Faster indent' })
+vim.keymap.set('n', '<', '<<', { desc = 'Faster indent' })
+
+vim.keymap.set('n', '<C-c>', '"+y', { desc = 'Yank to clipboard' })
+vim.keymap.set('v', '<C-c>', '"+y', { desc = 'Yank to clipboard' })
+
+vim.keymap.set('n', '<leader>fx', '<cmd>w<CR><cmd>bd<CR>', { desc = 'Save and quit' })
+vim.keymap.set('n', '<leader>fs', '<cmd>w<CR>', { desc = 'Save file' })
+vim.keymap.set('n', '<leader>fS', '<cmd>w !sudo tee %<CR>', { desc = 'Sudo write' })
+vim.keymap.set('n', '<leader>fl', '<cmd>e<CR>', { desc = 'Reload file' })
+vim.keymap.set('n', '<leader>fr', '<cmd>so $MYVIMRC<CR>', { desc = 'Reload configuration' })
+vim.keymap.set('n', '<tab>', '<cmd>b#<CR>', { desc = 'Last buffer' })
+vim.keymap.set('n', '<leader>bn', '<cmd>bn<CR>', { desc = 'Next buffer' })
+vim.keymap.set('n', '<leader>bp', '<cmd>bp<CR>', { desc = 'Previous buffer' })
+vim.keymap.set('n', '<leader>bd', '<cmd>bd<CR>', { desc = 'Close buffer' })
+vim.keymap.set('n', '<leader>bD', '<cmd>bd<CR>', { desc = 'Force close buffer' })
+vim.keymap.set('n', '<leader>xx', '<cmd>wqa<CR>', { desc = 'Save quit all' })
+vim.keymap.set('n', '<leader>qs', '<cmd>xall<CR>', { desc = 'Save quit all' })
+vim.keymap.set('n', '<leader>qq', '<cmd>quitall<CR>', { desc = 'Quit all' })
+vim.keymap.set('n', '<leader>qQ', '<cmd>quitall!<CR>', { desc = 'Quit all unprompted' })
+
+vim.keymap.set('n', '!', ':! ', { desc = 'run shell command' })
+
+vim.keymap.set('n', '<leader>i;', 'mzA;<esc>`z', { desc = 'Insert semicolon' })
+vim.keymap.set('n', '<leader>i,', 'mzA,<esc>`z', { desc = 'Insert comma' })
+vim.keymap.set('n', '<leader>i.', 'mzA.<esc>`z', { desc = 'Insert period' })
+vim.keymap.set('n', '<leader>i?', 'mzA?<esc>`z', { desc = 'Insert question mark' })
+vim.keymap.set('n', '<leader>i!', 'mzA!<esc>`z', { desc = 'Insert exclamation mark' })
+vim.keymap.set('n', '<leader>i<cr>', 'o<esc>', { desc = 'Insert return' })
+
+-- vim.keymap.set('n', '<leader>ws', '<cmd>split<CR><cmd>wincmd w<CR>', { desc = 'Split window bottom' })
+-- vim.keymap.set('n', '<leader>wv', '<cmd>vsplit<CR><cmd>wincmd w<CR>', { desc = 'Split window right' })
+vim.keymap.set('n', '<leader>ws', '<cmd>split<CR>', { desc = 'Split window bottom' })
+vim.keymap.set('n', '<leader>wv', '<cmd>vsplit<CR>', { desc = 'Split window right' })
+vim.keymap.set('n', '<leader>wj', '<C-w>-', { desc = 'Resize window taller' })
+vim.keymap.set('n', '<leader>wk', '<C-w>+', { desc = 'Resize window shorter' })
+vim.keymap.set('n', '<leader>wh', '<C-w><', { desc = 'Resize window narrower' })
+vim.keymap.set('n', '<leader>wl', '<C-w>>', { desc = 'Resize window wider' })
+vim.keymap.set('n', '<leader>w=', '<cmd>wincmd =<CR>', { desc = 'Balance windows' })
+vim.keymap.set('n', '<leader>wc', '<cmd>q<CR>', { desc = 'Close window' })
+
+vim.keymap.set('n', '<leader>tn', '<cmd>setlocal invnumber<CR><cmd>setlocal invrelativenumber<CR>', { desc = 'Toggle line numbers' })
+vim.keymap.set('n', '<leader>tr', '<cmd>setlocal invrelativenumber<CR>', { desc = 'Toggle relative line numbers' })
+vim.keymap.set('n', '<leader>t\\', '<cmd>set list!<CR>', { desc = 'Toggle invisible chars' })
+-- not needed for neovim?
+vim.keymap.set('n', '<leader>tp', '<cmd>set paste!<CR>', { desc = 'Toggle paste' })
+
+--[[
+ TODO :
+ UNPORTED STUFF FROM SPACEVIM
+
+  call s:spacevim_bind('map', 'el', 'error-list', 'call SpacevimErrorList()', 1)
+  call s:spacevim_bind('map', 'en', 'next-error', 'call SpacevimErrorNext()', 1)
+  call s:spacevim_bind('map', 'eN', 'previous-error', 'call SpacevimErrorPrev()', 1)
+  call s:spacevim_bind('map', 'ep', 'previous-error', 'call SpacevimErrorPrev()', 1)
+if s:spacevim_is_layer_enabled('git')
+  let g:lmap.g = { 'name': '+git/versions-control' }
+  call s:spacevim_bind('map', 'gb', 'git-blame', 'Gblame', 1)
+  call s:spacevim_bind('map', 'gc', 'git-commit', 'Gcommit', 1)
+  call s:spacevim_bind('map', 'gC', 'git-checkout', 'Git checkout', 1)
+  call s:spacevim_bind('map', 'gd', 'git-diff', 'Gdiff', 1)
+  call s:spacevim_bind('map', 'gD', 'git-diff-head', 'Gdiff HEAD', 1)
+  call s:spacevim_bind('map', 'gf', 'git-fetch', 'Gfetch', 1)
+  call s:spacevim_bind('map', 'gF', 'git-pull', 'Gpull', 1)
+  call s:spacevim_bind('map', 'gi', 'git-init', 'Git init', 1)
+  call s:spacevim_bind('map', 'gI', 'git-ignore', 'Gedit .gitignore', 1)
+  call s:spacevim_bind('map', 'gl', 'git-log', 'call SpacevimGitLog()', 1)
+  call s:spacevim_bind('map', 'gL', 'git-log-buffer-file', 'GV!', 1)
+  call s:spacevim_bind('map', 'gr', 'git-checkout-current-file', 'Gread', 1)
+  call s:spacevim_bind('map', 'gR', 'git-remove-current-file', 'Gremove', 1)
+  call s:spacevim_bind('map', 'gs', 'git-status', 'Gstatus', 1)
+  call s:spacevim_bind('map', 'gS', 'git-stage-file', 'call feedkeys(":Git add -- ")', 1)
+  call s:spacevim_bind('map', 'gw', 'git-stage-current-file', 'Gwrite', 1)
+
+  if s:spacevim_is_layer_enabled('git/vcs-micro-state')
+    let g:lmap.g['.'] = { 'name': '+vcs-micro-state' }
+    call s:spacevim_bind('nmap', 'g.s', 'stage', 'GitGutterStageHunk', 1)
+    call s:spacevim_bind('nmap', 'g.r', 'revert', 'GitGutterRevertHunk', 1)
+    call s:spacevim_bind('nmap', 'g.h', 'show-hunk', 'GitGutterPreviewHunk', 1)
+    call s:spacevim_bind('nmap', 'g.n', 'next', 'GitGutterNextHunk', 1)
+    call s:spacevim_bind('nmap', 'g.N', 'previous', 'GitGutterPrevHunk', 1)
+    call s:spacevim_bind('nmap', 'g.p', 'previous', 'GitGutterPrevHunk', 1)
+    call s:spacevim_bind('nmap', 'g.t', 'toggle margin', 'GitGutterSignsToggle', 1)
+  endif
+nnoremap <Leader>ga :Git add --all<CR>
+nnoremap <Leader>gp :Git push<CR>
+endif
+" }}}
+
+  call s:spacevim_bind('map', 'sc', 'highlight-persist-remove-all', 'noh', 1)
+  call s:spacevim_bind('map', 'sp', 'smart-search', 'Ag', 1)
+  call s:spacevim_bind('nmap', 'ss', 'vim-swoop', 'call Swoop()', 1)
+  call s:spacevim_bind('vmap', 'ss', 'vim-swoop', 'call SwoopSelection()', 1)
+ call s:spacevim_bind('map', 'ts', 'syntax', 'call SpacevimToggleSyntax()', 1)
+
+function! spacemacs#toggleAlleFolds()
+  if &foldlevel
+    normal! zM<CR>
+    " set foldlevel=0
+  else
+    normal! zR<CR>
+    " set foldlevel=20
+  endif
+endfunction
+" Just copying from http://vimdoc.sourceforge.net/htmldoc/fold.html
+call s:spacevim_bind('map', 'z', 'toggle-all-folds', "call spacemacs#toggleAlleFolds()", 1)
+" NOTE: for some reason these are slow!
+" call s:spacevim_bind('map', 'zz', 'toggle-all-folds', "call spacemacs#toggleAlleFolds()", 1)
+"" call s:spacevim_bind('map', 'za', 'toggle-fold', "normal! za", 1)
+" call s:spacevim_bind('map', 'za', 'toggle-fold', "za", 0)
+" call s:spacevim_bind('map', 'zA', 'toggle-fold-recursive', "zA", 0)
+" call s:spacevim_bind('map', 'zf', 'create-fold', "zf", 0)
+" call s:spacevim_bind('map', 'zd', 'delete-fold', "zd", 0)
+" call s:spacevim_bind('map', 'zD', 'delete-fold-recursive', "zD", 0)
+" call s:spacevim_bind('map', 'zE', 'delete-all-folds', "zE", 0)
+" call s:spacevim_bind('map', 'zR', 'open-all-folds', "zR", 0)
+" call s:spacevim_bind('map', 'zM', 'close-all-folds', "zM", 0)
+" call s:spacevim_bind('map', 'zo', 'open-fold', "zo", 0)
+" call s:spacevim_bind('map', 'zO', 'open-fold-recursive', "zO", 0)
+" call s:spacevim_bind('map', 'zc', 'close-fold', "zc", 0)
+" call s:spacevim_bind('map', 'zC', 'close-fold-recursive', "zC", 0)
+
+PLUGINS NEEDED
+
+maybe: 'Chiel92/vim-autoformat'
+
+
+--[[
+END OF MY CUSTOM STUFF
+--]]
+
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
@@ -229,7 +301,6 @@ vim.opt.rtp:prepend(lazypath)
 -- NOTE: Here is where you install your plugins.
 require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
-  'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
 
   -- NOTE: Plugins can also be added by using a table,
   -- with the first argument being the link and the following
@@ -368,14 +439,16 @@ require('lazy').setup({
       local builtin = require 'telescope.builtin'
       vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
       vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
-      vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
-      vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
-      vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
+      vim.keymap.set('n', 'go', builtin.find_files, { desc = '[S]earch [F]iles' })
+      vim.keymap.set('n', '<leader>go', builtin.find_files, { desc = '[S]earch [F]iles' })
+      -- vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
+      vim.keymap.set('n', '*', builtin.grep_string, { desc = '[S]earch current [W]ord' })
       vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
       vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
       vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
       vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
       vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
+      vim.keymap.set('n', 'gb', builtin.buffers, { desc = '[ ] Find existing buffers' })
 
       -- Slightly advanced example of overriding default behavior and theme
       vim.keymap.set('n', '<leader>/', function()
@@ -385,22 +458,294 @@ require('lazy').setup({
           previewer = false,
         })
       end, { desc = '[/] Fuzzily search in current buffer' })
+      vim.keymap.set('n', 'gl', function()
+        -- You can pass additional configuration to Telescope to change the theme, layout, etc.
+        builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
+          winblend = 10,
+          previewer = false,
+        })
+      end, { desc = '[/] Fuzzily search in current buffer' })
 
       -- It's also possible to pass additional configuration options.
       --  See `:help telescope.builtin.live_grep()` for information about particular keys
-      vim.keymap.set('n', '<leader>s/', function()
+      vim.keymap.set('n', '<leader>sb', function()
         builtin.live_grep {
           grep_open_files = true,
           prompt_title = 'Live Grep in Open Files',
         }
-      end, { desc = '[S]earch [/] in Open Files' })
+      end, { desc = '[S]earch in all [b]uffers' })
 
       -- Shortcut for searching your Neovim configuration files
-      vim.keymap.set('n', '<leader>sn', function()
-        builtin.find_files { cwd = vim.fn.stdpath 'config' }
-      end, { desc = '[S]earch [N]eovim files' })
+      -- vim.keymap.set('n', '<leader>sn', function()
+      --   builtin.find_files { cwd = vim.fn.stdpath 'config' }
+      -- end, { desc = '[S]earch [N]eovim files' })
     end,
   },
+
+  {
+    'numToStr/Comment.nvim',
+    opts = {
+      -- add any options here
+    },
+    config = function()
+      require('Comment').setup()
+      local api = require 'Comment.api'
+      vim.keymap.set('n', '<leader><cr>', api.toggle.linewise.current, { desc = 'Toggle comment' })
+      vim.keymap.set('x', '<leader><cr>', function()
+        vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<ESC>', true, false, true), 'nx', false)
+        api.toggle.linewise(vim.fn.visualmode())
+      end, { desc = 'Toggle comment visual' })
+    end,
+  },
+
+  {
+    'kylechui/nvim-surround',
+    version = '*', -- Use for stability; omit to use `main` branch for the latest features
+    event = 'VeryLazy',
+    config = function()
+      require('nvim-surround').setup {
+        -- Configuration here, or leave empty to use defaults
+      }
+    end,
+  },
+
+  {
+    'tpope/vim-repeat',
+    version = '*',
+  },
+
+  {
+    -- TODO: actual configuration?
+    'Houl/repmo-vim',
+    version = '*',
+  },
+
+  {
+    'Yggdroot/indentLine',
+    version = '*',
+    config = function()
+      vim.g.indentLine_enabled = 0
+      vim.keymap.set('n', '<leader>ti', '<cmd>IndentLinesToggle<CR>', { desc = 'Toggle indentation lines' })
+    end,
+  },
+
+  {
+    --  displays marks in gutter
+    'kshenoy/vim-signature',
+    version = '*',
+  },
+
+  {
+    'gbprod/yanky.nvim',
+    opts = {
+      -- your configuration comes here
+      -- or leave it empty to use the default settings
+      -- refer to the configuration section below
+    },
+    config = function()
+      require('yanky').setup()
+      -- Configuration here, or leave empty to use defaults
+      vim.keymap.set({ 'n', 'x' }, 'p', '<Plug>(YankyPutAfter)')
+      vim.keymap.set({ 'n', 'x' }, 'P', '<Plug>(YankyPutBefore)')
+      vim.keymap.set({ 'n', 'x' }, 'gp', '<Plug>(YankyGPutAfter)')
+      vim.keymap.set({ 'n', 'x' }, 'gP', '<Plug>(YankyGPutBefore)')
+      vim.keymap.set({ 'n', 'x' }, ']', '<Plug>(YankyNextEntry)')
+      vim.keymap.set({ 'n', 'x' }, '[', '<Plug>(YankyPreviousEntry)')
+    end,
+  },
+
+  {
+    'junegunn/vim-easy-align',
+    version = '*',
+    config = function()
+      vim.cmd [[nmap ga <Plug>(EasyAlign)]]
+      vim.cmd [[xmap ga <Plug>(EasyAlign)]]
+    end,
+  },
+
+  {
+    'mbbill/undotree',
+    version = '*',
+    config = function()
+      vim.keymap.set('n', '<leader>au', '<cmd>UndotreeToggle<cr>', { desc = 'Visualize undo tree' })
+    end,
+  },
+
+  {
+    'ervandew/supertab',
+    version = '*',
+  },
+
+  {
+    -- maximize and restore windows
+    'szw/vim-maximizer',
+    version = '*',
+    config = function()
+      vim.keymap.set('n', '<leader>wm', '<cmd>MaximizerToggle<cr>', { desc = 'Toggle maximize buffer' })
+    end,
+  },
+
+  {
+    -- make C-J etc work with tmux + vim
+    'christoomey/vim-tmux-navigator',
+    version = '*',
+  },
+
+  {
+    'preservim/vimux',
+    config = function()
+      -- Helper function to set keybindings
+      local function set_keymap(mode, lhs, rhs, desc)
+        vim.keymap.set(mode, '<leader>' .. lhs, rhs, { desc = desc, silent = true, noremap = true })
+      end
+
+      -- Open Vimux runner
+      set_keymap('n', 'rs', '<cmd>VimuxOpenRunner<CR>', 'Open Vimux runner')
+
+      -- Function to send text in normal mode
+      local function send_normal_vimux()
+        local line = vim.api.nvim_get_current_line()
+        vim.fn.VimuxSendText(line)
+        vim.fn.VimuxSendKeys 'Enter'
+      end
+
+      -- Bind 'rl' in normal mode to run the current line
+      set_keymap('n', 'rl', send_normal_vimux, 'Run current line in Vimux')
+
+      -- Function to send text in visual mode
+      local function send_visual_vimux()
+        local saved_reg = vim.fn.getreg 'v'
+        vim.cmd 'normal! gv"vy'
+        local selected_text = vim.fn.getreg 'v'
+        vim.fn.VimuxSendText(selected_text)
+        vim.fn.VimuxSendKeys 'Enter'
+        vim.fn.setreg('v', saved_reg)
+      end
+
+      -- Bind 'rl' in visual mode to run the selected lines
+      vim.keymap.set('x', '<LocalLeader>rl', send_visual_vimux, { desc = 'Run selected lines in Vimux', silent = true })
+    end,
+  },
+
+  -- 'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
+  -- DISABLED DUE TO polyglot having its own
+
+  -- LANGUAGE SPECIFIC
+  -- many languages
+  -- NOTE: has trouble with conflict with 'tpope/vim-sleuth'?
+  'sheerun/vim-polyglot',
+
+  -- Python
+  {
+    'davidhalter/jedi-vim',
+    ft = 'python',
+    config = function()
+      vim.g['jedi#popup_on_dot'] = l
+    end,
+    lazy = true,
+  },
+  { 'integralist/vim-mypy', ft = 'python', lazy = true },
+
+  -- JavaScript
+  { 'pangloss/vim-javascript', ft = 'javascript', lazy = true },
+
+  -- TypeScript
+  { 'ianks/vim-tsx', ft = { 'typescript', 'typescriptreact' }, lazy = true },
+  {
+    'Quramy/tsuquyomi',
+    ft = 'typescript',
+    dependencies = { 'Shougo/vimproc.vim' },
+    lazy = true,
+  },
+  { 'leafgarland/typescript-vim', ft = 'typescript', lazy = true },
+
+  -- Svelte
+  {
+    'evanleck/vim-svelte',
+    branch = 'main',
+    ft = 'svelte',
+    config = function()
+      vim.api.nvim_create_autocmd({ 'BufReadPost' }, {
+        pattern = { '*.svelte', '*.sve' },
+        command = 'set syntax=html',
+      })
+    end,
+    lazy = true,
+  },
+
+  -- Elm
+  {
+    'ElmCast/elm-vim',
+    ft = 'elm',
+    config = function()
+      vim.g.elm_format_autosave = 1
+    end,
+    lazy = true,
+  },
+
+  -- Rust
+  {
+    'rust-lang/rust.vim',
+    ft = 'rust',
+    config = function()
+      -- NOTE: C-J and C-K cause issues with rust, has something to do with delimitMate
+      vim.g.rustfmt_autosave = 0 -- Set to 1 if you want to enable auto formatting on save
+    end,
+    lazy = true,
+  },
+
+  -- JSON
+  {
+    'elzr/vim-json',
+    ft = 'json',
+    config = function()
+      vim.g.vim_json_syntax_conceal = 0
+    end,
+    lazy = true,
+  },
+
+  -- Markdown
+  { 'tpope/vim-markdown', ft = 'markdown', lazy = true },
+
+  -- LaTeX
+  {
+    -- causes issues with mapping <C-j> due to IMAP
+    'vim-latex/vim-latex',
+    ft = 'tex',
+    config = function()
+      vim.g.tex_flavor = 'latex'
+      -- IMPORTANT: grep will sometimes skip displaying the file name if you
+      -- search in a single file. This will confuse Latex-Suite. Set your grep
+      -- program to always generate a file-name.
+      vim.opt.grepprg = 'grep -nH $*'
+    end,
+    lazy = true,
+  },
+
+  -- Lean
+  {
+    'Julian/lean.nvim',
+    ft = 'lean',
+    dependencies = {
+      'neovim/nvim-lspconfig',
+      'nvim-lua/plenary.nvim',
+      -- Optional Dependencies:
+      'hrsh7th/nvim-cmp', -- for LSP
+      'hrsh7th/cmp-nvim-lsp',
+      'hrsh7th/cmp-buffer',
+      'hrsh7th/vim-vsnip', -- for snippets
+      'andrewradev/switch.vim', -- for Lean switch support
+      'tomtom/tcomment_vim', -- for commeting motions
+      'nvim-telescope/telescope.nvim', -- for Loogle search
+    },
+    lazy = true,
+  },
+
+  -- disabled for now
+  -- { 'cohama/lexima.vim', { ft = 'lisp' },
+  -- { 'cespare/vim-toml', { ft = 'toml' },
+  -- { 'fatih/vim-go', { ft = 'go' },
+  -- { 'nsf/gocode', { ft = 'go' },
 
   -- LSP Plugins
   {
@@ -493,11 +838,11 @@ require('lazy').setup({
 
           -- Fuzzy find all the symbols in your current document.
           --  Symbols are things like variables, functions, types, etc.
-          map('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
+          map('<leader>sd', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
 
           -- Fuzzy find all the symbols in your current workspace.
           --  Similar to document symbols, except searches over your entire project.
-          map('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+          map('<leader>sw', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
 
           -- Rename the variable under your cursor.
           --  Most Language Servers support renaming across files, etc.
@@ -793,15 +1138,25 @@ require('lazy').setup({
       -- Load the colorscheme here.
       -- Like many other themes, this one has different styles, and you could load
       -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      vim.cmd.colorscheme 'tokyonight-night'
+      vim.cmd.colorscheme 'slate'
+      -- vim.cmd.colorscheme 'desert'
 
       -- You can configure highlights by doing something like:
       vim.cmd.hi 'Comment gui=none'
+
+      vim.keymap.set('n', '<leader>cs', '<cmd>Telescope colorscheme<CR>', { desc = 'Change colorscheme' })
     end,
   },
 
   -- Highlight todo, notes, etc in comments
-  { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
+  -- NOTE: by default only matches with a colon to avoid false positives
+  {
+    'folke/todo-comments.nvim',
+    event = 'VimEnter',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    -- don't show signs in the gutter
+    opts = { signs = false },
+  },
 
   { -- Collection of various small independent plugins/modules
     'echasnovski/mini.nvim',
