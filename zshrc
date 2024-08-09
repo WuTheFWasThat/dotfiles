@@ -83,6 +83,11 @@ export PATH=$PATH:~/.cargo/bin
 export PATH=$PATH:~/Library/Haskell/bin
 export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.5/bin/
 export PATH=$PATH:$HOME/.yarn/bin
+if [[ "$OSTYPE" == "darwin"* ]] && command -v brew >/dev/null 2>&1; then
+  export PATH="$(brew --prefix)/bin:$PATH"
+  export PATH="/usr/local/opt/ruby@3.2/bin:$PATH"
+  # export PATH="/usr/local/opt/ruby/bin:$PATH"
+fi
 export RUST_BACKTRACE=1
 
 for file in ~/.zshrc_scripts/*; do
@@ -102,3 +107,4 @@ alias w='watchcmd'
 if which fnm &>/dev/null; then
   eval "$(fnm env --use-on-cd)"
 fi
+
