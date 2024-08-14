@@ -161,6 +161,9 @@ vim.keymap.set('n', '<leader>i?', 'mzA?<esc>`z', { desc = 'Insert question mark'
 vim.keymap.set('n', '<leader>i!', 'mzA!<esc>`z', { desc = 'Insert exclamation mark' })
 vim.keymap.set('n', '<leader>i<cr>', 'o<esc>', { desc = 'Insert return' })
 
+-- NOTE: debug conflicting mappings with eg ':verbose nmap gb'
+vim.keymap.set('n', '<leader>hh', '<cmd>checkhealth<CR>', { desc = 'Check neovim health' })
+
 -- vim.keymap.set('n', '<leader>ws', '<cmd>split<CR><cmd>wincmd w<CR>', { desc = 'Split window bottom' })
 -- vim.keymap.set('n', '<leader>wv', '<cmd>vsplit<CR><cmd>wincmd w<CR>', { desc = 'Split window right' })
 vim.keymap.set('n', '<leader>ws', '<cmd>split<CR>', { desc = 'Split window bottom' })
@@ -494,7 +497,8 @@ require('lazy').setup({
       -- add any options here
     },
     config = function()
-      require('Comment').setup()
+      -- don't want the default mappings
+      -- require('Comment').setup()
       local api = require 'Comment.api'
       vim.keymap.set('n', '<leader><cr>', api.toggle.linewise.current, { desc = 'Toggle comment' })
       vim.keymap.set('x', '<leader><cr>', function()
