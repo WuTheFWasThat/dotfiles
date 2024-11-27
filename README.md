@@ -21,15 +21,19 @@ all commands ran from root directory
     cd ~; git clone https://github.com/whjvenyl/fasd.git; cd fasd; make install; mkdir -p ~/.cache
     ```
     used to work, but no longer works `brew install fasd` (as of may 2024)
-- make sure vim is 7.4+, preferably 8+ (e.g. `brew install vim`)
-- install vim plugins: `vim +PlugInstall +qall`
-  - this should install fzf (if not, do e.g. `brew install fzf`)
-- install `Ag` (https://github.com/ggreer/the_silver_searcher):
-  - `brew install the_silver_searcher`
+
+- install neovim, then
+    ```
+    mkdir -p $HOME/.config
+    ln -s ~/.vim $HOME/.config/nvim
+    # sudo pip3 install neovim
+    sudo pip3 install pynvim
+    ```
+
+- install tmux (e.g. `brew install tmux`)
 
 - optional
   - set iterm colors, if appropriate
-  - install screen/tmux (e.g. `brew install tmux`)
   - install git 2.3+
   - install hub (git wrapper) `brew install hub`
     - for `git pr`, do:
@@ -48,17 +52,17 @@ all commands ran from root directory
 - very optional:
   - install spacemacs:
     `git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d`
-  - install neovim, then
-    ```
-    mkdir -p $HOME/.config
-    ln -s ~/.vim $HOME/.config/nvim
-    # sudo pip3 install neovim
-    sudo pip3 install pynvim
-    ```
   - install [fnm](https://github.com/Schniz/fnm#shell-setup)
     `brew install fnm`
   - install latex
     `brew cask install mactex`
+
+- OLD
+    - make sure vim is 7.4+, preferably 8+ (e.g. `brew install vim`)
+    - install vim plugins: `vim +PlugInstall +qall`
+      - this should install fzf (if not, do e.g. `brew install fzf`)
+    - install `Ag` (https://github.com/ggreer/the_silver_searcher):
+      - `brew install the_silver_searcher`
 
 # TODO
 - try pv (pipeviewer)?   like command line tqdm
