@@ -37,6 +37,8 @@ vim.opt.number = true
 -- Relative line numbers
 vim.opt.relativenumber = true
 
+vim.opt.copyindent = true
+
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = 'a'
 
@@ -135,7 +137,7 @@ vim.keymap.set('n', '>', '>>', { desc = 'Faster indent' })
 vim.keymap.set('n', '<', '<<', { desc = 'Faster indent' })
 
 vim.keymap.set('n', '<C-c>', '"+y', { desc = 'Yank to clipboard' })
-vim.keymap.set('v', '<C-c>', '"+y', { desc = 'Yank to clipboard' })
+vim.keymap.set('x', '<C-c>', '"+y', { desc = 'Yank to clipboard' })
 
 vim.keymap.set('n', '<leader>fx', '<cmd>w<CR><cmd>bd<CR>', { desc = 'Save and quit' })
 vim.keymap.set('n', '<leader>fs', '<cmd>w<CR>', { desc = 'Save file' })
@@ -163,6 +165,7 @@ vim.keymap.set('n', '<leader>i<cr>', 'o<esc>', { desc = 'Insert return' })
 
 -- NOTE: debug conflicting mappings with eg ':verbose nmap gb'
 vim.keymap.set('n', '<leader>hh', '<cmd>checkhealth<CR>', { desc = 'Check neovim health' })
+vim.keymap.set('n', '<leader>he', '<cmd>messages<CR>', { desc = 'Check error messages' })
 
 -- vim.keymap.set('n', '<leader>ws', '<cmd>split<CR><cmd>wincmd w<CR>', { desc = 'Split window bottom' })
 -- vim.keymap.set('n', '<leader>wv', '<cmd>vsplit<CR><cmd>wincmd w<CR>', { desc = 'Split window right' })
@@ -181,14 +184,18 @@ vim.keymap.set('n', '<leader>t\\', '<cmd>set list!<CR>', { desc = 'Toggle invisi
 -- not needed for neovim?
 vim.keymap.set('n', '<leader>tp', '<cmd>set paste!<CR>', { desc = 'Toggle paste' })
 
+vim.keymap.set('n', '<leader>sc', '<cmd>noh<CR>', { desc = 'Clear search highlights' })
+
 --[[
  TODO :
  UNPORTED STUFF FROM SPACEVIM
 
+# NOTE: there's some vim built in version of this?
   call s:spacevim_bind('map', 'el', 'error-list', 'call SpacevimErrorList()', 1)
   call s:spacevim_bind('map', 'en', 'next-error', 'call SpacevimErrorNext()', 1)
   call s:spacevim_bind('map', 'eN', 'previous-error', 'call SpacevimErrorPrev()', 1)
   call s:spacevim_bind('map', 'ep', 'previous-error', 'call SpacevimErrorPrev()', 1)
+
 if s:spacevim_is_layer_enabled('git')
   let g:lmap.g = { 'name': '+git/versions-control' }
   call s:spacevim_bind('map', 'gb', 'git-blame', 'Gblame', 1)
@@ -223,7 +230,6 @@ nnoremap <Leader>gp :Git push<CR>
 endif
 " }}}
 
-  call s:spacevim_bind('map', 'sc', 'highlight-persist-remove-all', 'noh', 1)
   call s:spacevim_bind('map', 'sp', 'smart-search', 'Ag', 1)
   call s:spacevim_bind('nmap', 'ss', 'vim-swoop', 'call Swoop()', 1)
   call s:spacevim_bind('vmap', 'ss', 'vim-swoop', 'call SwoopSelection()', 1)
@@ -361,6 +367,14 @@ require('lazy').setup({
         { '<leader>t', group = '[T]oggle' },
         { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
       }
+    end,
+  },
+
+  {
+    'tpope/vim-fugitive',
+    event = 'VimEnter',
+    config = function()
+      vim.keymap.set('n', '<leader>gb', '<cmd>Git blame<CR>', { desc = 'Git Blame' })
     end,
   },
 
@@ -986,6 +1000,74 @@ require('lazy').setup({
       }
     end,
   },
+
+  -- AI assistance
+  --  TODO try pasky/claude.vim
+  --  https://github.com/jackMort/ChatGPT.nvim
+  {
+    -- TODO: finish config for this.  this one seems better than parrot?
+    'olimorris/codecompanion.nvim',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'nvim-treesitter/nvim-treesitter',
+      'hrsh7th/nvim-cmp', -- Optional: For using slash commands and variables in the chat buffer
+      'nvim-telescope/telescope.nvim', -- Optional: For using slash commands
+      { 'stevearc/dressing.nvim', opts = {} }, -- Optional: Improves the default Neovim UI
+    },
+    config = true,
+  },
+  -- {
+  --   'frankroeder/parrot.nvim',
+  --   dependencies = { 'ibhagwan/fzf-lua', 'nvim-lua/plenary.nvim' },
+  --   -- optionally include "rcarriga/nvim-notify" for beautiful notifications
+  --   config = function()
+  --     require('parrot').setup {
+  --       -- Providers must be explicitly added to make them available.
+  --       providers = {
+  --         anthropic = {
+  --           api_key = os.getenv 'ANTHROPIC_API_KEY',
+  --         },
+  --         gemini = {
+  --           api_key = os.getenv 'GEMINI_API_KEY',
+  --         },
+  --         groq = {
+  --           api_key = os.getenv 'GROQ_API_KEY',
+  --         },
+  --         mistral = {
+  --           api_key = os.getenv 'MISTRAL_API_KEY',
+  --         },
+  --         pplx = {
+  --           api_key = os.getenv 'PERPLEXITY_API_KEY',
+  --         },
+  --         -- provide an empty list to make provider available (no API key required)
+  --         ollama = {},
+  --         openai = {
+  --           api_key = os.getenv 'OPENAI_API_KEY',
+  --         },
+  --       },
+  --     }
+  --     vim.keymap.set('n', '<leader>as', '<cmd>PrtNew summarize<cr>', { desc = 'Summarize with AI' })
+  --     vim.keymap.set('x', '<leader>as', '<cmd>PrtNew summarize<cr>', { desc = 'Summarize with AI' })
+  --     vim.keymap.set('x', '<leader>aa', '<cmd>PrtRewrite<cr>', { desc = 'Rewrite with AI' })
+  --     vim.keymap.set('n', '<leader>ap', '<cmd>PrtProvider<cr>', { desc = 'Switch AI provider' })
+  --     vim.keymap.set('n', '<leader>am', '<cmd>PrtModel<cr>', { desc = 'Switch AI model' })
+  --   end,
+  -- },
+  -- {
+  --   'dense-analysis/neural',
+  --   dependencies = { 'MunifTanjim/nui.nvim' },
+  --   config = function()
+  --     require('neural').setup {
+  --       source = {
+  --         openai = {
+  --           api_key = vim.env.OPENAI_API_KEY,
+  --         },
+  --       },
+  --     }
+  --     -- vim.keymap.set('n', '<leader>as', '<cmd>NeuralExplain<cr>', { desc = 'Summarize with AI' })
+  --     -- vim.keymap.set('x', '<leader>as', '<cmd>NeuralExplain<cr>', { desc = 'Summarize with AI' })
+  --   end,
+  -- },
 
   { -- Autoformat
     'stevearc/conform.nvim',
