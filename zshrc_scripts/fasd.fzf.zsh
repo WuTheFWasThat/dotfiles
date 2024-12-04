@@ -2,6 +2,8 @@
 eval "$(fasd --init auto)"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# needed sometimes?
+# source $(brew --prefix)/Cellar/fzf/$(fzf --version | cut -d ' ' -f 1)/shell/key-bindings.zsh
 
 export FZF_CTRL_R_OPTS='--sort --exact'
 
