@@ -1,15 +1,19 @@
 First, install Karabiner elements
 
-Then set up the simple modification:
+Then `./dotty install` should move the config in place.  You can also do it manually:
+`mv ~/.config/karabiner/karabiner.json ~/.config/karabiner/karabiner.old.json`
+`cp config/karabiner/karabiner.json ~/.config/karabiner/karabiner.json`
+
+# Simple modifications
+
+The above should set up the simple modifications:
 
 `right_command` -> `escape`
 `caps_lock` -> `left_control`
 `semicolon` -> `return_or_enter`
 `return_or_enter` -> `semicolon`
 
-Then `./dotty install` will move the config in place.  You can also do it manually:
-`mv ~/.config/karabiner/karabiner.json ~/.config/karabiner/karabiner.old.json`
-`cp config/karabiner/karabiner.json ~/.config/karabiner/karabiner.json`
+
 
 # Complex modifications
 
