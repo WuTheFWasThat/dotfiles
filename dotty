@@ -44,7 +44,8 @@ class DotFile(object):
         self.src_path = src_path
         self.name = src_path[len(dotty_dir)+1:]
         if dst_path is None:
-            dst_path = os.path.join(os.path.expanduser('~'), '.' + self.name)
+            dst_path = os.path.join('~', '.' + self.name)
+        dst_path = os.path.expanduser(dst_path)
         self.dst_path = dst_path
 
 def read_rcfile(dotty_dir):
@@ -59,22 +60,26 @@ def read_rcfile(dotty_dir):
     lines = (line.strip() for line in open(dotty_rc))
 
     dotfiles = []
-    for pattern in lines:
-        if pattern == "":
+    for line in lines:
+        if line == "":
             continue
-        if pattern.startswith("#"): # a comment
+        if line.startswith("#"): # a comment
             continue
+        if ' ' in line:
+            pattern, dst = line.split(' ')
+        else:
+            pattern, dst = line, None
         full_pattern = os.path.join(dotty_dir, pattern)
         filepaths = glob.glob(full_pattern)
         if len(filepaths) == 0:
             logger.warn(
                 """
                 dotty.rc contained line with invalid pattern %s.
-                Expected a file like %s.  Ignoring line.
+                Expected a file matching %s.  Ignoring line.
                 """ % (pattern, full_pattern)
             )
         dotfiles.extend([
-            DotFile(dotty_dir, filepath)
+            DotFile(dotty_dir, filepath, dst_path=dst)
             for filepath in filepaths
         ])
     return dotfiles

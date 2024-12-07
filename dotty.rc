@@ -4,6 +4,7 @@ screenrc
 spacemacs
 tmux.conf
 vim
+nvim ~/.config/nvim
 vimperator
 vimperatorrc
 vimrc
