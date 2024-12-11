@@ -1,0 +1,53 @@
+{
+  "vim_mode": true,
+  "vim": {
+    "use_system_clipboard": "never"
+  },
+  "relative_line_numbers": true,
+  "theme": "Night Owl Dark",
+  "soft_wrap": "editor_width",
+  "telemetry": {
+    "diagnostics": false,
+    "metrics": true
+  },
+  "search": {
+    "case_sensitive": true,
+    "regex": false
+  },
+  "auto_install_extensions": {
+    "html": true,
+    "python-refactoring": true
+  },
+  "languages": {
+    "Python": {
+      "language_servers": [
+        "pyright",
+        "python-refactoring",
+        "ruff"
+      ]
+    },
+    "YAML": {
+      "format_on_save": "off"
+    }
+  },
+  "context_servers": {
+    "antmcp": {
+      "command": {
+        "path": "/opt/homebrew/Caskroom/miniforge/base/envs/py311/bin/python",
+        "args": [
+          "-m",
+          "antmcp",
+          "--no-warnings",
+          "stdio"
+        ]
+      },
+      "settings": {}
+    }
+  },
+  "languages.Python.language_servers": [
+    "pyright",
+    "python-refactoring",
+    "!pylsp",
+    "ruff"
+  ]
+}
