@@ -32,7 +32,9 @@
     delta = "!f() { git diff \"$@\" | delta -s; }; f"
     differ = "!f() { if which delta > /dev/null; then echo delta; else echo diff; fi; }; f"
 
-    editor = config --get core.editor
+    # editor = config --get core.editor
+    editor = "!f() { if [ \"$ZED_TERM\" = \"true\" ]; then echo "zed -p"; else echo $(git config --get core.editor); fi; }; f"
+
     # editor = ! echo "emacsclient -c"
     alias = "!f() { pattern=$@; git config --get-regexp ^alias\\. | sed -e s/^alias\\.//  -e 's/ / = /' | awk -v pat=\"$pattern\" '{ if ($0 ~ pat) print }' | sort -u; }; f"
     which = "!f() { pattern=$@; git config --get-regexp ^alias\\. | sed -e s/^alias\\.//  -e 's/ / = /' | awk -v pat=\"$pattern\" -F '=' '{ if ($1 ~ pat) print $0 }' | sort -u; }; f"
@@ -329,6 +331,13 @@
     # grep and open
     gop = "!f(){ if [ -n \"$GIT_PREFIX\" ]; then cd \"$GIT_PREFIX\"; fi; $(git editor) $(git grep --name-only \"$1\" $2); }; f"
     giop = "!f(){ if [ -n \"$GIT_PREFIX\" ]; then cd \"$GIT_PREFIX\"; fi; $(git editor) $(git grep -i --name-only \"$1\" $2); }; f"
+    # only works with vim for now (uses format `+lineno file`), and no multi-select
+    # could make it work though!  needs e.g. vim-fetch, fzf -m, and  cut -d \":\" -f 1-3 instead of awk (`file:lineno:lineno` format)
+    zg = "!f() { \
+        rg --color=always --column --line-number --no-heading . | fzf --ansi --delimiter : --preview 'bat --theme=$(defaults read -globalDomain AppleInterfaceStyle &> /dev/null && echo default || echo GitHub) --color=always {1} --highlight-line {2}' --preview-window 'up,60%,border-bottom,+{2}+3/3,~3' | awk -F: '{ printf \"%s +%s\\n\", $1, $2 }' | xargs $(git editor);\
+    }; f"
+
+
     tree = ls-tree -r HEAD
 
     # reset
