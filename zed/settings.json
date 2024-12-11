@@ -1,0 +1,92 @@
+{
+  "vim_mode": true,
+  "vim": {
+    "use_system_clipboard": "never"
+  },
+  "theme": "Night Owl Dark",
+  "soft_wrap": "editor_width",
+  "telemetry": {
+    "diagnostics": false,
+    "metrics": true
+  },
+  "assistant": {
+    "default_model": {
+      "provider": "anthropic",
+      "model": "claude-3-5-sonnet-20240620-fast-edit"
+    },
+    "inline_alternatives": [
+      {
+        "provider": "anthropic",
+        "model": "claude-3-5-sonnet-20241022"
+      }
+    ],
+    "version": "2",
+    "enable_experimental_live_diffs": true
+  },
+  "language_models": {
+    "anthropic": {
+      "version": "1",
+      "low_speed_timeout_in_seconds": 60,
+      "speculate": true,
+      "available_models": [
+        {
+          "name": "claude-3-5-sonnet-20240620-fast-edit",
+          "max_tokens": 200000,
+          "max_output_tokens": 8192,
+          "cache_configuration": {
+            "max_cache_anchors": 4,
+            "should_speculate": true,
+            "min_total_token": 2048
+          },
+          "display_name": "Claude Sonnet 3.5 (Rewrite Mode)"
+        },
+        {
+          "name": "claude-3-5-sonnet-20241022",
+          "max_tokens": 200000,
+          "max_output_tokens": 8192,
+          "cache_configuration": {
+            "max_cache_anchors": 4,
+            "should_speculate": true,
+            "min_total_token": 2048
+          },
+          "display_name": "Claude Sonnet 3.5 (Firefly)"
+        },
+        {
+          "name": "research-haiku-monorepo-50m",
+          "max_tokens": 32768,
+          "max_output_tokens": 4092,
+          "display_name": "Research: Haiku incl. monorepo context (internal only)"
+        }
+      ]
+    }
+  },
+  "experimental.context_servers": {
+    "servers": [
+      {
+        "id": "antmcp",
+        "executable": "/opt/homebrew/Caskroom/miniforge/base/envs/py311/bin/python",
+        "args": [
+          "-m",
+          "antmcp",
+          "--no-warnings",
+          "stdio"
+        ]
+      }
+    ]
+  },
+  "auto_install_extensions": {
+    "html": true,
+    "python-refactoring": true
+  },
+  "languages": {
+    "Python": {
+      "language_servers": [
+        "pyright",
+        "python-refactoring"
+      ]
+    },
+    "YAML": {
+      "format_on_save": "off"
+    }
+  }
+}

@@ -5,6 +5,7 @@ spacemacs
 tmux.conf
 vim
 nvim ~/.config/nvim
+zed ~/.config/zed
 vimperator
 vimperatorrc
 vimrc
