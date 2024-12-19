@@ -261,8 +261,8 @@
     rbmi = rbm -i
     rbom = "!f(){ local mainbranch=$(git main); git rebase origin/$mainbranch $@; }; f"
     rbomi = rbom -i
-    from = "!f() { git chain fetch rbom $@; }; f"
-    fro = "!f() { git chain fetch rbo $@; }; f"
+    from = "!f() { git chain f rbom $@; }; f"
+    fro = "!f() { git chain f rbo $@; }; f"
 
     # merge
     m = merge
