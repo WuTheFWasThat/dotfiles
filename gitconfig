@@ -83,6 +83,8 @@
       fi &&  \
       git tag -f shelved/$branch $branch && \
       git branch -D $branch;  \
+      shift; \
+      if [ $# -gt 0 ]; then git bx \"$@\"; fi; \
     }; f"
     # delete remote branch
     bxr = "!f() { \
@@ -261,8 +263,8 @@
     rbmi = rbm -i
     rbom = "!f(){ local mainbranch=$(git main); git rebase origin/$mainbranch $@; }; f"
     rbomi = rbom -i
-    from = "!f() { git chain f rbom $@; }; f"
-    fro = "!f() { git chain f rbo $@; }; f"
+    from = "!f() { git chain fetch rbom $@; }; f"
+    fro = "!f() { git chain fetch rbo $@; }; f"
 
     # merge
     m = merge
@@ -281,6 +283,7 @@
     dsom = "!f() { local mainbranch=$(git main); git --no-pager -c color.diff=always diff --stat origin/$mainbranch;}; f"
     dsm = "!f() { local mainbranch=$(git main); git --no-pager -c color.diff=always diff --stat $mainbranch;}; f"
     df = "!f() { git diff --name-only $@; }; f"
+    dfmb = "!f() { local merge_base=$(git merge-base HEAD origin/master); if [ $? -ne 0 ]; then echo "Error: Could not find merge base with origin/master"; return 1; fi; git diff --name-only $merge_base; }; f"
     dfom = "!f() { local mainbranch=$(git main); git diff --name-only origin/$mainbranch; }; f"
     dcf = "!f() { git diff --cached --name-only $@; }; f"
     dop = "!f() { $(git editor) $(git df); }; f"
