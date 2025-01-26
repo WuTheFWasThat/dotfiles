@@ -117,6 +117,7 @@
     pu = "push -u"
     put = "push --tags"
     puf = "push -u --force-with-lease"
+    pufn = "push -u --force-with-lease --no-verify"
     pufback = "!f() { local nback=${1:-1}; git puf origin HEAD~${nback}:$(git b --show-current); }; f"
     pl = "pull"
     plr = "pull --rebase"
@@ -263,8 +264,8 @@
     rbmi = rbm -i
     rbom = "!f(){ local mainbranch=$(git main); git rebase origin/$mainbranch $@; }; f"
     rbomi = rbom -i
-    from = "!f() { git chain fetch rbom $@; }; f"
-    fro = "!f() { git chain fetch rbo $@; }; f"
+    from = "!f() { git chain f rbom $@; }; f"
+    fro = "!f() { git chain f rbo $@; }; f"
 
     # merge
     m = merge
@@ -283,7 +284,9 @@
     dsom = "!f() { local mainbranch=$(git main); git --no-pager -c color.diff=always diff --stat origin/$mainbranch;}; f"
     dsm = "!f() { local mainbranch=$(git main); git --no-pager -c color.diff=always diff --stat $mainbranch;}; f"
     df = "!f() { git diff --name-only $@; }; f"
-    dfmb = "!f() { local merge_base=$(git merge-base HEAD origin/master); if [ $? -ne 0 ]; then echo "Error: Could not find merge base with origin/master"; return 1; fi; git diff --name-only $merge_base; }; f"
+    mb = "!f() { echo $(git merge-base HEAD origin/$(git main)); }; f"
+    dfmb = "!f() { local merge_base=$(git mb); if [ $? -ne 0 ]; then echo "Error: Could not find merge base with origin/master"; return 1; fi; git diff --name-only $merge_base; }; f"
+    dsmb = "!f() { local merge_base=$(git mb); if [ $? -ne 0 ]; then echo "Error: Could not find merge base with origin/master"; return 1; fi; git diff --stat $merge_base; }; f"
     dfom = "!f() { local mainbranch=$(git main); git diff --name-only origin/$mainbranch; }; f"
     dcf = "!f() { git diff --cached --name-only $@; }; f"
     dop = "!f() { $(git editor) $(git df); }; f"
@@ -330,6 +333,7 @@
 
 
     g = "!f() { if [ -n \"$GIT_PREFIX\" ]; then cd \"$GIT_PREFIX\"; fi; git --no-pager grep \"$1\" $2; }; f"
+    gcolor = "!f() { if [ -n \"$GIT_PREFIX\" ]; then cd \"$GIT_PREFIX\"; fi; git --no-pager --color=always grep \"$1\" $2; }; f"
     gi = "!f() { if [ -n \"$GIT_PREFIX\" ]; then cd \"$GIT_PREFIX\"; fi; git --no-pager grep -i \"$1\" $2; }; f"
     # grep and open
     gop = "!f(){ if [ -n \"$GIT_PREFIX\" ]; then cd \"$GIT_PREFIX\"; fi; $(git editor) $(git grep --name-only \"$1\" $2); }; f"
