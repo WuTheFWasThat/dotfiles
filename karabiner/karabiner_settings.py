@@ -74,6 +74,46 @@ MOUSE_FAST_MULTIPLIER = 2
 
 SIMULTANEOUS_THRESHOLD_MS = 100
 
+tab_app_manager_rules = [
+    {
+        "from": {"key_code": "tab"},
+        "to": [{"set_variable": {"name": "tab-mode", "value": 1}}],
+        "to_after_key_up": [{"set_variable": {"name": "tab-mode", "value": 0}}],
+        "to_if_alone": [{"key_code": "tab"}],
+        "type": "basic",
+    },
+]
+
+import subprocess
+git_root = subprocess.check_output(["git", "rev-parse", "--show-toplevel"]).strip().decode("utf-8")
+focus_tab_script = f"{git_root}/focus-tab"
+
+tab_mappings: dict[str, str] = {
+    "c": "open -a 'Google Chrome.app'",
+    "f": "open -a 'Firefox.app'",
+    "t": "open -a 'iTerm.app'",
+    "s": "open -a 'Slack.app'",
+    # "z": "~/bin/launch_zed",
+    # "o": 'open -a "Outline.app"',
+    # "o": 'open -n -b "com.google.Chrome" --args --new-tab "https://outline.ant.dev/"',
+    "m": "open -a 'Spotify.app'",
+    "a": "open -a 'Claude.app'",
+    # "f": "open -a '/System/Library/CoreServices/Finder.app'",
+    "v": 'open -a "Visual Studio Code.app"',
+    "1": f'{focus_tab_script} "https://mail.google.com"',
+    "2": f'{focus_tab_script} "https://calendar.google.com"',
+}
+
+for key, action in tab_mappings.items():
+    manipulator = {
+        "conditions": [{"name": "tab-mode", "type": "variable_if", "value": 1}],
+        "from": {"key_code": key.lower()},
+        "to": [{"shell_command": action}],
+        "type": "basic",
+    }
+    tab_app_manager_rules.append(manipulator)
+
+
 def var_is_set(var, value=1):
     """ Returns condition that variable is set. """
     return {
@@ -358,6 +398,10 @@ complex_rules = [
     #     "description": "Mouse Mode",
     #     "manipulators": mouse_mode_rules,
     # },
+    {
+        "description": f"Tab: tab to switch apps",
+        "manipulators": tab_app_manager_rules,
+    },
     {
         "description": f"Vim Keys: Semicolon to enable",
         "manipulators": vim_keys_rules,

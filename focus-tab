@@ -1,0 +1,29 @@
+#!/bin/bash
+
+if [ -z "$1" ]; then
+    echo "Usage: focus-tab <url>"
+    exit 1
+fi
+
+osascript -e "
+tell application \"Google Chrome\"
+    activate
+    set theUrl to \"$1\"
+
+    repeat with w in windows
+        set i to 0
+        repeat with t in tabs of w
+            set i to i + 1
+            if theUrl is in (URL of t as string) then
+                tell w
+                    set active tab index to i
+                    set index to 1
+                end tell
+                return
+            end if
+        end repeat
+    end repeat
+
+    # If we get here, URL wasn't found
+    open location theUrl
+end tell"

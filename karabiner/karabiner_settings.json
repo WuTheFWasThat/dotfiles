@@ -2,6 +2,200 @@
   "title": "Jeff Wu's karabiner settings",
   "rules": [
     {
+      "description": "Tab: tab to switch apps",
+      "manipulators": [
+        {
+          "from": {
+            "key_code": "tab"
+          },
+          "to": [
+            {
+              "set_variable": {
+                "name": "tab-mode",
+                "value": 1
+              }
+            }
+          ],
+          "to_after_key_up": [
+            {
+              "set_variable": {
+                "name": "tab-mode",
+                "value": 0
+              }
+            }
+          ],
+          "to_if_alone": [
+            {
+              "key_code": "tab"
+            }
+          ],
+          "type": "basic"
+        },
+        {
+          "conditions": [
+            {
+              "name": "tab-mode",
+              "type": "variable_if",
+              "value": 1
+            }
+          ],
+          "from": {
+            "key_code": "c"
+          },
+          "to": [
+            {
+              "shell_command": "open -a 'Google Chrome.app'"
+            }
+          ],
+          "type": "basic"
+        },
+        {
+          "conditions": [
+            {
+              "name": "tab-mode",
+              "type": "variable_if",
+              "value": 1
+            }
+          ],
+          "from": {
+            "key_code": "f"
+          },
+          "to": [
+            {
+              "shell_command": "open -a 'Firefox.app'"
+            }
+          ],
+          "type": "basic"
+        },
+        {
+          "conditions": [
+            {
+              "name": "tab-mode",
+              "type": "variable_if",
+              "value": 1
+            }
+          ],
+          "from": {
+            "key_code": "t"
+          },
+          "to": [
+            {
+              "shell_command": "open -a 'iTerm.app'"
+            }
+          ],
+          "type": "basic"
+        },
+        {
+          "conditions": [
+            {
+              "name": "tab-mode",
+              "type": "variable_if",
+              "value": 1
+            }
+          ],
+          "from": {
+            "key_code": "s"
+          },
+          "to": [
+            {
+              "shell_command": "open -a 'Slack.app'"
+            }
+          ],
+          "type": "basic"
+        },
+        {
+          "conditions": [
+            {
+              "name": "tab-mode",
+              "type": "variable_if",
+              "value": 1
+            }
+          ],
+          "from": {
+            "key_code": "m"
+          },
+          "to": [
+            {
+              "shell_command": "open -a 'Spotify.app'"
+            }
+          ],
+          "type": "basic"
+        },
+        {
+          "conditions": [
+            {
+              "name": "tab-mode",
+              "type": "variable_if",
+              "value": 1
+            }
+          ],
+          "from": {
+            "key_code": "a"
+          },
+          "to": [
+            {
+              "shell_command": "open -a 'Claude.app'"
+            }
+          ],
+          "type": "basic"
+        },
+        {
+          "conditions": [
+            {
+              "name": "tab-mode",
+              "type": "variable_if",
+              "value": 1
+            }
+          ],
+          "from": {
+            "key_code": "v"
+          },
+          "to": [
+            {
+              "shell_command": "open -a \"Visual Studio Code.app\""
+            }
+          ],
+          "type": "basic"
+        },
+        {
+          "conditions": [
+            {
+              "name": "tab-mode",
+              "type": "variable_if",
+              "value": 1
+            }
+          ],
+          "from": {
+            "key_code": "1"
+          },
+          "to": [
+            {
+              "shell_command": "/Users/jeffwu/dotfiles/focus-tab \"https://mail.google.com\""
+            }
+          ],
+          "type": "basic"
+        },
+        {
+          "conditions": [
+            {
+              "name": "tab-mode",
+              "type": "variable_if",
+              "value": 1
+            }
+          ],
+          "from": {
+            "key_code": "2"
+          },
+          "to": [
+            {
+              "shell_command": "/Users/jeffwu/dotfiles/focus-tab \"https://calendar.google.com\""
+            }
+          ],
+          "type": "basic"
+        }
+      ]
+    },
+    {
       "description": "Vim Keys: Semicolon to enable",
       "manipulators": [
         {
