@@ -20,11 +20,7 @@
   },
   "languages": {
     "Python": {
-      "language_servers": [
-        "pyright",
-        "python-refactoring",
-        "ruff"
-      ]
+      "language_servers": ["pyright", "python-refactoring", "ruff"]
     },
     "YAML": {
       "format_on_save": "off"
@@ -34,12 +30,7 @@
     "antmcp": {
       "command": {
         "path": "/opt/homebrew/Caskroom/miniforge/base/envs/py311/bin/python",
-        "args": [
-          "-m",
-          "antmcp",
-          "--no-warnings",
-          "stdio"
-        ]
+        "args": ["-m", "antmcp", "--no-warnings", "stdio"]
       },
       "settings": {}
     }

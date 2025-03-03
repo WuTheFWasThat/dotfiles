@@ -298,7 +298,7 @@
     du = "!git $(git differ) @{upstream}"
 
     # status
-    s = "!f() { if [ -n \"$GIT_PREFIX\" ]; then cd \"$GIT_PREFIX\"; fi; git chain 'status' $@; }; f"
+    s = "!f() { if [ -n \"$GIT_PREFIX\" ]; then cd \"$GIT_PREFIX\"; fi; git chain 'status --short' $@; }; f"
     sh = show
     sho = "!f(){ local branch=$(git bb); git show origin/$branch $@; }; f"
     shom = "!f() { local mainbranch=$(git main); git show origin/$mainbranch; }; f"
