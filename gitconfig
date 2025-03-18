@@ -59,7 +59,7 @@
     # git@github.com:$1.git
 
     # branch management
-    b = branch -vv --sort=committerdate
+    b = branch -vv --sort=-committerdate
     bb = rev-parse --abbrev-ref HEAD
     # bb = branch --show-current # works in newer version of git
     ba = branch -vv -a
@@ -415,15 +415,16 @@
     # get branch
     # consider: g branch -a --format '%(refname); \
     zb = "!f() { \
-      local branch=$(git branch -a --sort=-committerdate | grep -v 'remotes/' | fzf -m --preview 'git l {1}'); \
+      local branch=$(git b -a | sed 's/^* //; s/^  //'  | grep -v 'remotes/' | fzf -m --preview 'git l {1}' | awk '{ print $1 }'); \
       if [[ -z $branch ]]; then return 1; fi; \
       echo \"$branch\"; \
     }; f"
     zba = "!f() { \
-      local branch=$(git branch -a --sort=-committerdate | fzf -m --preview 'git l {1}'); \
+      local branch=$(git b -a | sed 's/^* //; s/^  //'  | fzf -m --preview 'git l {1}' | awk '{ print $1 }'); \
       if [[ -z $branch ]]; then return 1; fi; \
       echo \"$branch\"; \
     }; f"
+    zbx = "!f() { local branch=$(git zb); if [[ -z $branch ]]; then return 1; fi; git bx $branch; }; f"
     # fuzzy open
     zop = "!f() { \
       local file=$(git zf); \
