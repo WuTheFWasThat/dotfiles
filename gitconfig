@@ -59,7 +59,7 @@
     # git@github.com:$1.git
 
     # branch management
-    b = branch -vv --sort=-committerdate
+    b = branch -vv --sort=committerdate
     bb = rev-parse --abbrev-ref HEAD
     # bb = branch --show-current # works in newer version of git
     ba = branch -vv -a
