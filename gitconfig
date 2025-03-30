@@ -116,6 +116,7 @@
     }; f"
     pu = "push -u"
     put = "push --tags"
+    pun = "push --no-verify"
     puf = "push -u --force-with-lease"
     pufn = "push -u --force-with-lease --no-verify"
     pufback = "!f() { local nback=${1:-1}; git puf origin HEAD~${nback}:$(git b --show-current); }; f"
