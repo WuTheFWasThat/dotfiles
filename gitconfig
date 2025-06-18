@@ -416,7 +416,7 @@
     # get branch
     # consider: g branch -a --format '%(refname); \
     zb = "!f() { \
-      local branch=$(git b -a | sed 's/^* //; s/^  //'  | grep -v 'remotes/' | fzf --tac -m --preview 'git l {1}' | awk '{ print $1 }'); \
+      local branch=$(git b | sed 's/^* //; s/^  //'  | grep -v 'remotes/' | fzf --tac -m --preview 'git l {1}' | awk '{ print $1 }'); \
       if [[ -z $branch ]]; then return 1; fi; \
       echo \"$branch\"; \
     }; f"
