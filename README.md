@@ -29,6 +29,7 @@ all commands ran from root directory
     # sudo pip3 install neovim
     sudo pip3 install pynvim
     ```
+    To clear plugins: `rm -rf ~/.local/share/nvim/ ~/.local/state/nvim ~/.cache/nvim`
 
 - install tmux (e.g. `brew install tmux`)
 
