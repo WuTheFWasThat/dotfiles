@@ -64,6 +64,7 @@
     # bb = branch --show-current # works in newer version of git
     ba = branch -vv -a
     co = checkout
+    coo = "!f() { git fetch origin $@; git checkout $@; }; f"
     com = "!f() { git checkout $(git main) $@; }; f"
     cop = checkout -p
     new = checkout -b
@@ -120,6 +121,7 @@
     puf = "push -u --force-with-lease"
     pufn = "push -u --force-with-lease --no-verify"
     pufback = "!f() { local nback=${1:-1}; git puf origin HEAD~${nback}:$(git b --show-current); }; f"
+    puback = "!f() { local nback=${1:-1}; git pu origin HEAD~${nback}:$(git b --show-current); }; f"
     pl = "pull"
     plr = "pull --rebase"
     pla = "!f() { git pull; git submodule foreach git pull origin $(git main); }; f"
