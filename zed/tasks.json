@@ -1,0 +1,58 @@
+// Static tasks configuration.
+//
+// Example:
+[
+  {
+    "label": "task debug",
+    "command": "echo ${ZED_SELECTED_TEXT:-}; echo ${ZED_WORKTREE_ROOT};",
+    "env": {},
+    "cwd": "${ZED_WORKTREE_ROOT}",
+    "allow_concurrent_runs": false,
+    "use_new_terminal": true,
+    "reveal": "always",
+    "hide": "never"
+  },
+  {
+    "label": "pytest:current_file",
+    "command": "pytest -vsx $ZED_FILE",
+    //"args": [],
+    // Env overrides for the command, will be appended to the terminal's environment from the settings.
+    "env": {},
+    // Current working directory to spawn the command into, defaults to current project root.
+    // "cwd": "/path/to/working/directory",
+    // Whether to use a new terminal tab or reuse the existing one to spawn the process, defaults to `false`.
+    "use_new_terminal": false,
+    // Whether to allow multiple instances of the same task to be run, or rather wait for the existing ones to finish, defaults to `false`.
+    "allow_concurrent_runs": false,
+    // What to do with the terminal pane and tab, after the command was started:
+    // * `always` — always show the terminal pane, add and focus the corresponding task's tab in it (default)
+    // * `never` — avoid changing current terminal pane focus, but still add/reuse the task's tab there
+    "reveal": "always"
+  },
+  {
+    "label": "pytest:current_fn",
+    "command": "pytest -vsx $ZED_FILE::$ZED_SYMBOL",
+    "env": {},
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false,
+    "reveal": "always"
+  },
+  {
+    "label": "pytest:loop_current_fn",
+    "command": "osascript -e 'tell application \"iTerm2\"' -e 'tell current session of current window' -e 'write text \"python -m tputron.scripts.loop_test $ZED_FILE $ZED_SYMBOL\"' -e 'end tell' -e 'end tell' ",
+    "env": {},
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false,
+    "reveal": "never"
+  },
+  {
+    "label": "search:project",
+    "command": "QUERY=${ZED_SELECTED_TEXT:-}; FILE=$(rg --column --hidden --line-number --no-heading --color=always --smart-case --colors match:fg:green --colors path:fg:white --colors path:style:nobold --glob '!**/.git/' '--glob' '!**/node_modules'  \"$QUERY\" . | fzf --ansi --delimiter : --preview 'bat --style=numbers,changes,header --color=always --highlight-line {2} {1}' --preview-window 'up:60%:+{2}+3/3' --layout=reverse --query \"$QUERY\" --print-query | tail -1); if [ -n \"$FILE\" ]; then LINE=$(echo $FILE | cut -d':' -f2); COL=$(echo $FILE | cut -d':' -f3); FILE=$(echo $FILE | cut -d':' -f1); coo zed -p $FILE:$LINE:$COL; fi",
+    "env": {},
+    "cwd": "${ZED_WORKTREE_ROOT}",
+    "allow_concurrent_runs": false,
+    "use_new_terminal": false,
+    "reveal": "always",
+    "hide": "on_success"
+  }
+]

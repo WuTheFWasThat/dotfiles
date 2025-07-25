@@ -3,6 +3,11 @@
   "vim": {
     "use_system_clipboard": "never"
   },
+  "file_scan_exclusions": ["**/*.rst", "**/*.cu"],
+  "features": {
+    // Which edit prediction provider to use.
+    "edit_prediction_provider": "copilot"
+  },
   "relative_line_numbers": true,
   "theme": "Night Owl Dark",
   "soft_wrap": "editor_width",
@@ -13,6 +18,40 @@
   "search": {
     "case_sensitive": true,
     "regex": false
+  },
+  "assistant": {
+    "default_model": {
+      "provider": "anthropic",
+      "model": "claude-3-7-sonnet-20250219"
+    },
+    "inline_alternatives": [
+      {
+        "provider": "anthropic",
+        "model": "claude-3-5-sonnet-20241022"
+      }
+    ],
+    "version": "2",
+    "enable_experimental_live_diffs": true
+  },
+  "language_models": {
+    "anthropic": {
+      "version": "1",
+      "low_speed_timeout_in_seconds": 60,
+      "speculate": true,
+      "available_models": [
+        {
+          "name": "claude-3-5-sonnet-20241022",
+          "max_tokens": 200000,
+          "max_output_tokens": 8192,
+          "cache_configuration": {
+            "max_cache_anchors": 4,
+            "should_speculate": true,
+            "min_total_token": 2048
+          },
+          "display_name": "Claude Sonnet 3.5"
+        }
+      ]
+    }
   },
   "auto_install_extensions": {
     "html": true,
@@ -26,13 +65,17 @@
       "format_on_save": "off"
     }
   },
-  "context_servers": {
-    "antmcp": {
-      "command": {
-        "path": "/opt/homebrew/Caskroom/miniforge/base/envs/py311/bin/python",
-        "args": ["-m", "antmcp", "--no-warnings", "stdio"]
-      },
-      "settings": {}
+  "lsp": {
+    "pyright": {
+      "settings": {
+        "python.analysis": {
+          "diagnosticMode": "openFilesOnly",
+          "typeCheckingMode": "strict"
+        },
+        "python": {
+          "pythonPath": "/opt/homebrew/Caskroom/miniforge/base/envs/py311/bin/python"
+        }
+      }
     }
   },
   "languages.Python.language_servers": [

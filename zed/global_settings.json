@@ -1,0 +1,26 @@
+// This configuration is centrally managed by Kandji.
+// Join #zed-announce and #zed-users in Anthropic's slack.
+// Visit go/zed for more information.
+
+{
+  // Titlebar related settings.
+  "title_bar": {
+    // Whether to show the sign in button in the titlebar.
+    "show_sign_in": false
+  },
+  "collaboration_panel": {
+    // Whether to show the collaboration panel button in the status bar.
+    "button": false
+  },
+  "agent": {
+    // When enabled, show voting thumbs for feedback on agent edits.
+    "enable_feedback": false
+  },
+  // Control what info is collected by Zed.
+  "telemetry": {
+    // Send debug info like crash reports.
+    "diagnostics": false,
+    // Send anonymized usage data like what languages you're using Zed with.
+    "metrics": false
+  }
+}
