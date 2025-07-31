@@ -28,7 +28,7 @@
     # icdiff = "!f() { git difftool --no-prompt --extcmd=\"icdiff $(git config --get icdiff.options)\" \"$@\" | less -R; }; f"
     # differ = "!f() { if which icdiff > /dev/null; then echo icdiff; else echo diff; fi; }; f"
 
-    main = "!f() { if git rev-parse --verify main >/dev/null 2>&1; then echo main; else echo master; fi; }; f"
+    main = "!f() { git symbolic-ref refs/remotes/origin/HEAD | sed \"s@^refs/remotes/origin/@@\"; }; f"
     delta = "!f() { git diff \"$@\" | delta -s; }; f"
     differ = "!f() { if which delta > /dev/null; then echo delta; else echo diff; fi; }; f"
 
@@ -312,7 +312,17 @@
 
 
     # tree
-    l = log --color --graph --pretty='%C(yellow)%h%C(reset) %Cred%cd%C(reset) %C(bold blue)%an%C(reset) %s%C(bold yellow)%d%C(reset)' --decorate --date=relative
+    l = "!f() { \
+        if [ $# -eq 0 ]; then \
+            if [ \"$(git bb)\" == \"$(git main)\" ]; then \
+                git log --graph --color --pretty='%C(yellow)%h%C(reset) %Cred%cd%C(reset) %C(bold blue)%an%C(reset) %s%C(bold yellow)%d%C(reset)' --decorate --date=relative $@; \
+            else \
+                git --no-pager log --graph --color --pretty='%C(yellow)%h%C(reset) %Cred%cd%C(reset) %C(bold blue)%an%C(reset) %s%C(bold yellow)%d%C(reset)' --decorate --date=relative $(git mb)~1..HEAD $@; \
+            fi \
+        else \
+            git log --graph --color --pretty='%C(yellow)%h%C(reset) %Cred%cd%C(reset) %C(bold blue)%an%C(reset) %s%C(bold yellow)%d%C(reset)' --decorate --date=relative $@; \
+        fi \
+    }; f"
     ls = log --color --pretty=format:'%C(yellow)%h%C(reset) %Cred%cd%C(reset) %C(bold blue)%an%C(reset) %s%C(bold yellow)%d%C(reset)' --decorate --date=relative --numstat
     lo = "!f(){ local branch=$(git bb); git log origin/$branch $@; }; f"
     lom = "!f() { local mainbranch=$(git main); git log origin/$mainbranch; }; f"
