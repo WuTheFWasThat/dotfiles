@@ -1,8 +1,6 @@
 --[[
  TODO:
-- copilot setup
-  Plug 'github/copilot.vim', { 'branch': 'release' }
-  " autocmd VimEnter * Copilot setup
+- ai stuff setup
   Plug 'MunifTanjim/nui.nvim'
   Plug 'dense-analysis/neural'
 - vim bbye
@@ -385,6 +383,18 @@ require('lazy').setup({
   -- you do for a plugin at the top level, you can do for a dependency.
   --
   -- Use the `dependencies` key to specify the dependencies of a particular plugin
+  {
+    'github/copilot.vim',
+    branch = 'release',
+    config = function()
+      vim.api.nvim_create_autocmd("VimEnter", {
+        callback = function()
+          vim.cmd("Copilot setup")
+        end,
+        desc = "Setup Copilot on Vim startup"
+      })
+    end,
+  },
 
   { -- Fuzzy Finder (files, lsp, etc)
     'nvim-telescope/telescope.nvim',
