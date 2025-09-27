@@ -222,6 +222,20 @@
     hl = "!f() { hash=${1:-$(git rev-parse HEAD)}; hub browse -- commits/$hash; }; f"
     # hub show
     hs = "!f() { hash=${1:-$(git rev-parse HEAD)}; hub browse -- commit/$hash; }; f"
+
+    # does commit contain another (HEAD vs $1) or ($1 vs $2)
+    has = "!f() { \
+      if [[ $# -eq 1 ]]; then \
+        up=$1; down=HEAD; \
+      elif [[ $# -eq 2 ]]; then \
+        up=$2; down=$1; \
+      else echo \"⚠️  Usage: ghas <commit> OR ghas <commit1> <commit2>\"; \
+      fi; \
+      if $(git merge-base --is-ancestor $up $down); then \
+        echo \"✅ Yes, $down has $up\" && exit 0; \
+      else echo \"❌ No, $down does not have $up\" && exit 1; \
+      fi; \
+    }; f"
     issue = "!hub issue"
     fork = "!hub fork"
 
