@@ -582,12 +582,6 @@ require('lazy').setup({
   },
 
   {
-    -- TODO: actual configuration?
-    'Houl/repmo-vim',
-    version = '*',
-  },
-
-  {
     --  displays marks in gutter
     'kshenoy/vim-signature',
     version = '*',
