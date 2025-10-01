@@ -546,6 +546,12 @@ require('lazy').setup({
   },
 
   {
+    -- NOTE: Neovim 0.10 has built-in commenting with 'gc' operator, we can use the code below
+    -- see https://github.com/numToStr/Comment.nvim/issues/453 for limitations
+    -- Add custom keybindings to match Comment.nvim behavior
+    -- vim.keymap.set('n', '<leader><cr>', 'gcc', { remap = true, desc = 'Toggle comment' })
+    -- vim.keymap.set('x', '<leader><cr>', 'gc', { remap = true, desc = 'Toggle comment visual' })
+
     'numToStr/Comment.nvim',
     opts = {
       -- add any options here
