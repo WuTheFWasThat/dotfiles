@@ -81,6 +81,21 @@ vim.opt.splitbelow = true
 vim.opt.list = true
 vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 
+-- Native indent guides toggle
+-- REMOVED: Yggdroot/indentLine
+local indent_guides_enabled = false
+local function toggle_indent_guides()
+  if indent_guides_enabled then
+    vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+    indent_guides_enabled = false
+  else
+    -- Use 2-character pattern for 2-space indents
+    vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣', leadmultispace = '│ ' }
+    indent_guides_enabled = true
+  end
+end
+vim.keymap.set('n', '<leader>ti', toggle_indent_guides, { desc = 'Toggle indentation lines' })
+
 -- Preview substitutions live, as you type!
 vim.opt.inccommand = 'split'
 
@@ -556,15 +571,6 @@ require('lazy').setup({
     -- TODO: actual configuration?
     'Houl/repmo-vim',
     version = '*',
-  },
-
-  {
-    'Yggdroot/indentLine',
-    version = '*',
-    config = function()
-      vim.g.indentLine_enabled = 0
-      vim.keymap.set('n', '<leader>ti', '<cmd>IndentLinesToggle<CR>', { desc = 'Toggle indentation lines' })
-    end,
   },
 
   {
