@@ -192,6 +192,20 @@ vim.keymap.set('n', '<leader>wl', '<C-w>>', { desc = 'Resize window wider' })
 vim.keymap.set('n', '<leader>w=', '<cmd>wincmd =<CR>', { desc = 'Balance windows' })
 vim.keymap.set('n', '<leader>wc', '<cmd>q<CR>', { desc = 'Close window' })
 
+-- Window maximize toggle (replaces szw/vim-maximizer plugin)
+local maximized = false
+local function toggle_maximize()
+  if maximized then
+    vim.cmd('wincmd =')  -- Balance windows
+    maximized = false
+  else
+    vim.cmd('wincmd |')  -- Maximize width
+    vim.cmd('wincmd _')  -- Maximize height
+    maximized = true
+  end
+end
+vim.keymap.set('n', '<leader>wm', toggle_maximize, { desc = 'Toggle maximize buffer' })
+
 vim.keymap.set('n', '<leader>tn', '<cmd>setlocal invnumber<CR><cmd>setlocal invrelativenumber<CR>', { desc = 'Toggle line numbers' })
 vim.keymap.set('n', '<leader>tr', '<cmd>setlocal invrelativenumber<CR>', { desc = 'Toggle relative line numbers' })
 vim.keymap.set('n', '<leader>t\\', '<cmd>set list!<CR>', { desc = 'Toggle invisible chars' })
@@ -618,15 +632,6 @@ require('lazy').setup({
   {
     'ervandew/supertab',
     version = '*',
-  },
-
-  {
-    -- maximize and restore windows
-    'szw/vim-maximizer',
-    version = '*',
-    config = function()
-      vim.keymap.set('n', '<leader>wm', '<cmd>MaximizerToggle<cr>', { desc = 'Toggle maximize buffer' })
-    end,
   },
 
   {
