@@ -1261,7 +1261,8 @@ require('lazy').setup({
       -- You can configure highlights by doing something like:
       vim.cmd.hi 'Comment gui=none'
 
-      vim.keymap.set('n', '<leader>cs', '<cmd>Telescope colorscheme<CR>', { desc = 'Change colorscheme' })
+      -- vim.keymap.set('n', '<leader>cs', '<cmd>Telescope colorscheme<CR>', { desc = 'Change colorscheme' })
+      vim.keymap.set('n', '<leader>cs', '<cmd>lua require("fzf-lua").colorschemes()<CR>', { desc = 'Change colorscheme' })
     end,
   },
 
