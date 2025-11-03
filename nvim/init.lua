@@ -158,6 +158,27 @@ vim.keymap.set('n', '<leader>fS', '<cmd>w !sudo tee %<CR>', { desc = 'Sudo write
 vim.keymap.set('n', '<leader>fl', '<cmd>e<CR>', { desc = 'Reload file' })
 vim.keymap.set('n', '<leader>fr', '<cmd>so $MYVIMRC<CR>', { desc = 'Reload configuration' })
 vim.keymap.set('n', '<leader>fy', '<cmd>let @+ = expand("%") | echo "Copied to clipboard: " . @+<CR>', { desc = 'Copy filename to clipboard' })
+vim.keymap.set('v', '<leader>fy', function()
+  local start_line = vim.fn.line('v')
+  local end_line = vim.fn.line('.')
+  
+  -- Ensure start_line is before end_line
+  if start_line > end_line then
+    start_line, end_line = end_line, start_line
+  end
+  
+  local filename = vim.fn.expand('%')
+  local result
+  
+  if start_line == end_line then
+    result = filename .. ':' .. start_line
+  else
+    result = filename .. ':' .. start_line .. '-' .. end_line
+  end
+  
+  vim.fn.setreg('+', result)
+  print('Copied to clipboard: ' .. result)
+end, { desc = 'Copy filename:line to clipboard' })
 vim.keymap.set('n', '<tab>', '<cmd>b#<CR>', { desc = 'Last buffer' })
 vim.keymap.set('n', '<leader>bn', '<cmd>bn<CR>', { desc = 'Next buffer' })
 vim.keymap.set('n', '<leader>bp', '<cmd>bp<CR>', { desc = 'Previous buffer' })
@@ -167,6 +188,8 @@ vim.keymap.set('n', '<leader>xx', '<cmd>wqa<CR>', { desc = 'Save quit all' })
 vim.keymap.set('n', '<leader>qs', '<cmd>xall<CR>', { desc = 'Save quit all' })
 vim.keymap.set('n', '<leader>qq', '<cmd>quitall<CR>', { desc = 'Quit all' })
 vim.keymap.set('n', '<leader>qQ', '<cmd>quitall!<CR>', { desc = 'Quit all unprompted' })
+
+vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, {desc = "View diagnostics"})
 
 vim.keymap.set('n', '!', ':! ', { desc = 'run shell command' })
 
