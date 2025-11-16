@@ -159,23 +159,23 @@ vim.keymap.set('n', '<leader>fl', '<cmd>e<CR>', { desc = 'Reload file' })
 vim.keymap.set('n', '<leader>fr', '<cmd>so $MYVIMRC<CR>', { desc = 'Reload configuration' })
 vim.keymap.set('n', '<leader>fy', '<cmd>let @+ = expand("%") | echo "Copied to clipboard: " . @+<CR>', { desc = 'Copy filename to clipboard' })
 vim.keymap.set('v', '<leader>fy', function()
-  local start_line = vim.fn.line('v')
-  local end_line = vim.fn.line('.')
-  
+  local start_line = vim.fn.line 'v'
+  local end_line = vim.fn.line '.'
+
   -- Ensure start_line is before end_line
   if start_line > end_line then
     start_line, end_line = end_line, start_line
   end
-  
-  local filename = vim.fn.expand('%')
+
+  local filename = vim.fn.expand '%'
   local result
-  
+
   if start_line == end_line then
     result = filename .. ':' .. start_line
   else
     result = filename .. ':' .. start_line .. '-' .. end_line
   end
-  
+
   vim.fn.setreg('+', result)
   print('Copied to clipboard: ' .. result)
 end, { desc = 'Copy filename:line to clipboard' })
@@ -189,7 +189,7 @@ vim.keymap.set('n', '<leader>qs', '<cmd>xall<CR>', { desc = 'Save quit all' })
 vim.keymap.set('n', '<leader>qq', '<cmd>quitall<CR>', { desc = 'Quit all' })
 vim.keymap.set('n', '<leader>qQ', '<cmd>quitall!<CR>', { desc = 'Quit all unprompted' })
 
-vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, {desc = "View diagnostics"})
+vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'View diagnostics' })
 
 vim.keymap.set('n', '!', ':! ', { desc = 'run shell command' })
 
@@ -219,11 +219,11 @@ vim.keymap.set('n', '<leader>wc', '<cmd>q<CR>', { desc = 'Close window' })
 local maximized = false
 local function toggle_maximize()
   if maximized then
-    vim.cmd('wincmd =')  -- Balance windows
+    vim.cmd 'wincmd =' -- Balance windows
     maximized = false
   else
-    vim.cmd('wincmd |')  -- Maximize width
-    vim.cmd('wincmd _')  -- Maximize height
+    vim.cmd 'wincmd |' -- Maximize width
+    vim.cmd 'wincmd _' -- Maximize height
     maximized = true
   end
 end
@@ -439,11 +439,24 @@ require('lazy').setup({
     'github/copilot.vim',
     branch = 'release',
     config = function()
-      vim.api.nvim_create_autocmd("VimEnter", {
+      vim.api.nvim_create_autocmd('VimEnter', {
         callback = function()
-          vim.cmd("Copilot setup")
+          vim.g.copilot_enabled = false
+          vim.keymap.set('n', '<leader>cp', function()
+            if vim.g.copilot_enabled == 1 then
+              vim.cmd 'Copilot disable'
+              print 'Copilot disabled'
+            else
+              vim.cmd 'Copilot enable'
+              print 'Copilot enabled'
+            end
+          end, {
+            desc = 'Toggle Copilot',
+            -- silent = true,
+          })
+          vim.cmd 'Copilot setup'
         end,
-        desc = "Setup Copilot on Vim startup"
+        desc = 'Setup Copilot on Vim startup',
       })
     end,
   },
@@ -455,7 +468,7 @@ require('lazy').setup({
     -- optional for icon support
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = function()
-      local fzf = require('fzf-lua')
+      local fzf = require 'fzf-lua'
       fzf.setup {}
 
       -- Original fzf-lua keymaps
@@ -472,7 +485,7 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>sr', fzf.resume, { desc = '[S]earch [R]esume' })
       vim.keymap.set('n', '<leader>s.', fzf.oldfiles, { desc = '[S]earch Recent Files' })
       vim.keymap.set('n', '<leader>sb', function()
-        fzf.live_grep({ multiprocess = true, grep_open_files = true })
+        fzf.live_grep { multiprocess = true, grep_open_files = true }
       end, { desc = '[S]earch in all [b]uffers' })
     end,
   },
