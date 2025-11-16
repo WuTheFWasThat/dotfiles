@@ -28,7 +28,8 @@
     # icdiff = "!f() { git difftool --no-prompt --extcmd=\"icdiff $(git config --get icdiff.options)\" \"$@\" | less -R; }; f"
     # differ = "!f() { if which icdiff > /dev/null; then echo icdiff; else echo diff; fi; }; f"
 
-    main = "!f() { git symbolic-ref refs/remotes/origin/HEAD | sed \"s@^refs/remotes/origin/@@\"; }; f"
+    # main = "!f() { git symbolic-ref refs/remotes/origin/HEAD | sed \"s@^refs/remotes/origin/@@\"; }; f"
+    main = "!f() { git remote show origin | sed -n '/HEAD branch/s/.*: //p'; }; f"
     delta = "!f() { git diff \"$@\" | delta -s; }; f"
     differ = "!f() { if which delta > /dev/null; then echo delta; else echo diff; fi; }; f"
 
