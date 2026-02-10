@@ -699,7 +699,7 @@ require('lazy').setup({
   },
 
   -- Markdown
-  { 'tpope/vim-markdown', ft = 'markdown', lazy = true },
+  -- { 'tpope/vim-markdown', ft = 'markdown', lazy = true },
 
   -- LaTeX
   {
@@ -1267,6 +1267,7 @@ require('lazy').setup({
       auto_install = true,
       highlight = {
         enable = true,
+        disable = { 'markdown', 'markdown_inline' },
         -- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
         --  If you are experiencing weird indenting issues, add the language to
         --  the list of additional_vim_regex_highlighting and disabled languages for indent.
@@ -1279,6 +1280,14 @@ require('lazy').setup({
 
       ---@diagnostic disable-next-line: missing-fields
       require('nvim-treesitter.configs').setup(opts)
+
+      -- Disable syntax highlighting for markdown files
+      vim.api.nvim_create_autocmd({ 'FileType', 'BufEnter' }, {
+        pattern = { 'markdown', '*.md' },
+        callback = function()
+          vim.cmd 'syntax off'
+        end,
+      })
 
       -- There are additional nvim-treesitter modules that you can use to interact
       -- with nvim-treesitter. You should go explore a few and see what interests you:
