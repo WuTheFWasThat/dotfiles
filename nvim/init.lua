@@ -336,6 +336,34 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
+-- Compile LaTeX with pdflatex on save, writing pdf/aux/log to the file's folder
+vim.api.nvim_create_autocmd('BufWritePost', {
+  desc = 'Run pdflatex on save for .tex files',
+  group = vim.api.nvim_create_augroup('pdflatex-on-save', { clear = true }),
+  pattern = '*.tex',
+  callback = function(args)
+    if vim.fn.executable 'pdflatex' == 0 then
+      vim.notify('pdflatex not found on PATH; skipping build', vim.log.levels.WARN)
+      return
+    end
+    local file = vim.fn.fnamemodify(args.file, ':p')
+    local dir = vim.fn.fnamemodify(file, ':h')
+    local name = vim.fn.fnamemodify(file, ':t')
+    vim.fn.jobstart({ 'pdflatex', '-interaction=nonstopmode', '-output-directory', dir, name }, {
+      cwd = dir,
+      on_exit = function(_, code)
+        vim.schedule(function()
+          if code == 0 then
+            vim.notify('pdflatex: built ' .. vim.fn.fnamemodify(name, ':r') .. '.pdf', vim.log.levels.INFO)
+          else
+            vim.notify('pdflatex: failed (exit ' .. code .. '), see .log file', vim.log.levels.WARN)
+          end
+        end)
+      end,
+    })
+  end,
+})
+
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
