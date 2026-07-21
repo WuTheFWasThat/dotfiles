@@ -51,7 +51,7 @@ class DotFile(object):
 def read_rcfile(dotty_dir):
     dotty_rc = os.path.join(dotty_dir, "dotty.rc")
     if not os.path.exists(dotty_rc):
-        logger.warn(
+        logger.warning(
             """
             No dotty.rc file found!
             Please place a file containing a pattern on each line at %s
@@ -72,7 +72,7 @@ def read_rcfile(dotty_dir):
         full_pattern = os.path.join(dotty_dir, pattern)
         filepaths = glob.glob(full_pattern)
         if len(filepaths) == 0:
-            logger.warn(
+            logger.warning(
                 """
                 dotty.rc contained line with invalid pattern %s.
                 Expected a file matching %s.  Ignoring line.
