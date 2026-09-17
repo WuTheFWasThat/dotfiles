@@ -1,8 +1,6 @@
 --[[
  TODO:
-- copilot setup
-  Plug 'github/copilot.vim', { 'branch': 'release' }
-  " autocmd VimEnter * Copilot setup
+- ai stuff setup
   Plug 'MunifTanjim/nui.nvim'
   Plug 'dense-analysis/neural'
 - vim bbye
@@ -83,6 +81,21 @@ vim.opt.splitbelow = true
 vim.opt.list = true
 vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 
+-- Native indent guides toggle
+-- REMOVED: Yggdroot/indentLine
+local indent_guides_enabled = false
+local function toggle_indent_guides()
+  if indent_guides_enabled then
+    vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+    indent_guides_enabled = false
+  else
+    -- Use 2-character pattern for 2-space indents
+    vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣', leadmultispace = '│ ' }
+    indent_guides_enabled = true
+  end
+end
+vim.keymap.set('n', '<leader>ti', toggle_indent_guides, { desc = 'Toggle indentation lines' })
+
 -- Preview substitutions live, as you type!
 vim.opt.inccommand = 'split'
 
@@ -144,6 +157,28 @@ vim.keymap.set('n', '<leader>fs', '<cmd>w<CR>', { desc = 'Save file' })
 vim.keymap.set('n', '<leader>fS', '<cmd>w !sudo tee %<CR>', { desc = 'Sudo write' })
 vim.keymap.set('n', '<leader>fl', '<cmd>e<CR>', { desc = 'Reload file' })
 vim.keymap.set('n', '<leader>fr', '<cmd>so $MYVIMRC<CR>', { desc = 'Reload configuration' })
+vim.keymap.set('n', '<leader>fy', '<cmd>let @+ = expand("%") | echo "Copied to clipboard: " . @+<CR>', { desc = 'Copy filename to clipboard' })
+vim.keymap.set('v', '<leader>fy', function()
+  local start_line = vim.fn.line 'v'
+  local end_line = vim.fn.line '.'
+
+  -- Ensure start_line is before end_line
+  if start_line > end_line then
+    start_line, end_line = end_line, start_line
+  end
+
+  local filename = vim.fn.expand '%'
+  local result
+
+  if start_line == end_line then
+    result = filename .. ':' .. start_line
+  else
+    result = filename .. ':' .. start_line .. '-' .. end_line
+  end
+
+  vim.fn.setreg('+', result)
+  print('Copied to clipboard: ' .. result)
+end, { desc = 'Copy filename:line to clipboard' })
 vim.keymap.set('n', '<tab>', '<cmd>b#<CR>', { desc = 'Last buffer' })
 vim.keymap.set('n', '<leader>bn', '<cmd>bn<CR>', { desc = 'Next buffer' })
 vim.keymap.set('n', '<leader>bp', '<cmd>bp<CR>', { desc = 'Previous buffer' })
@@ -153,6 +188,8 @@ vim.keymap.set('n', '<leader>xx', '<cmd>wqa<CR>', { desc = 'Save quit all' })
 vim.keymap.set('n', '<leader>qs', '<cmd>xall<CR>', { desc = 'Save quit all' })
 vim.keymap.set('n', '<leader>qq', '<cmd>quitall<CR>', { desc = 'Quit all' })
 vim.keymap.set('n', '<leader>qQ', '<cmd>quitall!<CR>', { desc = 'Quit all unprompted' })
+
+vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'View diagnostics' })
 
 vim.keymap.set('n', '!', ':! ', { desc = 'run shell command' })
 
@@ -177,6 +214,20 @@ vim.keymap.set('n', '<leader>wh', '<C-w><', { desc = 'Resize window narrower' })
 vim.keymap.set('n', '<leader>wl', '<C-w>>', { desc = 'Resize window wider' })
 vim.keymap.set('n', '<leader>w=', '<cmd>wincmd =<CR>', { desc = 'Balance windows' })
 vim.keymap.set('n', '<leader>wc', '<cmd>q<CR>', { desc = 'Close window' })
+
+-- Window maximize toggle (replaces szw/vim-maximizer plugin)
+local maximized = false
+local function toggle_maximize()
+  if maximized then
+    vim.cmd 'wincmd =' -- Balance windows
+    maximized = false
+  else
+    vim.cmd 'wincmd |' -- Maximize width
+    vim.cmd 'wincmd _' -- Maximize height
+    maximized = true
+  end
+end
+vim.keymap.set('n', '<leader>wm', toggle_maximize, { desc = 'Toggle maximize buffer' })
 
 vim.keymap.set('n', '<leader>tn', '<cmd>setlocal invnumber<CR><cmd>setlocal invrelativenumber<CR>', { desc = 'Toggle line numbers' })
 vim.keymap.set('n', '<leader>tr', '<cmd>setlocal invrelativenumber<CR>', { desc = 'Toggle relative line numbers' })
@@ -285,6 +336,34 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
+-- Compile LaTeX with pdflatex on save, writing pdf/aux/log to the file's folder
+vim.api.nvim_create_autocmd('BufWritePost', {
+  desc = 'Run pdflatex on save for .tex files',
+  group = vim.api.nvim_create_augroup('pdflatex-on-save', { clear = true }),
+  pattern = '*.tex',
+  callback = function(args)
+    if vim.fn.executable 'pdflatex' == 0 then
+      vim.notify('pdflatex not found on PATH; skipping build', vim.log.levels.WARN)
+      return
+    end
+    local file = vim.fn.fnamemodify(args.file, ':p')
+    local dir = vim.fn.fnamemodify(file, ':h')
+    local name = vim.fn.fnamemodify(file, ':t')
+    vim.fn.jobstart({ 'pdflatex', '-interaction=nonstopmode', '-output-directory', dir, name }, {
+      cwd = dir,
+      on_exit = function(_, code)
+        vim.schedule(function()
+          if code == 0 then
+            vim.notify('pdflatex: built ' .. vim.fn.fnamemodify(name, ':r') .. '.pdf', vim.log.levels.INFO)
+          else
+            vim.notify('pdflatex: failed (exit ' .. code .. '), see .log file', vim.log.levels.WARN)
+          end
+        end)
+      end,
+    })
+  end,
+})
+
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
@@ -384,128 +463,68 @@ require('lazy').setup({
   -- you do for a plugin at the top level, you can do for a dependency.
   --
   -- Use the `dependencies` key to specify the dependencies of a particular plugin
-
-  { -- Fuzzy Finder (files, lsp, etc)
-    'nvim-telescope/telescope.nvim',
-    event = 'VimEnter',
-    branch = '0.1.x',
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-      { -- If encountering errors, see telescope-fzf-native README for installation instructions
-        'nvim-telescope/telescope-fzf-native.nvim',
-
-        -- `build` is used to run some command when the plugin is installed/updated.
-        -- This is only run then, not every time Neovim starts up.
-        build = 'make',
-
-        -- `cond` is a condition used to determine whether this plugin should be
-        -- installed and loaded.
-        cond = function()
-          return vim.fn.executable 'make' == 1
-        end,
-      },
-      { 'nvim-telescope/telescope-ui-select.nvim' },
-
-      -- Useful for getting pretty icons, but requires a Nerd Font.
-      { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
-    },
+  {
+    'github/copilot.vim',
+    branch = 'release',
     config = function()
-      -- Telescope is a fuzzy finder that comes with a lot of different things that
-      -- it can fuzzy find! It's more than just a "file finder", it can search
-      -- many different aspects of Neovim, your workspace, LSP, and more!
-      --
-      -- The easiest way to use Telescope, is to start by doing something like:
-      --  :Telescope help_tags
-      --
-      -- After running this command, a window will open up and you're able to
-      -- type in the prompt window. You'll see a list of `help_tags` options and
-      -- a corresponding preview of the help.
-      --
-      -- Two important keymaps to use while in Telescope are:
-      --  - Insert mode: <c-/>
-      --  - Normal mode: ?
-      --
-      -- This opens a window that shows you all of the keymaps for the current
-      -- Telescope picker. This is really useful to discover what Telescope can
-      -- do as well as how to actually do it!
-
-      -- [[ Configure Telescope ]]
-      -- See `:help telescope` and `:help telescope.setup()`
-      require('telescope').setup {
-        -- You can put your default mappings / updates / etc. in here
-        --  All the info you're looking for is in `:help telescope.setup()`
-        --
-        -- defaults = {
-        --   mappings = {
-        --     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
-        --   },
-        -- },
-        -- pickers = {}
-        extensions = {
-          ['ui-select'] = {
-            require('telescope.themes').get_dropdown(),
-          },
-        },
-      }
-
-      -- Enable Telescope extensions if they are installed
-      pcall(require('telescope').load_extension, 'fzf')
-      pcall(require('telescope').load_extension, 'ui-select')
-
-      -- See `:help telescope.builtin`
-      local builtin = require 'telescope.builtin'
-      vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
-      vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
-      -- vim.keymap.set('n', 'go', builtin.find_files, { desc = '[S]earch [F]iles' })
-      -- vim.keymap.set('n', '<leader>go', builtin.find_files, { desc = '[S]earch [F]iles' })
-      -- vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
-      vim.keymap.set('n', '*', builtin.grep_string, { desc = '[S]earch current [W]ord' })
-      vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
-      vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
-      vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
-      vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
-      -- vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
-      -- vim.keymap.set('n', 'gb', builtin.buffers, { desc = '[ ] Find existing buffers' })
-
-      -- Slightly advanced example of overriding default behavior and theme
-      -- vim.keymap.set('n', '<leader>/', function()
-      --   -- You can pass additional configuration to Telescope to change the theme, layout, etc.
-      --   builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
-      --     winblend = 10,
-      --     previewer = false,
-      --   })
-      -- end, { desc = '[/] Fuzzily search in current buffer' })
-
-      -- It's also possible to pass additional configuration options.
-      --  See `:help telescope.builtin.live_grep()` for information about particular keys
-      vim.keymap.set('n', '<leader>sb', function()
-        builtin.live_grep {
-          grep_open_files = true,
-          prompt_title = 'Live Grep in Open Files',
-        }
-      end, { desc = '[S]earch in all [b]uffers' })
-
-      -- Shortcut for searching your Neovim configuration files
-      -- vim.keymap.set('n', '<leader>sn', function()
-      --   builtin.find_files { cwd = vim.fn.stdpath 'config' }
-      -- end, { desc = '[S]earch [N]eovim files' })
+      vim.api.nvim_create_autocmd('VimEnter', {
+        callback = function()
+          vim.g.copilot_enabled = false
+          vim.keymap.set('n', '<leader>cp', function()
+            if vim.g.copilot_enabled == 1 then
+              vim.cmd 'Copilot disable'
+              print 'Copilot disabled'
+            else
+              vim.cmd 'Copilot enable'
+              print 'Copilot enabled'
+            end
+          end, {
+            desc = 'Toggle Copilot',
+            -- silent = true,
+          })
+          vim.cmd 'Copilot setup'
+        end,
+        desc = 'Setup Copilot on Vim startup',
+      })
     end,
   },
+
+  -- Telescope removed, using fzf-lua for all fuzzy finding
 
   {
     'ibhagwan/fzf-lua',
     -- optional for icon support
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = function()
-      -- calling `setup` is optional for customization
-      require('fzf-lua').setup {}
-      vim.keymap.set('n', 'go', require('fzf-lua').files, { silent = true, desc = 'FZF Git Files' })
-      vim.keymap.set('n', 'gb', require('fzf-lua').buffers, { silent = true, desc = 'FZF Buffers' })
-      vim.keymap.set('n', 'gl', require('fzf-lua').lines, { silent = true, desc = 'FZF Lines' })
+      local fzf = require 'fzf-lua'
+      fzf.setup {}
+
+      -- Original fzf-lua keymaps
+      vim.keymap.set('n', 'go', fzf.files, { silent = true, desc = 'FZF Files' })
+      vim.keymap.set('n', 'gb', fzf.buffers, { silent = true, desc = 'FZF Buffers' })
+      vim.keymap.set('n', 'gl', fzf.lines, { silent = true, desc = 'FZF Lines' })
+
+      -- Replacing telescope keymaps with fzf-lua
+      vim.keymap.set('n', '<leader>sh', fzf.help_tags, { desc = '[S]earch [H]elp' })
+      vim.keymap.set('n', '<leader>sk', fzf.keymaps, { desc = '[S]earch [K]eymaps' })
+      vim.keymap.set('n', '*', fzf.grep_cword, { desc = '[S]earch current [W]ord' })
+      vim.keymap.set('n', '<leader>sg', fzf.live_grep, { desc = '[S]earch by [G]rep' })
+      vim.keymap.set('n', '<leader>sd', fzf.diagnostics_document, { desc = '[S]earch [D]iagnostics' })
+      vim.keymap.set('n', '<leader>sr', fzf.resume, { desc = '[S]earch [R]esume' })
+      vim.keymap.set('n', '<leader>s.', fzf.oldfiles, { desc = '[S]earch Recent Files' })
+      vim.keymap.set('n', '<leader>sb', function()
+        fzf.live_grep { multiprocess = true, grep_open_files = true }
+      end, { desc = '[S]earch in all [b]uffers' })
     end,
   },
 
   {
+    -- NOTE: Neovim 0.10 has built-in commenting with 'gc' operator, we can use the code below
+    -- see https://github.com/numToStr/Comment.nvim/issues/453 for limitations
+    -- Add custom keybindings to match Comment.nvim behavior
+    -- vim.keymap.set('n', '<leader><cr>', 'gcc', { remap = true, desc = 'Toggle comment' })
+    -- vim.keymap.set('x', '<leader><cr>', 'gc', { remap = true, desc = 'Toggle comment visual' })
+
     'numToStr/Comment.nvim',
     opts = {
       -- add any options here
@@ -539,21 +558,6 @@ require('lazy').setup({
   {
     'tpope/vim-repeat',
     version = '*',
-  },
-
-  {
-    -- TODO: actual configuration?
-    'Houl/repmo-vim',
-    version = '*',
-  },
-
-  {
-    'Yggdroot/indentLine',
-    version = '*',
-    config = function()
-      vim.g.indentLine_enabled = 0
-      vim.keymap.set('n', '<leader>ti', '<cmd>IndentLinesToggle<CR>', { desc = 'Toggle indentation lines' })
-    end,
   },
 
   {
@@ -601,15 +605,6 @@ require('lazy').setup({
   {
     'ervandew/supertab',
     version = '*',
-  },
-
-  {
-    -- maximize and restore windows
-    'szw/vim-maximizer',
-    version = '*',
-    config = function()
-      vim.keymap.set('n', '<leader>wm', '<cmd>MaximizerToggle<cr>', { desc = 'Toggle maximize buffer' })
-    end,
   },
 
   {
@@ -732,7 +727,7 @@ require('lazy').setup({
   },
 
   -- Markdown
-  { 'tpope/vim-markdown', ft = 'markdown', lazy = true },
+  -- { 'tpope/vim-markdown', ft = 'markdown', lazy = true },
 
   -- LaTeX
   {
@@ -1239,7 +1234,8 @@ require('lazy').setup({
       -- You can configure highlights by doing something like:
       vim.cmd.hi 'Comment gui=none'
 
-      vim.keymap.set('n', '<leader>cs', '<cmd>Telescope colorscheme<CR>', { desc = 'Change colorscheme' })
+      -- vim.keymap.set('n', '<leader>cs', '<cmd>Telescope colorscheme<CR>', { desc = 'Change colorscheme' })
+      vim.keymap.set('n', '<leader>cs', '<cmd>lua require("fzf-lua").colorschemes()<CR>', { desc = 'Change colorscheme' })
     end,
   },
 
@@ -1299,6 +1295,7 @@ require('lazy').setup({
       auto_install = true,
       highlight = {
         enable = true,
+        disable = { 'markdown', 'markdown_inline' },
         -- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
         --  If you are experiencing weird indenting issues, add the language to
         --  the list of additional_vim_regex_highlighting and disabled languages for indent.
@@ -1311,6 +1308,14 @@ require('lazy').setup({
 
       ---@diagnostic disable-next-line: missing-fields
       require('nvim-treesitter.configs').setup(opts)
+
+      -- Disable syntax highlighting for markdown files
+      vim.api.nvim_create_autocmd({ 'FileType', 'BufEnter' }, {
+        pattern = { 'markdown', '*.md' },
+        callback = function()
+          vim.cmd 'syntax off'
+        end,
+      })
 
       -- There are additional nvim-treesitter modules that you can use to interact
       -- with nvim-treesitter. You should go explore a few and see what interests you:

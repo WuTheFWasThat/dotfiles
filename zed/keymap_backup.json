@@ -16,7 +16,12 @@
     "context": "Editor && vim_mode == visual && !VimWaiting && !VimObject",
     "bindings": {
       "space space": ["task::Spawn", { "task_name": "search:project" }],
-      "s": ["vim::PushAddSurrounds", {}]
+      "s": [
+        "vim::PushOperator",
+        {
+          "AddSurrounds": {}
+        }
+      ]
     }
   },
   {
@@ -27,12 +32,12 @@
       // use tmux panes left/right
       // "ctrl-h": ["workspace::ActivatePaneInDirection", "Left"],
       // "ctrl-l": ["workspace::ActivatePaneInDirection", "Right"],
-      "ctrl-k": "workspace::ActivatePaneUp",
-      "ctrl-j": "workspace::ActivatePaneDown",
+      "ctrl-k": ["workspace::ActivatePaneInDirection", "Up"],
+      "ctrl-j": ["workspace::ActivatePaneInDirection", "Down"],
       "cmd-t": "workspace::NewTerminal",
-      "cmd-left": "pane::ActivatePreviousItem",
+      "cmd-left": "pane::ActivatePrevItem",
       "cmd-right": "pane::ActivateNextItem",
-      "ctrl-shift-tab": "pane::ActivatePreviousItem",
+      "ctrl-shift-tab": "pane::ActivatePrevItem",
       "ctrl-tab": "pane::ActivateNextItem",
       "ctrl-q": "terminal_panel::ToggleFocus",
       "ctrl-m": "workspace::ToggleZoom",
@@ -62,18 +67,18 @@
       "space f y": "editor::CopyRelativePath",
       // new file, the saving part doesn't trigger properly.  but this sucks as a workflow anyways
       // "space f f": ["workspace::SendKeystrokes", "cmd-n cmd-s"],
-      "ctrl-h": "workspace::ActivatePaneLeft",
-      "ctrl-l": "workspace::ActivatePaneRight",
-      "ctrl-k": "workspace::ActivatePaneUp",
-      "ctrl-j": "workspace::ActivatePaneDown",
-      "space w h": "workspace::ActivatePaneLeft",
+      "ctrl-h": ["workspace::ActivatePaneInDirection", "Left"],
+      "ctrl-l": ["workspace::ActivatePaneInDirection", "Right"],
+      "ctrl-k": ["workspace::ActivatePaneInDirection", "Up"],
+      "ctrl-j": ["workspace::ActivatePaneInDirection", "Down"],
+      "space w h": ["workspace::ActivatePaneInDirection", "Left"],
       "space w m": "workspace::ToggleZoom",
       "ctrl-m": "workspace::ToggleZoom",
       // shows e.g. type errors
       "space e": "editor::Hover",
-      "space w l": "workspace::ActivatePaneRight",
-      "space w k": "workspace::ActivatePaneUp",
-      "space w j": "workspace::ActivatePaneDown",
+      "space w l": ["workspace::ActivatePaneInDirection", "Right"],
+      "space w k": ["workspace::ActivatePaneInDirection", "Up"],
+      "space w j": ["workspace::ActivatePaneInDirection", "Down"],
       // todo just make this save first?
       "space w c": ["pane::CloseCleanItems", { "close_pinned": false }],
       "space w C": ["pane::CloseAllItems", { "close_pinned": false }],
@@ -94,7 +99,7 @@
         "ctrl-b enter"
       ],
       "space b d": "pane::CloseActiveItem",
-      "space b p": "pane::ActivatePreviousItem",
+      "space b p": "pane::ActivatePrevItem",
       "space b n": "pane::ActivateNextItem",
       "space b t": "pane::ReopenClosedItem",
       "space c o": "outline::Toggle",
@@ -110,23 +115,23 @@
     }
   },
   {
-    "context": "Editor && !edit_prediction",
+    "context": "Editor && !inline_completion",
     "bindings": {
-      "ctrl-i": "editor::ShowEditPrediction"
+      "ctrl-i": "editor::ShowInlineCompletion"
     }
   },
   {
     // Vim: File Tree ("ProjectPanel") actions
     "context": "ProjectPanel && not_editing",
     "bindings": {
-      "ctrl-h": "workspace::ActivatePaneLeft",
-      "ctrl-l": "workspace::ActivatePaneRight",
-      "ctrl-k": "workspace::ActivatePaneUp",
-      "ctrl-j": "workspace::ActivatePaneDown",
+      "ctrl-h": ["workspace::ActivatePaneInDirection", "Left"],
+      "ctrl-l": ["workspace::ActivatePaneInDirection", "Right"],
+      "ctrl-k": ["workspace::ActivatePaneInDirection", "Up"],
+      "ctrl-j": ["workspace::ActivatePaneInDirection", "Down"],
       "h": "project_panel::CollapseSelectedEntry",
       "l": "project_panel::ExpandSelectedEntry",
       "j": "menu::SelectNext",
-      "k": "menu::SelectPrevious",
+      "k": "menu::SelectPrev",
       "o": "menu::Confirm",
       "r": "project_panel::Rename",
       "z c": "project_panel::CollapseSelectedEntry",
@@ -163,7 +168,7 @@
   {
     "context": "TabSwitcher",
     "bindings": {
-      "ctrl-k": "menu::SelectPrevious",
+      "ctrl-k": "menu::SelectPrev",
       "ctrl-j": "menu::SelectNext",
       "ctrl-x": "tab_switcher::CloseSelectedItem"
     }
@@ -171,7 +176,7 @@
   {
     "context": "FileFinder && !menu_open",
     "bindings": {
-      "ctrl-k": "file_finder::SelectPrevious",
+      "ctrl-k": "file_finder::SelectPrev",
       "ctrl-u": [
         "workspace::SendKeystrokes",
         // cancel then open again
